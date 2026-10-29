@@ -1,0 +1,55 @@
+# ============================================================
+#  GryParagrafowe — pliki, które NIE mogą trafić do repozytorium
+# ============================================================
+
+# --- SEKRETY (nigdy do repo!) ---------------------------------
+# Klucze kont serwisowych Firebase / Google Cloud
+*serviceAccount*.json
+*service-account*.json
+*-adminsdk-*.json
+# Zmienne środowiskowe, klucze prywatne, tokeny debug App Check
+.env
+.env.*
+*.pem
+*.key
+*appcheck-debug*
+
+# --- Kopie zapasowe danych graczy ------------------------------
+# Backupy z Firebase przechowujemy lokalnie, poza repozytorium
+# (dane osobowe graczy w publicznym repo = niedopuszczalne).
+kopie-zapasowe/
+gry-paragrafowe-backup-*.json
+backup-*.json
+
+# --- Firebase CLI / emulatory ---------------------------------
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+firestore-debug.log
+ui-debug.log
+database-debug.log
+.runtimeconfig.json
+
+# --- Node.js (testy, narzędzia) --------------------------------
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# --- Python (narzędzia konwersji) ------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- Pliki tymczasowe narzędzi ---------------------------------
+narzedzia/**/tmp/
+*.tmp
+
+# --- Systemy operacyjne i edytory ------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~

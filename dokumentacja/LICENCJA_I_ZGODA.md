@@ -1,0 +1,331 @@
+# Licencja i zgoda Wydawcy — zasady obowiązujące w projekcie
+
+> **Dokument nadrzędny.** Zasady opisane tutaj mają pierwszeństwo przed każdą inną
+> decyzją projektową, „usprawnieniem”, prośbą o funkcję czy wygodą implementacji.
+> **W razie jakiejkolwiek wątpliwości — nie rób i zapytaj właściciela repozytorium.**
+
+- Podstawa: [`Pliki/Zgoda Vae Victis.pdf`](../Pliki/Zgoda%20Vae%20Victis.pdf) — wydruk korespondencji
+  e-mail z 27–29.10.2026 (4 wiadomości) oraz sekcja „LICENCJA” w stopce redakcyjnej publikacji.
+- Ostatnia aktualizacja dokumentu: 2026-10-29.
+
+Oznaczenia źródła każdej zasady:
+
+| Znacznik | Znaczenie |
+|---|---|
+| **[ZGODA]** | wynika wprost z korespondencji z Wydawcą (PDF) |
+| **[LICENCJA]** | wynika z sekcji „LICENCJA” w stopce publikacji |
+| **[WŁAŚCICIEL]** | wymaganie właściciela projektu |
+| **[OSTROŻNOŚĆ]** | ostrożna interpretacja przyjęta w projekcie, żeby nie wyjść poza zakres udzielonej zgody |
+
+---
+
+## 1. Podstawa prawna
+
+### 1.1. Licencja zawarta w publikacji
+
+Stopka redakcyjna „Vae Victis” (EPUB, sekcja „LICENCJA”) — cytat dosłowny:
+
+> Uwaga! Niniejsza publikacja nie może być rozpowszechniana, adaptowana, modyfikowana ani
+> odsprzedawana bez pisemnej zgody Wydawcy. Dozwolone jest jej kopiowanie oraz dystrybucja
+> bezpłatna na własny użytek.
+
+Projekt (publiczne repozytorium + konwersja do JSON + aplikacja) wymaga więc **pisemnej zgody
+Wydawcy** — i taką zgodę uzyskano wyłącznie dla „Vae Victis”, na warunkach opisanych niżej.
+
+### 1.2. Przebieg korespondencji (streszczenie, z cytatami kluczowych zdań)
+
+| Data | Nadawca | Treść (skrót) |
+|---|---|---|
+| 27.10.2026 | autor projektu (Paweł T.) | Prośba o zgodę. Opis projektu: przeglądarkowy interfejs do gier paragrafowych; treść paragrafów i wybory; opcjonalnie karta postaci, ekwipunek, statystyki, rzuty kośćmi, zapis postępu; **wąskie grono odbiorców (ok. 5 osób)**; kod i materiały **publicznie w repozytorium GitHub**; treść **przekształcona z EPUB/PDF do JSON i publicznie dostępna**; przy każdej grze: tytuł, autor(zy), informacja o Wydawnictwie / portalu, odnośniki; **bez zmian w treści literackiej**; projekt **hobbystyczny, bez zarabiania w jakikolwiek sposób**. |
+| 28.10.2026 | Wydawca (Beniamin Muszyński) | Dwie kluczowe kwestie: (1) które teksty — część jest objęta dodatkowymi licencjami i umowami z autorami; (2) AI — generowane grafiki wymagają osobnych zgód autorskich; „wszystko musi być wcześniej uzgodnione”. |
+| 28.10.2026 | autor projektu | Tytuły: „Vae victis” i „Wagabunda”. Brak ilustracji w aplikacji — **jedynie ikony/piktogramy** (np. symulator rzutu kośćmi, karta postaci). Ujawnienie: projekt tworzony narzędziami AI (kod, konwersja do JSON, animacje rzutu kośćmi), **bez ilustracji tworzonych przez AI**; jako ilustracje — okładki ze strony Wydawnictwa. |
+| 29.10.2026 | Wydawca | **Decyzja** — patrz cytat poniżej. |
+
+Najważniejsze zdania z prośby (27.10.2026), na podstawie których Wydawca udzielił zgody
+„na tych zasadach”:
+
+> Przy każdej grze chciałbym wyraźnie umieścić:
+> - tytuł publikacji,
+> - imię i nazwisko autora lub autorów,
+> - informację o Wydawnictwie Wielokrotnego Wyboru / portalu Masz Wybór,
+> - odnośnik do oficjalnej strony publikacji oraz strony Wydawnictwa,
+>
+> Nie zamierzam wprowadzać zmian w samej treści literackiej. Konwersja służyłaby przede
+> wszystkim podzieleniu publikacji na paragrafy, utworzeniu przejść między nimi oraz
+> technicznej obsłudze mechaniki gry.
+
+> Zaznaczam, że to ma być hobbystyczny projekt i nie zamierzam na nim zarabiać w żaden sposób.
+
+Odpowiedź Wydawcy z 28.10.2026 (fragment):
+
+> Po drugie kwestia AI, jeśli w aplikacji miałyby się pojawić generowane grafiki to wymaga to
+> osobnych zgód autorskich na wykorzystanie tekstu.
+
+Decyzja Wydawcy z 29.10.2026 (cytat dosłowny):
+
+> właśnie "Wagabunda" jest jednym z tytułów z dzieloną licencją (jest sprzedawana w formie
+> anglojęzycznej aplikacji przez autora). "Vae victis" na ten moment może być wykorzystane,
+> tradycyjnie z zachowaniem wszystkich informacji skąd tekst pochodzi i przekopiowanej pełnej
+> zawartości stopki redakcyjnej, od copyrightingu po numer ISBN. Ilustracji okładkowej można
+> używać, ale też z informacją o jej autorce.
+> Na potrzeby opisanego projektu wewnętrznego proszę korzystać z tekstu na tych zasadach.
+
+---
+
+## 2. Zakres zgody — co wolno, a czego nie
+
+| Element | Status | Źródło |
+|---|---|---|
+| **„Vae Victis”** (Beniamin Muszyński) — tekst publikacji | ✅ dozwolone **„na ten moment”**, na zasadach z rozdz. 3–5 | [ZGODA] |
+| Konwersja EPUB/PDF → JSON, publicznie dostępna w repozytorium GitHub | ✅ dozwolone (opisane w prośbie) | [ZGODA] |
+| Podział na paragrafy, przejścia między nimi, techniczna obsługa mechaniki | ✅ dozwolone | [ZGODA] |
+| Karta postaci, ekwipunek, statystyki, rzuty kośćmi, zapis postępu | ✅ dozwolone (opisane w prośbie) | [ZGODA] |
+| Ilustracja okładkowa | ✅ dozwolone **z informacją o autorce** (Justyna Bzdoń) | [ZGODA] |
+| Ikony / piktogramy interfejsu (kość, karta postaci itp.) | ✅ dozwolone | [ZGODA] |
+| Kod aplikacji, konwersja i animacje rzutu kośćmi tworzone z pomocą AI | ✅ dozwolone (ujawnione Wydawcy) | [ZGODA] |
+| Użytkownicy: wąskie grono (projekt wewnętrzny) | ✅ w prośbie „ok. 5 osób”; obecnie planowanych **6 graczy** — patrz rozdz. 9 | [ZGODA] |
+| **„Wagabunda”** (Krzysztof Firkowski) | ⛔ **ODMOWA** — tytuł z dzieloną licencją | [ZGODA] |
+| **Każdy inny tytuł** Wydawnictwa | ⛔ brak zgody — wymaga osobnej, pisemnej zgody **przed** dodaniem | [ZGODA] |
+| Grafiki / ilustracje generowane przez AI | ⛔ niedozwolone (wymagałyby osobnych zgód autorskich) | [ZGODA] |
+
+---
+
+## 3. NAKAZY (obowiązki)
+
+**N1. Atrybucja przy każdej grze** [ZGODA] — wyraźnie i czytelnie:
+- tytuł publikacji,
+- imię i nazwisko autora (autorów),
+- informacja o Wydawnictwie Wielokrotnego Wyboru / portalu Masz Wybór,
+- odnośnik do oficjalnej strony publikacji
+  (dla „Vae Victis”: <https://masz-wybor.com.pl/ksiegarnia/vae-victis-beniamin-muszynski/>)
+  oraz do strony Wydawnictwa (<https://masz-wybor.com.pl/>).
+
+**N2. Informacja o źródle tekstu** [ZGODA] — zachowujemy „wszystkie informacje skąd tekst
+pochodzi”: wydawca, wydanie, ISBN, plik źródłowy, strona, z której oryginał można pobrać.
+Informacja o źródle jest widoczna w aplikacji („O książce”) i zapisana w metadanych książki.
+
+**N3. Pełna stopka redakcyjna, dosłownie** [ZGODA] + [WŁAŚCICIEL]
+- Przekopiowana **w całości, bez żadnych zmian** — „od copyrightingu po numer ISBN”
+  (w „Vae Victis”: od „Copyright © by Beniamin Muszyński, 2018.” do „ISBN 978-83-951564-0-3”),
+  łącznie z sekcjami LICENCJA i WYDAWCA, danymi kontaktowymi i logotypami, które są częścią stopki.
+- Wyświetlana **na ekranie głównym przy danej książce** (wymóg właściciela) oraz dostępna z poziomu
+  gry (ekran „O książce”).
+- Stopka jest generowana automatycznie z pliku źródłowego (nie przepisywana ręcznie) — patrz
+  [KONWERSJA.md](KONWERSJA.md).
+
+**N4. Okładka tylko z informacją o autorce ilustracji** [ZGODA]
+- Każde wyświetlenie okładki (karta książki, „O książce”, ekran startowy gry) ma widoczny podpis,
+  np. „Ilustracja na okładce: Justyna Bzdoń” (w stopce: „Grafiki: Justyna Bzdoń [okładka]”).
+
+**N5. Treść 1:1** [ZGODA] + [WŁAŚCICIEL] — tekst publikacji przenosimy **bez jakichkolwiek zmian**;
+konwersja służy wyłącznie podziałowi na paragrafy, utworzeniu przejść i technicznej obsłudze
+mechaniki. Szczegóły: rozdz. 5.
+
+**N6. Projekt niekomercyjny** [ZGODA] — „nie zamierzam na nim zarabiać w żaden sposób”.
+Patrz zakaz Z5.
+
+**N7. Wąskie grono odbiorców — projekt wewnętrzny** [ZGODA] + [OSTROŻNOŚĆ]
+- Rozgrywka dostępna wyłącznie dla graczy z kontami założonymi przez administratora
+  (logowanie hasłem). **Bez trybu gościa** i bez otwartej rejestracji.
+- Ekran główny (katalog, stopki, atrybucje) może być publiczny; sama gra — tylko po zalogowaniu.
+- Publiczne udostępnienie strony (np. GitHub Pages) dopiero wtedy, gdy działa logowanie.
+
+**N8. Dokumenty zgód przechowujemy w repozytorium** [OSTROŻNOŚĆ]
+- `Pliki/Zgoda Vae Victis.pdf` — nie usuwać, nie modyfikować, nie przenosić bez aktualizacji
+  odwołań. Każda nowa zgoda → nowy plik PDF w `Pliki/` + wpis w rejestrze (rozdz. 8).
+
+**N9. Zgoda jest udzielona „na ten moment”** [ZGODA]
+- Jeśli Wydawca wycofa lub zmieni zgodę: natychmiast ukryć książkę w aplikacji (status w katalogu),
+  usunąć jej treść i grafiki z repozytorium, poinformować graczy; o ewentualnym usunięciu
+  treści z historii git decyduje właściciel repozytorium.
+
+**N10. Oznaczenie charakteru projektu** [OSTROŻNOŚĆ]
+- Stopka aplikacji zawiera informację, że to **nieoficjalny, niekomercyjny projekt hobbystyczny**,
+  a treść „Vae Victis” wykorzystano **za zgodą Wydawnictwa Wielokrotnego Wyboru** — tak, by nikt nie
+  odniósł wrażenia, że to oficjalna aplikacja Wydawnictwa.
+
+**N11. Odnośniki zewnętrzne z treści zachowujemy** [ZGODA] + [OSTROŻNOŚĆ]
+- Linki w treści (strona Wydawnictwa, Patronite Wydawnictwa, adresy e-mail ze stopki, odesłanie
+  do innej gry na stronie Masz Wybór) pozostają **linkami zewnętrznymi** — otwierają oryginalną
+  stronę w nowej karcie. Nigdy nie zastępujemy ich treścią w aplikacji (np. gra „Jestem”, do
+  której odsyła jedno z zakończeń, **nie jest objęta zgodą**).
+
+---
+
+## 4. ZAKAZY
+
+**Z1. Zakaz jakichkolwiek zmian w treści literackiej** [ZGODA] + [LICENCJA] + [WŁAŚCICIEL]
+— „absolutny zakaz ingerowania w treść publikacji”. Pełna lista w rozdz. 5.
+
+**Z2. Zakaz grafik generowanych przez AI** [ZGODA]
+- Żadnych ilustracji, portretów postaci, scen, map, teł, „klimatycznych” obrazków, wariantów
+  okładki ani AI-upscalingu okładki.
+- Dozwolone są wyłącznie **piktogramy funkcji interfejsu** (kość, karta postaci, menu, zapis,
+  ustawienia itp.): z biblioteki ikon o znanej, wolnej licencji (licencję odnotować w
+  `aplikacja/assets/icons/`), symbole Unicode albo proste kształty SVG/CSS.
+- Ikony **nie mogą przedstawiać treści książki** (postaci, miejsc, wydarzeń, przedmiotów
+  fabularnych) — np. przedmioty w ekwipunku pokazujemy nazwą z tekstu, bez obrazków. [OSTROŻNOŚĆ]
+
+**Z3. Zakaz innych treści generowanych przez AI na podstawie książki** [OSTROŻNOŚĆ]
+- Żadnych streszczeń, „podpowiedzi fabularnych”, dopisanych opisów, tłumaczeń, wersji audio
+  (lektor/TTS), czatów z postaciami, quizów czy rekomendacji wyborów generowanych z tekstu.
+  To byłaby adaptacja, której zgoda nie obejmuje (Wydawca wprost zastrzegł kwestię AI).
+
+**Z4. Zakaz dodawania tytułów bez zgody** [ZGODA]
+- **„Wagabunda” — odmowa.** Nie dodajemy jej w żadnej formie (tekst, okładka, opis, wzmianka
+  w katalogu aplikacji).
+- Żaden inny tytuł nie trafia do repozytorium (nawet roboczo, nawet w gałęzi) bez osobnej,
+  pisemnej zgody Wydawcy zarchiwizowanej w `Pliki/` i wpisanej do rejestru (rozdz. 8).
+
+**Z5. Zakaz komercjalizacji w jakiejkolwiek formie** [ZGODA]
+- Reklamy, płatny dostęp, subskrypcje, mikropłatności, „premium”, zbiórki i darowizny na projekt,
+  linki afiliacyjne, sponsorowanie, sprzedaż kodu z treścią, analityka marketingowa/reklamowa.
+- Uwaga: odnośnik do Patronite **Wydawnictwa**, który jest częścią treści publikacji (strona
+  „od Wydawnictwa”), pozostaje bez zmian — to element oryginału, a nie zbiórka projektu.
+
+**Z6. Zakaz modyfikowania okładki** [ZGODA] + [OSTROŻNOŚĆ]
+- Bez kadrowania zmieniającego kompozycję, filtrów, rozmycia, retuszu, kolorowania, nakładania
+  tekstu/elementów, używania jako tła, generowania wariantów.
+- Dozwolone wyłącznie: proporcjonalne przeskalowanie i kompresja/konwersja formatu (wydajność).
+  To samo dotyczy logotypów ze stopki.
+
+**Z7. Zakaz usuwania, skracania i ukrywania stopki oraz atrybucji** [ZGODA]
+- Nie skracamy, nie parafrazujemy, nie przenosimy w trudno dostępne miejsca, nie ukrywamy
+  stylami (np. mikroskopijna czcionka, kolor tła).
+
+**Z8. Zakaz używania logotypów Wydawnictwa/portalu poza odwzorowaniem stopki** [OSTROŻNOŚĆ]
+- Nie jako logo aplikacji, favicon, ikona PWA, ekran powitalny, element brandingu.
+
+**Z9. Zakaz udostępniania treści w innej postaci niż gra w aplikacji** [LICENCJA] + [OSTROŻNOŚĆ]
+- Żadnych funkcji „pobierz/eksportuj/drukuj całą książkę” (PDF, EPUB, DOCX, TXT), publicznego
+  API z treścią, przenoszenia treści do innych serwisów, publikowania JSON jako osobnego produktu.
+- Kopie zapasowe danych graczy **nie zawierają treści książek** (tylko identyfikatory i stan gry).
+
+**Z10. Zakaz przechowywania treści książek w Firebase** [OSTROŻNOŚĆ]
+- Treść leży wyłącznie w repozytorium (tak jak opisano Wydawcy). Firebase = tylko stan graczy.
+
+**Z11. Zakaz zmiany zakresu projektu bez nowej zgody** [ZGODA]
+- Zgoda dotyczy „opisanego projektu wewnętrznego”. Bez nowej zgody nie: otwieramy aplikacji dla
+  szerokiej publiczności, nie publikujemy w sklepach z aplikacjami, nie promujemy jako
+  ogólnodostępnego serwisu, nie znacząco zwiększamy grona odbiorców.
+
+**Z12. Zakaz kopiowania innych materiałów ze strony Wydawnictwa** [OSTROŻNOŚĆ]
+- Opisów (blurbów), recenzji, grafik innych tytułów itp. nie kopiujemy — **linkujemy** do strony
+  Wydawnictwa. Zgoda obejmuje tekst publikacji „Vae Victis” i jej ilustrację okładkową.
+
+---
+
+## 5. Wierność treści — zasady szczegółowe (konwersja i prezentacja)
+
+### 5.1. Dozwolone operacje techniczne (lista zamknięta)
+
+1. Podział publikacji na jednostki nawigacyjne (strony wstępne, paragrafy, części A/B/C,
+   ciąg dalszy paragrafu) **dokładnie według podziału w pliku źródłowym**.
+2. Zamiana odnośników w tekście na interaktywne elementy nawigacji — odnośnik zostaje **w tym
+   samym miejscu i z tym samym tekstem** (np. „22” w nawiasie staje się klikalne).
+3. Dodanie **warstwy mechaniki jako osobnych metadanych** (osobny plik `mechanika.json`), która
+   wskazuje identyfikatory paragrafów i odnośników, ale **nie zawiera i nie zmienia tekstu**.
+4. Zachowanie formatowania znaczącego: akapity, nagłówki/numery paragrafów, kursywa, pogrubienie,
+   listy, wyrównanie (np. podpis autora wyrównany do prawej), grafiki w ich miejscu.
+5. Własna prezentacja: krój pisma, rozmiar, kolory, tryb ciemny, układ na ekranie telefonu.
+6. Normalizacja białych znaków **wyłącznie** w zakresie, w jakim i tak robi to HTML (sekwencja
+   spacji/nowych linii → jedna spacja). Każdy inny znak — bez zmian (w tym twarde spacje, „”, –, …).
+7. Proporcjonalne przeskalowanie i kompresja grafik (okładka, logotypy ze stopki).
+
+### 5.2. Zabronione (przykłady — lista otwarta)
+
+- **Poprawianie czegokolwiek**: literówek, ortografii, interpunkcji, gramatyki, stylu — **nawet
+  oczywistych błędów**. Przykłady z „Vae Victis”, które **zostają bez zmian**: „cześci A” (§9),
+  „Open Source Licensee” (stopka), „Po po kolejnym okresie” (jeden z paragrafów).
+- Zamiana znaków typograficznych („” → "", – → -, … → ..., twarda spacja → spacja), zmiana
+  wielkości liter, zmiana zapisu liczb.
+- Skracanie, łączenie, dzielenie, przestawianie zdań, akapitów i paragrafów; pomijanie
+  fragmentów — **także stron wstępnych** (stopka, „od Wydawnictwa”, strona tytułowa, dedykacja,
+  spis treści, wprowadzenie, prolog).
+- Dopisywanie czegokolwiek do tekstu książki (komentarzy, nagłówków, ostrzeżeń, podsumowań).
+  Komunikaty aplikacji (np. „Zdobyto Informację #19”) muszą być **wizualnie oddzielone** od tekstu
+  książki i nie mogą udawać jego części.
+- Parafrazowanie wyborów na przyciskach. Przyciski nawigacji mają etykiety techniczne
+  (np. „Przejdź do 22”); treść wyboru czyta się w tekście paragrafu.
+- „Naprawianie” błędów nawigacji (np. odnośnika prowadzącego do złego paragrafu). Wykryty błąd
+  **zgłaszamy właścicielowi**; korekta wyłącznie na podstawie oficjalnej erraty/nowego wydania od
+  Wydawcy i z adnotacją w dokumentacji książki.
+- Tłumaczenia, uwspółcześnianie języka, cenzurowanie, „łagodzenie” treści.
+- **Ręczna edycja plików treści** (`tresc.json`, `stopka.json`) — są generowane wyłącznie skryptem
+  z pliku źródłowego i weryfikowane automatycznie (patrz [KONWERSJA.md](KONWERSJA.md)).
+
+### 5.3. Zasada neutralności silnika
+
+Silnik gry **nie dopowiada reguł, których nie ma w tekście**. Jeśli tekst nie rozstrzyga, którą
+z kilku pasujących opcji wybrać, aplikacja oznacza opcje spełniające warunki, ale **wyboru
+dokonuje gracz**. Tryb „ręczny” (jak na papierze) musi pozwalać grać bez automatyki.
+
+---
+
+## 6. Wymagane elementy w aplikacji (checklista)
+
+**Ekran główny — karta każdej książki**
+- [ ] okładka + podpis autorki ilustracji (N4)
+- [ ] tytuł, autor(zy), „Wydawnictwo Wielokrotnego Wyboru” / „portal Masz Wybór” (N1)
+- [ ] odnośnik do oficjalnej strony publikacji i do strony Wydawnictwa (N1)
+- [ ] **pełna stopka redakcyjna** w wiernym brzmieniu (N3)
+- [ ] informacja o źródle: wydawca, wydanie, ISBN, link do pobrania oryginału (N2)
+
+**Ekran gry**
+- [ ] tytuł i autor widoczne (np. w nagłówku)
+- [ ] dostęp do „O książce” z menu gry: stopka, okładka z podpisem, linki, informacja o zgodzie
+- [ ] tekst paragrafu 1:1, komunikaty aplikacji wizualnie oddzielone (rozdz. 5)
+
+**Cała aplikacja**
+- [ ] stopka aplikacji: projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy (N10)
+- [ ] brak reklam, płatności, zbiórek, trackerów marketingowych (Z5)
+- [ ] brak grafik AI; ikony tylko jako piktogramy funkcji z odnotowaną licencją (Z2)
+- [ ] gra dostępna tylko po zalogowaniu (N7)
+
+**Repozytorium**
+- [ ] README z atrybucją książek
+- [ ] dokument zgody w `Pliki/` i wpis w rejestrze zgód (N8)
+- [ ] brak pliku licencji open source obejmującego treść (patrz rozdz. 7, pkt 7)
+
+---
+
+## 7. Procedura dodania nowej książki
+
+1. **Pisemna zgoda Wydawcy dla konkretnego tytułu** (e-mail) — przed jakąkolwiek pracą nad tytułem.
+2. Zapis zgody jako PDF w `Pliki/` (np. `Pliki/Zgoda <Tytuł>.pdf`) i wpis w rejestrze (rozdz. 8)
+   z warunkami szczegółowymi (mogą różnić się od warunków dla „Vae Victis”!).
+3. Ustalenie: autorzy tekstu i grafik, zawartość stopki, licencje fontów/grafik, odnośniki.
+4. Konwersja i weryfikacja wg [KONWERSJA.md](KONWERSJA.md); karta książki w `ksiazki/<id>/README.md`.
+5. Przegląd zgodności z checklistą z rozdz. 6.
+6. Dopiero wtedy wpis w katalogu aplikacji (`ksiazki/katalog.json`).
+7. Jeśli kiedykolwiek do repozytorium zostanie dodana licencja open source dla **kodu**, musi ona
+   wyraźnie **wyłączać** treści książek, grafiki i logotypy (`ksiazki/`, `Pliki/`) — te pozostają
+   własnością autorów i Wydawcy, wykorzystywaną za zgodą. Decyzja należy do właściciela.
+
+---
+
+## 8. Rejestr zgód
+
+| Tytuł | Autor | Status | Data | Dokument | Warunki szczegółowe |
+|---|---|---|---|---|---|
+| Vae Victis | Beniamin Muszyński | ✅ zgoda „na ten moment” | 29.10.2026 | `Pliki/Zgoda Vae Victis.pdf` | pełna stopka (od copyrightu po ISBN); informacje o źródle; okładka z informacją o autorce (Justyna Bzdoń); bez grafik AI; projekt wewnętrzny, niekomercyjny |
+| Wagabunda | Krzysztof Firkowski | ⛔ odmowa | 29.10.2026 | `Pliki/Zgoda Vae Victis.pdf` | tytuł z dzieloną licencją — nie wykorzystywać |
+
+---
+
+## 9. Kwestie otwarte (do decyzji właściciela / ewentualnie do potwierdzenia z Wydawcą)
+
+1. **Liczba graczy**: w prośbie „ok. 5 osób”, obecnie planowanych 6 — mieści się w opisie „wąskie
+   grono”, ale przy dalszym powiększaniu grona warto poinformować Wydawcę.
+2. **Plik EPUB w publicznym repozytorium** (`Pliki/`): zgoda dotyczy wykorzystania tekstu w
+   aplikacji i publicznego JSON; licencja w stopce dopuszcza „kopiowanie oraz dystrybucję bezpłatną
+   na własny użytek”, a Wydawca udostępnia plik bezpłatnie na swojej stronie. Do rozważenia:
+   zostawić (z pełną informacją o źródle) albo trzymać EPUB tylko lokalnie, a w repozytorium
+   zostawić sumę SHA-256 i link do pobrania.
+3. **Opis książki ze strony Wydawnictwa**: nie kopiujemy (Z12) — na karcie książki dajemy link.
+   Jeśli opis ma się pojawić w aplikacji, potrzebne jest potwierdzenie Wydawcy.
+4. **Ostrzeżenie o treści** podawane na stronie Wydawnictwa („Trigger warning: #Środki
+   psychoaktywne”): do decyzji, czy wyświetlać je przy karcie książki (jako informację o źródle,
+   z linkiem do strony).
+5. **Analiza zabezpieczeń z innego projektu** (wspomniana przez właściciela) nie została dołączona
+   — dotyczy Firebase, nie licencji; patrz [FIREBASE.md](FIREBASE.md).
