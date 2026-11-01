@@ -38,7 +38,7 @@ własnością ich autorów i Wydawcy i są wykorzystywane za zgodą, na warunkac
 ```
 ├── AGENTS.md              instrukcje dla agentów AI (i ludzi) — zasady, konwencje, workflow
 ├── PLAN_I_CHANGELOG.md    plan prac, stan bieżący, decyzje, otwarte pytania, changelog
-├── Pliki/                 materiały źródłowe: oryginalny EPUB, dokument zgody Wydawcy (tylko do odczytu)
+├── Pliki/                 materiały źródłowe: oryginalny EPUB (i tymczasowo dokument zgody) — tylko do odczytu
 ├── Analizy/               raporty z analiz
 ├── dokumentacja/          dokumentacja projektu
 ├── aplikacja/             kod aplikacji (css, js: core / modules / ui / data / utils, assets)

@@ -8,7 +8,7 @@
 | | |
 |---|---|
 | Zgoda | ✅ Wydawca, 29.10.2026 — „na ten moment” |
-| Dokument | [`Pliki/Zgoda Vae Victis.pdf`](../../Pliki/Zgoda%20Vae%20Victis.pdf) |
+| Zapis warunków | rejestr zgód w [`dokumentacja/LICENCJA_I_ZGODA.md`](../../dokumentacja/LICENCJA_I_ZGODA.md) (z cytatami kluczowych zdań); oryginał korespondencji u właściciela (tymczasowo `Pliki/Zgoda Vae Victis.pdf`) |
 | Warunki | pełna stopka (od copyrightu po ISBN), wszystkie informacje o źródle, okładka **z informacją o autorce** (Justyna Bzdoń), bez grafik AI, projekt wewnętrzny i niekomercyjny, treść bez zmian |
 
 ## 2. Dane bibliograficzne (wg stopki EPUB)

@@ -14,14 +14,14 @@
 | Aplikacja | jeszcze nie istnieje |
 | Książki | „Vae Victis” — zgoda ✅, plik źródłowy przeanalizowany, konwersja nierozpoczęta |
 | Firebase | projekt **`gryparagrafowe-e1fb3`** utworzony przez właściciela (2026-10-29); konfiguracja webowa w `firebase/firebase-config.js`; reguły w konsoli tymczasowo blokują cały dostęp; logowanie loginem i hasłem (konta `Player1` … `Player6`), App Check i reguły docelowe — Etap 5 ([dokumentacja/FIREBASE.md](dokumentacja/FIREBASE.md)) |
-| Instrukcje agentów | `AGENTS.md` podmieniony przez właściciela 2026-11-01 (zasady analiz, zakaz modyfikacji `AGENTS.md` i `CLAUDE.md`, pytania prostym językiem). Propozycja drobnej poprawki (nazwy pól logowania `PlayerName`/`PlayerPassword`, `saveId`) przekazana w czacie 2026-11-01 — **do decyzji właściciela** |
+| Instrukcje agentów | `AGENTS.md` podmieniony przez właściciela 2026-11-01 (zasady analiz, zakaz modyfikacji `AGENTS.md` i `CLAUDE.md`, pytania prostym językiem). Nowa, **uniwersalna** treść (bez informacji o konkretnych tytułach, datach i bieżącym stanie; z poprawką nazw pól logowania) przekazana w czacie 2026-11-01 — **do podmiany przez właściciela** |
 | Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1 (zmiana kroju pisma), PW2 (ustawienia wyświetlania), PW3 (niejednoznaczne wskazówki §170, §286, §289) przygotowane, **niewysłane** |
 | Blokery | brak |
 
 ## 2. Następne kroki
 
-1. **Właściciel**: podmienić `AGENTS.md` na poprawioną treść z czatu (2026-11-01) — drobna zmiana w
-   rozdz. 7 i 8 (nazwy pól logowania). Agenci nie modyfikują tego pliku.
+1. **Właściciel**: podmienić `AGENTS.md` na uniwersalną treść z czatu (2026-11-01) — zastępuje
+   wcześniejszą propozycję poprawki nazw pól logowania. Agenci nie modyfikują tego pliku.
 2. **Właściciel**: wysłać Wydawcy pytania PW1–PW3 (szkic wiadomości w
    [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md));
    najlepiej przed Etapem 2 (wyświetlanie tekstu).
@@ -138,6 +138,8 @@
 | D26 | 2026-11-01 | 3 miejsca na ręczny zapis w każdej książce (`save1` … `save3`); logowanie pamiętane 30 dni | decyzja właściciela (P6) |
 | D27 | 2026-11-01 | Niejednoznaczne warunki (§170, §286, §289): na razie obie drogi dostępne, wybiera gracz; pytanie do Wydawcy (PW3) | decyzja właściciela (P8) |
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
+| D29 | 2026-11-01 | `AGENTS.md` jest uniwersalny — zawiera tylko zasady stałe; tytuły i warunki zgód są w rejestrze zgód (`dokumentacja/LICENCJA_I_ZGODA.md`), stan Firebase w `FIREBASE.md`, etapy i decyzje w tym pliku | wymóg właściciela |
+| D30 | 2026-11-01 | Oryginały zgód i korespondencji z wydawcą mogą zostać usunięte z repozytorium; wiążącym zapisem warunków jest rejestr zgód z dosłownymi cytatami kluczowych zdań | informacja właściciela |
 
 ## 5. Otwarte pytania
 
@@ -170,6 +172,19 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-01 — Uniwersalny AGENTS.md; dokumenty zgód poza repozytorium
+
+**Zmieniono**
+- `dokumentacja/LICENCJA_I_ZGODA.md`: rejestr zgód (z cytatami w rozdz. 1) jako wiążący zapis
+  warunków; „brak wpisu = brak zgody”; N8 — oryginały zgód przechowuje właściciel (mogą zniknąć z
+  repozytorium); procedura dodania książki i checklista bez wymogu PDF w `Pliki/`.
+- `dokumentacja/FORMAT_KSIAZKI.md`: manifest wskazuje rejestr zgód (`consent.register`) zamiast
+  pliku PDF; weryfikacja sprawdza wpis w rejestrze.
+- Karta „Vae Victis”, `README.md`, `Analizy/Pytania_Do_Wydawcy_2026-10-29.md`: bez odnośników do
+  PDF ze zgodą (oryginał u właściciela).
+- Ten plik: decyzje D29–D30, stan bieżący, następne kroki.
+- Uniwersalna treść `AGENTS.md` przekazana właścicielowi w czacie (plik podmienia właściciel).
 
 ### 2026-11-01 — Logowanie loginem i hasłem; odpowiedzi P4, P6, P8, P9; pytanie PW3
 

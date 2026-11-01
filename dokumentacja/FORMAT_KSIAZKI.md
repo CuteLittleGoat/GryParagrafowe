@@ -78,7 +78,7 @@ wycofanie zgody; treść musi zostać usunięta z repozytorium, patrz N9).
     "checked": "2026-10-29"
   },
   "consent": {
-    "document": "Pliki/Zgoda Vae Victis.pdf",
+    "register": "dokumentacja/LICENCJA_I_ZGODA.md",
     "date": "2026-10-29"
   },
   "contentVersion": "1.0.0",
@@ -93,7 +93,8 @@ wycofanie zgody; treść musi zostać usunięta z repozytorium, patrz N9).
   głównym przy karcie książki z informacją o źródle i odnośnikiem (decyzja właściciela P7).
 
 Weryfikacja automatyczna: `title`, każdy z `authors`, `isbn` i `cover.illustrator` muszą występować
-dosłownie w `stopka.json`; pliki `cover.file`, `source.file`, `consent.document` muszą istnieć;
+dosłownie w `stopka.json`; pliki `cover.file` i `source.file` muszą istnieć; tytuł musi mieć w
+rejestrze zgód (`consent.register`) wpis ze statusem „zgoda” (oryginały zgód nie muszą być w repozytorium);
 `source.sha256` musi odpowiadać plikowi źródłowemu.
 
 ## 4. `tresc.json` — treść 1:1

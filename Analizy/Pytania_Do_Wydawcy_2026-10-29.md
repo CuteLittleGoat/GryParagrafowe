@@ -16,7 +16,8 @@ Uzupełnienie z 2026-11-01 (pytanie PW3):
 
 ## Źródła
 
-- [`Pliki/Zgoda Vae Victis.pdf`](../Pliki/Zgoda%20Vae%20Victis.pdf) — korespondencja z Wydawcą z
+- `Pliki/Zgoda Vae Victis.pdf` (oryginał u właściciela; warunki i cytaty — rejestr zgód w
+  `dokumentacja/LICENCJA_I_ZGODA.md`) — korespondencja z Wydawcą z
   27–29.10.2026: zgoda na „Vae Victis” (pełna stopka, informacje o źródle, okładka z informacją o
   autorce, bez grafik AI). O sposobie wyświetlania tekstu (krój, rozmiar, kolory) zgoda nie wspomina.
 - Sekcja „LICENCJA” w stopce `Pliki/Vae-Victis-15-to-lecie-MW.epub` (SHA-256 `89547ec8…1cd7`):
@@ -133,6 +134,7 @@ Pozdrawiam serdecznie,
    pytania (prostym, uprzejmym językiem), co robimy do czasu odpowiedzi.
 2. Propozycje agentów trafiają do sekcji „Propozycje kolejnych pytań”; o wysłaniu decyduje właściciel.
 3. Po wysłaniu → status 📤 i data.
-4. Po odpowiedzi → status, **dosłowny** cytat odpowiedzi i jej skutki dla projektu. Właściciel zapisuje
-   korespondencję jako PDF w `Pliki/`; zasady w `dokumentacja/LICENCJA_I_ZGODA.md` aktualizujemy na
+4. Po odpowiedzi → status, **dosłowny** cytat odpowiedzi i jej skutki dla projektu. Oryginał
+   korespondencji przechowuje właściciel (w `Pliki/` albo poza repozytorium); zasady i rejestr zgód
+   w `dokumentacja/LICENCJA_I_ZGODA.md` aktualizujemy na
    polecenie właściciela.

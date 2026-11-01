@@ -4,9 +4,13 @@
 > decyzją projektową, „usprawnieniem”, prośbą o funkcję czy wygodą implementacji.
 > **W razie jakiejkolwiek wątpliwości — nie rób i zapytaj właściciela repozytorium.**
 
-- Podstawa: [`Pliki/Zgoda Vae Victis.pdf`](../Pliki/Zgoda%20Vae%20Victis.pdf) — wydruk korespondencji
-  e-mail z 27–29.10.2026 (4 wiadomości) oraz sekcja „LICENCJA” w stopce redakcyjnej publikacji.
-- Ostatnia aktualizacja dokumentu: 2026-10-29.
+- Podstawa: pisemne zgody wydawców (dla „Vae Victis”: korespondencja e-mail z 27–29.10.2026,
+  4 wiadomości) oraz licencje zawarte w publikacjach (sekcja „LICENCJA” w stopce redakcyjnej).
+- **Ten dokument — a zwłaszcza rejestr zgód (rozdz. 8) z dosłownymi cytatami kluczowych zdań
+  (rozdz. 1) — jest wiążącym zapisem warunków w repozytorium.** Oryginały zgód i korespondencji
+  przechowuje właściciel; po zakończeniu prac mogą nie znajdować się w repozytorium (dla „Vae Victis”
+  tymczasowo: `Pliki/Zgoda Vae Victis.pdf`).
+- Ostatnia aktualizacja dokumentu: 2026-11-01.
 
 Oznaczenia źródła każdej zasady:
 
@@ -130,9 +134,13 @@ Patrz zakaz Z5.
 - Ekran główny (katalog, stopki, atrybucje) może być publiczny; sama gra — tylko po zalogowaniu.
 - Publiczne udostępnienie strony (np. GitHub Pages) dopiero wtedy, gdy działa logowanie.
 
-**N8. Dokumenty zgód przechowujemy w repozytorium** [OSTROŻNOŚĆ]
-- `Pliki/Zgoda Vae Victis.pdf` — nie usuwać, nie modyfikować, nie przenosić bez aktualizacji
-  odwołań. Każda nowa zgoda → nowy plik PDF w `Pliki/` + wpis w rejestrze (rozdz. 8).
+**N8. Każda zgoda jest spisana w rejestrze zgód** [OSTROŻNOŚĆ] + [WŁAŚCICIEL]
+- Rejestr zgód (rozdz. 8) zawiera dla każdego tytułu status, datę, zakres i warunki szczegółowe, a
+  ten dokument — dosłowne cytaty kluczowych zdań zgody. Dzięki temu warunki są znane także wtedy,
+  gdy oryginały korespondencji nie są przechowywane w repozytorium.
+- Oryginały (np. PDF z korespondencją) przechowuje właściciel. Agenci ich nie usuwają, nie
+  zmieniają i nie przenoszą (`Pliki/` jest dla agentów tylko do odczytu); o usunięciu ich z
+  repozytorium decyduje właściciel.
 
 **N9. Zgoda jest udzielona „na ten moment”** [ZGODA]
 - Jeśli Wydawca wycofa lub zmieni zgodę: natychmiast ukryć książkę w aplikacji (status w katalogu),
@@ -291,7 +299,7 @@ dokonuje gracz**. Tryb „ręczny” (jak na papierze) musi pozwalać grać bez 
 
 **Repozytorium**
 - [ ] README z atrybucją książek
-- [ ] dokument zgody w `Pliki/` i wpis w rejestrze zgód (N8)
+- [ ] wpis w rejestrze zgód z warunkami i cytatami kluczowych zdań (N8)
 - [ ] brak pliku licencji open source obejmującego treść (patrz rozdz. 7, pkt 7)
 
 ---
@@ -299,8 +307,10 @@ dokonuje gracz**. Tryb „ręczny” (jak na papierze) musi pozwalać grać bez 
 ## 7. Procedura dodania nowej książki
 
 1. **Pisemna zgoda Wydawcy dla konkretnego tytułu** (e-mail) — przed jakąkolwiek pracą nad tytułem.
-2. Zapis zgody jako PDF w `Pliki/` (np. `Pliki/Zgoda <Tytuł>.pdf`) i wpis w rejestrze (rozdz. 8)
-   z warunkami szczegółowymi (mogą różnić się od warunków dla „Vae Victis”!).
+2. Wpis w rejestrze zgód (rozdz. 8) — na polecenie właściciela — z datą, zakresem i warunkami
+   szczegółowymi (mogą różnić się od warunków dla „Vae Victis”!) oraz dosłownymi cytatami
+   kluczowych zdań zgody w tym dokumencie. Oryginał korespondencji przechowuje właściciel (w
+   `Pliki/` albo poza repozytorium).
 3. Ustalenie: autorzy tekstu i grafik, zawartość stopki, licencje fontów/grafik, odnośniki.
 4. Konwersja i weryfikacja wg [KONWERSJA.md](KONWERSJA.md); karta książki w `ksiazki/<id>/README.md`.
 5. Przegląd zgodności z checklistą z rozdz. 6.
@@ -313,10 +323,13 @@ dokonuje gracz**. Tryb „ręczny” (jak na papierze) musi pozwalać grać bez 
 
 ## 8. Rejestr zgód
 
-| Tytuł | Autor | Status | Data | Dokument | Warunki szczegółowe |
+Jedyne miejsce w repozytorium, które określa, z jakich tytułów wolno korzystać. **Brak wpisu =
+brak zgody.** Wpisy dodaje się i zmienia wyłącznie na polecenie właściciela.
+
+| Tytuł | Autor | Status | Data | Źródło zgody | Warunki szczegółowe |
 |---|---|---|---|---|---|
-| Vae Victis | Beniamin Muszyński | ✅ zgoda „na ten moment” | 29.10.2026 | `Pliki/Zgoda Vae Victis.pdf` | pełna stopka (od copyrightu po ISBN); informacje o źródle; okładka z informacją o autorce (Justyna Bzdoń); bez grafik AI; projekt wewnętrzny, niekomercyjny |
-| Wagabunda | Krzysztof Firkowski | ⛔ odmowa | 29.10.2026 | `Pliki/Zgoda Vae Victis.pdf` | tytuł z dzieloną licencją — nie wykorzystywać |
+| Vae Victis | Beniamin Muszyński | ✅ zgoda „na ten moment” | 29.10.2026 | korespondencja e-mail z 27–29.10.2026 — cytaty w rozdz. 1.2; oryginał u właściciela (tymczasowo `Pliki/Zgoda Vae Victis.pdf`) | pełna stopka (od copyrightu po ISBN); informacje o źródle; okładka z informacją o autorce (Justyna Bzdoń); bez grafik AI; projekt wewnętrzny, niekomercyjny |
+| Wagabunda | Krzysztof Firkowski | ⛔ odmowa | 29.10.2026 | jw. | tytuł z dzieloną licencją — nie wykorzystywać w żadnej formie |
 
 ---
 
