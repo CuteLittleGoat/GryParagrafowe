@@ -67,6 +67,16 @@ wycofanie zgody; treść musi zostać usunięta z repozytorium, patrz N9).
     "sha256": "89547ec8e80e1bd4aa21eabd142bb90bdfdcec101aa6e92a123593c2d1581cd7",
     "downloadPage": "https://masz-wybor.com.pl/ksiegarnia/vae-victis-beniamin-muszynski/"
   },
+  "originals": [
+    { "format": "PDF",  "url": "https://masz-wybor.com.pl/wp-content/uploads/2025/11/Vae-Victis-15-to-lecie-MW.pdf" },
+    { "format": "EPUB", "url": "https://masz-wybor.com.pl/wp-content/uploads/2025/11/Vae-Victis-15-to-lecie-MW.epub" },
+    { "format": "MOBI", "url": "https://masz-wybor.com.pl/wp-content/uploads/2025/11/Vae-Victis-15-to-lecie-MW.mobi" }
+  ],
+  "contentWarning": {
+    "text": "Trigger warning: #Środki psychoaktywne",
+    "source": "https://masz-wybor.com.pl/ksiegarnia/vae-victis-beniamin-muszynski/",
+    "checked": "2026-10-29"
+  },
   "consent": {
     "document": "Pliki/Zgoda Vae Victis.pdf",
     "date": "2026-10-29"
@@ -76,6 +86,11 @@ wycofanie zgody; treść musi zostać usunięta z repozytorium, patrz N9).
   "startNode": "wprowadzenie"
 }
 ```
+
+- `originals` — odnośniki do oryginałów na stronie Wydawnictwa, wyświetlane w aplikacji (decyzja
+  właściciela P2); adresy sprawdzone 2026-10-29 — weryfikować przy wdrożeniu.
+- `contentWarning` — ostrzeżenie o treści **dosłownie** ze strony Wydawnictwa, wyświetlane na ekranie
+  głównym przy karcie książki z informacją o źródle i odnośnikiem (decyzja właściciela P7).
 
 Weryfikacja automatyczna: `title`, każdy z `authors`, `isbn` i `cover.illustrator` muszą występować
 dosłownie w `stopka.json`; pliki `cover.file`, `source.file`, `consent.document` muszą istnieć;

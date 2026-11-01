@@ -3,6 +3,11 @@
 > Status: **projekt** (wdrożenie w Etapie 5 i 6 — patrz [PLAN_I_CHANGELOG.md](../PLAN_I_CHANGELOG.md)).
 > Do czasu wdrożenia aplikacja korzysta z lokalnego adaptera zapisu (localStorage) o tym samym
 > modelu danych.
+>
+> **Stan na 2026-10-29:** właściciel utworzył projekt Firebase **`gryparagrafowe-e1fb3`**;
+> konfiguracja webowa jest w [`firebase/firebase-config.js`](../firebase/firebase-config.js)
+> (bez `measurementId` — Google Analytics nie jest podłączony); reguły Firestore w konsoli
+> **tymczasowo blokują cały dostęp** (rozdz. 6). Pozostałe kroki konfiguracji — rozdz. 9.
 
 ## 1. Założenia
 
@@ -19,18 +24,19 @@
 5. Rozwiązanie działa na **bezpłatnym planie Spark** — nie wymaga Cloud Functions.
    (Wariant z Cloud Functions — rozdz. 10.)
 
-> ⚠️ **Do uzgodnienia:** właściciel wspomniał o analizie zabezpieczeń z innego projektu, która
-> miała zostać dołączona — **nie została dołączona**. Po jej otrzymaniu należy porównać ją z tym
-> dokumentem (zwłaszcza rozdz. 5–7) i ujednolicić podejście.
+> **Doświadczenia z innego projektu:** właściciel dostarczył (2026-10-29) instrukcję wdrożenia
+> App Check z projektu „Karty” (`Instrukcja_AppCheck_2026-09-07.md`, stan na 2026-09-20 — App Check
+> wdrożony i wymuszony). Wnioski uwzględniono w rozdz. 7. Instrukcja dotyczy App Check i nie zmienia
+> modelu logowania opisanego w rozdz. 5.
 
 ## 2. Usługi
 
 | Usługa | Zastosowanie | Uwagi |
 |---|---|---|
-| Cloud Firestore | dane graczy | region proponowany: `europe-central2` (Warszawa) — **nie do zmiany po utworzeniu bazy** |
+| Cloud Firestore | dane graczy | baza utworzona 2026-10-29; region wybrany przy tworzeniu (**nie do zmiany**) — do odnotowania |
 | Firebase Authentication | dostawca **Anonimowy** — każda przeglądarka dostaje `uid` | logowanie hasłem realizuje dokument sesji (rozdz. 5) |
-| Firebase App Check | dopuszcza tylko żądania z prawdziwej aplikacji | reCAPTCHA Enterprise (lub reCAPTCHA v3) dla aplikacji web |
-| Hosting | GitHub Pages (rekomendacja) albo Firebase Hosting | decyzja w Etapie 7; stronę publikujemy dopiero z działającym logowaniem |
+| Firebase App Check | dopuszcza tylko żądania z prawdziwej aplikacji | **reCAPTCHA Enterprise** — działa na planie Spark (rozdz. 7) |
+| Hosting | **GitHub Pages** (`cutelittlegoat.github.io`) — decyzja właściciela | stronę publikujemy dopiero z działającym logowaniem (Etap 7) |
 | Google Analytics | **nie włączać** | prywatność graczy, zakaz analityki marketingowej (Z5) |
 
 ## 3. Struktura danych (Firestore)
@@ -61,7 +67,7 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 |---|---|---|
 | `playerId` | `^[a-z0-9][a-z0-9_-]{1,31}$` (np. `ania`, `gracz-2`) | login gracza; nadaje administrator; **niezmienny** |
 | `bookId` | nazwa katalogu w `ksiazki/` (np. `vae-victis`) | **niezmienny** — zmiana = utrata powiązania zapisów |
-| `slotId` | `slot1` … `slot5` | liczba slotów do potwierdzenia |
+| `slotId` | `slot1`, `slot2`, … | liczba miejsc na ręczne zapisy do ustalenia (pytanie P6; propozycja: 3) |
 | ID węzła (paragrafu) | np. `p1`, `p91A`, `p98-2`, `prolog` | bez kropek i ukośników (klucze map w Firestore) — patrz [FORMAT_KSIAZKI.md](FORMAT_KSIAZKI.md) |
 
 ### 3.2. Dokumenty — pola
@@ -90,6 +96,7 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 | `notes` | string | notatki gracza |
 | `endingsFound` | array&lt;string&gt; | ID węzłów zakończeń odkrytych we wszystkich podejściach |
 | `playthrough` | number | numer podejścia (rośnie przy „Nowej grze”) |
+| `undo` | array&lt;map&gt; | poprzednie stany rozgrywki dla przycisku „Cofnij” (miejsce, moduły, odwiedziny) — krok po kroku, do początku bieżącej rozgrywki |
 | `revision` | number | licznik zapisów — wykrywanie konfliktu przy grze na dwóch urządzeniach |
 | `startedAt`, `updatedAt` | timestamp | |
 
@@ -117,7 +124,7 @@ graczowi o tym `playerId` (administrator loguje się swoim kontem gracza).
 |---|---|---|
 | `playerId` | string | zalogowany gracz |
 | `password` | string | kopia wpisanego hasła — reguły porównują ją z aktualnym `PlayerPassword` |
-| `createdAt` | timestamp | czas logowania (`serverTimestamp()`); sesja ważna 30 dni |
+| `createdAt` | timestamp | czas logowania (`serverTimestamp()`); sesja ważna 30 dni (do potwierdzenia — pytanie P6) |
 
 **`appConfig/public`** (opcjonalnie)
 
@@ -158,6 +165,7 @@ Dla „Vae Victis” stan modułów to wyłącznie `codewords` (Informacje #1–
   "notes": "",
   "endingsFound": [],
   "playthrough": 1,
+  "undo": [ { "currentNode": "p1", "visits": { "wprowadzenie": 1, "prolog": 1, "p1": 1 }, "modules": { "codewords": { "owned": [] } } } ],
   "revision": 4,
   "startedAt": "<timestamp>",
   "updatedAt": "<timestamp>"
@@ -174,6 +182,9 @@ Dla „Vae Victis” stan modułów to wyłącznie `codewords` (Informacje #1–
   wykrywany po polu `revision` (aplikacja ostrzega, zanim nadpisze nowszy stan).
 
 ## 5. Logowanie hasłem — przepływ (wariant A, plan Spark)
+
+> **Do potwierdzenia przez właściciela (pytanie P4):** czy gracz loguje się dwoma polami (login +
+> hasło — opis poniżej), czy jednym tajnym kodem (jak PIN). Po odpowiedzi dostosujemy rozdz. 3 i 5.
 
 1. Start aplikacji → `signInAnonymously()` — przeglądarka otrzymuje `uid` (bez danych osobowych).
 2. Gracz wpisuje **login** (`playerId`) i **hasło** → aplikacja zapisuje dokument
@@ -197,6 +208,25 @@ Właściwości i ograniczenia (świadomie zaakceptowane):
   (`hashing.sha256` w regułach) — do rozważenia w Etapie 5.
 
 ## 6. Reguły bezpieczeństwa — projekt
+
+**Stan obecny (od 2026-10-29):** w konsoli opublikowane są reguły tymczasowe, blokujące każdy
+odczyt i zapis z aplikacji:
+
+```
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+```
+
+Docelowe reguły przygotujemy, gdy aplikacja będzie już tworzyć dokumenty i pola (Etap 5);
+publikuje je właściciel. Konsola Firebase działa niezależnie od reguł, więc administrator może
+już teraz zakładać dokumenty `secrets/{playerId}` i `admins/{playerId}`.
 
 Docelowy plik: `firebase/firestore.rules` (Etap 5). Przed wdrożeniem **obowiązkowe testy** w
 emulatorze (`@firebase/rules-unit-testing`). Szkic:
@@ -300,23 +330,55 @@ inny gracz, admin, sesja wygasła, hasło zmienione).
 
 ## 7. App Check i dodatkowe zabezpieczenia
 
-1. **App Check** (konsola Firebase → App Check):
-   - zarejestrować aplikację web z dostawcą **reCAPTCHA Enterprise** (lub reCAPTCHA v3); klucz
-     witryny ograniczony do domeny hostingu (np. `cutelittlegoat.github.io`);
-   - w aplikacji `initializeAppCheck(...)` **przed** pierwszym użyciem Firestore, z automatycznym
-     odświeżaniem tokenu;
-   - przez kilka dni obserwować metryki (żądania zweryfikowane / niezweryfikowane), potem
-     **włączyć wymuszanie (Enforce) dla Cloud Firestore** (oraz dla Authentication, jeśli konsola na
-     to pozwala);
-   - praca lokalna: **token debug** App Check zarejestrowany w konsoli — **nigdy nie commitować**.
-2. **Klucz API** (Google Cloud Console → Interfejsy API → Dane logowania): ograniczyć klucz
-   przeglądarkowy do referrerów domeny hostingu (+ `localhost` na czas rozwoju) oraz do API
-   faktycznie używanych przez aplikację (listę zweryfikować w konsoli przy wdrożeniu).
-3. **Konfiguracja webowa Firebase** (`apiKey`, `projectId` itd.) **nie jest sekretem** — może być w
+### 7.1. App Check — wnioski z projektu „Karty”
+
+Podstawa: `Instrukcja_AppCheck_2026-09-07.md` z projektu „Karty” (dostarczona przez właściciela
+2026-10-29; w tamtym projekcie App Check działa z wymuszaniem od 2026-09-20).
+
+| Wniosek z projektu „Karty” | Zastosowanie w GryParagrafowe |
+|---|---|
+| reCAPTCHA Enterprise działa na bezpłatnym planie Spark; utworzenie klucza nie wymaga płatności (tryb *Essentials*: 10 000 sprawdzeń miesięcznie za darmo) | dostawca: **reCAPTCHA Enterprise**; klasyczna reCAPTCHA v3 (wycofywana przez Google) — tylko awaryjnie |
+| Enterprise ma **jeden, jawny klucz witryny** (`6L…`) — bez klucza tajnego | klucz może być w repozytorium (w `firebase/firebase-config.js`), tak jak `apiKey` |
+| Klucz: typ *Website/Web*, sama domena (bez `https://` i ścieżki), weryfikacja domen włączona, **bez `localhost`**, bez wyzwania „checkbox” | domena `cutelittlegoat.github.io` (GitHub Pages) |
+| Każdą aplikację Web w projekcie Firebase rejestruje się w App Check **tym samym kluczem** — inaczej po *Enforce* może przestać działać akurat ta używana | zarejestrować wszystkie aplikacje Web projektu `gryparagrafowe-e1fb3` |
+| „App risk” — domyślne *Medium (0.5)*; **TTL tokenu: 1 dzień** (zakres 30 min – 7 dni) — rzadsze odnawianie, mniejsze zużycie limitu | te same ustawienia |
+| Najpierw kilka dni obserwacji (App Check → *APIs* → Cloud Firestore: rosną żądania *Verified*), dopiero potem **Enforce** | jw.; **hamulec bezpieczeństwa: *Unenforce*** — działa od razu, bez zmian w kodzie |
+| App Check to osobny przełącznik, sprawdzany **przed** regułami — reguł nie trzeba pod niego zmieniać; nie sprawdza, *kim* jest użytkownik | identyfikację gracza zapewniają sesje z hasłem (rozdz. 5) i reguły (rozdz. 6) |
+| Po *Enforce* aplikacja działa tylko z adresu internetowego; do pracy lokalnej — **token debug** (*Manage debug tokens*), **nigdy w repozytorium** | jw. |
+| Zmiana domeny strony wymaga dopisania nowej domeny do klucza w Google Cloud | jw. |
+
+Szacunek zużycia limitu: przy 6 graczach i TTL 1 dzień — rząd kilkuset sprawdzeń miesięcznie,
+wielokrotnie poniżej limitu 10 000. Przekroczenie limitu przy włączonym wymuszaniu zablokowałoby
+aplikację do końca miesiąca (albo do *Unenforce*).
+
+### 7.2. App Check — kroki wdrożenia (Etap 5)
+
+1. Google Cloud → reCAPTCHA (`console.cloud.google.com/security/recaptcha`), projekt
+   `gryparagrafowe-e1fb3` → **Create key**: typ *Website*, domena `cutelittlegoat.github.io` →
+   skopiować klucz witryny.
+2. Firebase → App Check → *Apps* → **Register** przy każdej aplikacji Web → reCAPTCHA Enterprise →
+   wkleić klucz witryny; TTL `1 days`.
+3. Dopisać klucz do konfiguracji aplikacji (`firebase/firebase-config.js`; nazwę pola i format
+   pliku ustalimy w Etapie 5 — np. `appCheckEnterpriseSiteKey`, jak w projekcie „Karty”). Aplikacja
+   wywołuje `initializeAppCheck(...)` z automatycznym odświeżaniem tokenu **przed** pierwszym użyciem
+   Firestore.
+4. Obserwacja przez kilka dni (zakładka *APIs*).
+5. **Enforce** dla Cloud Firestore (oraz dla Authentication, jeśli konsola na to pozwala).
+
+App Check można zarejestrować wcześniej, ale wymuszenie (krok 5) ma sens dopiero wtedy, gdy
+aplikacja korzysta z bazy z docelowymi regułami.
+
+### 7.3. Pozostałe zabezpieczenia
+
+1. **Klucz API** (Google Cloud Console → Interfejsy API → Dane logowania): opcjonalnie ograniczyć
+   klucz przeglądarkowy do referrerów domeny hostingu (+ `localhost` na czas rozwoju) oraz do API
+   faktycznie używanych przez aplikację (listę zweryfikować w konsoli przy wdrożeniu) — dodatkowa
+   warstwa, nie zastępuje App Check.
+2. **Konfiguracja webowa Firebase** (`apiKey`, `projectId` itd.) **nie jest sekretem** — może być w
    repozytorium. Bezpieczeństwo zapewniają reguły + App Check, nie ukrywanie konfiguracji.
-4. **Sekretami są**: klucze kont serwisowych (Admin SDK), tokeny debug App Check, hasła, backupy z
+3. **Sekretami są**: klucze kont serwisowych (Admin SDK), tokeny debug App Check, hasła, backupy z
    danymi graczy — **nigdy nie trafiają do repozytorium** (`.gitignore`).
-5. Minimalizacja danych: tylko pseudonimy i stan gry; bez e-maili, bez analityki.
+4. Minimalizacja danych: tylko pseudonimy i stan gry; bez e-maili, bez analityki.
 
 ## 8. Kopie zapasowe i odtwarzanie
 
@@ -360,7 +422,7 @@ inny gracz, admin, sesja wygasła, hasło zmienione).
 | Backup wszystkich graczy | admin | pobranie pliku JSON (`scope: all`) |
 | Backup jednego gracza | admin | `scope: player` |
 | Eksport własnego postępu | gracz | pobranie własnych danych (`scope: player`) |
-| **Odtworzenie gracza z pliku** | admin | patrz 8.4 |
+| **Odtworzenie gracza z pliku** | **tylko admin** (decyzja właściciela) | patrz 8.4 |
 
 ### 8.4. Odtwarzanie (restore) — procedura w panelu administratora
 
@@ -381,16 +443,18 @@ Opcjonalnie (plan Blaze): zarządzany eksport Firestore / odtwarzanie do punktu 
 
 ## 9. Procedury administratora (konsola Firebase)
 
-**Pierwsza konfiguracja (Etap 5)**
-1. Utworzyć projekt Firebase (bez Google Analytics).
-2. Dodać aplikację Web; konfigurację wpisać do pliku konfiguracyjnego aplikacji
-   (`aplikacja/js/data/`).
-3. Authentication → Metody logowania → włączyć **Anonimowe**.
-4. Firestore → utworzyć bazę w trybie produkcyjnym, region `europe-central2`.
-5. Firestore → Reguły → wkleić `firebase/firestore.rules` → Opublikuj
-   (alternatywnie: `firebase deploy --only firestore:rules`).
-6. App Check i ograniczenia klucza API — rozdz. 7.
-7. Utworzyć dokumenty `secrets/{playerId}` dla graczy i `admins/{playerId}` dla administratora.
+**Pierwsza konfiguracja**
+1. ✅ Projekt Firebase `gryparagrafowe-e1fb3` — utworzony przez właściciela 2026-10-29
+   (w konfiguracji aplikacji Web brak `measurementId`, czyli bez Google Analytics).
+2. ✅ Aplikacja Web; konfiguracja w `firebase/firebase-config.js` — właściciel, 2026-10-29.
+3. ⬜ Authentication → Metody logowania → włączyć **Anonimowe** (Etap 5).
+4. ✅ Firestore — baza utworzona, reguły tymczasowe blokują cały dostęp (rozdz. 6) — właściciel,
+   2026-10-29. Region bazy wybrany przy tworzeniu (nie do zmiany) — do odnotowania w tym dokumencie.
+5. ⬜ Firestore → Reguły → wkleić `firebase/firestore.rules` → Opublikuj (Etap 5; alternatywnie
+   `firebase deploy --only firestore:rules`).
+6. ⬜ App Check — rozdz. 7.2; opcjonalnie ograniczenia klucza API — rozdz. 7.3.
+7. ⬜ Dokumenty `secrets/{playerId}` dla graczy i `admins/{playerId}` dla administratora (można je
+   zakładać już teraz — konsola działa niezależnie od reguł).
 
 **Dodanie gracza**
 1. Firestore → kolekcja `secrets` → „Dodaj dokument” → ID dokumentu = login gracza (np. `ania`).
@@ -422,7 +486,8 @@ Reguły upraszczają się do `request.auth.uid == playerId` i `request.auth.toke
 | możliwe ograniczanie prób logowania | wdrażanie funkcji (Firebase CLI), więcej elementów |
 | standardowy model uwierzytelniania | zmiana hasła nie unieważnia tokenów bez dodatkowej logiki |
 
-**Decyzja robocza:** wariant A (Spark). Rewizja po porównaniu z analizą z innego projektu.
+**Decyzja robocza:** wariant A (Spark). Instrukcja z projektu „Karty” (rozdz. 7.1) dotyczy App
+Check i nie zmienia tego wyboru.
 
 ## 11. Koszty i limity
 
@@ -432,6 +497,9 @@ odczytów/zapisów Firestore — zweryfikować aktualne wartości w cenniku Fire
 
 ## 12. Do ustalenia
 
-- porównanie z analizą zabezpieczeń z innego projektu (brak pliku),
-- region bazy, czas ważności sesji (proponowane 30 dni), liczba slotów zapisu (proponowane 5),
-- czy gracz może sam importować swój backup (domyślnie: nie — tylko administrator).
+- format pliku `firebase/firebase-config.js`: obecnie `const firebaseConfig = {…}` (do wczytania
+  klasycznym `<script>` przed modułami aplikacji); ewentualnie `window.firebaseConfig` z polem klucza
+  App Check, jak w projekcie „Karty” — decyzja w Etapie 5, zmianę wprowadza właściciel,
+- region bazy (już wybrany przy tworzeniu — odnotować),
+- forma logowania — pytanie P4; czas pamiętania logowania i liczba miejsc na ręczne zapisy — pytanie
+  P6 (pytania w `PLAN_I_CHANGELOG.md`, rozdz. 5.1).

@@ -227,7 +227,11 @@ Patrz zakaz Z5.
    wskazuje identyfikatory paragrafów i odnośników, ale **nie zawiera i nie zmienia tekstu**.
 4. Zachowanie formatowania znaczącego: akapity, nagłówki/numery paragrafów, kursywa, pogrubienie,
    listy, wyrównanie (np. podpis autora wyrównany do prawej), grafiki w ich miejscu.
-5. Własna prezentacja: krój pisma, rozmiar, kolory, tryb ciemny, układ na ekranie telefonu.
+5. Własna prezentacja: wielkość liter, kolory, tryb ciemny, układ dopasowany do ekranu telefonu
+   (jak w czytnikach e-booków) — dla pewności z prośbą do Wydawcy o potwierdzenie (pytanie PW2 w
+   [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](../Analizy/Pytania_Do_Wydawcy_2026-10-29.md)).
+   **Krój pisma: wyłącznie oryginalny** (Old Standard); możliwość wyboru innego kroju przez gracza —
+   dopiero po zgodzie Wydawcy (pytanie PW1). [WŁAŚCICIEL] + [OSTROŻNOŚĆ]
 6. Normalizacja białych znaków **wyłącznie** w zakresie, w jakim i tak robi to HTML (sekwencja
    spacji/nowych linii → jedna spacja). Każdy inny znak — bez zmian (w tym twarde spacje, „”, –, …).
 7. Proporcjonalne przeskalowanie i kompresja grafik (okładka, logotypy ze stopki).
@@ -269,12 +273,15 @@ dokonuje gracz**. Tryb „ręczny” (jak na papierze) musi pozwalać grać bez 
 - [ ] tytuł, autor(zy), „Wydawnictwo Wielokrotnego Wyboru” / „portal Masz Wybór” (N1)
 - [ ] odnośnik do oficjalnej strony publikacji i do strony Wydawnictwa (N1)
 - [ ] **pełna stopka redakcyjna** w wiernym brzmieniu (N3)
-- [ ] informacja o źródle: wydawca, wydanie, ISBN, link do pobrania oryginału (N2)
+- [ ] informacja o źródle: wydawca, wydanie, ISBN, odnośniki do oryginałów na stronie Wydawnictwa (N2)
+- [ ] ostrzeżenie o treści ze strony Wydawnictwa — dosłownie, z informacją o źródle i odnośnikiem
+  (decyzja właściciela; patrz rozdz. 9 pkt 4)
 
 **Ekran gry**
 - [ ] tytuł i autor widoczne (np. w nagłówku)
 - [ ] dostęp do „O książce” z menu gry: stopka, okładka z podpisem, linki, informacja o zgodzie
 - [ ] tekst paragrafu 1:1, komunikaty aplikacji wizualnie oddzielone (rozdz. 5)
+- [ ] krój pisma oryginalny; wybór innego kroju tylko po zgodzie Wydawcy (rozdz. 5.1 pkt 5)
 
 **Cała aplikacja**
 - [ ] stopka aplikacji: projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy (N10)
@@ -313,19 +320,25 @@ dokonuje gracz**. Tryb „ręczny” (jak na papierze) musi pozwalać grać bez 
 
 ---
 
-## 9. Kwestie otwarte (do decyzji właściciela / ewentualnie do potwierdzenia z Wydawcą)
+## 9. Kwestie otwarte i rozstrzygnięte
 
-1. **Liczba graczy**: w prośbie „ok. 5 osób”, obecnie planowanych 6 — mieści się w opisie „wąskie
-   grono”, ale przy dalszym powiększaniu grona warto poinformować Wydawcę.
-2. **Plik EPUB w publicznym repozytorium** (`Pliki/`): zgoda dotyczy wykorzystania tekstu w
-   aplikacji i publicznego JSON; licencja w stopce dopuszcza „kopiowanie oraz dystrybucję bezpłatną
-   na własny użytek”, a Wydawca udostępnia plik bezpłatnie na swojej stronie. Do rozważenia:
-   zostawić (z pełną informacją o źródle) albo trzymać EPUB tylko lokalnie, a w repozytorium
-   zostawić sumę SHA-256 i link do pobrania.
-3. **Opis książki ze strony Wydawnictwa**: nie kopiujemy (Z12) — na karcie książki dajemy link.
-   Jeśli opis ma się pojawić w aplikacji, potrzebne jest potwierdzenie Wydawcy.
-4. **Ostrzeżenie o treści** podawane na stronie Wydawnictwa („Trigger warning: #Środki
-   psychoaktywne”): do decyzji, czy wyświetlać je przy karcie książki (jako informację o źródle,
-   z linkiem do strony).
-5. **Analiza zabezpieczeń z innego projektu** (wspomniana przez właściciela) nie została dołączona
-   — dotyczy Firebase, nie licencji; patrz [FIREBASE.md](FIREBASE.md).
+Pytania do Wydawcy zbieramy w [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](../Analizy/Pytania_Do_Wydawcy_2026-10-29.md).
+
+1. **Liczba graczy** — w prośbie „ok. 5 osób”, obecnie planowanych 6. ✅ Decyzja właściciela
+   (2026-10-29): po ukończeniu pierwszej książki i przygotowaniu kont dla 6 graczy właściciel poprosi
+   Wydawcę o kolejne tytuły i poinformuje o planie zwiększenia liczby graczy.
+2. **Plik EPUB w publicznym repozytorium** (`Pliki/`) — ✅ decyzja właściciela (2026-10-29):
+   **zostaje**; w aplikacji będą odnośniki do oryginałów na stronie Wydawnictwa. (Licencja w stopce
+   dopuszcza „kopiowanie oraz dystrybucję bezpłatną na własny użytek”, a Wydawca udostępnia plik
+   bezpłatnie na swojej stronie.)
+3. **Opis książki ze strony Wydawnictwa** — nie kopiujemy (Z12), na karcie książki dajemy odnośnik.
+   Wyświetlenie opisu w aplikacji wymaga potwierdzenia Wydawcy (propozycja pytania K2).
+4. **Ostrzeżenie o treści** ze strony Wydawnictwa („Trigger warning: #Środki psychoaktywne”) — ✅
+   decyzja właściciela (2026-10-29): **wyświetlamy na ekranie głównym**, przy wyborze książki,
+   dosłownie, z informacją, że pochodzi ze strony Wydawnictwa, i z odnośnikiem. Potwierdzenie
+   Wydawcy — propozycja pytania K1.
+5. **Analiza zabezpieczeń z innego projektu** — ✅ dostarczona 2026-10-29 (instrukcja App Check);
+   dotyczy Firebase, nie licencji — wnioski w [FIREBASE.md](FIREBASE.md), rozdz. 7.
+6. **Krój pisma i ustawienia wyświetlania** — decyzja właściciela (2026-10-29): krój jak w oryginale,
+   dwa przyciski zmiany wielkości liter. Zmiana kroju przez gracza — **dopiero po zgodzie Wydawcy**
+   (pytanie PW1); pozostałe ustawienia wyświetlania — z prośbą o potwierdzenie (pytanie PW2).

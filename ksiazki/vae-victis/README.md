@@ -28,11 +28,15 @@ stopka z EPUB**):
 - „Objętość: 217 stron, 372 paragrafy” — zgodne z analizą pliku (372 paragrafy).
 - „Wydanie I || 978-83-951564-0-3 || 2019” — stopka EPUB podaje: „Copyright © by Beniamin
   Muszyński, 2018.”, „Copyright © for this edition by Masz Wybór, 2025.” i „Wydanie (poprawione)”.
-- Wersje do pobrania: PDF, EPUB, MOBI (pliki `Vae-Victis-15-to-lecie-MW.*` na stronie publikacji).
+- Wersje do pobrania (odnośniki do oryginałów pokażemy w aplikacji — decyzja właściciela):
+  [PDF](https://masz-wybor.com.pl/wp-content/uploads/2025/11/Vae-Victis-15-to-lecie-MW.pdf),
+  [EPUB](https://masz-wybor.com.pl/wp-content/uploads/2025/11/Vae-Victis-15-to-lecie-MW.epub),
+  [MOBI](https://masz-wybor.com.pl/wp-content/uploads/2025/11/Vae-Victis-15-to-lecie-MW.mobi).
 - **Errata** „do wersji sprzed 24 listopada 2025”: paragraf 2 powinien prowadzić do 23, nie do 10.
   ✅ W pliku w repozytorium §2 prowadzi do §23 — to wersja poprawiona.
 - Strona Wydawnictwa podaje ostrzeżenie o treści („Trigger warning: #Środki psychoaktywne”) —
-  czy pokazywać je w aplikacji: decyzja właściciela (patrz LICENCJA_I_ZGODA.md, rozdz. 9).
+  ✅ decyzja właściciela: pokazujemy je na ekranie głównym przy wyborze książki, dosłownie i z
+  informacją o źródle (LICENCJA_I_ZGODA.md, rozdz. 9 pkt 4).
 
 ## 3. Plik źródłowy
 

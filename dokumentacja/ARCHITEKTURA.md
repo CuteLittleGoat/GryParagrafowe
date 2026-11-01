@@ -27,7 +27,7 @@
 | Interfejs | HTML5, CSS3 (zmienne CSS, motyw jasny/ciemny) | bez frameworków UI |
 | Logika | JavaScript ES2020+, moduły ES (`<script type="module">`) | bez bundlera |
 | Firebase | Firebase JS SDK (modułowy) z oficjalnego CDN `www.gstatic.com/firebasejs/<wersja>/…` | **przypięta wersja** |
-| Czcionka (opcjonalnie) | np. Old Standard TT (licencja OFL) — krój użyty w oryginale | przy hostowaniu lokalnym dołączyć plik licencji OFL |
+| Czcionka | **Old Standard TT** (licencja OFL) — krój użyty w oryginale (decyzja właściciela) | hostowana lokalnie w `aplikacja/assets/fonts/` z plikiem licencji OFL; wybór innego kroju przez gracza — dopiero po zgodzie Wydawcy (pytanie PW1) |
 | Narzędzia (konwersja, weryfikacja) | Python 3, **tylko biblioteka standardowa** | uruchamiane lokalnie / w CI |
 | Testy silnika | Node.js, wbudowany `node --test` | bez zależności |
 | Testy reguł Firebase | Firebase Emulator Suite + `@firebase/rules-unit-testing` | Etap 5 |
@@ -43,15 +43,15 @@ python3 -m http.server 8000
 
 | Ekran | Zawartość |
 |---|---|
-| **Ekran główny** | nazwa aplikacji; logowanie (login + hasło) albo „Zalogowano jako …” + Wyloguj; **katalog książek** — karta każdej książki: okładka z podpisem autorki ilustracji, tytuł, autor, wydawnictwo, odnośniki, przyciski „Kontynuuj” / „Nowa gra” / „O książce”, **pełna stopka redakcyjna**; stopka aplikacji (projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy) |
-| **Gra** | pasek: „Menu główne”, tytuł i autor, przyciski włączonych modułów (np. „Karta postaci”, „Kości”), „Notatki”, „Historia”, „Zapis/Wczytaj”, „Ustawienia”, „O książce”; **treść węzła 1:1** z klikalnymi odnośnikami w tekście; **panel przejść** — przyciski „Przejdź do N” generowane z odnośników węzła, ze stanem warunków; komunikaty mechaniki wizualnie oddzielone od tekstu |
+| **Ekran główny** | nazwa aplikacji; logowanie (wpisywany login — forma do doprecyzowania, P4) albo „Zalogowano jako …” + Wyloguj; **katalog książek** — karta każdej książki: okładka z podpisem autorki ilustracji, tytuł, autor, wydawnictwo, odnośniki (strona publikacji, strona Wydawnictwa, **oryginały do pobrania**), **ostrzeżenie o treści ze strony Wydawnictwa** (dosłownie, z informacją o źródle), przyciski „Kontynuuj” / „Nowa gra” / „O książce”, **pełna stopka redakcyjna**; stopka aplikacji (projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy) |
+| **Gra** | pasek: „Menu główne”, tytuł i autor, przyciski włączonych modułów (np. „Karta postaci”, „Kości”), „Notatki”, „Historia”, „Zapis/Wczytaj”, „Ustawienia”, „O książce”, **dwa przyciski wielkości liter (A− / A+)**; **treść węzła 1:1** z klikalnymi odnośnikami w tekście; **panel przejść** — przyciski „Przejdź do N” generowane z odnośników węzła, ze stanem warunków; przycisk **„Cofnij”** z dopiskiem „To Twoja gra :) Graj jak lubisz!”; komunikaty mechaniki wizualnie oddzielone od tekstu |
 | **Karta postaci** | panel składany z modułów książki (Informacje, statystyki, ekwipunek, liczniki…) + ręczna edycja (jak kartka papieru) |
 | **Kości** | rzut wg wyrażenia (`k6`, `2k6`, `k100`…), animacja, historia rzutów — tylko gdy książka ma moduł `dice` |
 | **Zapis / wczytanie** | autozapis + sloty ręczne |
 | **Zakończenie** | tekst zakończenia 1:1; lista „Odkryte zakończenia”; „Zagraj ponownie”, „Menu główne” |
 | **O książce** | okładka z podpisem, strona tytułowa, dedykacja, stopka, strona „od Wydawnictwa”, spis treści, odnośniki, informacja o zgodzie |
 | **Panel administratora** | tylko dla administratora: backup, odtwarzanie gracza z pliku, lista graczy z datą ostatniej aktywności |
-| **Ustawienia** | rozmiar tekstu, motyw, tryb mechaniki (automatyczny / ręczny) |
+| **Ustawienia** | wielkość liter, motyw, tryb mechaniki (automatyczny / ręczny); krój pisma — tylko oryginalny do czasu zgody Wydawcy (pytanie PW1) |
 
 Zasady prezentacji (z [LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md), rozdz. 5):
 - tekst książki renderowany wiernie (akapity, kursywa, pogrubienie, wyrównanie, listy, grafiki),
@@ -87,8 +87,13 @@ zmiana licznika, rzut kośćmi.
 **Neutralność**: silnik nie dopowiada reguł spoza tekstu. Jeśli kilka opcji spełnia warunki, a tekst
 nie wskazuje priorytetu — oznacza je wszystkie, wybiera gracz.
 
-**„Nowa gra”**: zeruje stan rozgrywki (węzeł, historia, odwiedziny, moduły), zachowuje odkryte
-zakończenia, zwiększa `playthrough`. Notatki — do decyzji (domyślnie zachowane).
+**„Cofnij”** (decyzja właściciela): przed każdym ruchem silnik zapamiętuje poprzedni stan rozgrywki
+(miejsce w książce, stan modułów, odwiedziny); przycisk „Cofnij” przywraca go krok po kroku — aż do
+początku bieżącej rozgrywki. Odkryte zakończenia pozostają odkryte. Dopisek przy przycisku: „To Twoja
+gra :) Graj jak lubisz!”.
+
+**„Nowa gra”**: zeruje stan rozgrywki (węzeł, historia, odwiedziny, moduły, „Cofnij”), zachowuje
+odkryte zakończenia, zwiększa `playthrough`. Notatki — do decyzji właściciela (pytanie P9).
 
 ## 5. Moduły mechaniki (`aplikacja/js/modules/`)
 

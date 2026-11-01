@@ -39,15 +39,16 @@ własnością ich autorów i Wydawcy i są wykorzystywane za zgodą, na warunkac
 ├── AGENTS.md              instrukcje dla agentów AI (i ludzi) — zasady, konwencje, workflow
 ├── PLAN_I_CHANGELOG.md    plan prac, stan bieżący, decyzje, otwarte pytania, changelog
 ├── Pliki/                 materiały źródłowe: oryginalny EPUB, dokument zgody Wydawcy (tylko do odczytu)
+├── Analizy/               raporty z analiz
 ├── dokumentacja/          dokumentacja projektu
 ├── aplikacja/             kod aplikacji (css, js: core / modules / ui / data / utils, assets)
 ├── ksiazki/               dane książek (katalog, treść 1:1, mechanika, grafiki)
-├── firebase/              reguły bezpieczeństwa i konfiguracja Firebase
+├── firebase/              konfiguracja webowa Firebase (firebase-config.js), docelowo reguły bezpieczeństwa
 ├── narzedzia/             skrypty konwersji EPUB → JSON i weryfikacji integralności
 └── testy/                 testy i dane testowe
 ```
 
-Szczegółowy opis katalogów: [`AGENTS.md`](AGENTS.md), rozdz. 3.
+Szczegółowy opis katalogów: [`AGENTS.md`](AGENTS.md), rozdział „Struktura repozytorium”.
 
 ## Dokumentacja
 
