@@ -13,21 +13,19 @@
 | Etap | **0 — Fundamenty: zakończony** (struktura repozytorium + dokumentacja) |
 | Aplikacja | jeszcze nie istnieje |
 | Książki | „Vae Victis” — zgoda ✅, plik źródłowy przeanalizowany, konwersja nierozpoczęta |
-| Firebase | projekt **`gryparagrafowe-e1fb3`** utworzony przez właściciela (2026-10-29); konfiguracja webowa w `firebase/firebase-config.js`; reguły w konsoli tymczasowo blokują cały dostęp; logowanie, App Check i reguły docelowe — Etap 5 ([dokumentacja/FIREBASE.md](dokumentacja/FIREBASE.md)) |
-| Instrukcje agentów | nowa treść `AGENTS.md` (zasady tworzenia analiz, zakaz modyfikacji `AGENTS.md` i `CLAUDE.md`) przekazana właścicielowi w czacie 2026-11-01 — **do podmiany przez właściciela** |
-| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1 (zmiana kroju pisma) i PW2 (ustawienia wyświetlania) przygotowane, **niewysłane** |
+| Firebase | projekt **`gryparagrafowe-e1fb3`** utworzony przez właściciela (2026-10-29); konfiguracja webowa w `firebase/firebase-config.js`; reguły w konsoli tymczasowo blokują cały dostęp; logowanie loginem i hasłem (konta `Player1` … `Player6`), App Check i reguły docelowe — Etap 5 ([dokumentacja/FIREBASE.md](dokumentacja/FIREBASE.md)) |
+| Instrukcje agentów | `AGENTS.md` podmieniony przez właściciela 2026-11-01 (zasady analiz, zakaz modyfikacji `AGENTS.md` i `CLAUDE.md`, pytania prostym językiem). Propozycja drobnej poprawki (nazwy pól logowania `PlayerName`/`PlayerPassword`, `saveId`) przekazana w czacie 2026-11-01 — **do decyzji właściciela** |
+| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1 (zmiana kroju pisma), PW2 (ustawienia wyświetlania), PW3 (niejednoznaczne wskazówki §170, §286, §289) przygotowane, **niewysłane** |
 | Blokery | brak |
 
 ## 2. Następne kroki
 
-1. **Właściciel**: podmienić `AGENTS.md` na nową treść przekazaną w czacie (2026-11-01) — agenci
-   nie modyfikują tego pliku.
-2. **Właściciel**: odpowiedzi na pytania P4, P6, P8 i P9 (rozdz. 5.1 — zapisane prostym językiem).
-   Nie blokują Etapu 1.
-3. **Właściciel**: wysłać Wydawcy pytania PW1–PW2 (szkic wiadomości w
+1. **Właściciel**: podmienić `AGENTS.md` na poprawioną treść z czatu (2026-11-01) — drobna zmiana w
+   rozdz. 7 i 8 (nazwy pól logowania). Agenci nie modyfikują tego pliku.
+2. **Właściciel**: wysłać Wydawcy pytania PW1–PW3 (szkic wiadomości w
    [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md));
    najlepiej przed Etapem 2 (wyświetlanie tekstu).
-4. **Etap 1**: skrypt konwersji EPUB → `tresc.json` + `stopka.json` i weryfikacja integralności
+3. **Etap 1**: skrypt konwersji EPUB → `tresc.json` + `stopka.json` i weryfikacja integralności
    (W1–W8) — wg [dokumentacja/KONWERSJA.md](dokumentacja/KONWERSJA.md) i karty
    [ksiazki/vae-victis/README.md](ksiazki/vae-victis/README.md) (pułapki konwersji, rozdz. 8).
 
@@ -67,8 +65,9 @@
 - [ ] Karta postaci (Informacje + ręczna edycja), notatki, historia, „Odkryte zakończenia”
 - [ ] Przycisk **„Cofnij”** — krok po kroku, do początku bieżącej rozgrywki — z dopiskiem „To Twoja gra :) Graj jak lubisz!” (P5)
 - [ ] `ksiazki/vae-victis/mechanika.json` — szkic automatyczny + przegląd ręczny każdego powiązania
-- [ ] Walidacja M1–M5; decyzja w sprawie niejednoznacznych warunków (P8)
-- [ ] Sloty zapisu (lokalnie)
+- [ ] Walidacja M1–M5; niejednoznaczne warunki (§170, §286, §289): obie drogi dostępne, wybiera gracz (P8; do czasu odpowiedzi Wydawcy na PW3)
+- [ ] 3 miejsca na ręczny zapis w każdej książce (lokalnie) (P6)
+- [ ] „Nowa gra”: pytanie, czy zostawić dotychczasowe notatki, czy je wyczyścić (P9)
 - [ ] Testy jednostkowe silnika (`node --test`) i scenariusze ręczne (§9, §91, §98, §161, zakończenia)
 
 ### Etap 4 — Moduły ogólne (dla kolejnych książek)
@@ -85,8 +84,8 @@
 - [ ] Format `firebase/firebase-config.js` i pole klucza App Check (P13)
 - [ ] `firebase/firestore.rules` + testy reguł w emulatorze (wszystkie role i przypadki brzegowe)
 - [ ] App Check wg FIREBASE.md, rozdz. 7.2 (reCAPTCHA Enterprise, TTL 1 dzień, obserwacja → Enforce); opcjonalnie ograniczenia klucza API
-- [ ] `FirestoreAdapter`: logowanie hasłem (sesje), profil, autozapis z kontrolą `revision`, sloty, pamięć offline
-- [ ] Konta 6 graczy + uprawnienia administratora (procedury z FIREBASE.md, rozdz. 9)
+- [ ] `FirestoreAdapter`: logowanie loginem i hasłem (sesje ważne 30 dni), profil, autozapis z kontrolą `revision`, ręczne zapisy, pamięć offline
+- [ ] Konta `Player1` … `Player6` (pola `PlayerName`, `PlayerPassword`), `appConfig/public.playerCount` = 6, uprawnienia administratora (FIREBASE.md, rozdz. 9)
 
 ### Etap 6 — Kopie zapasowe i odtwarzanie
 - [ ] Panel administratora (lista graczy, ostatnia aktywność)
@@ -133,8 +132,12 @@
 | D20 | 2026-10-29 | Ostrzeżenie o treści ze strony Wydawnictwa — na ekranie głównym przy książce, dosłownie i z informacją o źródle | decyzja właściciela (P7) |
 | D21 | 2026-10-29 | Odtwarzanie danych gracza z kopii zapasowej — tylko administrator | decyzja właściciela (P10) |
 | D22 | 2026-10-29 | Krój pisma jak w oryginale (Old Standard TT); dwa przyciski rozmiaru tekstu; wybór innego kroju (np. dla osób z dysleksją) — dopiero po zgodzie Wydawcy (pytanie PW1) | decyzja właściciela (P11) |
-| D24 | 2026-10-29 | Pytania do Wydawcy zbieramy w `Analizy/Pytania_Do_Wydawcy_2026-10-29.md` (plik uzupełniany na bieżąco; o wysłaniu decyduje właściciel) | wymóg właściciela |
 | D23 | 2026-10-29 | Pytania do właściciela — prostym językiem: bez żargonu, z przykładem, wariantami i rekomendacją | wymóg właściciela |
+| D24 | 2026-10-29 | Pytania do Wydawcy zbieramy w `Analizy/Pytania_Do_Wydawcy_2026-10-29.md` (plik uzupełniany na bieżąco; o wysłaniu decyduje właściciel) | wymóg właściciela |
+| D25 | 2026-11-01 | Logowanie loginem i hasłem: konta `Player1` … `Player6`; w `secrets/PlayerN` pola `PlayerName` (login) i `PlayerPassword` (hasło); liczba kont w `appConfig/public.playerCount`; postęp przypisany do konta, nie do loginu | decyzja właściciela (P4) |
+| D26 | 2026-11-01 | 3 miejsca na ręczny zapis w każdej książce (`save1` … `save3`); logowanie pamiętane 30 dni | decyzja właściciela (P6) |
+| D27 | 2026-11-01 | Niejednoznaczne warunki (§170, §286, §289): na razie obie drogi dostępne, wybiera gracz; pytanie do Wydawcy (PW3) | decyzja właściciela (P8) |
+| D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
 
 ## 5. Otwarte pytania
 
@@ -145,28 +148,44 @@
 
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
-| P4 | **Jak gracz ma się logować?** (doprecyzowanie odpowiedzi z 2026-10-29: „wpisywany login”) | ★ A) dwa pola: login (np. „ania”) i hasło — jak na większości stron; B) jedno pole: tajny kod, jak PIN — aplikacja sama rozpozna gracza; prościej, ale każdy kod musi być inny i trudny do zgadnięcia (kto zgadnie cudzy kod, zagra jako ta osoba) |
-| P6 | **a) Ręczne zapisy.** Gra zapisuje się sama po każdym ruchu, a „Cofnij” pozwala wracać. Czy gracz ma mieć dodatkowo miejsca na ręczny zapis „na boku” (np. przed ważną decyzją, żeby wrócić tam nawet po wielu ruchach)? Ile takich miejsc w jednej książce? **b) Pamiętanie logowania.** Jak długo aplikacja ma pamiętać zalogowanie na danym telefonie lub komputerze, żeby nie trzeba było za każdym razem wpisywać hasła? | a) ★ tak, 3 miejsca; b) ★ 30 dni — gracz może się wylogować sam, a zmiana hasła przez administratora wylogowuje od razu |
-| P8 | **Niejasne wskazówki w trzech paragrafach** (§170, §286, §289). Przy dosłownym czytaniu gracz pasuje do dwóch dróg naraz. Przykład z §170: „Brak #34 lub Brak #35 – część A tego paragrafu” oraz „#34 lub #35 – część B tego paragrafu” — kto ma tylko Informację #34, pasuje do obu linijek. Co ma zrobić aplikacja? (Tekst książki zawsze zostaje bez zmian.) | ★ A) pokazać obie drogi jako dostępne — wybiera gracz; B) podpowiadać jedną, najbardziej prawdopodobną drogę (tu: masz którąkolwiek z tych Informacji → część B, nie masz żadnej → część A); C) zapytać autora i zrobić tak, jak wyjaśni |
-| P9 | **„Nowa gra” a notatki.** Gdy gracz zaczyna książkę od nowa, aplikacja czyści jego postęp: miejsce w książce, zebrane Informacje i historię ruchów. Lista odkrytych zakończeń zostaje. Co z notatkami, które gracz sam sobie zapisał (jak na kartce)? | ★ A) zostają; B) są czyszczone razem z postępem; C) aplikacja za każdym razem pyta gracza |
 | P13 | **Plik z ustawieniami Firebase** (będzie potrzebne w Etapie 5). Trzeba będzie dopisać do niego jeden dodatkowy klucz zabezpieczenia (App Check) — jest jawny, to nie hasło. Czy agent może wtedy sam zmienić ten plik, czy wolisz zrobić to ręcznie według instrukcji? | odpowiedź potrzebna dopiero przed Etapem 5 |
 
 ### 5.2. Rozstrzygnięte
 
-| # | Pytanie | Odpowiedź właściciela (2026-10-29) |
+| # | Pytanie | Odpowiedź właściciela |
 |---|---|---|
-| P1 | Analiza zabezpieczeń z innego projektu | dostarczona (instrukcja App Check z projektu „Karty”); wnioski w FIREBASE.md, rozdz. 7 |
-| P2 | Czy oryginalny EPUB zostaje w repozytorium? | **zostaje**; w aplikacji będą odnośniki do oryginałów na stronie Wydawnictwa |
-| P3 | Gdzie publikujemy stronę? | **GitHub Pages** |
-| P5 | Czy można cofać ruchy? | **tak** — przycisk „Cofnij” z dopiskiem w stylu „To Twoja gra :) Graj jak lubisz!” |
-| P7 | Czy pokazywać ostrzeżenie o treści ze strony Wydawnictwa? | **tak** — na ekranie głównym, tam gdzie gracze wybierają książki |
-| P10 | Kto może odtwarzać dane gracza z kopii zapasowej? | **tylko administrator** |
-| P11 | Krój pisma | **jak w oryginale** (Old Standard TT); **dwa przyciski zmiany rozmiaru tekstu**; później do rozważenia zmiana kroju (np. na przyjazny dla osób z dysleksją) — najpierw pytanie do Wydawcy (PW1) |
-| P12 | 6 graczy wobec „ok. 5 osób” w prośbie do Wydawcy | po ukończeniu pierwszej książki i przygotowaniu kont dla 6 graczy właściciel poprosi Wydawcę o kolejne tytuły i poinformuje o planie zwiększenia liczby graczy |
+| P1 | Analiza zabezpieczeń z innego projektu | (2026-10-29) dostarczona (instrukcja App Check z projektu „Karty”); wnioski w FIREBASE.md, rozdz. 7 |
+| P2 | Czy oryginalny EPUB zostaje w repozytorium? | (2026-10-29) **zostaje**; w aplikacji będą odnośniki do oryginałów na stronie Wydawnictwa |
+| P3 | Gdzie publikujemy stronę? | (2026-10-29) **GitHub Pages** |
+| P4 | Jak gracz ma się logować? | (2026-11-01) **login i hasło** — oba ustawia administrator w Firebase jako dwa osobne pola; przyjęto konta `Player1` … `Player6` z polami `PlayerName` (login) i `PlayerPassword` (hasło) |
+| P5 | Czy można cofać ruchy? | (2026-10-29) **tak** — przycisk „Cofnij” z dopiskiem w stylu „To Twoja gra :) Graj jak lubisz!” |
+| P6 | Ręczne zapisy i pamiętanie logowania | (2026-11-01) zgodnie z rekomendacją: **3 miejsca na ręczny zapis** w każdej książce; logowanie pamiętane **30 dni** |
+| P7 | Czy pokazywać ostrzeżenie o treści ze strony Wydawnictwa? | (2026-10-29) **tak** — na ekranie głównym, tam gdzie gracze wybierają książki |
+| P8 | Niejasne wskazówki w §170, §286, §289 | (2026-11-01) **na razie wariant A** — obie drogi dostępne, wybiera gracz; dodatkowo pytanie do Wydawcy (PW3) |
+| P9 | „Nowa gra” a notatki | (2026-11-01) aplikacja **pyta gracza**, czy zostawić dotychczasowe notatki, czy je wyczyścić |
+| P10 | Kto może odtwarzać dane gracza z kopii zapasowej? | (2026-10-29) **tylko administrator** |
+| P11 | Krój pisma | (2026-10-29) **jak w oryginale** (Old Standard TT); **dwa przyciski zmiany rozmiaru tekstu**; później do rozważenia zmiana kroju (np. na przyjazny dla osób z dysleksją) — najpierw pytanie do Wydawcy (PW1) |
+| P12 | 6 graczy wobec „ok. 5 osób” w prośbie do Wydawcy | (2026-10-29) po ukończeniu pierwszej książki i przygotowaniu kont dla 6 graczy właściciel poprosi Wydawcę o kolejne tytuły i poinformuje o planie zwiększenia liczby graczy |
 
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-01 — Logowanie loginem i hasłem; odpowiedzi P4, P6, P8, P9; pytanie PW3
+
+**Zmieniono**
+- (właściciel) `AGENTS.md` — nowa treść: zasady tworzenia analiz, zakaz modyfikacji `AGENTS.md` i
+  `CLAUDE.md`, pytania prostym językiem.
+- `dokumentacja/FIREBASE.md`: konta `Player1` … `Player6` z polami `PlayerName` i `PlayerPassword`,
+  logowanie przez kolejne sprawdzanie kont, `appConfig/public.playerCount`, sesje z loginem, szkic
+  reguł, 3 miejsca na ręczny zapis (`save1` … `save3`), kopie zapasowe, procedury administratora.
+- `dokumentacja/ARCHITEKTURA.md`: logowanie loginem i hasłem, 3 ręczne zapisy, „Nowa gra” z
+  pytaniem o notatki, niejednoznaczne warunki (obie drogi dostępne).
+- `Analizy/Pytania_Do_Wydawcy_2026-10-29.md`: nowe pytanie PW3 (§170, §286, §289), szkic wiadomości
+  z trzema pytaniami.
+- Karta „Vae Victis” (pułapki konwersji, pkt 7) i ten plik: decyzje D25–D28, pytania P4, P6, P8, P9
+  rozstrzygnięte.
+- Propozycja poprawionej treści `AGENTS.md` (nazwy pól logowania) przekazana właścicielowi w czacie.
 
 ### 2026-11-01 — Firebase: projekt i konfiguracja; zasady analiz; odpowiedzi właściciela
 

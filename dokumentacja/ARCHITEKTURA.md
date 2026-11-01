@@ -43,11 +43,11 @@ python3 -m http.server 8000
 
 | Ekran | Zawartość |
 |---|---|
-| **Ekran główny** | nazwa aplikacji; logowanie (wpisywany login — forma do doprecyzowania, P4) albo „Zalogowano jako …” + Wyloguj; **katalog książek** — karta każdej książki: okładka z podpisem autorki ilustracji, tytuł, autor, wydawnictwo, odnośniki (strona publikacji, strona Wydawnictwa, **oryginały do pobrania**), **ostrzeżenie o treści ze strony Wydawnictwa** (dosłownie, z informacją o źródle), przyciski „Kontynuuj” / „Nowa gra” / „O książce”, **pełna stopka redakcyjna**; stopka aplikacji (projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy) |
+| **Ekran główny** | nazwa aplikacji; logowanie (**login i hasło** — ustawiane przez administratora w Firebase) albo „Zalogowano jako …” + Wyloguj; **katalog książek** — karta każdej książki: okładka z podpisem autorki ilustracji, tytuł, autor, wydawnictwo, odnośniki (strona publikacji, strona Wydawnictwa, **oryginały do pobrania**), **ostrzeżenie o treści ze strony Wydawnictwa** (dosłownie, z informacją o źródle), przyciski „Kontynuuj” / „Nowa gra” / „O książce”, **pełna stopka redakcyjna**; stopka aplikacji (projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy) |
 | **Gra** | pasek: „Menu główne”, tytuł i autor, przyciski włączonych modułów (np. „Karta postaci”, „Kości”), „Notatki”, „Historia”, „Zapis/Wczytaj”, „Ustawienia”, „O książce”, **dwa przyciski wielkości liter (A− / A+)**; **treść węzła 1:1** z klikalnymi odnośnikami w tekście; **panel przejść** — przyciski „Przejdź do N” generowane z odnośników węzła, ze stanem warunków; przycisk **„Cofnij”** z dopiskiem „To Twoja gra :) Graj jak lubisz!”; komunikaty mechaniki wizualnie oddzielone od tekstu |
 | **Karta postaci** | panel składany z modułów książki (Informacje, statystyki, ekwipunek, liczniki…) + ręczna edycja (jak kartka papieru) |
 | **Kości** | rzut wg wyrażenia (`k6`, `2k6`, `k100`…), animacja, historia rzutów — tylko gdy książka ma moduł `dice` |
-| **Zapis / wczytanie** | autozapis + sloty ręczne |
+| **Zapis / wczytanie** | autozapis po każdym ruchu + **3 miejsca na ręczny zapis** w każdej książce (decyzja właściciela) |
 | **Zakończenie** | tekst zakończenia 1:1; lista „Odkryte zakończenia”; „Zagraj ponownie”, „Menu główne” |
 | **O książce** | okładka z podpisem, strona tytułowa, dedykacja, stopka, strona „od Wydawnictwa”, spis treści, odnośniki, informacja o zgodzie |
 | **Panel administratora** | tylko dla administratora: backup, odtwarzanie gracza z pliku, lista graczy z datą ostatniej aktywności |
@@ -93,7 +93,11 @@ początku bieżącej rozgrywki. Odkryte zakończenia pozostają odkryte. Dopisek
 gra :) Graj jak lubisz!”.
 
 **„Nowa gra”**: zeruje stan rozgrywki (węzeł, historia, odwiedziny, moduły, „Cofnij”), zachowuje
-odkryte zakończenia, zwiększa `playthrough`. Notatki — do decyzji właściciela (pytanie P9).
+odkryte zakończenia, zwiększa `playthrough`. Notatki: aplikacja **pyta gracza**, czy zostawić
+dotychczasowe notatki, czy je wyczyścić (decyzja właściciela).
+
+**Niejednoznaczne warunki** (np. §170, §286, §289 w „Vae Victis”): na razie obie drogi są dostępne i
+wybiera gracz (decyzja właściciela); wyjaśnienie zapytaliśmy u Wydawcy (pytanie PW3).
 
 ## 5. Moduły mechaniki (`aplikacja/js/modules/`)
 
@@ -132,10 +136,10 @@ Interfejs adaptera zapisu (wspólny dla obu implementacji):
 
 | Metoda | Opis |
 |---|---|
-| `login(playerId, password)` / `logout()` / `currentPlayer()` | sesja gracza |
+| `login(login, password)` / `logout()` / `currentPlayer()` | sesja gracza (login i hasło → konto `PlayerN`) |
 | `loadProfile()` / `saveProfile(profile)` | profil i ustawienia |
 | `loadBookState(bookId)` / `saveBookState(bookId, state)` | autozapis (z kontrolą `revision`) |
-| `listSaves(bookId)` / `saveSlot(bookId, slotId, data)` / `loadSlot(bookId, slotId)` / `deleteSlot(…)` | sloty |
+| `listSaves(bookId)` / `saveToSlot(bookId, saveId, data)` / `loadSave(bookId, saveId)` / `deleteSave(…)` | 3 miejsca na ręczny zapis (`save1` … `save3`) |
 | `exportBackup(scope)` / `restoreBackup(file, options)` | kopie zapasowe (restore — tylko admin) |
 
 - `LocalAdapter` — localStorage, **wyłącznie do rozwoju i testów lokalnych** (bez prawdziwego

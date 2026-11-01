@@ -16,11 +16,12 @@
    (zakaz Z10 w [LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md)).
 2. Wielu graczy (obecnie **6**, liczba nieograniczona strukturą), wiele książek, każdy gracz
    niezależny — osobne dokumenty, osobne hasła, brak wglądu w dane innych.
-3. Uwierzytelnianie **hasłem przechowywanym w Firestore** (pole `PlayerPassword`), które
-   administrator zmienia ręcznie w konsoli Firebase. Hasło **nigdy** nie jest odczytywane przez
-   aplikację, nie trafia do backupu, logów ani localStorage.
+3. Logowanie **loginem i hasłem przechowywanymi w Firestore** (decyzja właściciela, P4): konta
+   graczy `Player1` … `Player6`, a w dokumencie każdego konta dwa pola — `PlayerName` (login) i
+   `PlayerPassword` (hasło). Administrator ustawia i zmienia je ręcznie w konsoli Firebase. Aplikacja
+   **nigdy** nie odczytuje ich z bazy; hasło nie trafia do backupu, logów ani localStorage.
 4. Modyfikacja bazy **wyłącznie przez aplikację**: Firebase App Check + reguły bezpieczeństwa +
-   sesje powiązane z hasłem. Administrator ma dodatkowo dostęp przez konsolę Firebase.
+   sesje powiązane z loginem i hasłem. Administrator ma dodatkowo dostęp przez konsolę Firebase.
 5. Rozwiązanie działa na **bezpłatnym planie Spark** — nie wymaga Cloud Functions.
    (Wariant z Cloud Functions — rozdz. 10.)
 
@@ -34,7 +35,7 @@
 | Usługa | Zastosowanie | Uwagi |
 |---|---|---|
 | Cloud Firestore | dane graczy | baza utworzona 2026-10-29; region wybrany przy tworzeniu (**nie do zmiany**) — do odnotowania |
-| Firebase Authentication | dostawca **Anonimowy** — każda przeglądarka dostaje `uid` | logowanie hasłem realizuje dokument sesji (rozdz. 5) |
+| Firebase Authentication | dostawca **Anonimowy** — każda przeglądarka dostaje `uid` | logowanie loginem i hasłem realizuje dokument sesji (rozdz. 5) |
 | Firebase App Check | dopuszcza tylko żądania z prawdziwej aplikacji | **reCAPTCHA Enterprise** — działa na planie Spark (rozdz. 7) |
 | Hosting | **GitHub Pages** (`cutelittlegoat.github.io`) — decyzja właściciela | stronę publikujemy dopiero z działającym logowaniem (Etap 7) |
 | Google Analytics | **nie włączać** | prywatność graczy, zakaz analityki marketingowej (Z5) |
@@ -42,11 +43,11 @@
 ## 3. Struktura danych (Firestore)
 
 ```
-appConfig/public                                    ustawienia globalne (opcjonalne)
-players/{playerId}                                  profil gracza
+appConfig/public                                    ustawienia globalne, m.in. liczba kont graczy
+players/{playerId}                                  profil gracza (playerId = Player1 … Player6)
 players/{playerId}/books/{bookId}                   stan gry w danej książce (autozapis)
-players/{playerId}/books/{bookId}/saves/{slotId}    ręczne zapisy (sloty)
-secrets/{playerId}                                  hasło gracza: PlayerPassword
+players/{playerId}/books/{bookId}/saves/{saveId}    ręczne zapisy (save1 … save3)
+secrets/{playerId}                                  login i hasło gracza: PlayerName, PlayerPassword
 admins/{playerId}                                   znacznik administratora
 sessions/{authUid}                                  sesje logowania (techniczne)
 ```
@@ -56,7 +57,7 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 | `appConfig/public` | każdy klient aplikacji | tylko konsola | nie (konfiguracja) |
 | `players/{playerId}` | ten gracz, admin | ten gracz, admin | **tak** |
 | `players/{playerId}/books/{bookId}` | ten gracz, admin | ten gracz, admin | **tak** |
-| `…/books/{bookId}/saves/{slotId}` | ten gracz, admin | ten gracz, admin | **tak** |
+| `…/books/{bookId}/saves/{saveId}` | ten gracz, admin | ten gracz, admin | **tak** |
 | `secrets/{playerId}` | **nikt** (tylko reguły) | tylko konsola | **NIE — nigdy** |
 | `admins/{playerId}` | **nikt** (tylko reguły) | tylko konsola | nie |
 | `sessions/{authUid}` | **nikt** (tylko reguły) | właściciel sesji (logowanie/wylogowanie) | **NIE** |
@@ -65,9 +66,9 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 
 | Identyfikator | Format | Uwagi |
 |---|---|---|
-| `playerId` | `^[a-z0-9][a-z0-9_-]{1,31}$` (np. `ania`, `gracz-2`) | login gracza; nadaje administrator; **niezmienny** |
+| `playerId` | `Player1` … `Player6` (wzorzec `^Player[1-9][0-9]?$`) | stały identyfikator konta; tworzy administrator; **niezmienny**. Login gracza to osobne pole `PlayerName` — można go zmienić bez przenoszenia danych |
 | `bookId` | nazwa katalogu w `ksiazki/` (np. `vae-victis`) | **niezmienny** — zmiana = utrata powiązania zapisów |
-| `slotId` | `slot1`, `slot2`, … | liczba miejsc na ręczne zapisy do ustalenia (pytanie P6; propozycja: 3) |
+| `saveId` | `save1`, `save2`, `save3` | 3 miejsca na ręczny zapis w każdej książce (decyzja właściciela, P6) |
 | ID węzła (paragrafu) | np. `p1`, `p91A`, `p98-2`, `prolog` | bez kropek i ukośników (klucze map w Firestore) — patrz [FORMAT_KSIAZKI.md](FORMAT_KSIAZKI.md) |
 
 ### 3.2. Dokumenty — pola
@@ -77,7 +78,7 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 | Pole | Typ | Opis |
 |---|---|---|
 | `schemaVersion` | number | wersja schematu dokumentu (obecnie 1) |
-| `displayName` | string | nazwa wyświetlana (pseudonim — bez danych osobowych) |
+| `displayName` | string | login gracza zapisywany przez aplikację przy logowaniu (do panelu administratora i kopii zapasowych) |
 | `settings` | map | ustawienia gracza: `theme` (`auto`/`light`/`dark`), `fontScale` (number), `mechanicsMode` (`auto`/`manual`) |
 | `createdAt`, `updatedAt` | timestamp | |
 
@@ -100,7 +101,7 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 | `revision` | number | licznik zapisów — wykrywanie konfliktu przy grze na dwóch urządzeniach |
 | `startedAt`, `updatedAt` | timestamp | |
 
-**`…/saves/{slotId}`** — ręczny zapis
+**`…/saves/{saveId}`** — ręczny zapis (3 miejsca: `save1` … `save3`)
 
 | Pole | Typ | Opis |
 |---|---|---|
@@ -109,11 +110,15 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 | `state` | map | kopia pól rozgrywki: `currentNode`, `history`, `visits`, `modules`, `notes`, `playthrough`, `contentVersion` |
 | `createdAt` | timestamp | |
 
-**`secrets/{playerId}`**
+**`secrets/{playerId}`** — dokumenty `secrets/Player1` … `secrets/Player6`
 
 | Pole | Typ | Opis |
 |---|---|---|
-| `PlayerPassword` | string | hasło gracza — **edytowane ręcznie w konsoli** |
+| `PlayerName` | string | login gracza — **ustawiany ręcznie w konsoli**; musi być inny niż loginy pozostałych graczy |
+| `PlayerPassword` | string | hasło gracza — **ustawiane ręcznie w konsoli** |
+
+Nazwy pól `PlayerName` i `PlayerPassword` ustalił właściciel — **nie zmieniać** (wyjątek od zasady
+`camelCase`).
 
 **`admins/{playerId}`** — dokument może być pusty; samo istnienie nadaje uprawnienia administratora
 graczowi o tym `playerId` (administrator loguje się swoim kontem gracza).
@@ -122,14 +127,16 @@ graczowi o tym `playerId` (administrator loguje się swoim kontem gracza).
 
 | Pole | Typ | Opis |
 |---|---|---|
-| `playerId` | string | zalogowany gracz |
+| `playerId` | string | konto zalogowanego gracza (`Player1` … `Player6`) |
+| `login` | string | kopia wpisanego loginu — reguły porównują ją z aktualnym `PlayerName` |
 | `password` | string | kopia wpisanego hasła — reguły porównują ją z aktualnym `PlayerPassword` |
-| `createdAt` | timestamp | czas logowania (`serverTimestamp()`); sesja ważna 30 dni (do potwierdzenia — pytanie P6) |
+| `createdAt` | timestamp | czas logowania (`serverTimestamp()`); logowanie pamiętane 30 dni (decyzja właściciela, P6) |
 
-**`appConfig/public`** (opcjonalnie)
+**`appConfig/public`**
 
 | Pole | Typ | Opis |
 |---|---|---|
+| `playerCount` | number | liczba kont graczy (`Player1` … `PlayerN`); przy logowaniu aplikacja sprawdza kolejno te konta — obecnie **6** |
 | `maintenance` | boolean | tryb serwisowy — aplikacja pokazuje komunikat |
 | `disabledBooks` | array&lt;string&gt; | awaryjne wyłączenie książek (np. wycofanie zgody — N9) |
 
@@ -181,25 +188,28 @@ Dla „Vae Victis” stan modułów to wyłącznie `codewords` (Informacje #1–
   nowa sesja). Ten sam gracz na kilku urządzeniach: każde ma własną sesję; konflikt zapisów
   wykrywany po polu `revision` (aplikacja ostrzega, zanim nadpisze nowszy stan).
 
-## 5. Logowanie hasłem — przepływ (wariant A, plan Spark)
-
-> **Do potwierdzenia przez właściciela (pytanie P4):** czy gracz loguje się dwoma polami (login +
-> hasło — opis poniżej), czy jednym tajnym kodem (jak PIN). Po odpowiedzi dostosujemy rozdz. 3 i 5.
+## 5. Logowanie loginem i hasłem — przepływ (wariant A, plan Spark)
 
 1. Start aplikacji → `signInAnonymously()` — przeglądarka otrzymuje `uid` (bez danych osobowych).
-2. Gracz wpisuje **login** (`playerId`) i **hasło** → aplikacja zapisuje dokument
-   `sessions/{uid}` = `{ playerId, password, createdAt: serverTimestamp() }`.
-3. Reguły dopuszczają ten zapis **tylko wtedy, gdy hasło jest zgodne** z
-   `secrets/{playerId}.PlayerPassword` (reguły odczytują `secrets` funkcją `get()`; klient nie ma
-   do tej kolekcji żadnego dostępu). Odmowa = komunikat „Nieprawidłowy login lub hasło”.
-4. Każdy odczyt i zapis danych gracza jest sprawdzany przez reguły: sesja istnieje, nie wygasła
-   (30 dni) i **hasło w sesji nadal zgadza się z aktualnym `PlayerPassword`**. Dzięki temu
-   **zmiana hasła w konsoli natychmiast unieważnia wszystkie sesje** tego gracza.
-5. Wylogowanie: usunięcie `sessions/{uid}` + `signOut()`.
+2. Gracz wpisuje **login** i **hasło**. Aplikacja odczytuje `appConfig/public.playerCount` (np. 6) i
+   sprawdza kolejno konta `Player1` … `Player6`: dla każdego próbuje zapisać dokument
+   `sessions/{uid}` = `{ playerId, login, password, createdAt: serverTimestamp() }`.
+3. Reguły dopuszczają ten zapis **tylko wtedy, gdy login i hasło zgadzają się** z polami
+   `PlayerName` i `PlayerPassword` w `secrets/{playerId}` (reguły odczytują `secrets` funkcją `get()`;
+   aplikacja nie ma do tej kolekcji żadnego dostępu). Pierwszy udany zapis = zalogowanie. Jeśli
+   żadne konto nie pasuje — komunikat „Nieprawidłowy login lub hasło”.
+4. Po zalogowaniu aplikacja zapisuje login w `players/{playerId}.displayName` (do panelu
+   administratora i kopii zapasowych).
+5. Każdy odczyt i zapis danych gracza jest sprawdzany przez reguły: sesja istnieje, nie wygasła
+   (30 dni) i **login oraz hasło z sesji nadal zgadzają się z polami w `secrets`**. Dzięki temu
+   **zmiana loginu lub hasła w konsoli natychmiast wylogowuje** tego gracza ze wszystkich urządzeń.
+6. Wylogowanie: usunięcie `sessions/{uid}` + `signOut()`.
 
 Właściwości i ograniczenia (świadomie zaakceptowane):
 
-- Hasło jest przechowywane jawnym tekstem w `secrets` i `sessions` (wymóg: ręczna edycja w
+- Loginy muszą być różne (przy dwóch kontach z tym samym loginem i hasłem wygrywa pierwsze z nich).
+- Logowanie to co najwyżej tyle prób zapisu, ile jest kont (6) — przy tej liczbie graczy pomijalne.
+- Login i hasło są przechowywane jawnym tekstem w `secrets` i `sessions` (wymóg: ręczna edycja w
   konsoli). Widzi je tylko administrator projektu Firebase. **Gracze nie powinni używać haseł z
   innych serwisów**; zalecane hasła losowe, min. 12 znaków.
 - Reguły nie ograniczają liczby prób logowania. Ochrona: App Check (tylko prawdziwa aplikacja) +
@@ -241,7 +251,7 @@ service cloud.firestore {
       return request.auth != null;
     }
     function validPlayerId(id) {
-      return id is string && id.matches('^[a-z0-9][a-z0-9_-]{1,31}$');
+      return id is string && id.matches('^Player[1-9][0-9]?$');
     }
     function secretPath(playerId) {
       return /databases/$(database)/documents/secrets/$(playerId);
@@ -249,17 +259,21 @@ service cloud.firestore {
     function sessionPath() {
       return /databases/$(database)/documents/sessions/$(request.auth.uid);
     }
-    function passwordMatches(playerId, password) {
+    // Login i hasło zgadzają się z polami PlayerName i PlayerPassword konta
+    function credentialsMatch(playerId, login, password) {
       return validPlayerId(playerId)
         && exists(secretPath(playerId))
+        && get(secretPath(playerId)).data.PlayerName == login
         && get(secretPath(playerId)).data.PlayerPassword == password;
     }
-    // Sesja istnieje, nie wygasła, a hasło w sesji nadal zgadza się z PlayerPassword
+    // Sesja istnieje, nie wygasła, a login i hasło w sesji nadal zgadzają się z kontem
     function sessionValid() {
       return signedIn()
         && exists(sessionPath())
         && request.time < get(sessionPath()).data.createdAt + duration.value(30, 'd')
-        && passwordMatches(get(sessionPath()).data.playerId, get(sessionPath()).data.password);
+        && credentialsMatch(get(sessionPath()).data.playerId,
+                            get(sessionPath()).data.login,
+                            get(sessionPath()).data.password);
     }
     function currentPlayer() {
       return get(sessionPath()).data.playerId;
@@ -291,10 +305,13 @@ service cloud.firestore {
     match /sessions/{uid} {
       allow create, update: if signedIn()
         && request.auth.uid == uid
-        && request.resource.data.keys().hasOnly(['playerId', 'password', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['playerId', 'login', 'password', 'createdAt'])
+        && request.resource.data.login is string
         && request.resource.data.password is string
         && request.resource.data.createdAt == request.time
-        && passwordMatches(request.resource.data.playerId, request.resource.data.password);
+        && credentialsMatch(request.resource.data.playerId,
+                            request.resource.data.login,
+                            request.resource.data.password);
       allow delete: if signedIn() && request.auth.uid == uid;
       allow read: if false;
     }
@@ -312,10 +329,10 @@ service cloud.firestore {
           && request.resource.data.bookId == bookId;      // + walidacja schematu
         allow delete: if canAccess(playerId);
 
-        match /saves/{slotId} {
+        match /saves/{saveId} {
           allow read: if canAccess(playerId);
           allow create, update: if canAccess(playerId)
-            && slotId.matches('^slot[1-5]$');
+            && saveId.matches('^save[1-3]$');
           allow delete: if canAccess(playerId);
         }
       }
@@ -326,7 +343,7 @@ service cloud.firestore {
 
 Do uzupełnienia w Etapie 5: walidacja schematu dokumentów (`keys().hasOnly(...)`, typy pól,
 limity długości tablic i tekstów), testy reguł dla wszystkich ról (anonim bez sesji, gracz,
-inny gracz, admin, sesja wygasła, hasło zmienione).
+inny gracz, admin, sesja wygasła, login lub hasło zmienione w konsoli).
 
 ## 7. App Check i dodatkowe zabezpieczenia
 
@@ -384,8 +401,9 @@ aplikacja korzysta z bazy z docelowymi regułami.
 
 ### 8.1. Zakres
 
-- **W backupie**: `players/{playerId}` + wszystkie `books/{bookId}` + wszystkie `saves/{slotId}`.
-- **Nigdy w backupie**: `secrets` (hasła), `sessions`, `admins`, a także **treść książek**.
+- **W backupie**: `players/{playerId}` + wszystkie `books/{bookId}` + wszystkie `saves/{saveId}`.
+- **Nigdy w backupie**: `secrets` (loginy i hasła), `sessions`, `admins`, a także **treść książek**.
+  Dla rozpoznania graczy plik zawiera `displayName` (login zapisany przy ostatnim logowaniu).
 
 ### 8.2. Format pliku (JSON)
 
@@ -394,16 +412,16 @@ aplikacja korzysta z bazy z docelowymi regułami.
   "format": "gry-paragrafowe-backup",
   "formatVersion": 1,
   "createdAt": "2026-10-29T12:00:00.000Z",
-  "createdBy": "gracz1",
+  "createdBy": "Player1",
   "appVersion": "0.6.0",
   "scope": "all",
   "players": {
-    "gracz1": {
-      "profile": { "schemaVersion": 1, "displayName": "Gracz 1", "settings": {}, "createdAt": "…", "updatedAt": "…" },
+    "Player2": {
+      "profile": { "schemaVersion": 1, "displayName": "ania", "settings": {}, "createdAt": "…", "updatedAt": "…" },
       "books": {
         "vae-victis": {
           "state": { "schemaVersion": 1, "bookId": "vae-victis", "currentNode": "p22", "…": "…" },
-          "saves": { "slot1": { "schemaVersion": 1, "label": "Przed pogrzebem", "state": {}, "createdAt": "…" } }
+          "saves": { "save1": { "schemaVersion": 1, "label": "Przed pogrzebem", "state": {}, "createdAt": "…" } }
         }
       }
     }
@@ -428,14 +446,14 @@ aplikacja korzysta z bazy z docelowymi regułami.
 
 1. Wybór pliku → **walidacja**: `format`, `formatVersion` (starsze wersje migrowane), schemat
    dokumentów, znane `bookId`, poprawne `playerId`.
-2. **Podgląd**: gracze, książki i sloty w pliku, daty, porównanie z bieżącym stanem w bazie.
+2. **Podgląd**: gracze, książki i ręczne zapisy w pliku, daty, porównanie z bieżącym stanem w bazie.
 3. Wybór gracza (graczy) i zakresu (cały gracz / jedna książka).
 4. Tryb **„Zastąp”** (domyślny): stan gracza staje się dokładnie taki jak w pliku — dokumenty
-   nieobecne w pliku (np. późniejsze sloty) są usuwane.
-5. Potwierdzenie przez wpisanie `playerId` → zapis wsadowy (batch, ≤ 500 operacji na partię) →
-   raport.
-6. Hasła nie są odtwarzane: jeśli brakuje `secrets/{playerId}`, administrator najpierw tworzy je
-   ręcznie w konsoli (rozdz. 9).
+   nieobecne w pliku (np. późniejsze ręczne zapisy) są usuwane.
+5. Potwierdzenie przez wpisanie `playerId` (np. `Player2`) → zapis wsadowy (batch, ≤ 500 operacji
+   na partię) → raport.
+6. Loginy i hasła nie są odtwarzane: jeśli brakuje `secrets/{playerId}`, administrator najpierw
+   tworzy go ręcznie w konsoli (rozdz. 9).
 
 Zalecenia: backup przed każdą zmianą reguł, schematu lub wersji aplikacji oraz okresowo (np. raz
 w tygodniu); pliki przechowywać lokalnie lub na prywatnym dysku — **nie w repozytorium**.
@@ -453,26 +471,33 @@ Opcjonalnie (plan Blaze): zarządzany eksport Firestore / odtwarzanie do punktu 
 5. ⬜ Firestore → Reguły → wkleić `firebase/firestore.rules` → Opublikuj (Etap 5; alternatywnie
    `firebase deploy --only firestore:rules`).
 6. ⬜ App Check — rozdz. 7.2; opcjonalnie ograniczenia klucza API — rozdz. 7.3.
-7. ⬜ Dokumenty `secrets/{playerId}` dla graczy i `admins/{playerId}` dla administratora (można je
-   zakładać już teraz — konsola działa niezależnie od reguł).
+7. ⬜ Konta graczy: dokumenty `secrets/Player1` … `secrets/Player6` (pola `PlayerName` i
+   `PlayerPassword`), dokument `appConfig/public` z polem `playerCount` = 6 oraz `admins/{playerId}`
+   dla administratora. Można je zakładać już teraz — konsola działa niezależnie od reguł.
 
-**Dodanie gracza**
-1. Firestore → kolekcja `secrets` → „Dodaj dokument” → ID dokumentu = login gracza (np. `ania`).
-2. Pole `PlayerPassword` (typ: string) = hasło.
-3. (Opcjonalnie) `players/ania` z polem `displayName` — inaczej profil powstanie przy pierwszym
-   logowaniu.
-4. Przekazać graczowi login i hasło.
+**Dodanie gracza** (np. siódmego)
+1. Firestore → kolekcja `secrets` → „Dodaj dokument” → ID dokumentu: `Player7`.
+2. Pole `PlayerName` (typ: string) = login, np. `ania` — inny niż loginy pozostałych graczy.
+3. Pole `PlayerPassword` (typ: string) = hasło.
+4. `appConfig/public` → pole `playerCount` zwiększyć do 7.
+5. Przekazać graczowi login i hasło. Profil `players/Player7` powstanie przy pierwszym logowaniu.
 
-**Zmiana hasła** — edycja `secrets/{playerId}.PlayerPassword`. Wszystkie sesje gracza tracą ważność
-natychmiast; gracz loguje się ponownie nowym hasłem.
+**Zmiana loginu lub hasła** — edycja pola `PlayerName` lub `PlayerPassword` w `secrets/{playerId}`.
+Gracz zostaje od razu wylogowany ze wszystkich urządzeń i loguje się ponownie nowymi danymi. Jego
+postęp w grach zostaje (jest przypisany do konta `PlayerN`, nie do loginu).
 
-**Uprawnienia administratora** — utworzenie (pustego) dokumentu `admins/{playerId}`; odebranie —
-usunięcie dokumentu.
+**Uprawnienia administratora** — utworzenie (pustego) dokumentu `admins/{playerId}` (np.
+`admins/Player1`); odebranie — usunięcie dokumentu.
 
 **Wylogowanie wszystkich** — usunięcie dokumentów w kolekcji `sessions`.
 
-**Usunięcie gracza** — najpierw backup; potem usunięcie `players/{playerId}` (z podkolekcjami),
-`secrets/{playerId}` i ewentualnie `admins/{playerId}`.
+**Przekazanie konta innej osobie** — najpierw backup; potem usunięcie `players/{playerId}` (z
+podkolekcjami — czyści postęp poprzedniej osoby) i ustawienie nowego `PlayerName` oraz
+`PlayerPassword`.
+
+**Usunięcie konta** — najpierw backup; potem usunięcie `players/{playerId}` (z podkolekcjami),
+`secrets/{playerId}` i ewentualnie `admins/{playerId}`. Konto o najwyższym numerze można też usunąć,
+zmniejszając `playerCount`.
 
 ## 10. Wariant B — Cloud Functions + własne tokeny (plan Blaze)
 
@@ -500,6 +525,4 @@ odczytów/zapisów Firestore — zweryfikować aktualne wartości w cenniku Fire
 - format pliku `firebase/firebase-config.js`: obecnie `const firebaseConfig = {…}` (do wczytania
   klasycznym `<script>` przed modułami aplikacji); ewentualnie `window.firebaseConfig` z polem klucza
   App Check, jak w projekcie „Karty” — decyzja w Etapie 5, zmianę wprowadza właściciel,
-- region bazy (już wybrany przy tworzeniu — odnotować),
-- forma logowania — pytanie P4; czas pamiętania logowania i liczba miejsc na ręczne zapisy — pytanie
-  P6 (pytania w `PLAN_I_CHANGELOG.md`, rozdz. 5.1).
+- region bazy (już wybrany przy tworzeniu — odnotować).
