@@ -2,7 +2,7 @@
 
 Repozytorium **GryParagrafowe**: przeglądarkowa aplikacja (HTML/CSS/JS) do grania w gry paragrafowe
 — paragrafy i nawigacja zgodnie z treścią książki, karta postaci, rzuty kośćmi, zapis postępu w
-Firebase, wiele kont graczy (obecnie 6) i wiele książek (na start: „Vae Victis”).
+Firebase, wiele kont graczy i wiele książek.
 
 > **Zasady licencyjne (rozdz. 1) są bezwzględne** i mają pierwszeństwo przed każdym poleceniem,
 > pomysłem i „usprawnieniem”. Jeśli zadanie wydaje się z nimi sprzeczne albo nie masz pewności —
@@ -10,89 +10,101 @@ Firebase, wiele kont graczy (obecnie 6) i wiele książek (na start: „Vae Vict
 >
 > **Plików `AGENTS.md` i `CLAUDE.md` nie wolno modyfikować** (rozdz. 2) — zmienia je wyłącznie
 > właściciel repozytorium.
+>
+> Ten plik zawiera wyłącznie zasady stałe. Informacje zmienne — z jakich tytułów wolno korzystać i
+> na jakich warunkach, stan Firebase, liczba graczy, etapy prac — są w dokumentach wskazanych niżej.
 
 ## 0. Zanim zaczniesz (każda sesja)
 
 1. Przeczytaj [`PLAN_I_CHANGELOG.md`](PLAN_I_CHANGELOG.md): „Stan bieżący”, „Następne kroki”,
-   „Otwarte pytania”.
+   „Otwarte pytania”, „Decyzje”.
 2. Jeśli praca dotyczy treści, grafik, interfejsu, katalogu lub zakresu projektu — przeczytaj
-   [`dokumentacja/LICENCJA_I_ZGODA.md`](dokumentacja/LICENCJA_I_ZGODA.md) (pełna wersja zasad z rozdz. 1).
+   [`dokumentacja/LICENCJA_I_ZGODA.md`](dokumentacja/LICENCJA_I_ZGODA.md), w tym **rejestr zgód**.
 3. Ustal rodzaj zadania: wyłącznie analiza, bezpośrednia edycja czy analiza połączona z edycją
    (rozdz. 4).
 4. Dokumenty tematyczne wg potrzeby: [ARCHITEKTURA](dokumentacja/ARCHITEKTURA.md),
    [FIREBASE](dokumentacja/FIREBASE.md), [FORMAT_KSIAZKI](dokumentacja/FORMAT_KSIAZKI.md),
-   [KONWERSJA](dokumentacja/KONWERSJA.md), karta książki `ksiazki/<id>/README.md`.
+   [KONWERSJA](dokumentacja/KONWERSJA.md), karta książki `ksiazki/<bookId>/README.md`.
 5. Po zakończeniu pracy **zaktualizuj `PLAN_I_CHANGELOG.md`** (stan, checkboxy, wpis w changelogu),
    żeby kolejna sesja mogła wznowić pracę.
 
 ## 1. ⛔ Zasady licencyjne — BEZWZGLĘDNE
 
-Podstawa: [`Pliki/Zgoda Vae Victis.pdf`](Pliki/Zgoda%20Vae%20Victis.pdf) (korespondencja z
-Wydawnictwem Wielokrotnego Wyboru, 27–29.10.2026) oraz sekcja „LICENCJA” w stopce publikacji:
-„Niniejsza publikacja nie może być rozpowszechniana, adaptowana, modyfikowana ani odsprzedawana bez
-pisemnej zgody Wydawcy.”
+Treści książek, okładki i inne materiały wydawców są chronione prawem autorskim, a publikacje
+zwykle zawierają licencję zabraniającą ich rozpowszechniania, adaptowania i modyfikowania bez
+pisemnej zgody wydawcy. Dlatego w projekcie korzystamy wyłącznie z tytułów, na które wydawca
+(właściciel praw) udzielił pisemnej zgody.
 
-### 1.1. Zakres zgody
+### 1.1. Rejestr zgód — jedyne źródło informacji o tytułach
 
-- ✅ **Wyłącznie „Vae Victis”** (Beniamin Muszyński) — zgoda Wydawcy z 29.10.2026, **„na ten moment”**.
-- ✅ Konwersja EPUB/PDF → JSON, publicznie w repozytorium; podział na paragrafy, przejścia, technika
-  mechaniki; karta postaci, ekwipunek, statystyki, rzuty kośćmi, zapis postępu; kod i animacje
-  tworzone z pomocą AI (ujawnione Wydawcy).
-- ✅ Okładka — **tylko z informacją o autorce ilustracji (Justyna Bzdoń)**.
-- ✅ Ikony/piktogramy funkcji interfejsu (kość, karta postaci itp.).
-- ⛔ **„Wagabunda”** (Krzysztof Firkowski) — **odmowa** (tytuł z dzieloną licencją).
-- ⛔ **Każdy inny tytuł** — tylko po osobnej, pisemnej zgodzie Wydawcy, zarchiwizowanej w `Pliki/`.
-- Projekt **wewnętrzny**: wąskie grono (w prośbie „ok. 5 osób”, obecnie 6 graczy), **niekomercyjny**.
+- Rejestr zgód w [`dokumentacja/LICENCJA_I_ZGODA.md`](dokumentacja/LICENCJA_I_ZGODA.md) określa dla
+  każdego tytułu: status (zgoda / odmowa), datę, zakres i **warunki szczegółowe**. Ten sam dokument
+  zawiera dosłowne cytaty kluczowych zdań zgód.
+- **Brak wpisu = brak zgody.** Tytułu bez zgody nie dodajemy do repozytorium w żadnej formie —
+  nawet roboczo, nawet na osobnej gałęzi. Tytułów z odmową nie używamy w żadnej formie (tekst,
+  okładka, opis, wzmianka w aplikacji).
+- Przy pracy nad książką stosuj **zasady ogólne z tego rozdziału oraz warunki szczegółowe jej
+  wpisu**. Warunki szczegółowe mogą zasady ogólne zaostrzać lub doprecyzowywać; złagodzenie zasady
+  ogólnej wymaga pisemnej zgody wydawcy i zmiany tego pliku przez właściciela.
+- Rejestr zgód jest **wiążącym zapisem warunków w repozytorium**. Oryginały zgód i korespondencji
+  przechowuje właściciel — nie muszą znajdować się w repozytorium.
+- Wpisy w rejestrze (nowa zgoda, zmiana, wycofanie, odmowa) dodaje się i zmienia **wyłącznie na
+  polecenie właściciela**, na podstawie odpowiedzi wydawcy i z dosłownymi cytatami.
 
-### 1.2. NAKAZY
+### 1.2. NAKAZY (dla każdego tytułu)
 
-1. **Atrybucja przy każdej grze**: tytuł, autor(zy), informacja o Wydawnictwie Wielokrotnego Wyboru /
-   portalu Masz Wybór, odnośnik do oficjalnej strony publikacji i do strony Wydawnictwa.
-2. **Wszystkie informacje o źródle tekstu** (wydawca, wydanie, ISBN, plik, strona do pobrania).
-3. **Pełna stopka redakcyjna, dosłownie — „od copyrightingu po numer ISBN”** — na ekranie głównym
-   przy danej książce i w „O książce”. Generowana skryptem z EPUB, nigdy przepisywana ręcznie.
-4. **Okładka zawsze z podpisem autorki ilustracji** (Justyna Bzdoń).
-5. **Treść 1:1** — konwersja służy wyłącznie podziałowi, przejściom i technicznej obsłudze mechaniki.
+1. **Atrybucja przy każdej grze**: tytuł, autor(zy), wydawca, odnośnik do oficjalnej strony
+   publikacji i do strony wydawcy.
+2. **Wszystkie informacje o źródle tekstu** (wydawca, wydanie, ISBN, plik źródłowy, strona do
+   pobrania oryginału).
+3. **Pełna stopka redakcyjna, dosłownie** (cała — np. od informacji o prawach autorskich po numer
+   ISBN) — na ekranie głównym przy danej książce i w „O książce”. Generowana skryptem z pliku
+   źródłowego, nigdy przepisywana ręcznie.
+4. **Okładka i inne grafiki z publikacji** — tylko jeśli zgoda na to pozwala i zawsze z podpisem
+   autora (autorki) grafiki.
+5. **Treść 1:1** — konwersja służy wyłącznie podziałowi na paragrafy, przejściom i technicznej
+   obsłudze mechaniki.
 6. **Niekomercyjność** i **wąskie grono**: gra tylko dla zalogowanych graczy (konta zakłada
    administrator), bez trybu gościa, bez otwartej rejestracji.
-7. Dokumenty zgód zostają w `Pliki/` (nie usuwać, nie zmieniać); rejestr zgód w
-   `dokumentacja/LICENCJA_I_ZGODA.md`.
-8. Zgoda jest „na ten moment” — przy jej wycofaniu: wyłączyć książkę i usunąć jej treść z repozytorium.
-9. Stopka aplikacji: **projekt nieoficjalny, niekomercyjny; treść za zgodą Wydawcy**.
-10. Odnośniki zewnętrzne z treści zostają linkami zewnętrznymi (np. gra „Jestem” — **nie ma zgody**).
+7. **Wycofanie lub zmiana zgody**: na polecenie właściciela — wyłączyć książkę w aplikacji, usunąć
+   jej treść i grafiki z repozytorium, zaktualizować rejestr zgód.
+8. Stopka aplikacji: **projekt nieoficjalny, niekomercyjny; treści wykorzystane za zgodą wydawców**.
+9. Odnośniki zewnętrzne z treści zostają linkami zewnętrznymi; materiałów, do których prowadzą (np.
+   innych gier), nie dodajemy bez osobnej zgody.
 
-### 1.3. ZAKAZY
+### 1.3. ZAKAZY (dla każdego tytułu)
 
 1. **Żadnych zmian w treści książki** — nie poprawiaj literówek, ortografii, interpunkcji, stylu
-   (nawet oczywistych błędów, np. „cześci A”), nie zmieniaj znaków typograficznych („”, –, …, twarde
+   (nawet oczywistych błędów oryginału), nie zmieniaj znaków typograficznych („”, –, …, twarde
    spacje), nie skracaj, nie łącz, nie przestawiaj, nie pomijaj fragmentów (także stron wstępnych),
    nie dopisuj, nie tłumacz, nie parafrazuj wyborów na przyciskach, nie „naprawiaj” odnośników.
 2. **Żadnych grafik generowanych przez AI** (ilustracje, portrety, sceny, mapy, tła, warianty
    okładki, AI-upscaling). Ikony tylko jako piktogramy funkcji — nie przedstawiają treści książki.
 3. **Żadnych treści generowanych przez AI z tekstu książki**: streszczeń, podpowiedzi fabularnych,
    tłumaczeń, lektora/TTS, czatów z postaciami, quizów.
-4. **Żadnych nowych tytułów bez pisemnej zgody** — nawet roboczo; „Wagabunda” w żadnej formie.
+4. **Żadnych tytułów bez wpisu „zgoda” w rejestrze zgód** (rozdz. 1.1).
 5. **Żadnej komercjalizacji**: reklamy, płatności, subskrypcje, zbiórki/darowizny na projekt,
    afiliacja, analityka marketingowa (Google Analytics wyłączony).
-6. **Żadnych modyfikacji okładki i logotypów** (kadrowanie, filtry, rozmycie, nakładki, użycie jako
+6. **Żadnych modyfikacji okładek i logotypów** (kadrowanie, filtry, rozmycie, nakładki, użycie jako
    tła) — wolno tylko proporcjonalnie skalować i kompresować.
 7. **Nie usuwaj, nie skracaj, nie ukrywaj** stopki i atrybucji.
-8. Logotypów Wydawnictwa/portalu używamy **tylko w odwzorowaniu stopki** (nie jako logo aplikacji,
-   favicon, ikona PWA).
+8. Logotypów wydawców używamy **tylko w odwzorowaniu stopki** (nie jako logo aplikacji, favicon,
+   ikona PWA).
 9. **Żadnego eksportu treści** (pobierz/drukuj książkę, PDF/EPUB/TXT, publiczne API z treścią).
 10. **Treść książek nie trafia do Firebase** ani do backupów — Firebase przechowuje tylko stan graczy.
-11. **Bez zmiany zakresu projektu** bez nowej zgody (szeroka publiczność, sklepy z aplikacjami).
-12. **Nie kopiuj innych materiałów ze strony Wydawnictwa** (opisy, recenzje, grafiki innych tytułów)
-    — linkuj.
+11. **Bez zmiany zakresu projektu** bez nowej zgody (szeroka publiczność, sklepy z aplikacjami,
+    grono odbiorców większe niż opisane w zgodzie).
+12. **Nie kopiuj innych materiałów ze stron wydawców** (opisy, recenzje, grafiki innych tytułów) bez
+    zgody — linkuj.
 
 ### 1.4. Gdy masz wątpliwość
 
 Nie rób. Opisz wątpliwość w `PLAN_I_CHANGELOG.md` → „Otwarte pytania” i zapytaj właściciela.
 Lepiej zadać jedno pytanie za dużo niż naruszyć warunki zgody.
 
-Jeśli wątpliwość dotyczy tego, na co zgodził się Wydawca, dopisz propozycję pytania w sekcji
-„Propozycje kolejnych pytań” pliku `Analizy/Pytania_Do_Wydawcy_2026-10-29.md`. O wysłaniu pytań
-decyduje właściciel.
+Jeśli wątpliwość dotyczy tego, na co zgodził się wydawca, dopisz propozycję pytania do rejestru
+pytań do wydawcy w folderze `Analizy/` (plik `Pytania_Do_Wydawcy_*.md`, sekcja „Propozycje kolejnych
+pytań”). O wysłaniu pytań decyduje właściciel.
 
 ## 2. 🔒 Zakaz modyfikacji plików AGENTS.md i CLAUDE.md
 
@@ -110,18 +122,21 @@ decyduje właściciel.
 
 ## 3. Praca z treścią książek
 
-- `ksiazki/<id>/tresc.json` i `stopka.json` są **generowane skryptem** z pliku w `Pliki/` —
-  **nigdy nie edytuj ich ręcznie**. Zmiana = poprawka skryptu + ponowne wygenerowanie + weryfikacja.
+- `ksiazki/<bookId>/tresc.json` i `stopka.json` są **generowane skryptem** z pliku źródłowego w
+  `Pliki/` — **nigdy nie edytuj ich ręcznie**. Zmiana = poprawka skryptu + ponowne wygenerowanie +
+  weryfikacja.
 - Przed commitem plików książki uruchom weryfikację integralności (W1–W8) i walidację mechaniki
   (M1–M5) — [`dokumentacja/KONWERSJA.md`](dokumentacja/KONWERSJA.md).
 - `mechanika.json` **nie zawiera tekstu książki** — tylko identyfikatory, liczby, etykiety techniczne.
-- Błędy w treści (literówki, podejrzane odnośniki) **zgłaszaj** w `ksiazki/<id>/README.md`, nie poprawiaj.
+- Błędy w treści (literówki, podejrzane odnośniki) **zgłaszaj** w `ksiazki/<bookId>/README.md`, nie
+  poprawiaj.
 - **Neutralność silnika**: nie dopowiadaj reguł spoza tekstu; gdy kilka opcji pasuje, a tekst nie
   rozstrzyga — oznacz wszystkie, wybiera gracz. W razie niejednoznaczności opcji nie blokuj.
 - Komunikaty aplikacji są **wizualnie oddzielone** od tekstu książki; przyciski nawigacji mają
   etykiety techniczne („Przejdź do 22”).
-- Pliki źródłowe w `Pliki/` są **tylko do odczytu** — nic w tym folderze nie zapisuj, nie zmieniaj,
-  nie usuwaj i nie przenoś.
+- `Pliki/` jest dla agentów **tylko do odczytu** — nic w tym folderze nie zapisuj, nie zmieniaj, nie
+  usuwaj i nie przenoś. Jego zawartością zarządza właściciel (może np. usunąć dokumenty zgód po
+  zakończeniu prac).
 - Tekst wyciągnięty z plików źródłowych, obrazy stron i inne pliki robocze zapisuj **poza
   repozytorium** (np. w katalogu tymczasowym), chyba że właściciel wskaże inne miejsce.
 
@@ -137,7 +152,7 @@ Przed rozpoczęciem pracy ustal, czy polecenie dotyczy:
 ### 4.2. Wyłącznie analiza
 
 Za zadanie analityczne uznaje się m.in.:
-- sprawdzenie zgodności aplikacji, danych lub planów z warunkami zgody Wydawcy i licencją,
+- sprawdzenie zgodności aplikacji, danych lub planów z warunkami zgód i licencjami,
 - porównanie treści JSON z plikiem źródłowym (EPUB/PDF) albo dwóch wersji danych książki,
 - analizę pliku źródłowego (EPUB, PDF) lub innego materiału,
 - analizę mechaniki książki (np. przed przygotowaniem `mechanika.json`),
@@ -146,7 +161,7 @@ Za zadanie analityczne uznaje się m.in.:
 - wskazanie błędów bez nanoszenia zmian w analizowanym pliku.
 
 Jeżeli użytkownik prosi wyłącznie o analizę i nie poleca zmiany konkretnego pliku, zapisz wyniki w
-nowym pliku w folderze `Analizy/`, np. `Analizy/Zgodnosc_Ekranu_Glownego_Ze_Zgoda_Wydawcy_2026-11-05.md`.
+nowym pliku w folderze `Analizy/`, np. `Analizy/Zgodnosc_Ekranu_Glownego_Ze_Zgoda_Wydawcy_RRRR-MM-DD.md`.
 
 ### 4.3. Bezpośrednia edycja
 
@@ -184,8 +199,8 @@ Każdy nowy plik w folderze `Analizy/` musi zawierać:
 - Analizy podlegają zasadom licencyjnym (rozdz. 1): fragmenty treści książki cytuj dosłownie i tylko
   w zakresie potrzebnym do wskazania miejsca (z numerem paragrafu); nie zapisuj „poprawionych” wersji
   tekstu książki — błędy w treści opisuj jako zgłoszenia (rozdz. 3).
-- Wyjątek: `Analizy/Pytania_Do_Wydawcy_2026-10-29.md` to plik prowadzony na bieżąco — rejestr pytań
-  do Wydawcy, uzupełniany wraz z postępem prac (zasady w samym pliku).
+- Wyjątek: rejestr pytań do wydawcy (`Analizy/Pytania_Do_Wydawcy_*.md`) jest prowadzony na bieżąco i
+  uzupełniany wraz z postępem prac (zasady w samym pliku).
 
 ## 5. Struktura repozytorium
 
@@ -195,10 +210,10 @@ Każdy nowy plik w folderze `Analizy/` musi zawierać:
 | `README.md` | opis projektu, atrybucja, spis dokumentacji |
 | `PLAN_I_CHANGELOG.md` | plan prac, stan bieżący, decyzje, otwarte pytania, changelog |
 | `.gitignore` | m.in. sekrety, backupy danych graczy |
-| `index.html` | (Etap 2) punkt wejścia aplikacji — ekran główny |
-| `Pliki/` | materiały źródłowe: oryginał EPUB od Wydawcy, dokument zgody — **tylko do odczytu** |
-| `Analizy/` | raporty z analiz (rozdz. 4); `Pytania_Do_Wydawcy_2026-10-29.md` — bieżący rejestr pytań do Wydawcy |
-| `dokumentacja/` | dokumentacja projektu: LICENCJA_I_ZGODA, ARCHITEKTURA, FIREBASE, FORMAT_KSIAZKI, KONWERSJA |
+| `index.html` | punkt wejścia aplikacji (ekran główny) |
+| `Pliki/` | materiały źródłowe: oryginały publikacji (źródło konwersji), ewentualnie dokumenty zgód — **tylko do odczytu** |
+| `Analizy/` | raporty z analiz (rozdz. 4) i rejestr pytań do wydawcy (`Pytania_Do_Wydawcy_*.md`) |
+| `dokumentacja/` | dokumentacja projektu: `LICENCJA_I_ZGODA.md` (zasady licencyjne i **rejestr zgód**), `ARCHITEKTURA.md`, `FIREBASE.md`, `FORMAT_KSIAZKI.md`, `KONWERSJA.md` |
 | `aplikacja/css/` | style (motyw jasny/ciemny, responsywność) |
 | `aplikacja/js/core/` | silnik gry: ładowanie książki, nawigacja, warunki, efekty, zakończenia |
 | `aplikacja/js/modules/` | moduły mechaniki: codewords, stats, dice, inventory, counters, combat… |
@@ -207,12 +222,12 @@ Każdy nowy plik w folderze `Analizy/` musi zawierać:
 | `aplikacja/js/utils/` | funkcje pomocnicze |
 | `aplikacja/assets/icons/` | piktogramy funkcji (z odnotowaną licencją) — **nie ilustracje AI** |
 | `aplikacja/assets/fonts/` | fonty (z plikami licencji, np. OFL) |
-| `ksiazki/katalog.json` | (Etap 1) lista książek w aplikacji |
-| `ksiazki/<bookId>/` | karta książki (`README.md`); od Etapu 1 także `ksiazka.json`, `tresc.json`, `stopka.json`, `mechanika.json` |
-| `ksiazki/<bookId>/grafiki/` | okładka i logotypy ze stopki (tylko skalowanie/kompresja) |
+| `ksiazki/katalog.json` | lista książek w aplikacji |
+| `ksiazki/<bookId>/` | karta książki (`README.md`), manifest (`ksiazka.json`), treść (`tresc.json`, `stopka.json`), mechanika (`mechanika.json`) |
+| `ksiazki/<bookId>/grafiki/` | okładka i grafiki z publikacji (tylko skalowanie/kompresja) |
 | `firebase/firebase-config.js` | konfiguracja webowa Firebase (jawna, nie jest sekretem) — zmiany tylko na polecenie właściciela |
-| `firebase/` | (Etap 5) także `firestore.rules`, `firebase.json`, testy reguł |
-| `narzedzia/konwersja/` | skrypty EPUB → JSON (Python, biblioteka standardowa) |
+| `firebase/` | także reguły bezpieczeństwa (`firestore.rules`), konfiguracja i testy reguł |
+| `narzedzia/konwersja/` | skrypty konwersji publikacji do JSON (Python, biblioteka standardowa) |
 | `narzedzia/weryfikacja/` | weryfikacja integralności treści i walidacja mechaniki |
 | `testy/` | testy silnika, reguł, E2E |
 | `testy/dane/` | dane testowe (np. fikcyjna książka testowa — własna treść) |
@@ -223,37 +238,35 @@ Każdy nowy plik w folderze `Analizy/` musi zawierać:
 
 ## 6. Architektura w skrócie
 
-- Statyczna aplikacja: HTML + CSS + JavaScript (moduły ES), **bez frameworków i bundlera**;
-  hosting: GitHub Pages (decyzja właściciela; publikacja dopiero z działającym logowaniem).
+- Statyczna aplikacja: HTML + CSS + JavaScript (moduły ES), **bez frameworków i bundlera**; hosting
+  statyczny (wybór — `PLAN_I_CHANGELOG.md`, „Decyzje”); publikacja strony dopiero z działającym
+  logowaniem.
 - Trzy warstwy: **treść** (1:1, generowana) → **mechanika** (metadane bez tekstu) → **stan gracza**
   (Firebase; do czasu wdrożenia — localStorage przez ten sam interfejs adaptera).
-- **Mechanika modułowa**: każda książka deklaruje moduły w `mechanika.json` (np. „Vae Victis”: tylko
-  Informacje + odwiedziny + zakończenia + notatki; inne książki mogą mieć HP, kości, ekwipunek).
-  Interfejs pokazuje tylko włączone moduły.
+- **Mechanika modułowa**: każda książka deklaruje moduły w `mechanika.json` (np. jedna używa tylko
+  oznaczeń zdobywanych w trakcie gry, inna — HP, kości i ekwipunku). Interfejs pokazuje tylko
+  włączone moduły.
 - Tryby mechaniki: automatyczny i ręczny („jak na papierze”).
 - Szczegóły: [`dokumentacja/ARCHITEKTURA.md`](dokumentacja/ARCHITEKTURA.md).
 
 ## 7. Firebase i bezpieczeństwo
 
-- Projekt Firebase: **`gryparagrafowe-e1fb3`**; konfiguracja webowa: `firebase/firebase-config.js`
-  (jawna — nie jest sekretem). Zmiany w tym pliku tylko na polecenie właściciela; **nigdy** nie
-  dopisuj do niego tokenu debug App Check.
-- Reguły Firestore w konsoli: obecnie **tymczasowa blokada całego dostępu** (od 2026-10-29).
-  Docelowe reguły przygotowujemy, gdy aplikacja zacznie tworzyć dokumenty (Etap 5); publikuje je
-  właściciel.
-- Struktura: `players/{playerId}` → `books/{bookId}` → `saves/{slotId}`; hasła w
-  `secrets/{playerId}.PlayerPassword` (edytuje tylko administrator w konsoli); `admins/{playerId}`;
-  `sessions/{authUid}`. Szczegóły: [`dokumentacja/FIREBASE.md`](dokumentacja/FIREBASE.md).
-- Dostęp do bazy **wyłącznie przez aplikację**: App Check (reCAPTCHA Enterprise na bezpłatnym planie
-  Spark, domena `cutelittlegoat.github.io`, TTL 1 dzień, wymuszenie po okresie obserwacji) + reguły
-  bezpieczeństwa + sesje weryfikowane hasłem. Zmiana reguł = aktualizacja dokumentacji i testów
-  reguł; wdrożenie wykonuje właściciel.
+- Aktualny stan (projekt, reguły w konsoli, App Check, konta graczy) i model danych:
+  [`dokumentacja/FIREBASE.md`](dokumentacja/FIREBASE.md).
+- `firebase/firebase-config.js` — konfiguracja webowa (jawna — nie jest sekretem). Zmiany w tym
+  pliku tylko na polecenie właściciela; **nigdy** nie dopisuj do niego tokenu debug App Check.
+- Loginy i hasła graczy ustawia i zmienia **wyłącznie administrator w konsoli Firebase** — w polach
+  `PlayerName` i `PlayerPassword` (nazwy ustalone przez właściciela — nie zmieniać). Nie zapisuj
+  loginów ani haseł w repozytorium.
+- Dostęp do bazy **wyłącznie przez aplikację**: App Check + reguły bezpieczeństwa + sesje
+  weryfikowane loginem i hasłem. Zmiana reguł = aktualizacja dokumentacji i testów reguł; reguły w
+  konsoli publikuje właściciel.
 - **Hasła nigdy** nie trafiają do backupu, logów, localStorage ani do kodu.
 - **Nigdy nie commituj**: kluczy kont serwisowych, tokenów debug App Check, plików `.env`,
   backupów z danymi graczy (patrz `.gitignore`). Konfiguracja webowa Firebase (`apiKey` itd.) i klucz
   witryny reCAPTCHA Enterprise nie są sekretami.
-- Backup obejmuje tylko dane graczy (bez `secrets`, `sessions`, `admins` i bez treści książek);
-  odtwarzanie gracza z pliku — w panelu administratora.
+- Backup obejmuje tylko dane graczy (bez danych logowania, sesji, uprawnień i bez treści książek);
+  odtwarzanie gracza z pliku — tylko w panelu administratora.
 - Renderuj tekst książki przez `createElement`/`textContent` — **bez `innerHTML` dla treści**.
 - Bez analityki, reklam i trackerów; dane graczy = pseudonimy i stan gry.
 
@@ -263,19 +276,19 @@ Każdy nowy plik w folderze `Analizy/` musi zawierać:
 |---|---|
 | Język | interfejs, dokumentacja, analizy, komentarze w kodzie i opisy commitów — **po polsku** |
 | Identyfikatory w kodzie | po angielsku, `camelCase` (funkcje, zmienne), `PascalCase` (klasy) |
-| Firebase | kolekcje i pola po angielsku (`camelCase`); **wyjątek: `PlayerPassword`** (nazwa ustalona przez administratora) |
+| Firebase | kolekcje i pola po angielsku (`camelCase`); **wyjątek: `PlayerName` i `PlayerPassword`** (pola logowania ustawiane ręcznie przez administratora — nazw nie zmieniać) |
 | Katalogi | po polsku bez znaków diakrytycznych (`ksiazki`, `narzedzia`, `dokumentacja`); katalogi techniczne kodu po angielsku (`css`, `js/core`); wielką literą — `Pliki/` i `Analizy/` (konwencja właściciela) |
 | Pliki analiz | `Analizy/Temat_Analizy_RRRR-MM-DD.md` (rozdz. 4.6) |
-| ID węzłów | `p1`…`p372`, części `p9A`, ciąg dalszy `p98-2`, strony wstępne słownie (`stopka`, `prolog`); bez kropek i ukośników |
+| ID węzłów | paragrafy `p<numer>` (np. `p1`), części `p<numer><litera>` (np. `p9A`), ciąg dalszy `p<numer>-<n>` (np. `p98-2`), strony wstępne słownie (np. `stopka`, `prolog`); bez kropek i ukośników |
 | Pliki | UTF-8, LF; wcięcia: 2 spacje (HTML/CSS/JS/JSON), 4 spacje (Python) |
 | Zależności | brak frameworków; skrypty z CDN tylko z **przypiętą wersją** (Firebase: `www.gstatic.com/firebasejs/<wersja>/…`); narzędzia Python — tylko biblioteka standardowa |
 | Dostępność | obsługa klawiaturą, etykiety ARIA, kontrast, skalowanie tekstu, układ mobilny |
 
 ## 9. Git i dokumentowanie pracy
 
-- Właściciel prosi o umieszczanie zmian na gałęzi **`main`** (stan na 2026-10-29). Jeśli środowisko
-  wymaga gałęzi roboczej — pracuj na niej, a zmiany wypchnij także na `main` (bez przepisywania
-  historii, bez `--force`).
+- Zmiany umieszczamy na gałęzi **`main`** (wymóg właściciela). Jeśli środowisko wymaga gałęzi
+  roboczej — pracuj na niej, a zmiany wypchnij także na `main` (bez przepisywania historii, bez
+  `--force`).
 - Małe, spójne commity z opisem po polsku (co i dlaczego).
 - Nie commituj zmian w `AGENTS.md` ani `CLAUDE.md` (rozdz. 2).
 - Każda istotna zmiana → wpis w changelogu w `PLAN_I_CHANGELOG.md`; decyzje projektowe → sekcja
@@ -299,6 +312,7 @@ konfiguracji lub reguł — podaj go w bloku kodu, gotowy do skopiowania w cało
 ## 11. Checklista przed commitem
 
 - [ ] Treść książek nietknięta; pliki treści tylko z generatora; weryfikacja przeszła (jeśli dotyczy).
+- [ ] Tylko tytuły z wpisem „zgoda” w rejestrze zgód; spełnione warunki szczegółowe ich wpisów.
 - [ ] Brak grafik AI; nowe ikony to piktogramy funkcji z odnotowaną licencją.
 - [ ] Stopka i atrybucje kompletne i widoczne (jeśli zmieniano interfejs).
 - [ ] Brak sekretów, haseł, backupów i danych graczy w commicie.
