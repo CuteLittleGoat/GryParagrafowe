@@ -10,24 +10,21 @@
 
 | | |
 |---|---|
-| Etap | **0 — Fundamenty: zakończony** (struktura repozytorium + dokumentacja) |
-| Aplikacja | jeszcze nie istnieje |
-| Książki | „Vae Victis” — zgoda ✅, plik źródłowy przeanalizowany, konwersja nierozpoczęta |
+| Etap | **1 — Konwersja: zakończony** (2026-11-01); w toku: Etap 2 (szkielet aplikacji) i Etap 3 (mechanika) |
+| Aplikacja | w budowie |
+| Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`** utworzony przez właściciela (2026-10-29); konfiguracja webowa w `firebase/firebase-config.js`; reguły w konsoli tymczasowo blokują cały dostęp; logowanie loginem i hasłem (konta `Player1` … `Player6`), App Check i reguły docelowe — Etap 5 ([dokumentacja/FIREBASE.md](dokumentacja/FIREBASE.md)) |
-| Instrukcje agentów | `AGENTS.md` podmieniony przez właściciela 2026-11-01 (zasady analiz, zakaz modyfikacji `AGENTS.md` i `CLAUDE.md`, pytania prostym językiem). Nowa, **uniwersalna** treść (bez informacji o konkretnych tytułach, datach i bieżącym stanie; z poprawką nazw pól logowania) przekazana w czacie 2026-11-01 — **do podmiany przez właściciela** |
-| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1 (zmiana kroju pisma), PW2 (ustawienia wyświetlania), PW3 (niejednoznaczne wskazówki §170, §286, §289) przygotowane, **niewysłane** |
+| Instrukcje agentów | `AGENTS.md` — wersja uniwersalna, podmieniona przez właściciela 2026-11-01 |
+| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1–PW3 przygotowane; **właściciel wyśle je na końcu**, razem z odnośnikiem do gotowej aplikacji i kontem dla Wydawcy |
 | Blokery | brak |
 
 ## 2. Następne kroki
 
-1. **Właściciel**: podmienić `AGENTS.md` na uniwersalną treść z czatu (2026-11-01) — zastępuje
-   wcześniejszą propozycję poprawki nazw pól logowania. Agenci nie modyfikują tego pliku.
-2. **Właściciel**: wysłać Wydawcy pytania PW1–PW3 (szkic wiadomości w
-   [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md));
-   najlepiej przed Etapem 2 (wyświetlanie tekstu).
-3. **Etap 1**: skrypt konwersji EPUB → `tresc.json` + `stopka.json` i weryfikacja integralności
-   (W1–W8) — wg [dokumentacja/KONWERSJA.md](dokumentacja/KONWERSJA.md) i karty
-   [ksiazki/vae-victis/README.md](ksiazki/vae-victis/README.md) (pułapki konwersji, rozdz. 8).
+1. **Etap 2 i 3**: szkielet aplikacji, czytnik i mechanika „Vae Victis” (lokalny zapis).
+2. **Etap 5** (gdy aplikacja działa lokalnie): Firebase — logowanie, zapis postępu, reguły, App Check;
+   kroki w konsoli wykonuje właściciel (FIREBASE.md, rozdz. 9).
+3. **Na końcu — właściciel**: konto dla Wydawcy (dodatkowe konto gracza), wysłanie odnośnika do
+   aplikacji i pytań PW1–PW3.
 
 ## 3. Plan prac (etapy)
 
@@ -39,16 +36,16 @@
 - [x] `AGENTS.md`, `CLAUDE.md`, `README.md`, ten plik
 - [x] Folder `Analizy/` na raporty z analiz (2026-10-29)
 
-### Etap 1 — Konwersja „Vae Victis” do JSON
-- [ ] Skrypt `narzedzia/konwersja/` (Python 3, biblioteka standardowa): EPUB → `tresc.json`, `stopka.json`
-- [ ] Mapowanie klas CSS → kursywa / pogrubienie / wyrównanie; zachowanie twardych spacji
-- [ ] Węzły: strony wstępne, 372 paragrafy, 35 części (A/B/C), ciąg dalszy §98 (`p98-2`)
-- [ ] Odnośniki wewnętrzne i zewnętrzne ze stabilnymi identyfikatorami
-- [ ] Pola pochodne: oznaczenia `(U#n)`, tytuły zakończeń (dosłowne fragmenty)
-- [ ] Grafiki → `ksiazki/vae-victis/grafiki/` (okładka przeskalowana bez innych zmian, logotypy ze stopki)
-- [ ] `ksiazki/vae-victis/ksiazka.json` (manifest) i `ksiazki/katalog.json`
-- [ ] Weryfikacja W1–W8 (`narzedzia/weryfikacja/`)
-- [ ] Aktualizacja karty książki (wyniki, ewentualne zgłoszenia błędów w treści)
+### Etap 1 — Konwersja „Vae Victis” do JSON ✅ (2026-11-01)
+- [x] Skrypt `narzedzia/konwersja/epub_do_json.py` (Python 3, biblioteka standardowa) + konfiguracja książki
+- [x] Mapowanie klas CSS → kursywa / pogrubienie / wyrównanie; zachowanie twardych spacji
+- [x] Węzły: 9 stron wstępnych, 372 paragrafy, 35 części (A/B/C), ciąg dalszy §98 (`p98-2`)
+- [x] 625 odnośników wewnętrznych i zewnętrznych ze stabilnymi identyfikatorami
+- [x] Pola pochodne: 48 oznaczeń `(U#n)`, 21 tytułów zakończeń, rozdziały
+- [x] Grafiki → `ksiazki/vae-victis/grafiki/` (kopie bajt w bajt; ewentualne zmniejszenie okładki — później)
+- [x] `ksiazki/vae-victis/ksiazka.json` (manifest) i `ksiazki/katalog.json`
+- [x] Weryfikacja W1–W8 (`narzedzia/weryfikacja/weryfikuj_tresc.py`) — 8/8; test negatywny wykrywa zmianę litery
+- [x] Aktualizacja karty książki — błędów w treści nie wykryto
 
 ### Etap 2 — Szkielet aplikacji i czytnik
 - [ ] `index.html`, style (motyw jasny/ciemny, mobile-first), router ekranów
@@ -140,6 +137,7 @@
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
 | D29 | 2026-11-01 | `AGENTS.md` jest uniwersalny — zawiera tylko zasady stałe; tytuły i warunki zgód są w rejestrze zgód (`dokumentacja/LICENCJA_I_ZGODA.md`), stan Firebase w `FIREBASE.md`, etapy i decyzje w tym pliku | wymóg właściciela |
 | D30 | 2026-11-01 | Oryginały zgód i korespondencji z wydawcą mogą zostać usunięte z repozytorium; wiążącym zapisem warunków jest rejestr zgód z dosłownymi cytatami kluczowych zdań | informacja właściciela |
+| D31 | 2026-11-01 | Pytania PW1–PW3 do Wydawcy — na końcu prac, razem z odnośnikiem do gotowej aplikacji z jedną książką i kontem gracza dla Wydawcy | decyzja właściciela |
 
 ## 5. Otwarte pytania
 
@@ -172,6 +170,19 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-01 — Etap 1: „Vae Victis” w JSON
+
+**Dodano**
+- `narzedzia/konwersja/epub_do_json.py` i `konfiguracja_vae-victis.json` — konwersja EPUB → JSON
+  (biblioteka standardowa, wynik deterministyczny).
+- `narzedzia/weryfikacja/weryfikuj_tresc.py` — kontrole W1–W8 z niezależnym odczytem tekstu (8/8).
+- `ksiazki/vae-victis/tresc.json`, `stopka.json`, `grafiki/` (wygenerowane), `ksiazka.json`
+  (manifest), `ksiazki/katalog.json`.
+
+**Zmieniono**
+- `dokumentacja/KONWERSJA.md` (status i polecenia), karta „Vae Victis” (pliki danych, wyniki), ten
+  plik (stan, następne kroki, Etap 1, decyzja D31).
 
 ### 2026-11-01 — Uniwersalny AGENTS.md; dokumenty zgód poza repozytorium
 

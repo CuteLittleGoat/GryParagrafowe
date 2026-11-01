@@ -1,0 +1,34 @@
+{
+  "bookId": "vae-victis",
+  "source": "Pliki/Vae-Victis-15-to-lecie-MW.epub",
+  "outputDir": "ksiazki/vae-victis",
+  "frontMatter": {
+    "titlepage.xhtml": "okladka",
+    "index_split_000.xhtml": "grafika-okladki",
+    "index_split_001.xhtml": "stopka",
+    "index_split_002.xhtml": "wydawnictwo",
+    "index_split_003.xhtml": "tytul",
+    "index_split_004.xhtml": "dedykacja",
+    "index_split_005.xhtml": "spis-tresci",
+    "index_split_006.xhtml": "wprowadzenie",
+    "index_split_007.xhtml": "prolog"
+  },
+  "colophonNode": "stopka",
+  "tocNode": "spis-tresci",
+  "images": {
+    "Pictures/10000000000005070000071E70297E9C.png": "okladka.png",
+    "Pictures/1000000100000941000002720F40A7B3.png": "logo-masz-wybor.png",
+    "Pictures/10000000000005D3000005095A2B5BD5.jpg": "logo-wydawnictwo-wielokrotnego-wyboru.jpg",
+    "Pictures/1000000100000AA300000396016F193A.png": "logo-patronite.png"
+  },
+  "endingPattern": "To nosi tytuł: (.+?)\\.(?=\\s|$)",
+  "markerPattern": "\\(U#(\\d+)\\)",
+  "expected": {
+    "front": 9,
+    "paragraph": 372,
+    "part": 35,
+    "continuation": 1,
+    "colophonStartsWith": "Copyright © by Beniamin Muszyński, 2018.",
+    "colophonEndsWith": "ISBN 978-83-951564-0-3"
+  }
+}

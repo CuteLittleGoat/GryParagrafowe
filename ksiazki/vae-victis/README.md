@@ -1,7 +1,31 @@
 # Vae Victis — karta książki
 
-> Status w projekcie: **Etap 0** — przeanalizowano plik źródłowy; konwersja do JSON w Etapie 1.
-> Zasady licencyjne: [`dokumentacja/LICENCJA_I_ZGODA.md`](../../dokumentacja/LICENCJA_I_ZGODA.md).
+> Status w projekcie: **Etap 1 zakończony** — treść przekonwertowana do JSON i zweryfikowana
+> (kontrole W1–W8: 8/8). Zasady licencyjne:
+> [`dokumentacja/LICENCJA_I_ZGODA.md`](../../dokumentacja/LICENCJA_I_ZGODA.md).
+
+## 0. Pliki danych książki
+
+| Plik | Pochodzenie | Zawartość |
+|---|---|---|
+| `ksiazka.json` | ręcznie (dane ze stopki i strony Wydawcy) | manifest: tytuł, autor, wydawca, odnośniki, okładka i jej autorka, źródło, ostrzeżenie o treści, zgoda, moduły |
+| `tresc.json` | **generowany** — nie edytować | 417 węzłów: 9 stron wstępnych, 372 paragrafy, 35 części, 1 ciąg dalszy; 625 odnośników; 48 oznaczeń `(U#n)`; 21 zakończeń |
+| `stopka.json` | **generowany** — nie edytować | stopka redakcyjna 1:1 (od „Copyright ©” po ISBN), z logotypami |
+| `grafiki/` | **generowane** (kopie bajt w bajt z EPUB) | `okladka.png`, `logo-masz-wybor.png`, `logo-wydawnictwo-wielokrotnego-wyboru.jpg`, `logo-patronite.png` |
+
+Odtworzenie i sprawdzenie (z katalogu głównego repozytorium):
+
+```bash
+python3 narzedzia/konwersja/epub_do_json.py narzedzia/konwersja/konfiguracja_vae-victis.json
+```
+
+```bash
+python3 narzedzia/weryfikacja/weryfikuj_tresc.py narzedzia/konwersja/konfiguracja_vae-victis.json
+```
+
+Wyniki konwersji zgodne z analizą: 21 węzłów bez przejść to dokładnie 21 zakończeń z tytułem;
+oznaczenia `(U#n)` przy liniach dialogowych (zdobycie Informacji przy wyborze opcji) występują w §57
+(#19, #17) i §130 (#31, #32), pozostałe 44 — przy wejściu do paragrafu.
 
 ## 1. Status licencyjny
 

@@ -1,0 +1,6 @@
+{
+  "formatVersion": 1,
+  "books": [
+    { "id": "vae-victis", "status": "active", "order": 1 }
+  ]
+}

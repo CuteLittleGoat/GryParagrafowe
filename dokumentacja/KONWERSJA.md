@@ -1,8 +1,28 @@
 # Konwersja publikacji do JSON i weryfikacja integralności
 
-> Status: **procedura docelowa** — skrypty powstaną w Etapie 1 (`narzedzia/konwersja/`,
-> `narzedzia/weryfikacja/`). Obowiązują zasady z [LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md),
-> rozdz. 5: **żadnych zmian w treści**, tylko podział, przejścia i metadane mechaniki.
+> Status: **wdrożone** (Etap 1) — skrypty `narzedzia/konwersja/epub_do_json.py` i
+> `narzedzia/weryfikacja/weryfikuj_tresc.py`. Obowiązują zasady z
+> [LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md), rozdz. 5: **żadnych zmian w treści**, tylko podział,
+> przejścia i metadane mechaniki.
+
+Użycie (z katalogu głównego repozytorium; konfiguracja książki w `narzedzia/konwersja/`):
+
+```bash
+python3 narzedzia/konwersja/epub_do_json.py narzedzia/konwersja/konfiguracja_vae-victis.json
+```
+
+```bash
+python3 narzedzia/weryfikacja/weryfikuj_tresc.py narzedzia/konwersja/konfiguracja_vae-victis.json
+```
+
+Konfiguracja książki (`konfiguracja_<bookId>.json`) zawiera: plik źródłowy, katalog wyjściowy,
+identyfikatory stron wstępnych, nazwy grafik, wzorce oznaczeń mechaniki i zakończeń oraz oczekiwane
+liczby węzłów (dla kontroli W4) i początek/koniec stopki (W7). Konfiguracja nie zawiera tekstu książki
+poza tymi krótkimi wzorcami.
+
+Grafiki są kopiowane **bajt w bajt** (bez skalowania). Jeśli okładka okaże się zbyt ciężka dla
+telefonów, dopuszczalne jest wyłącznie proporcjonalne przeskalowanie i kompresja (Z6) — jako osobny,
+opisany krok.
 
 ## 1. Zasady ogólne
 

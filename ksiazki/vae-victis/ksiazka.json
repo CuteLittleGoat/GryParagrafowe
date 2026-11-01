@@ -1,0 +1,40 @@
+{
+  "formatVersion": 1,
+  "id": "vae-victis",
+  "title": "Vae Victis",
+  "authors": ["Beniamin Muszyński"],
+  "language": "pl",
+  "publisher": {
+    "name": "Wydawnictwo Wielokrotnego Wyboru",
+    "portal": "Masz Wybór",
+    "website": "https://masz-wybor.com.pl/"
+  },
+  "officialPage": "https://masz-wybor.com.pl/ksiegarnia/vae-victis-beniamin-muszynski/",
+  "isbn": "978-83-951564-0-3",
+  "cover": {
+    "file": "grafiki/okladka.png",
+    "illustrator": "Justyna Bzdoń"
+  },
+  "source": {
+    "file": "Pliki/Vae-Victis-15-to-lecie-MW.epub",
+    "sha256": "89547ec8e80e1bd4aa21eabd142bb90bdfdcec101aa6e92a123593c2d1581cd7",
+    "downloadPage": "https://masz-wybor.com.pl/ksiegarnia/vae-victis-beniamin-muszynski/"
+  },
+  "originals": [
+    { "format": "PDF", "url": "https://masz-wybor.com.pl/wp-content/uploads/2025/11/Vae-Victis-15-to-lecie-MW.pdf" },
+    { "format": "EPUB", "url": "https://masz-wybor.com.pl/wp-content/uploads/2025/11/Vae-Victis-15-to-lecie-MW.epub" },
+    { "format": "MOBI", "url": "https://masz-wybor.com.pl/wp-content/uploads/2025/11/Vae-Victis-15-to-lecie-MW.mobi" }
+  ],
+  "contentWarning": {
+    "text": "Trigger warning: #Środki psychoaktywne",
+    "source": "https://masz-wybor.com.pl/ksiegarnia/vae-victis-beniamin-muszynski/",
+    "checked": "2026-10-29"
+  },
+  "consent": {
+    "register": "dokumentacja/LICENCJA_I_ZGODA.md",
+    "date": "2026-10-29"
+  },
+  "contentVersion": "1.0.0",
+  "modules": ["codewords", "visits", "endings", "notes"],
+  "startNode": "wprowadzenie"
+}

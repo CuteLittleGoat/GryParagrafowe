@@ -1,0 +1,440 @@
+{
+  "formatVersion": 1,
+  "bookId": "vae-victis",
+  "generator": {
+    "script": "narzedzia/konwersja/epub_do_json.py",
+    "version": "1.0.0"
+  },
+  "source": {
+    "file": "Pliki/Vae-Victis-15-to-lecie-MW.epub",
+    "sha256": "89547ec8e80e1bd4aa21eabd142bb90bdfdcec101aa6e92a123593c2d1581cd7"
+  },
+  "blocks": [
+    {
+      "type": "p",
+      "align": "center",
+      "inline": [
+        {
+          "text": "Copyright © by Beniamin Muszyński, 2018.",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "align": "center",
+      "inline": [
+        {
+          "text": "Copyright © for this edition by Masz Wybór, 2025.",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": " ",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Autor: ",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": "Beniamin Muszyński"
+        },
+        {
+          "text": " ",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Tytuł: ",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": "Vae Victis "
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Grafiki:",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": " Justyna Bzdoń [okładka] "
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Korekta: ",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": "Magdalena Górecka, Michał Ślużyński"
+        },
+        {
+          "text": " ",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Redaktor techniczny:",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": " Beniamin Muszyński (wersja PDF, MOBI, EPUB) "
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Testy: ",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": "Mateusz Motyka, Michał Rosiński, Michał Ślużyński"
+        },
+        {
+          "text": " ",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": " ",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "W niniejszej publikacji wykorzystano czcionkę Old Standard zaprojektowaną przez Alexeya Kryukova. Czcionka użyta zgodnie z Open Source Licensee. "
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "align": "center",
+      "inline": [
+        {
+          "text": "LICENCJA",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Uwaga! ",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": "Niniejsza publikacja nie może być rozpowszechniana, adaptowana, modyfikowana ani odsprzedawana bez pisemnej zgody Wydawcy. Dozwolone jest jej kopiowanie oraz dystrybucja bezpłatna na własny użytek."
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "align": "center",
+      "inline": [
+        {
+          "text": "WYDAWCA",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Wydawnictwo Wielokrotnego Wyboru",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": " działające w ramach portalu "
+        },
+        {
+          "text": "Masz Wybór",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": "."
+        },
+        {
+          "text": " ",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Redaktor Naczelny ",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": "portalu "
+        },
+        {
+          "text": "Masz Wybór",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": ": Beniamin Muszyński"
+        },
+        {
+          "text": " ",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Adres korespondencyjny:",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": " ul. Agatowa 18/12, 30-798, Kraków "
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Poczta elektroniczna: ",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "link": {
+            "id": "stopka-l1",
+            "href": "mailto:magazyn.masz.wybor@gmail.com"
+          },
+          "inline": [
+            {
+              "text": "magazyn.masz.wybor@gmail.com"
+            }
+          ]
+        },
+        {
+          "text": ", "
+        },
+        {
+          "link": {
+            "id": "stopka-l2",
+            "href": "mailto:wydawnictwo@wydawnictwoww.pl"
+          },
+          "inline": [
+            {
+              "text": "wydawnictwo@wydawnictwoww.pl"
+            }
+          ]
+        },
+        {
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Witryna internetowa: ",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "link": {
+            "id": "stopka-l3",
+            "href": "http://www.masz-wybor.com.pl/"
+          },
+          "inline": [
+            {
+              "text": "www.masz-wybor.com.pl"
+            }
+          ]
+        },
+        {
+          "text": " ",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "src": "grafiki/logo-masz-wybor.png",
+      "alt": ""
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Logo Masz Wybór: ",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "inline": [
+        {
+          "text": "Logo Wydawnictwo Wielokrotnego Wyboru:",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": " "
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "src": "grafiki/logo-wydawnictwo-wielokrotnego-wyboru.jpg",
+      "alt": ""
+    },
+    {
+      "type": "p",
+      "align": "center",
+      "inline": [
+        {
+          "text": " ",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "align": "center",
+      "inline": [
+        {
+          "text": "Wydanie ",
+          "marks": [
+            "b"
+          ]
+        },
+        {
+          "text": "(poprawione)"
+        },
+        {
+          "text": ":",
+          "marks": [
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "align": "center",
+      "inline": [
+        {
+          "text": "ISBN 978-83-951564-0-3"
+        }
+      ]
+    }
+  ]
+}
