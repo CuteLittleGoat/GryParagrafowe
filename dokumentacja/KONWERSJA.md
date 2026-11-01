@@ -1,7 +1,8 @@
 # Konwersja publikacji do JSON i weryfikacja integralności
 
-> Status: **wdrożone** (Etap 1) — skrypty `narzedzia/konwersja/epub_do_json.py` i
-> `narzedzia/weryfikacja/weryfikuj_tresc.py`. Obowiązują zasady z
+> Status: **wdrożone** — treść (Etap 1): `narzedzia/konwersja/epub_do_json.py` i
+> `narzedzia/weryfikacja/weryfikuj_tresc.py`; mechanika (Etap 3): `narzedzia/konwersja/generuj_mechanike.py`
+> i `narzedzia/weryfikacja/weryfikuj_mechanike.py` (rozdz. 4). Obowiązują zasady z
 > [LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md), rozdz. 5: **żadnych zmian w treści**, tylko podział,
 > przejścia i metadane mechaniki.
 
@@ -88,16 +89,40 @@ W przyszłości: uruchamianie W1–W8 i M1–M5 automatycznie w GitHub Actions p
 
 ## 4. Przygotowanie mechaniki (półautomatyczne)
 
-1. Skrypt generuje **szkic** `mechanika.json` z wykrytych wzorców tekstu, np.:
-   - `(U#n)` w akapicie paragrafu → `onEnter: gain n`; przy linii dialogowej z odnośnikiem → `onChoose`,
+Użycie (z katalogu głównego repozytorium; konfiguracja mechaniki w `narzedzia/konwersja/`):
+
+```bash
+python3 narzedzia/konwersja/generuj_mechanike.py narzedzia/konwersja/mechanika_vae-victis.json
+```
+
+```bash
+python3 narzedzia/weryfikacja/weryfikuj_mechanike.py ksiazki/vae-victis
+```
+
+1. Skrypt `generuj_mechanike.py` odczytuje zapisy mechaniki z `tresc.json` **dosłownie** (bez
+   dopowiadania reguł) i zapisuje `mechanika.json`:
+   - `(U#n)` w akapicie paragrafu → `onEnter: gain n`; tuż przed odnośnikiem linii dialogowej →
+     `onChoose` tego odnośnika,
    - wiersze „#n – X” / „Brak #n – Y” → warunki `has` / `notHas` na odnośnikach,
-   - „Jeśli posiadasz Informację #n nie możesz wybrać tej opcji” → `notHas` na danym odnośniku,
-   - „Jeśli jesteś w tym paragrafie po raz kolejny / po raz drugi…” → `visitsAtLeast: 2`,
-   - zapisy złożone („#31 i #33”, „Brak #34 lub Brak #35”) → `all` / `any` / `notHas`,
-   - zestawy Informacji (np. „Zestaw I”, „Zestaw II”) → `all`/`any`.
-2. **Przegląd ręczny** każdego powiązania z tekstem (człowiek lub agent) — szkic nie jest wiarygodny
-   sam w sobie.
-3. Walidacja M1–M5 + scenariusze testowe (np. ścieżki do kilku zakończeń).
+   - zapisy złożone: „#a i #b” → `all`, „#a lub #b” / „#a albo #b” → `any`, „Brak #a lub Brak #b” →
+     `any` z `notHas`; każde wystąpienie „Brak” dotyczy wyłącznie numeru, który stoi tuż za nim
+     (np. „Brak #42 lub #43” → `any(notHas 42, has 43)`),
+   - „#n (lub nieposiadanie żadnej z powyższych Informacji)” → `any(has n, all(notHas …))` dla
+     Informacji z wierszy powyżej,
+   - „[Jeśli jesteś w tym paragrafie po raz kolejny / po raz drugi …]” → `visitsAtLeast: 2`,
+   - „(Jeśli posiadasz Informację #n nie możesz wybrać tej opcji)” → `notHas n` na odnośniku, którego
+     dotyczy zastrzeżenie.
+2. Przypadki opisane prozą (np. zestawy Informacji w §85 „Vae Victis”) zapisuje się w konfiguracji
+   (`linkConditions`) — po ręcznym odczytaniu tekstu. Każdy wiersz warunku, którego skrypt nie umie
+   odczytać, **przerywa generowanie** błędem (bez zgadywania).
+3. Węzły, w których wskazówki przy dosłownym czytaniu pasują do kilku dróg, a tekst nie rozstrzyga,
+   która jest właściwa, oznacza się w konfiguracji (`ambiguousNodes`) — w mechanice dostają flagę
+   `ambiguous` i aplikacja nie podpowiada w nich drogi
+   ([FORMAT_KSIAZKI.md](FORMAT_KSIAZKI.md), rozdz. 6.3).
+4. **Przegląd ręczny** każdego powiązania z tekstem (człowiek lub agent) — także wtedy, gdy skrypt
+   zakończył się bez błędów.
+5. Walidacja M1–M5 (`weryfikuj_mechanike.py`) + testy silnika na prawdziwych danych (`testy/`,
+   `node --test`), m.in. ścieżki do zakończeń, zdobywanie Informacji i warunki złożone.
 
 ## 5. Checklista przed commitem plików książki
 

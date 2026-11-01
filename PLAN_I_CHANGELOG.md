@@ -10,9 +10,9 @@
 
 | | |
 |---|---|
-| Etap | **1 — Konwersja: zakończony** (2026-11-01); w toku: Etap 2 (szkielet aplikacji) i Etap 3 (mechanika) |
+| Etap | **1 — Konwersja: zakończony** (2026-11-01); w toku: Etap 2 (szkielet aplikacji) i Etap 3 (mechanika — silnik i `mechanika.json` gotowe, testy 12/12) |
 | Aplikacja | w budowie |
-| Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8) |
+| Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`** utworzony przez właściciela (2026-10-29); konfiguracja webowa w `firebase/firebase-config.js`; reguły w konsoli tymczasowo blokują cały dostęp; logowanie loginem i hasłem (konta `Player1` … `Player6`), App Check i reguły docelowe — Etap 5 ([dokumentacja/FIREBASE.md](dokumentacja/FIREBASE.md)) |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna, podmieniona przez właściciela 2026-11-01 |
 | Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1–PW3 przygotowane; **właściciel wyśle je na końcu**, razem z odnośnikiem do gotowej aplikacji i kontem dla Wydawcy |
@@ -57,15 +57,16 @@
 - [ ] Przegląd zgodności z checklistą [LICENCJA_I_ZGODA.md](dokumentacja/LICENCJA_I_ZGODA.md), rozdz. 6
 
 ### Etap 3 — Silnik mechaniki i „Vae Victis”
-- [ ] Silnik: warunki, efekty, odwiedziny, zakończenia; tryb automatyczny i ręczny; zasada neutralności
+- [x] Silnik (`aplikacja/js/core/`): warunki, efekty, odwiedziny, zakończenia; tryb automatyczny i ręczny; zasada neutralności (2026-11-01)
 - [ ] Moduły: `codewords` („Informacje”), `visits`, `endings`, `notes`
 - [ ] Karta postaci (Informacje + ręczna edycja), notatki, historia, „Odkryte zakończenia”
 - [ ] Przycisk **„Cofnij”** — krok po kroku, do początku bieżącej rozgrywki — z dopiskiem „To Twoja gra :) Graj jak lubisz!” (P5)
-- [ ] `ksiazki/vae-victis/mechanika.json` — szkic automatyczny + przegląd ręczny każdego powiązania
-- [ ] Walidacja M1–M5; niejednoznaczne warunki (§170, §286, §289): obie drogi dostępne, wybiera gracz (P8; do czasu odpowiedzi Wydawcy na PW3)
+- [x] `ksiazki/vae-victis/mechanika.json` — generator `narzedzia/konwersja/generuj_mechanike.py` (odczyt dosłowny) + przegląd ręczny; 48 zdobyć Informacji, 88 warunków, przypadek opisany prozą (§85) w konfiguracji (2026-11-01)
+- [x] Walidacja M1–M5 (`narzedzia/weryfikacja/weryfikuj_mechanike.py`) — 5/5; niejednoznaczne warunki (§170, §259, §286, §289) oznaczone flagą `ambiguous`: obie drogi dostępne, wybiera gracz (P8; do czasu odpowiedzi Wydawcy na PW3) (2026-11-01)
 - [ ] 3 miejsca na ręczny zapis w każdej książce (lokalnie) (P6)
 - [ ] „Nowa gra”: pytanie, czy zostawić dotychczasowe notatki, czy je wyczyścić (P9)
-- [ ] Testy jednostkowe silnika (`node --test`) i scenariusze ręczne (§9, §91, §98, §161, zakończenia)
+- [x] Testy jednostkowe silnika na prawdziwych danych (`node --test 'testy/**/*.test.mjs'`, 12/12): §9, §57, §91, §98, §161, §170, zakończenia, „Cofnij”, „Nowa gra”, tryb ręczny (2026-11-01)
+- [ ] Scenariusze ręczne w przeglądarce (Playwright) — po zbudowaniu ekranu gry
 
 ### Etap 4 — Moduły ogólne (dla kolejnych książek)
 - [ ] `stats` — statystyki (np. HP/Wytrzymałość) z wartościami początkowymi i limitami
@@ -133,7 +134,10 @@
 | D24 | 2026-10-29 | Pytania do Wydawcy zbieramy w `Analizy/Pytania_Do_Wydawcy_2026-10-29.md` (plik uzupełniany na bieżąco; o wysłaniu decyduje właściciel) | wymóg właściciela |
 | D25 | 2026-11-01 | Logowanie loginem i hasłem: konta `Player1` … `Player6`; w `secrets/PlayerN` pola `PlayerName` (login) i `PlayerPassword` (hasło); liczba kont w `appConfig/public.playerCount`; postęp przypisany do konta, nie do loginu | decyzja właściciela (P4) |
 | D26 | 2026-11-01 | 3 miejsca na ręczny zapis w każdej książce (`save1` … `save3`); logowanie pamiętane 30 dni | decyzja właściciela (P6) |
-| D27 | 2026-11-01 | Niejednoznaczne warunki (§170, §286, §289): na razie obie drogi dostępne, wybiera gracz; pytanie do Wydawcy (PW3) | decyzja właściciela (P8) |
+| D27 | 2026-11-01 | Niejednoznaczne warunki (§170, §286, §289; §259 dopisany przy przygotowaniu mechaniki): na razie obie drogi dostępne, wybiera gracz; pytanie do Wydawcy (PW3) | decyzja właściciela (P8) |
+| D32 | 2026-11-01 | Warunki w `mechanika.json` odczytywane z tekstu **dosłownie** (generator); węzły, w których wskazówki pasują do kilku dróg, mają flagę `ambiguous` — aplikacja nie oznacza w nich dróg, tylko informuje, że wybiera gracz, i pokazuje jego Informacje związane z tym miejscem | neutralność silnika; realizacja D27 bez wybierania za gracza jednej z interpretacji |
+| D33 | 2026-11-01 | Tryb automatyczny oznacza drogi (warunek spełniony / niespełniony), ale niczego nie blokuje — wybór drogi z niespełnionym warunkiem wymaga potwierdzenia | „To Twoja gra” (P5); zasada „W razie niejednoznaczności opcji nie blokuj” |
+| D34 | 2026-11-01 | Krój Old Standard TT dołączony do aplikacji (pliki z repozytorium Google Fonts, licencja OFL — `aplikacja/assets/fonts/`), bez pobierania fontów z zewnętrznych serwerów | wierność wyglądu (P11); brak zewnętrznych zapytań i śledzenia |
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
 | D29 | 2026-11-01 | `AGENTS.md` jest uniwersalny — zawiera tylko zasady stałe; tytuły i warunki zgód są w rejestrze zgód (`dokumentacja/LICENCJA_I_ZGODA.md`), stan Firebase w `FIREBASE.md`, etapy i decyzje w tym pliku | wymóg właściciela |
 | D30 | 2026-11-01 | Oryginały zgód i korespondencji z wydawcą mogą zostać usunięte z repozytorium; wiążącym zapisem warunków jest rejestr zgód z dosłownymi cytatami kluczowych zdań | informacja właściciela |
@@ -170,6 +174,28 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-01 — Etap 3 (część 1): mechanika „Vae Victis” i silnik gry
+
+**Dodano**
+- `narzedzia/konwersja/generuj_mechanike.py` + `mechanika_vae-victis.json` — generator warstwy mechaniki
+  odczytujący zapisy z tekstu dosłownie (oznaczenia `(U#n)`, wiersze warunków, „po raz kolejny/drugi”,
+  „nie możesz wybrać tej opcji”); przypadek opisany prozą (§85, zestawy Informacji) w konfiguracji.
+- `ksiazki/vae-victis/mechanika.json` — 90 węzłów z mechaniką: 48 zdobyć Informacji, 88 warunków,
+  43 Informacje; flagi `ambiguous` dla §170, §259, §286, §289.
+- `narzedzia/weryfikacja/weryfikuj_mechanike.py` — walidacja M1–M5: 5/5 (408/408 węzłów gry i 21/21
+  zakończeń osiągalnych ze startu).
+- Silnik gry `aplikacja/js/core/` (`conditions.js`, `state.js`, `engine.js`): warunki, efekty przy
+  wejściu i przy wyborze, odwiedziny, zakończenia, „Cofnij” krok po kroku, „Nowa gra” z zachowaniem
+  odkrytych zakończeń, tryb ręczny.
+- `testy/silnik.test.mjs` — 12 testów na prawdziwych danych książki (`node --test 'testy/**/*.test.mjs'`).
+- Krój Old Standard TT (Regular, Italic, Bold) z licencją OFL i opisem źródła w `aplikacja/assets/fonts/`.
+
+**Zmieniono**
+- Pytanie PW3 do Wydawcy: dopisany §259 („#40 – 235”, „#41 – 278”, „Brak #40 lub Brak #41 – 242”).
+- KONWERSJA.md (rozdz. 4 — generator i walidator mechaniki), FORMAT_KSIAZKI.md (rozdz. 6 — pola
+  `generator`, `ambiguous`), ARCHITEKTURA.md (oznaczenia dróg, niejednoznaczne warunki), karta książki.
+- Decyzje D32–D34.
 
 ### 2026-11-01 — Etap 1: „Vae Victis” w JSON
 

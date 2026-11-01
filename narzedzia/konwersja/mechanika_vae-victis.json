@@ -1,0 +1,26 @@
+{
+  "bookId": "vae-victis",
+  "content": "ksiazki/vae-victis/tresc.json",
+  "output": "ksiazki/vae-victis/mechanika.json",
+  "startNode": "wprowadzenie",
+  "codewords": { "label": "Informacje", "prefix": "#" },
+  "ambiguousNodes": ["p170", "p259", "p286", "p289"],
+  "linkConditions": [
+    {
+      "node": "p85",
+      "linkTo": "p60",
+      "if": { "all": [
+        { "any": [ { "has": "9" }, { "has": "10" } ] },
+        { "any": [ { "has": "12" }, { "has": "13" } ] }
+      ] }
+    },
+    {
+      "node": "p85",
+      "linkTo": "p39",
+      "if": { "not": { "all": [
+        { "any": [ { "has": "9" }, { "has": "10" } ] },
+        { "any": [ { "has": "12" }, { "has": "13" } ] }
+      ] } }
+    }
+  ]
+}

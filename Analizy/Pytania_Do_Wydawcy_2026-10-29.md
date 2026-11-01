@@ -34,7 +34,7 @@ Uzupełnienie z 2026-11-01 (pytanie PW3):
 |---|---|---|---|---|---|
 | PW1 | Czy gracz może zmienić krój pisma (czcionkę)? | 📝 przygotowane | — | — | tylko krój oryginalny (Old Standard); funkcji zmiany kroju nie budujemy |
 | PW2 | Czy można dodać typowe ustawienia wyświetlania (wielkość liter, tryb ciemny, dopasowanie do ekranu telefonu)? | 📝 przygotowane | — | — | przygotowujemy je jak w czytnikach e-booków; przy braku zgody — wycofamy |
-| PW3 | Jak rozumieć niejednoznaczne wskazówki w §170, §286 i §289? | 📝 przygotowane | — | — | obie drogi dostępne, wybiera gracz (decyzja właściciela) |
+| PW3 | Jak rozumieć niejednoznaczne wskazówki w §170, §259, §286 i §289? | 📝 przygotowane | — | — | obie drogi dostępne, wybiera gracz (decyzja właściciela) |
 
 Statusy: 📝 przygotowane → 📤 wysłane → ✅ zgoda / ⛔ brak zgody / ❓ odpowiedź wymaga doprecyzowania.
 
@@ -70,11 +70,13 @@ wielkości liter, tryb ciemny oraz dopasowanie układu tekstu do ekranu telefonu
 **Do czasu odpowiedzi:** przygotowujemy te ustawienia zgodnie z dokumentacją; jeśli Wydawca się nie
 zgodzi — wycofamy je.
 
-## PW3. Niejednoznaczne wskazówki w §170, §286 i §289
+## PW3. Niejednoznaczne wskazówki w §170, §259, §286 i §289
 
-**Dlaczego pytamy.** W trzech paragrafach wskazówki, dokąd przejść, przy dosłownym czytaniu pasują
+**Dlaczego pytamy.** W czterech paragrafach wskazówki, dokąd przejść, przy dosłownym czytaniu pasują
 jednocześnie do dwóch dróg (zapis dosłowny z książki):
 - §170: „Brak #34 lub Brak #35 – część A tego paragrafu” oraz „#34 lub #35 – część B tego paragrafu”,
+- §259: „#40 – 235”, „#41 – 278” oraz „Brak #40 lub Brak #41 – 242” (dopisane 2026-11-01 — gracz,
+  który ma tylko #40, pasuje do wierszy prowadzących do 235 i do 242),
 - §286: „#42 albo #43 – 277” oraz „Brak #42 lub #43 – 245”,
 - §289: „#42 albo #43 – 291” oraz „Brak #42 lub Brak #43 – 285”.
 
@@ -84,9 +86,10 @@ nie masz żadnej → linijka z „Brak””, ale nie chcemy zgadywać zasad za 
 aplikacji zostaje bez zmian — chodzi wyłącznie o podpowiedzi, które aplikacja pokazuje graczowi.
 Beniamin Muszyński jest autorem książki i redaktorem naczelnym portalu, więc może to rozstrzygnąć.
 
-**Pytanie:** W paragrafach 170, 286 i 289 wskazówki, dokąd przejść, przy dosłownym czytaniu pasują do
-dwóch dróg naraz. Czy chodziło o to, że gracz, który ma którąkolwiek z dwóch wymienionych Informacji,
-wybiera linijkę bez słowa „Brak”, a gracz, który nie ma żadnej z nich — linijkę z „Brak”?
+**Pytanie:** W paragrafach 170, 259, 286 i 289 wskazówki, dokąd przejść, przy dosłownym czytaniu
+pasują do dwóch dróg naraz. Czy chodziło o to, że gracz, który ma którąkolwiek z wymienionych
+Informacji, wybiera linijkę bez słowa „Brak”, a gracz, który nie ma żadnej z nich — linijkę z „Brak”?
+Jak postąpić w §259, gdy gracz ma tylko jedną z Informacji #40 i #41?
 
 **Do czasu odpowiedzi:** obie drogi są dostępne i wybiera gracz (decyzja właściciela P8, wariant A).
 
@@ -105,7 +108,7 @@ Zanim przygotuję sposób wyświetlania tekstu i podpowiedzi dla graczy, chcę s
 
 2. Czy możemy dodać typowe ustawienia wyświetlania, znane z czytników e-booków: zmianę wielkości liter, tryb ciemny (jasny tekst na ciemnym tle) oraz dopasowanie układu tekstu do ekranu telefonu? Tutaj również treść pozostaje bez zmian.
 
-3. Pytanie o zasady gry: w paragrafach 170, 286 i 289 wskazówki, dokąd przejść, przy dosłownym czytaniu pasują do dwóch dróg naraz. Na przykład w §170 gracz, który ma tylko Informację #34, pasuje zarówno do linijki „#34 lub #35 – część B tego paragrafu”, jak i do „Brak #34 lub Brak #35 – część A tego paragrafu”. Czy chodziło o to, że gracz, który ma którąkolwiek z dwóch wymienionych Informacji, wybiera linijkę bez słowa „Brak”, a gracz, który nie ma żadnej z nich — linijkę z „Brak”? Tekst w aplikacji zostaje bez zmian — chodzi tylko o podpowiedzi dla gracza.
+3. Pytanie o zasady gry: w paragrafach 170, 259, 286 i 289 wskazówki, dokąd przejść, przy dosłownym czytaniu pasują do dwóch dróg naraz. Na przykład w §170 gracz, który ma tylko Informację #34, pasuje zarówno do linijki „#34 lub #35 – część B tego paragrafu”, jak i do „Brak #34 lub Brak #35 – część A tego paragrafu”. Czy chodziło o to, że gracz, który ma którąkolwiek z wymienionych Informacji, wybiera linijkę bez słowa „Brak”, a gracz, który nie ma żadnej z nich — linijkę z „Brak”? Podobnie w §259 („#40 – 235”, „#41 – 278”, „Brak #40 lub Brak #41 – 242”): dokąd powinien przejść gracz, który ma tylko jedną z Informacji #40 i #41? Tekst w aplikacji zostaje bez zmian — chodzi tylko o podpowiedzi dla gracza.
 
 Pozdrawiam serdecznie,
 [podpis]

@@ -96,8 +96,14 @@ gra :) Graj jak lubisz!”.
 odkryte zakończenia, zwiększa `playthrough`. Notatki: aplikacja **pyta gracza**, czy zostawić
 dotychczasowe notatki, czy je wyczyścić (decyzja właściciela).
 
-**Niejednoznaczne warunki** (np. §170, §286, §289 w „Vae Victis”): na razie obie drogi są dostępne i
-wybiera gracz (decyzja właściciela); wyjaśnienie zapytaliśmy u Wydawcy (pytanie PW3).
+**Niejednoznaczne warunki** (np. §170, §259, §286, §289 w „Vae Victis”): na razie wszystkie drogi są
+dostępne i wybiera gracz (decyzja właściciela). Węzeł ma w mechanice flagę `ambiguous`: aplikacja nie
+oznacza w nim dróg, tylko informuje, że wskazówki można odczytać na kilka sposobów, i pokazuje
+Informacje gracza związane z tym miejscem. Wyjaśnienie zapytaliśmy u Wydawcy (pytanie PW3).
+
+**Oznaczenia dróg w trybie automatycznym**: przy odnośniku z warunkiem aplikacja pokazuje, czy gracz
+go spełnia (np. „✓ masz Informację #18” albo „✗ warunek: masz Informację #18”). Droga z niespełnionym
+warunkiem **nie jest zablokowana** — po jej wybraniu aplikacja prosi o potwierdzenie.
 
 ## 5. Moduły mechaniki (`aplikacja/js/modules/`)
 

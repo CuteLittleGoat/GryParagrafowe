@@ -191,9 +191,11 @@ ISBN 978-83-951564-0-3
 7. Zapisy warunków bywają niejednoznaczne przy czytaniu dosłownym: §170 ma wiersze „#34 lub #35 –
    część B tego paragrafu” i „Brak #34 lub Brak #35 – część A tego paragrafu” — przy posiadaniu
    tylko jednej z tych Informacji pasują oba; podobnie §286 („#42 albo #43 – 277”, „Brak #42 lub
-   #43 – 245”) i §289 („#42 albo #43 – 291”, „Brak #42 lub Brak #43 – 285”). ✅ Decyzja właściciela
-   (2026-11-01): na razie w tych miejscach **obie drogi są dostępne i wybiera gracz** (bez blokowania
-   opcji); pytanie do Wydawcy o właściwe rozumienie przygotowane jako PW3
+   #43 – 245”), §289 („#42 albo #43 – 291”, „Brak #42 lub Brak #43 – 285”) i §259 („#40 – 235”,
+   „#41 – 278”, „Brak #40 lub Brak #41 – 242” — przy posiadaniu tylko #40 pasują wiersze do 235 i
+   242). ✅ Decyzja właściciela (2026-11-01): na razie w tych miejscach **obie drogi są dostępne i
+   wybiera gracz** (bez blokowania opcji) — w mechanice węzły mają flagę `ambiguous`, a aplikacja
+   nie podpowiada w nich drogi; pytanie do Wydawcy o właściwe rozumienie przygotowane jako PW3
    (`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`).
 8. Uwagi autora w nawiasach kwadratowych nie zawsze są warunkami (np. „[Decyduj! Chcesz odczytać
    przygotowaną przeze mnie wizję (33), czy też…”) — to zwykły tekst z odnośnikiem.

@@ -183,29 +183,40 @@ ekran główny nie musiał wczytywać całej treści książki.
 
 ## 6. `mechanika.json` — warstwa mechaniki
 
+Generowana skryptem `narzedzia/konwersja/generuj_mechanike.py` ([KONWERSJA.md](KONWERSJA.md),
+rozdz. 4); każdy węzeł zapisany w jednym wierszu (czytelne różnice w historii zmian).
+
 ```json
 {
   "formatVersion": 1,
   "bookId": "vae-victis",
   "contentSha256": "<SHA-256 pliku tresc.json, dla którego przygotowano mechanikę>",
+  "generator": { "script": "narzedzia/konwersja/generuj_mechanike.py", "version": "1.0.0" },
+  "startNode": "wprowadzenie",
   "modules": {
     "codewords": { "label": "Informacje", "prefix": "#", "values": ["1", "2", "…", "43"] },
     "visits": {},
     "endings": {},
     "notes": {}
   },
-  "startNode": "wprowadzenie",
   "nodes": {
     "p9":   { "links": { "p9-l1": { "if": { "visitsAtLeast": 2 } } } },
+    "p26":  { "onEnter": [ { "gain": "4" } ] },
+    "p57":  { "links": { "p57-l1": { "onChoose": [ { "gain": "19" } ] },
+                         "p57-l2": { "onChoose": [ { "gain": "17" } ] } } },
     "p91":  { "links": { "p91-l1": { "if": { "has": "18" } },
                          "p91-l2": { "if": { "notHas": "18" } } } },
-    "pNN":  { "onEnter": [ { "gain": "19" } ] },
-    "pMM":  { "links": { "pMM-l2": { "onChoose": [ { "gain": "17" } ] } } }
+    "p170": { "ambiguous": true, "links": { "…": { "if": { "…": "…" } } } }
   }
 }
 ```
 
-> `pNN`/`pMM` to symbole zastępcze — rzeczywiste powiązania ustalamy w Etapie 3 na podstawie tekstu.
+| Pole węzła | Znaczenie |
+|---|---|
+| `onEnter` | efekty przy wejściu do węzła |
+| `links.<id>.if` | warunek odnośnika (tryb automatyczny: oznaczenie, czy gracz go spełnia) |
+| `links.<id>.onChoose` | efekty przy wyborze odnośnika (np. linia dialogowa z oznaczeniem `(U#n)`) |
+| `ambiguous` | wskazówki w tym węźle można odczytać na kilka sposobów — aplikacja nie podpowiada drogi (rozdz. 6.3) |
 
 ### 6.1. Warunki (`if`)
 
@@ -241,6 +252,11 @@ dokumencie i testami.
 - `contentSha256` wiąże mechanikę z konkretną wersją treści — zmiana treści wymaga przeglądu mechaniki.
 - Gdy tekst nie rozstrzyga priorytetu między pasującymi opcjami — nie dodajemy priorytetu w
   mechanice (zasada neutralności, [LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md) rozdz. 5.3).
+- Warunki zapisujemy **dosłownie** według tekstu. Jeśli przy dosłownym czytaniu wskazówki pasują do
+  kilku dróg, a tekst nie rozstrzyga, jak je rozumieć (np. §170, §259, §286, §289 „Vae Victis”),
+  węzeł dostaje `"ambiguous": true`: aplikacja nie oznacza w nim dróg jako spełnionych lub
+  niespełnionych, tylko informuje gracza, że wybiera sam, i pokazuje jego Informacje związane z tym
+  miejscem (decyzja właściciela P8, pytanie do Wydawcy PW3).
 
 ## 7. Wersjonowanie
 
