@@ -15,7 +15,7 @@ import { FONT_SCALES, MODE_LABELS, THEME_LABELS, THEMES, stepFontScale } from '.
 const UNDO_CAPTION = 'To Twoja gra :) Graj jak lubisz!'; // decyzja właściciela P5
 
 export async function renderGame(app, root, bookId) {
-  if (!(await isActiveBook(bookId))) {
+  if (!(await isActiveBook(bookId)) || !app.isBookEnabled(bookId)) {
     root.append(h('section', { class: 'panel' }, h('h1', {}, 'Nie znaleziono książki'), h('p', {}, h('a', { href: '#/', class: 'btn' }, 'Menu główne'))));
     return null;
   }
@@ -34,6 +34,7 @@ export async function renderGame(app, root, bookId) {
   const view = h('div', { class: 'game' });
   let saveTimer = null;
   let saving = Promise.resolve();
+  let pendingSaves = 0;
   let saveStatus = '';
   let disposed = false;
   let game = null;
@@ -74,10 +75,11 @@ export async function renderGame(app, root, bookId) {
 
   // --- zapis ------------------------------------------------------------------------------------
 
+  // Zwraca true, gdy zapis się udał (konflikt i błąd same ustawiają komunikat).
   async function persist(target = game, { force = false } = {}) {
     try {
       await app.storage.saveBookState(bookId, target.state, { force });
-      setSaveStatus('Zapisano');
+      return true;
     } catch (error) {
       if (error instanceof ConflictError) {
         await resolveConflict(error);
@@ -85,7 +87,19 @@ export async function renderGame(app, root, bookId) {
         console.error(error);
         setSaveStatus('Błąd zapisu — spróbuj ponownie', true);
       }
+      return false;
     }
+  }
+
+  // Zapisy wykonują się po kolei; „Zapisano” pojawia się dopiero, gdy w kolejce nic już nie czeka.
+  function enqueueSave() {
+    pendingSaves += 1;
+    saving = saving.then(async () => {
+      const ok = await persist();
+      pendingSaves -= 1;
+      if (ok && pendingSaves === 0 && !saveTimer) setSaveStatus('Zapisano');
+    });
+    return saving;
   }
 
   function queueSave({ delay = 0 } = {}) {
@@ -93,7 +107,7 @@ export async function renderGame(app, root, bookId) {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(() => {
       saveTimer = null;
-      saving = saving.then(() => persist());
+      enqueueSave();
     }, delay);
   }
 
@@ -101,7 +115,7 @@ export async function renderGame(app, root, bookId) {
     if (saveTimer) {
       clearTimeout(saveTimer);
       saveTimer = null;
-      saving = saving.then(() => persist());
+      enqueueSave();
     }
     return saving;
   }

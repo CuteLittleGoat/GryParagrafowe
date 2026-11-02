@@ -27,7 +27,7 @@ function hasText(blocks) {
 }
 
 export async function renderAbout(app, root, bookId) {
-  if (!(await isActiveBook(bookId))) {
+  if (!(await isActiveBook(bookId)) || !app.isBookEnabled(bookId)) {
     root.append(h('section', { class: 'panel' }, h('h1', {}, 'Nie znaleziono książki'), h('p', {}, h('a', { href: '#/', class: 'btn' }, 'Menu główne'))));
     return null;
   }

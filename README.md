@@ -10,9 +10,10 @@ postępu (Firebase), wiele kont graczy i wiele książek — z mechaniką dopaso
 
 ## Status
 
-**Aplikacja działa lokalnie** (tryb testowy na własnym komputerze): logowanie, katalog, gra w „Vae
-Victis” z automatyczną mechaniką, „Cofnij”, notatki, zapisy, zakończenia. **Następny krok: Firebase**
-(konta graczy, zapis postępu w chmurze) i publikacja na GitHub Pages.
+**Aplikacja gotowa po stronie kodu**: logowanie loginem i hasłem (Firebase), katalog, gra w „Vae
+Victis” z automatyczną mechaniką, „Cofnij”, notatki, zapisy w chmurze, zakończenia. **Czeka na kroki
+właściciela** w konsoli Firebase i włączenie GitHub Pages
+([dokumentacja/FIREBASE.md](dokumentacja/FIREBASE.md), rozdz. 9).
 Plan prac, stan bieżący i changelog: [`PLAN_I_CHANGELOG.md`](PLAN_I_CHANGELOG.md).
 
 ## Katalog gier
@@ -72,9 +73,10 @@ python3 -m http.server 8000
 ```
 
 Następnie: <http://localhost:8000/>. Na `localhost` działa **tryb lokalny**: dowolny login, hasło
-nie jest sprawdzane ani zapisywane, postęp zapisuje się tylko w tej przeglądarce. Pod każdym innym
-adresem (np. GitHub Pages) logowanie lokalne jest wyłączone — do czasu wdrożenia Firebase nie da się
-tam grać.
+nie jest sprawdzane ani zapisywane, postęp zapisuje się tylko w tej przeglądarce. Z parametrem
+`?emulator` (np. <http://localhost:8000/?emulator#/>) aplikacja łączy się z lokalnym emulatorem
+Firebase ([testy/reguly/README.md](testy/reguly/README.md)). Pod każdym innym adresem (np. GitHub
+Pages) aplikacja używa Firebase — logowanie kontami zakładanymi przez administratora.
 
 ## Testy i weryfikacja
 
@@ -95,3 +97,5 @@ Test w przeglądarce (Playwright, przy uruchomionym serwerze na porcie 8765):
 ```bash
 node testy/e2e/test-dymny.cjs
 ```
+
+Testy reguł Firebase i aplikacji z emulatorem: [testy/reguly/README.md](testy/reguly/README.md).

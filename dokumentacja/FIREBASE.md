@@ -14,10 +14,10 @@
 1. Firebase przechowuje **wyłącznie dane graczy**: profil, stan gry w każdej książce, ręczne zapisy,
    odkryte zakończenia, notatki. **Treść książek nie trafia do Firebase** — leży w repozytorium
    (zakaz Z10 w [LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md)).
-2. Wielu graczy (obecnie **6**, liczba nieograniczona strukturą), wiele książek, każdy gracz
+2. Wielu graczy (obecnie **6 graczy + konto dla Wydawcy**, liczba nieograniczona strukturą), wiele książek, każdy gracz
    niezależny — osobne dokumenty, osobne hasła, brak wglądu w dane innych.
 3. Logowanie **loginem i hasłem przechowywanymi w Firestore** (decyzja właściciela, P4): konta
-   graczy `Player1` … `Player6`, a w dokumencie każdego konta dwa pola — `PlayerName` (login) i
+   graczy `Player1` … `Player7` (`Player7` — konto dla Wydawcy), a w dokumencie każdego konta dwa pola — `PlayerName` (login) i
    `PlayerPassword` (hasło). Administrator ustawia i zmienia je ręcznie w konsoli Firebase. Aplikacja
    **nigdy** nie odczytuje ich z bazy; hasło nie trafia do backupu, logów ani localStorage.
 4. Modyfikacja bazy **wyłącznie przez aplikację**: Firebase App Check + reguły bezpieczeństwa +
@@ -66,7 +66,7 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 
 | Identyfikator | Format | Uwagi |
 |---|---|---|
-| `playerId` | `Player1` … `Player6` (wzorzec `^Player[1-9][0-9]?$`) | stały identyfikator konta; tworzy administrator; **niezmienny**. Login gracza to osobne pole `PlayerName` — można go zmienić bez przenoszenia danych |
+| `playerId` | `Player1` … `Player7` (wzorzec `^Player[1-9][0-9]?$`) | stały identyfikator konta; tworzy administrator; **niezmienny**. Login gracza to osobne pole `PlayerName` — można go zmienić bez przenoszenia danych |
 | `bookId` | nazwa katalogu w `ksiazki/` (np. `vae-victis`) | **niezmienny** — zmiana = utrata powiązania zapisów |
 | `saveId` | `save1`, `save2`, `save3` | 3 miejsca na ręczny zapis w każdej książce (decyzja właściciela, P6) |
 | ID węzła (paragrafu) | np. `p1`, `p91A`, `p98-2`, `prolog` | bez kropek i ukośników (klucze map w Firestore) — patrz [FORMAT_KSIAZKI.md](FORMAT_KSIAZKI.md) |
@@ -127,16 +127,16 @@ graczowi o tym `playerId` (administrator loguje się swoim kontem gracza).
 
 | Pole | Typ | Opis |
 |---|---|---|
-| `playerId` | string | konto zalogowanego gracza (`Player1` … `Player6`) |
+| `playerId` | string | konto zalogowanego gracza (`Player1` … `PlayerN`) |
 | `login` | string | kopia wpisanego loginu — reguły porównują ją z aktualnym `PlayerName` |
-| `password` | string | kopia wpisanego hasła — reguły porównują ją z aktualnym `PlayerPassword` |
+| `passwordHash` | string | **skrót SHA-256** wpisanego hasła (64 znaki szesnastkowe, liczony w przeglądarce) — reguły porównują go ze skrótem aktualnego `PlayerPassword`; samo hasło nie jest zapisywane |
 | `createdAt` | timestamp | czas logowania (`serverTimestamp()`); logowanie pamiętane 30 dni (decyzja właściciela, P6) |
 
 **`appConfig/public`**
 
 | Pole | Typ | Opis |
 |---|---|---|
-| `playerCount` | number | liczba kont graczy (`Player1` … `PlayerN`); przy logowaniu aplikacja sprawdza kolejno te konta — obecnie **6** |
+| `playerCount` | number | liczba kont graczy (`Player1` … `PlayerN`); przy logowaniu aplikacja sprawdza kolejno te konta — obecnie **7** (6 graczy + konto Wydawcy); bez tego dokumentu aplikacja przyjmuje 6 |
 | `maintenance` | boolean | tryb serwisowy — aplikacja pokazuje komunikat |
 | `disabledBooks` | array&lt;string&gt; | awaryjne wyłączenie książek (np. wycofanie zgody — N9) |
 
@@ -194,32 +194,41 @@ Dla „Vae Victis” stan modułów to wyłącznie `codewords` (Informacje #1–
 
 ## 5. Logowanie loginem i hasłem — przepływ (wariant A, plan Spark)
 
+> Stan: **wdrożone w aplikacji** (`aplikacja/js/data/firestore-adapter.js`, 2026-11-02); sprawdzone
+> w emulatorze (`testy/reguly/`). Działa po wykonaniu kroków administratora z rozdz. 9.
+
 1. Start aplikacji → `signInAnonymously()` — przeglądarka otrzymuje `uid` (bez danych osobowych).
-2. Gracz wpisuje **login** i **hasło**. Aplikacja odczytuje `appConfig/public.playerCount` (np. 6) i
-   sprawdza kolejno konta `Player1` … `Player6`: dla każdego próbuje zapisać dokument
-   `sessions/{uid}` = `{ playerId, login, password, createdAt: serverTimestamp() }`.
-3. Reguły dopuszczają ten zapis **tylko wtedy, gdy login i hasło zgadzają się** z polami
-   `PlayerName` i `PlayerPassword` w `secrets/{playerId}` (reguły odczytują `secrets` funkcją `get()`;
-   aplikacja nie ma do tej kolekcji żadnego dostępu). Pierwszy udany zapis = zalogowanie. Jeśli
-   żadne konto nie pasuje — komunikat „Nieprawidłowy login lub hasło”.
+2. Gracz wpisuje **login** i **hasło**. Przeglądarka liczy skrót SHA-256 hasła, odczytuje
+   `appConfig/public.playerCount` (np. 7) i sprawdza kolejno konta `Player1` … `PlayerN`: dla każdego
+   próbuje zapisać dokument `sessions/{uid}` = `{ playerId, login, passwordHash, createdAt:
+   serverTimestamp() }`.
+3. Reguły dopuszczają ten zapis **tylko wtedy, gdy login i skrót hasła zgadzają się** z polami
+   `PlayerName` i `PlayerPassword` w `secrets/{playerId}` (reguły odczytują `secrets` funkcją `get()`
+   i same liczą skrót hasła; aplikacja nie ma do tej kolekcji żadnego dostępu). Pierwszy udany zapis
+   = zalogowanie. Jeśli żadne konto nie pasuje — komunikat „Nieprawidłowy login lub hasło”.
 4. Po zalogowaniu aplikacja zapisuje login w `players/{playerId}.displayName` (do panelu
-   administratora i kopii zapasowych).
+   administratora i kopii zapasowych), a w pamięci przeglądarki — tylko identyfikator konta, login i
+   datę logowania (**bez hasła i bez jego skrótu**), żeby po odświeżeniu strony wiedzieć, czyje dane
+   wczytać.
 5. Każdy odczyt i zapis danych gracza jest sprawdzany przez reguły: sesja istnieje, nie wygasła
-   (30 dni) i **login oraz hasło z sesji nadal zgadzają się z polami w `secrets`**. Dzięki temu
+   (30 dni) i **login oraz skrót hasła z sesji nadal zgadzają się z polami w `secrets`**. Dzięki temu
    **zmiana loginu lub hasła w konsoli natychmiast wylogowuje** tego gracza ze wszystkich urządzeń.
-6. Wylogowanie: usunięcie `sessions/{uid}` + `signOut()`.
+6. Wylogowanie: usunięcie `sessions/{uid}` (anonimowe konto przeglądarki zostaje — nie zawiera
+   żadnych danych).
 
 Właściwości i ograniczenia (świadomie zaakceptowane):
 
 - Loginy muszą być różne (przy dwóch kontach z tym samym loginem i hasłem wygrywa pierwsze z nich).
-- Logowanie to co najwyżej tyle prób zapisu, ile jest kont (6) — przy tej liczbie graczy pomijalne.
-- Login i hasło są przechowywane jawnym tekstem w `secrets` i `sessions` (wymóg: ręczna edycja w
-  konsoli). Widzi je tylko administrator projektu Firebase. **Gracze nie powinni używać haseł z
-  innych serwisów**; zalecane hasła losowe, min. 12 znaków.
+  Wielkość liter w loginie i haśle ma znaczenie.
+- Logowanie to co najwyżej tyle prób zapisu, ile jest kont — przy tej liczbie graczy pomijalne
+  (konsola przeglądarki pokazuje wtedy ostrzeżenia „PERMISSION_DENIED” — to oczekiwane).
+- Hasło jest przechowywane jawnym tekstem tylko w `secrets` (wymóg: ręczna edycja w konsoli); widzi je
+  tylko administrator projektu Firebase. W `sessions` jest wyłącznie skrót hasła. **Gracze nie
+  powinni używać haseł z innych serwisów**; zalecane hasła losowe, min. 12 znaków.
 - Reguły nie ograniczają liczby prób logowania. Ochrona: App Check (tylko prawdziwa aplikacja) +
   silne hasła. Opcjonalne wzmocnienie: wariant B (rozdz. 10).
-- Możliwe utwardzenie bez zmiany wygody admina: przechowywanie skrótu hasła w sesji
-  (`hashing.sha256` w regułach) — do rozważenia w Etapie 5.
+- Pamięć podręczna Firestore działa wyłącznie w pamięci karty (bez trwałego zapisu w przeglądarce) —
+  bez trybu offline, za to bez kopii danych na dysku urządzenia.
 
 ## 6. Reguły bezpieczeństwa — projekt
 
@@ -238,116 +247,22 @@ service cloud.firestore {
 }
 ```
 
-Docelowe reguły przygotujemy, gdy aplikacja będzie już tworzyć dokumenty i pola (Etap 5);
-publikuje je właściciel. Konsola Firebase działa niezależnie od reguł, więc administrator może
-już teraz zakładać dokumenty `secrets/{playerId}` i `admins/{playerId}`.
+**Reguły docelowe: [`firebase/firestore.rules`](../firebase/firestore.rules)** (2026-11-02) — gotowe
+do opublikowania przez właściciela (rozdz. 9, krok 4). Sprawdzone w emulatorze:
+`testy/reguly/test-regul.mjs` (17 testów: wszystkie role i przypadki brzegowe) oraz
+`testy/reguly/test-aplikacji-z-emulatorem.cjs` (aplikacja w przeglądarce z prawdziwymi regułami).
+Instrukcja uruchomienia testów: [`testy/reguly/README.md`](../testy/reguly/README.md).
 
-Docelowy plik: `firebase/firestore.rules` (Etap 5). Przed wdrożeniem **obowiązkowe testy** w
-emulatorze (`@firebase/rules-unit-testing`). Szkic:
+Co gwarantują reguły:
 
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-
-    // ===== Funkcje pomocnicze =====
-    function signedIn() {
-      return request.auth != null;
-    }
-    function validPlayerId(id) {
-      return id is string && id.matches('^Player[1-9][0-9]?$');
-    }
-    function secretPath(playerId) {
-      return /databases/$(database)/documents/secrets/$(playerId);
-    }
-    function sessionPath() {
-      return /databases/$(database)/documents/sessions/$(request.auth.uid);
-    }
-    // Login i hasło zgadzają się z polami PlayerName i PlayerPassword konta
-    function credentialsMatch(playerId, login, password) {
-      return validPlayerId(playerId)
-        && exists(secretPath(playerId))
-        && get(secretPath(playerId)).data.PlayerName == login
-        && get(secretPath(playerId)).data.PlayerPassword == password;
-    }
-    // Sesja istnieje, nie wygasła, a login i hasło w sesji nadal zgadzają się z kontem
-    function sessionValid() {
-      return signedIn()
-        && exists(sessionPath())
-        && request.time < get(sessionPath()).data.createdAt + duration.value(30, 'd')
-        && credentialsMatch(get(sessionPath()).data.playerId,
-                            get(sessionPath()).data.login,
-                            get(sessionPath()).data.password);
-    }
-    function currentPlayer() {
-      return get(sessionPath()).data.playerId;
-    }
-    function isPlayer(playerId) {
-      return sessionValid() && currentPlayer() == playerId;
-    }
-    function isAdmin() {
-      return sessionValid()
-        && exists(/databases/$(database)/documents/admins/$(currentPlayer()));
-    }
-    function canAccess(playerId) {
-      return isPlayer(playerId) || isAdmin();
-    }
-
-    // ===== Tylko konsola Firebase =====
-    match /secrets/{playerId} {
-      allow read, write: if false;
-    }
-    match /admins/{playerId} {
-      allow read, write: if false;
-    }
-    match /appConfig/{docId} {
-      allow read: if signedIn();
-      allow write: if false;
-    }
-
-    // ===== Sesje logowania =====
-    match /sessions/{uid} {
-      allow create, update: if signedIn()
-        && request.auth.uid == uid
-        && request.resource.data.keys().hasOnly(['playerId', 'login', 'password', 'createdAt'])
-        && request.resource.data.login is string
-        && request.resource.data.password is string
-        && request.resource.data.createdAt == request.time
-        && credentialsMatch(request.resource.data.playerId,
-                            request.resource.data.login,
-                            request.resource.data.password);
-      allow delete: if signedIn() && request.auth.uid == uid;
-      allow read: if false;
-    }
-
-    // ===== Dane graczy =====
-    match /players/{playerId} {
-      allow get: if canAccess(playerId);
-      allow list: if isAdmin();
-      allow create, update: if canAccess(playerId);      // + walidacja schematu (Etap 5)
-      allow delete: if isAdmin();
-
-      match /books/{bookId} {
-        allow read: if canAccess(playerId);
-        allow create, update: if canAccess(playerId)
-          && request.resource.data.bookId == bookId;      // + walidacja schematu
-        allow delete: if canAccess(playerId);
-
-        match /saves/{saveId} {
-          allow read: if canAccess(playerId);
-          allow create, update: if canAccess(playerId)
-            && saveId.matches('^save[1-3]$');
-          allow delete: if canAccess(playerId);
-        }
-      }
-    }
-  }
-}
-```
-
-Do uzupełnienia w Etapie 5: walidacja schematu dokumentów (`keys().hasOnly(...)`, typy pól,
-limity długości tablic i tekstów), testy reguł dla wszystkich ról (anonim bez sesji, gracz,
-inny gracz, admin, sesja wygasła, login lub hasło zmienione w konsoli).
+| Kolekcja | Zasada |
+|---|---|
+| `secrets`, `admins` | brak jakiegokolwiek dostępu z aplikacji (tylko konsola) |
+| `appConfig/public` | odczyt dla przeglądarki zalogowanej anonimowo; zapis tylko w konsoli |
+| `sessions/{uid}` | zapis tylko własnej sesji i tylko przy zgodnym loginie i skrócie hasła; czas z serwera; bez odczytu; usunięcie (wylogowanie) przez właściciela sesji |
+| `players/{playerId}` i podkolekcje | tylko ten gracz (ważna sesja) albo administrator; lista graczy i usuwanie profilu — tylko administrator |
+| walidacja | dozwolone pola i typy dokumentów, limity długości (notatki do 20 000 znaków, nazwa zapisu do 100), identyfikatory książek i zapisów (`save1`–`save3`), numer wersji stanu gry tylko rośnie |
+| sesja | ważna 30 dni; zmiana `PlayerName` / `PlayerPassword` lub usunięcie `secrets/{playerId}` natychmiast odbiera dostęp |
 
 ## 7. App Check i dodatkowe zabezpieczenia
 
@@ -379,10 +294,10 @@ aplikację do końca miesiąca (albo do *Unenforce*).
    skopiować klucz witryny.
 2. Firebase → App Check → *Apps* → **Register** przy każdej aplikacji Web → reCAPTCHA Enterprise →
    wkleić klucz witryny; TTL `1 days`.
-3. Dopisać klucz do konfiguracji aplikacji (`firebase/firebase-config.js`; nazwę pola i format
-   pliku ustalimy w Etapie 5 — np. `appCheckEnterpriseSiteKey`, jak w projekcie „Karty”). Aplikacja
-   wywołuje `initializeAppCheck(...)` z automatycznym odświeżaniem tokenu **przed** pierwszym użyciem
-   Firestore.
+3. Wpisać klucz witryny w `firebase/firebase-config.js` w polu `appCheckSiteKey` (np.
+   `export const appCheckSiteKey = "6Lc…";` — może to zrobić agent na polecenie właściciela, P13).
+   Aplikacja wywołuje `initializeAppCheck(...)` z automatycznym odświeżaniem tokenu **przed**
+   pierwszym użyciem Firestore; przy pustym polu działa bez App Check.
 4. Obserwacja przez kilka dni (zakładka *APIs*).
 5. **Enforce** dla Cloud Firestore (oraz dla Authentication, jeśli konsola na to pozwala).
 
@@ -465,19 +380,27 @@ Opcjonalnie (plan Blaze): zarządzany eksport Firestore / odtwarzanie do punktu 
 
 ## 9. Procedury administratora (konsola Firebase)
 
-**Pierwsza konfiguracja**
-1. ✅ Projekt Firebase `gryparagrafowe-e1fb3` — utworzony przez właściciela 2026-10-29
-   (w konfiguracji aplikacji Web brak `measurementId`, czyli bez Google Analytics).
-2. ✅ Aplikacja Web; konfiguracja w `firebase/firebase-config.js` — właściciel, 2026-10-29.
-3. ⬜ Authentication → Metody logowania → włączyć **Anonimowe** (Etap 5).
-4. ✅ Firestore — baza utworzona, reguły tymczasowe blokują cały dostęp (rozdz. 6) — właściciel,
-   2026-10-29. Region bazy wybrany przy tworzeniu (nie do zmiany) — do odnotowania w tym dokumencie.
-5. ⬜ Firestore → Reguły → wkleić `firebase/firestore.rules` → Opublikuj (Etap 5; alternatywnie
-   `firebase deploy --only firestore:rules`).
-6. ⬜ App Check — rozdz. 7.2; opcjonalnie ograniczenia klucza API — rozdz. 7.3.
-7. ⬜ Konta graczy: dokumenty `secrets/Player1` … `secrets/Player6` (pola `PlayerName` i
-   `PlayerPassword`), dokument `appConfig/public` z polem `playerCount` = 6 oraz `admins/{playerId}`
-   dla administratora. Można je zakładać już teraz — konsola działa niezależnie od reguł.
+**Pierwsza konfiguracja** (kolejność ma znaczenie; kroki 2–5 można wykonać przed publikacją strony)
+1. ✅ Projekt Firebase `gryparagrafowe-e1fb3` z aplikacją Web (bez Google Analytics) i bazą Firestore —
+   właściciel, 2026-10-29; konfiguracja w `firebase/firebase-config.js`.
+2. ⬜ **Logowanie anonimowe**: Authentication → *Sign-in method* (Metody logowania) → *Anonymous*
+   (Anonimowe) → włącz → Zapisz.
+3. ⬜ **Konta graczy**: Firestore Database → *Start collection* (Rozpocznij kolekcję) → ID kolekcji
+   `secrets` → dokumenty o ID `Player1`, `Player2`, … `Player7` (Player7 — konto dla Wydawcy). W
+   każdym dwa pola typu *string*: `PlayerName` (login, inny dla każdego konta) i `PlayerPassword`
+   (hasło; zalecane min. 12 znaków, losowe).
+4. ⬜ **Ustawienia aplikacji**: kolekcja `appConfig` → dokument `public` → pola: `playerCount` (typ
+   *number*) = `7`, `maintenance` (typ *boolean*) = `false`, `disabledBooks` (typ *array*) — puste.
+5. ⬜ **Administrator**: kolekcja `admins` → dokument o ID konta administratora (np. `Player1`) — z
+   dowolnym polem, np. `rola` = `administrator` (liczy się samo istnienie dokumentu).
+6. ⬜ **Reguły**: Firestore Database → *Rules* (Reguły) → zastąpić całą treść zawartością pliku
+   `firebase/firestore.rules` → *Publish* (Opublikuj).
+7. ⬜ **Publikacja strony**: GitHub → repozytorium → *Settings* → *Pages* → *Source*: „Deploy from a
+   branch” → *Branch*: `main`, folder `/ (root)` → *Save*. Adres aplikacji:
+   `https://cutelittlegoat.github.io/GryParagrafowe/` (pierwsza publikacja trwa kilka minut).
+8. ⬜ Sprawdzenie: logowanie każdym kontem, gra, zapis, wylogowanie.
+9. ⬜ **App Check** (zalecane przed rozesłaniem odnośnika) — rozdz. 7.2; opcjonalnie ograniczenia
+   klucza API — rozdz. 7.3.
 
 **Dodanie gracza** (np. siódmego)
 1. Firestore → kolekcja `secrets` → „Dodaj dokument” → ID dokumentu: `Player7`.
@@ -490,8 +413,8 @@ Opcjonalnie (plan Blaze): zarządzany eksport Firestore / odtwarzanie do punktu 
 Gracz zostaje od razu wylogowany ze wszystkich urządzeń i loguje się ponownie nowymi danymi. Jego
 postęp w grach zostaje (jest przypisany do konta `PlayerN`, nie do loginu).
 
-**Uprawnienia administratora** — utworzenie (pustego) dokumentu `admins/{playerId}` (np.
-`admins/Player1`); odebranie — usunięcie dokumentu.
+**Uprawnienia administratora** — utworzenie dokumentu `admins/{playerId}` (np. `admins/Player1`,
+z dowolnym polem); odebranie — usunięcie dokumentu.
 
 **Wylogowanie wszystkich** — usunięcie dokumentów w kolekcji `sessions`.
 
@@ -526,7 +449,6 @@ odczytów/zapisów Firestore — zweryfikować aktualne wartości w cenniku Fire
 
 ## 12. Do ustalenia
 
-- format pliku `firebase/firebase-config.js`: obecnie `const firebaseConfig = {…}` (do wczytania
-  klasycznym `<script>` przed modułami aplikacji); ewentualnie `window.firebaseConfig` z polem klucza
-  App Check, jak w projekcie „Karty” — decyzja w Etapie 5, zmianę wprowadza właściciel,
+- ✅ format pliku `firebase/firebase-config.js` — moduł ES (`export const firebaseConfig`, `export const
+  appCheckSiteKey`), zmieniony za zgodą właściciela (P13, 2026-11-02),
 - region bazy (już wybrany przy tworzeniu — odnotować).

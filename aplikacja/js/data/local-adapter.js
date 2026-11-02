@@ -17,6 +17,11 @@ export class LocalAdapter {
     return 'local';
   }
 
+  // Odpowiednik appConfig/public z Firebase — w trybie lokalnym zawsze wartości domyślne.
+  async loadAppConfig() {
+    return { playerCount: 0, maintenance: false, disabledBooks: [] };
+  }
+
   // --- sesja ---------------------------------------------------------------------------------
 
   async restoreSession() {

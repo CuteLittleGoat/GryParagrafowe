@@ -1,0 +1,192 @@
+rules_version = '2';
+
+// Reguły bezpieczeństwa Firestore — projekt „Gry paragrafowe” (dokumentacja/FIREBASE.md, rozdz. 6).
+// Publikuje je właściciel w konsoli Firebase (Firestore Database → Reguły). Każda zmiana wymaga
+// uruchomienia testów reguł (testy/reguly/) i aktualizacji dokumentacji.
+//
+// Logowanie (FIREBASE.md, rozdz. 5): przeglądarka loguje się anonimowo, a potem zapisuje dokument
+// sessions/{uid} z loginem i skrótem SHA-256 hasła. Zapis przechodzi tylko wtedy, gdy login i hasło
+// zgadzają się z polami PlayerName i PlayerPassword w secrets/{playerId}. Każdy dostęp do danych
+// gracza ponownie sprawdza sesję — zmiana loginu lub hasła w konsoli natychmiast wylogowuje gracza.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===== Funkcje pomocnicze =====
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function validPlayerId(id) {
+      return id is string && id.matches('^Player[1-9][0-9]?$');
+    }
+
+    function secretPath(playerId) {
+      return /databases/$(database)/documents/secrets/$(playerId);
+    }
+
+    function sessionPath() {
+      return /databases/$(database)/documents/sessions/$(request.auth.uid);
+    }
+
+    function adminPath(playerId) {
+      return /databases/$(database)/documents/admins/$(playerId);
+    }
+
+    // Login i skrót hasła zgadzają się z polami PlayerName i PlayerPassword konta.
+    function credentialsMatch(playerId, login, passwordHash) {
+      return validPlayerId(playerId)
+        && exists(secretPath(playerId))
+        && get(secretPath(playerId)).data.PlayerName is string
+        && get(secretPath(playerId)).data.PlayerPassword is string
+        && get(secretPath(playerId)).data.PlayerName == login
+        && hashing.sha256(get(secretPath(playerId)).data.PlayerPassword).toHexString().lower() == passwordHash;
+    }
+
+    function session() {
+      return get(sessionPath()).data;
+    }
+
+    // Sesja istnieje, nie wygasła (30 dni) i nadal pasuje do loginu i hasła konta.
+    function sessionValid() {
+      return signedIn()
+        && exists(sessionPath())
+        && request.time < session().createdAt + duration.value(30, 'd')
+        && credentialsMatch(session().playerId, session().login, session().passwordHash);
+    }
+
+    function isPlayer(playerId) {
+      return sessionValid() && session().playerId == playerId;
+    }
+
+    function isAdmin() {
+      return sessionValid() && exists(adminPath(session().playerId));
+    }
+
+    function canAccess(playerId) {
+      return isPlayer(playerId) || isAdmin();
+    }
+
+    function optionalString(data, key, maxSize) {
+      return !(key in data) || (data[key] is string && data[key].size() <= maxSize);
+    }
+
+    // ----- Walidacja dokumentów -----
+
+    function validSettings(settings) {
+      return settings is map
+        && settings.keys().hasOnly(['theme', 'fontScale', 'mechanicsMode'])
+        && (!('theme' in settings) || settings.theme in ['auto', 'light', 'dark'])
+        && (!('fontScale' in settings) || (settings.fontScale is number && settings.fontScale >= 0.5 && settings.fontScale <= 3))
+        && (!('mechanicsMode' in settings) || settings.mechanicsMode in ['auto', 'manual']);
+    }
+
+    function validProfile(data) {
+      return data.keys().hasOnly(['schemaVersion', 'displayName', 'settings', 'createdAt', 'updatedAt'])
+        && (!('schemaVersion' in data) || data.schemaVersion is int)
+        && optionalString(data, 'displayName', 100)
+        && (!('settings' in data) || validSettings(data.settings))
+        && optionalString(data, 'createdAt', 40)
+        && optionalString(data, 'updatedAt', 40);
+    }
+
+    function validBookId(bookId) {
+      return bookId.size() <= 60 && bookId.matches('^[a-z0-9]+(-[a-z0-9]+)*$');
+    }
+
+    function validBookState(data, bookId) {
+      return data.keys().hasOnly(['schemaVersion', 'bookId', 'contentVersion', 'status', 'currentNode',
+          'history', 'visits', 'modules', 'notes', 'endingsFound', 'playthrough', 'undo', 'revision',
+          'startedAt', 'updatedAt'])
+        && data.keys().hasAll(['schemaVersion', 'bookId', 'status', 'currentNode', 'revision'])
+        && data.schemaVersion is int
+        && data.bookId == bookId
+        && data.status in ['inProgress', 'finished']
+        && data.currentNode is string && data.currentNode.size() <= 40
+        && data.revision is int && data.revision >= 1
+        && (!('history' in data) || (data.history is list && data.history.size() <= 20000))
+        && (!('visits' in data) || data.visits is map)
+        && (!('modules' in data) || data.modules is map)
+        && optionalString(data, 'notes', 20000)
+        && (!('endingsFound' in data) || (data.endingsFound is list && data.endingsFound.size() <= 1000))
+        && (!('playthrough' in data) || data.playthrough is int)
+        && (!('undo' in data) || (data.undo is list && data.undo.size() <= 1000))
+        && optionalString(data, 'contentVersion', 40)
+        && optionalString(data, 'startedAt', 40)
+        && optionalString(data, 'updatedAt', 40);
+    }
+
+    function validSave(data) {
+      return data.keys().hasOnly(['schemaVersion', 'label', 'state', 'createdAt'])
+        && data.keys().hasAll(['label', 'state'])
+        && data.label is string && data.label.size() <= 100
+        && data.state is map
+        && (!('schemaVersion' in data) || data.schemaVersion is int)
+        && optionalString(data, 'createdAt', 40);
+    }
+
+    // ===== Tylko konsola Firebase =====
+
+    match /secrets/{playerId} {
+      allow read, write: if false;
+    }
+
+    match /admins/{playerId} {
+      allow read, write: if false;
+    }
+
+    match /appConfig/{docId} {
+      allow get: if signedIn() && docId == 'public';
+      allow list, write: if false;
+    }
+
+    // ===== Sesje logowania =====
+
+    match /sessions/{uid} {
+      allow create, update: if signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['playerId', 'login', 'passwordHash', 'createdAt'])
+        && request.resource.data.keys().hasAll(['playerId', 'login', 'passwordHash', 'createdAt'])
+        && request.resource.data.login is string
+        && request.resource.data.login.size() <= 100
+        && request.resource.data.passwordHash is string
+        && request.resource.data.passwordHash.matches('^[0-9a-f]{64}$')
+        && request.resource.data.createdAt == request.time
+        && credentialsMatch(request.resource.data.playerId,
+                            request.resource.data.login,
+                            request.resource.data.passwordHash);
+      allow delete: if signedIn() && request.auth.uid == uid;
+      allow read: if false;
+    }
+
+    // ===== Dane graczy =====
+
+    match /players/{playerId} {
+      allow get: if canAccess(playerId);
+      allow list: if isAdmin();
+      allow create, update: if canAccess(playerId) && validProfile(request.resource.data);
+      allow delete: if isAdmin();
+
+      match /books/{bookId} {
+        allow read: if canAccess(playerId);
+        allow create: if canAccess(playerId)
+          && validBookId(bookId)
+          && validBookState(request.resource.data, bookId);
+        // Numer wersji (revision) tylko rośnie — wykrywanie konfliktu zapisów z dwóch urządzeń.
+        allow update: if canAccess(playerId)
+          && validBookState(request.resource.data, bookId)
+          && request.resource.data.revision > resource.data.revision;
+        allow delete: if canAccess(playerId);
+
+        match /saves/{saveId} {
+          allow read: if canAccess(playerId);
+          allow create, update: if canAccess(playerId)
+            && saveId.matches('^save[1-3]$')
+            && validSave(request.resource.data);
+          allow delete: if canAccess(playerId);
+        }
+      }
+    }
+  }
+}

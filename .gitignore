@@ -32,6 +32,8 @@ database-debug.log
 
 # --- Node.js (testy, narzędzia) --------------------------------
 node_modules/
+# (także jako dowiązanie symboliczne)
+node_modules
 npm-debug.log*
 yarn-error.log*
 

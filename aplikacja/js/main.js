@@ -31,10 +31,26 @@ const app = {
     }
   },
 
+  config: { playerCount: 0, maintenance: false, disabledBooks: [] },
+
   async login(login, password) {
     this.session = await this.storage.login(login, password);
     await this.loadProfileSettings();
+    await this.loadConfig();
     this.renderUserArea();
+  },
+
+  // Ustawienia administratora z bazy: tryb serwisowy i awaryjnie wyłączone książki (np. wycofanie zgody).
+  async loadConfig() {
+    try {
+      this.config = await this.storage.loadAppConfig();
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  isBookEnabled(bookId) {
+    return !this.config.maintenance && !this.config.disabledBooks.includes(bookId);
   },
 
   async logout() {
@@ -60,7 +76,10 @@ const app = {
 
   async restore() {
     this.session = await this.storage.restoreSession();
-    if (this.session) await this.loadProfileSettings();
+    if (this.session) {
+      await this.loadProfileSettings();
+      await this.loadConfig();
+    }
     this.renderUserArea();
   },
 

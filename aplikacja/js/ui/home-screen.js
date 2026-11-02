@@ -44,7 +44,19 @@ export async function renderHome(app, root) {
     return null;
   }
 
-  const books = await activeBooks();
+  if (app.config.maintenance) {
+    page.append(
+      h(
+        'section',
+        { class: 'panel notice-panel', role: 'status' },
+        h('h2', {}, 'Przerwa techniczna'),
+        h('p', {}, 'Trwają prace przy aplikacji. Zapraszamy wkrótce — Twój postęp jest zapisany.'),
+      ),
+    );
+    return null;
+  }
+
+  const books = (await activeBooks()).filter((book) => app.isBookEnabled(book.id));
   page.append(h('h2', { class: 'section-title' }, 'Książki'));
   if (!books.length) {
     page.append(h('p', { class: 'muted' }, 'Brak książek w katalogu.'));
@@ -69,6 +81,7 @@ function loginForm(app) {
   const error = h('p', { class: 'form-error', role: 'alert' });
   const submit = h('button', { type: 'submit', class: 'btn btn-primary' }, 'Zaloguj');
   const isLocal = app.storage.kind === 'local';
+  const isEmulator = app.storage.kind === 'emulator';
   const form = h(
     'form',
     { class: 'panel login-panel', 'aria-labelledby': 'login-title', novalidate: true },
@@ -80,6 +93,9 @@ function loginForm(app) {
         h('strong', {}, 'Tryb lokalny (do testów na tym komputerze). '),
         'Dane zapisują się tylko w tej przeglądarce; hasło nie jest sprawdzane ani zapisywane.',
       )
+      : null,
+    isEmulator
+      ? h('p', { class: 'dev-banner' }, h('strong', {}, 'Tryb testowy (emulator Firebase). '), 'Dane nie trafiają do prawdziwej bazy.')
       : null,
     h('label', { class: 'field' }, h('span', { class: 'field-label' }, 'Login'), login),
     h('label', { class: 'field' }, h('span', { class: 'field-label' }, 'Hasło'), password),

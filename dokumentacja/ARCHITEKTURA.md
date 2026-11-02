@@ -1,6 +1,7 @@
 # Architektura aplikacji
 
-> Status: **wdrażane** — ekrany, silnik i zapis lokalny działają (2026-11-02); Firebase — Etap 5.
+> Status: **wdrażane** — ekrany, silnik, zapis lokalny i zapis w Firebase działają (2026-11-02);
+> publikacja strony po krokach właściciela (FIREBASE.md, rozdz. 9).
 > Dokument opisuje docelową architekturę; szczegóły doprecyzowujemy w
 > kolejnych etapach ([PLAN_I_CHANGELOG.md](../PLAN_I_CHANGELOG.md)). Zasady licencyjne
 > ([LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md)) mają pierwszeństwo przed każdym zapisem poniżej.
@@ -149,9 +150,11 @@ Interfejs adaptera zapisu (wspólny dla obu implementacji; adapter po zalogowani
 | `listSaves(bookId)` / `writeSave(bookId, saveId, { label, state })` / `readSave(…)` / `deleteSave(…)` | 3 miejsca na ręczny zapis (`save1` … `save3`) |
 | `exportBackup(scope)` / `restoreBackup(file, options)` | kopie zapasowe (restore — tylko admin) — Etap 6 |
 
-Wybór adaptera (`storage.js`): **`LocalAdapter` działa wyłącznie pod adresem `localhost`** (komputer
-dewelopera); pod każdym innym adresem, do czasu wdrożenia Firebase, logowanie jest niedostępne — nie
-da się grać bez logowania (N7).
+Wybór adaptera (`storage.js`): pod adresem w internecie (GitHub Pages) — **`FirestoreAdapter`**
+(logowanie kontami z Firebase); **`LocalAdapter` działa wyłącznie pod adresem `localhost`** (komputer
+dewelopera, bez kont); `localhost?emulator` — `FirestoreAdapter` połączony z lokalnym emulatorem
+(testy). Bez konfiguracji Firebase logowanie poza `localhost` jest niedostępne — nie da się grać bez
+logowania (N7).
 
 - `LocalAdapter` — localStorage, **wyłącznie do rozwoju i testów lokalnych** (bez prawdziwego
   uwierzytelniania; nie publikujemy go jako trybu gościa — N7).

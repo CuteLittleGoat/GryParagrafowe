@@ -10,19 +10,23 @@
 
 | | |
 |---|---|
-| Etap | **2 i 3 — aplikacja i mechanika: zakończone** (2026-11-02, tryb lokalny); następny: **Etap 5 — Firebase** |
+| Etap | **2, 3 i 5 (część programistyczna) — zakończone** (2026-11-02); czeka na **kroki właściciela w konsoli Firebase i GitHub Pages** (FIREBASE.md, rozdz. 9) |
 | Aplikacja | **działa lokalnie** (`localhost`): logowanie (tryb lokalny), katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy, zakończenia, „O książce”; test w przeglądarce 43/43, testy silnika 12/12. Pod innymi adresami logowanie wyłączone do czasu Firebase |
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
-| Firebase | projekt **`gryparagrafowe-e1fb3`** utworzony przez właściciela (2026-10-29); konfiguracja webowa w `firebase/firebase-config.js`; reguły w konsoli tymczasowo blokują cały dostęp; logowanie loginem i hasłem (konta `Player1` … `Player6`), App Check i reguły docelowe — Etap 5 ([dokumentacja/FIREBASE.md](dokumentacja/FIREBASE.md)) |
+| Firebase | projekt **`gryparagrafowe-e1fb3`** (właściciel, 2026-10-29); aplikacja ma gotowe logowanie loginem i hasłem i zapis w Firestore; **reguły docelowe** w `firebase/firestore.rules` (testy w emulatorze: 17/17 + test aplikacji 15/15) — **do opublikowania przez właściciela**; w konsoli wciąż reguły tymczasowe blokujące dostęp; App Check — po utworzeniu klucza ([dokumentacja/FIREBASE.md](dokumentacja/FIREBASE.md)) |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna, podmieniona przez właściciela 2026-11-01 |
 | Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1–PW3 przygotowane; **właściciel wyśle je na końcu**, razem z odnośnikiem do gotowej aplikacji i kontem dla Wydawcy |
 | Blokery | brak |
 
 ## 2. Następne kroki
 
-1. **Etap 5**: Firebase — logowanie, zapis postępu, reguły, App Check; kroki w konsoli wykonuje
-   właściciel (FIREBASE.md, rozdz. 9).
-2. **Etap 7 (część)**: publikacja na GitHub Pages — dopiero z działającym logowaniem.
+1. **Właściciel — konsola Firebase i GitHub** (FIREBASE.md, rozdz. 9, kroki 2–8): logowanie
+   anonimowe, konta `Player1` … `Player7` (Player7 — Wydawca), `appConfig/public`, administrator,
+   publikacja reguł, włączenie GitHub Pages, sprawdzenie logowania.
+2. **App Check** (zalecane przed wysłaniem odnośnika Wydawcy): klucz reCAPTCHA Enterprise — właściciel
+   tworzy klucz, agent wpisuje go w `firebase/firebase-config.js` (P13), po obserwacji — wymuszenie.
+3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1–PW3 (i P14 wg
+   decyzji).
 3. **Na końcu — właściciel**: konto dla Wydawcy (dodatkowe konto gracza), wysłanie odnośnika do
    aplikacji i pytań PW1–PW3.
 
@@ -78,12 +82,13 @@
 ### Etap 5 — Firebase: konta i zapis postępu
 - [x] Porównanie z instrukcją App Check z projektu „Karty” (P1) — wnioski w FIREBASE.md, rozdz. 7 (2026-10-29)
 - [x] Projekt Firebase `gryparagrafowe-e1fb3`, konfiguracja webowa w `firebase/firebase-config.js`, Firestore z tymczasowymi regułami blokującymi cały dostęp — właściciel, 2026-10-29
-- [ ] Authentication — dostawca anonimowy; odnotowanie regionu bazy w FIREBASE.md
-- [ ] Format `firebase/firebase-config.js` i pole klucza App Check (P13)
-- [ ] `firebase/firestore.rules` + testy reguł w emulatorze (wszystkie role i przypadki brzegowe)
+- [ ] **Właściciel**: Authentication — dostawca anonimowy (FIREBASE.md, rozdz. 9, krok 2); odnotowanie regionu bazy w FIREBASE.md
+- [x] Format `firebase/firebase-config.js` (moduł ES) i pole klucza App Check `appCheckSiteKey` — za zgodą właściciela (P13) (2026-11-02)
+- [x] `firebase/firestore.rules` + testy reguł w emulatorze (`testy/reguly/test-regul.mjs`, 17/17) i test aplikacji z emulatorem (15/15) (2026-11-02)
+- [ ] **Właściciel**: publikacja reguł w konsoli (rozdz. 9, krok 6)
 - [ ] App Check wg FIREBASE.md, rozdz. 7.2 (reCAPTCHA Enterprise, TTL 1 dzień, obserwacja → Enforce); opcjonalnie ograniczenia klucza API
-- [ ] `FirestoreAdapter`: logowanie loginem i hasłem (sesje ważne 30 dni), profil, autozapis z kontrolą `revision`, ręczne zapisy, pamięć offline
-- [ ] Konta `Player1` … `Player6` (pola `PlayerName`, `PlayerPassword`), `appConfig/public.playerCount` = 6, uprawnienia administratora (FIREBASE.md, rozdz. 9)
+- [x] `FirestoreAdapter`: logowanie loginem i hasłem (sesje ważne 30 dni, w sesji tylko skrót hasła), profil, autozapis w transakcji z kontrolą `revision`, ręczne zapisy, `appConfig` (liczba kont, przerwa techniczna, wyłączone książki); bez pamięci offline (D40) (2026-11-02)
+- [ ] **Właściciel**: konta `Player1` … `Player7` (pola `PlayerName`, `PlayerPassword`; Player7 — Wydawca), `appConfig/public.playerCount` = 7, uprawnienia administratora (FIREBASE.md, rozdz. 9, kroki 3–5)
 
 ### Etap 6 — Kopie zapasowe i odtwarzanie
 - [ ] Panel administratora (lista graczy, ostatnia aktywność)
@@ -95,7 +100,8 @@
 ### Etap 7 — Jakość i wdrożenie
 - [ ] Dostępność (klawiatura, ARIA, kontrast), testy na telefonach
 - [ ] CI (GitHub Actions): weryfikacja treści i mechaniki, testy
-- [ ] Hosting: **GitHub Pages** (P3) — publikacja dopiero z działającym logowaniem; nagłówek CSP
+- [ ] Hosting: **GitHub Pages** (P3) — publikacja dopiero z działającym logowaniem (gotowe po stronie kodu, plik `.nojekyll`; włącza właściciel — FIREBASE.md, rozdz. 9, krok 7)
+- [ ] Polityka CSP (znacznik w `index.html`) — po sprawdzeniu działania na GitHub Pages, żeby nie zablokować Firebase ani App Check
 - [ ] Instrukcje dla graczy i dla administratora
 - [ ] Opcjonalnie: zmiana kroju pisma przez gracza (np. krój przyjazny dla osób z dysleksją — licencja kroju do sprawdzenia) — **tylko po zgodzie Wydawcy** (pytanie PW1) (P11)
 - [x] Test E2E (Playwright) — `testy/e2e/test-dymny.cjs` (2026-11-02)
@@ -144,6 +150,10 @@
 | D36 | 2026-11-02 | Tryb lokalny (`LocalAdapter`, bez sprawdzania hasła) działa wyłącznie pod adresem `localhost`; pod innymi adresami logowanie jest niedostępne do czasu wdrożenia Firebase | nie da się grać bez logowania, nawet gdyby strona została opublikowana wcześniej |
 | D37 | 2026-11-02 | Grafiki z publikacji z przezroczystym tłem (logotypy w stopce) wyświetlane na białym tle, bez zmian samych grafik; okładka na środku, pozostałe grafiki wyrównane jak w pliku źródłowym | widoczność w motywie ciemnym bez filtrów i przeróbek (Z6) |
 | D38 | 2026-11-02 | Autozapis po każdym ruchu z kontrolą wersji — przy konflikcie (dwa okna / urządzenia) gracz wybiera: wczytać nowszy stan albo zastąpić; przy wczytaniu ręcznego zapisu gracz decyduje, czy przywrócić notatki z zapisu | brak cichej utraty postępu; spójnie z P9 |
+| D39 | 2026-11-02 | W dokumencie sesji zamiast hasła — jego skrót SHA-256 (liczony w przeglądarce); reguły liczą skrót `PlayerPassword` i porównują | hasło jawnym tekstem tylko w `secrets` (wymóg ręcznej edycji); realizacja „utwardzenia” z FIREBASE.md rozdz. 5 |
+| D40 | 2026-11-02 | Firestore bez trwałej pamięci podręcznej (tylko w pamięci karty); w pamięci przeglądarki tylko identyfikator konta i login | żadnych danych logowania ani kopii danych na dysku urządzenia |
+| D41 | 2026-11-02 | Konto dla Wydawcy = `Player7`; `appConfig/public.playerCount` = 7 | zapowiedź właściciela (konto i hasło dla Wydawcy) |
+| D42 | 2026-11-02 | `firebase/firebase-config.js` jako moduł ES z polem `appCheckSiteKey`; biblioteka Firebase JS SDK **12.19.0** z `www.gstatic.com` (przypięta wersja); emulator tylko pod `localhost?emulator` | zgoda właściciela (P13); stabilna wersja sprzed 2 miesięcy |
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
 | D29 | 2026-11-01 | `AGENTS.md` jest uniwersalny — zawiera tylko zasady stałe; tytuły i warunki zgód są w rejestrze zgód (`dokumentacja/LICENCJA_I_ZGODA.md`), stan Firebase w `FIREBASE.md`, etapy i decyzje w tym pliku | wymóg właściciela |
 | D30 | 2026-11-01 | Oryginały zgód i korespondencji z wydawcą mogą zostać usunięte z repozytorium; wiążącym zapisem warunków jest rejestr zgód z dosłownymi cytatami kluczowych zdań | informacja właściciela |
@@ -159,7 +169,6 @@
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
 | P14 | **Wzmianka o „Wagabundzie” w tekście „Vae Victis”.** Na stronie „od Wydawnictwa”, która jest częścią książki „Vae Victis”, Wydawca sam wymienia swoje publikacje — wśród nich jedną linijkę: „Wagabunda, Krzysztof Firkowski. Fantastyka”. Na „Wagabundę” nie mamy zgody i zasady mówią, żeby jej nie wspominać; jednocześnie nie wolno nam skracać ani pomijać fragmentów „Vae Victis”. Przykład: to tak, jakby na końcu książki była lista „inne nasze książki” — to tekst Wydawcy, nie nasza reklama. | **A ★** zostawić stronę bez zmian — to tekst „Vae Victis” napisany przez Wydawcę, a nie nasze użycie „Wagabundy” (tak jest teraz, bo pominięcie złamałoby zakaz skracania); **B** jak A i dodatkowo dopytać Wydawcę przy wysyłce pytań PW1–PW3; **C** ukryć całą stronę „od Wydawnictwa” — niezalecane: pominięcie fragmentu książki |
-| P13 | **Plik z ustawieniami Firebase** (będzie potrzebne w Etapie 5). Trzeba będzie dopisać do niego jeden dodatkowy klucz zabezpieczenia (App Check) — jest jawny, to nie hasło. Czy agent może wtedy sam zmienić ten plik, czy wolisz zrobić to ręcznie według instrukcji? | odpowiedź potrzebna dopiero przed Etapem 5 |
 
 ### 5.2. Rozstrzygnięte
 
@@ -176,11 +185,35 @@
 | P9 | „Nowa gra” a notatki | (2026-11-01) aplikacja **pyta gracza**, czy zostawić dotychczasowe notatki, czy je wyczyścić |
 | P10 | Kto może odtwarzać dane gracza z kopii zapasowej? | (2026-10-29) **tylko administrator** |
 | P11 | Krój pisma | (2026-10-29) **jak w oryginale** (Old Standard TT); **dwa przyciski zmiany rozmiaru tekstu**; później do rozważenia zmiana kroju (np. na przyjazny dla osób z dysleksją) — najpierw pytanie do Wydawcy (PW1) |
+| P13 | Czy agent może zmienić plik z ustawieniami Firebase (dopisać klucz App Check)? | (2026-11-02) **tak** — zgoda właściciela na modyfikację pliku |
 | P12 | 6 graczy wobec „ok. 5 osób” w prośbie do Wydawcy | (2026-10-29) po ukończeniu pierwszej książki i przygotowaniu kont dla 6 graczy właściciel poprosi Wydawcę o kolejne tytuły i poinformuje o planie zwiększenia liczby graczy |
 
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-02 — Etap 5: Firebase — logowanie hasłem, zapis w chmurze, reguły
+
+**Dodano**
+- `aplikacja/js/data/firestore-adapter.js`: logowanie anonimowe + sesja ze skrótem SHA-256 hasła
+  (sprawdzana przez reguły dla kont `Player1` … `PlayerN`), profil i ustawienia gracza, autozapis w
+  transakcji z kontrolą wersji, 3 zapisy ręczne, `appConfig/public` (liczba kont, przerwa techniczna,
+  awaryjne wyłączenie książki), czytelne komunikaty przy niedokończonej konfiguracji konsoli.
+- `firebase/firestore.rules` — reguły docelowe z walidacją dokumentów; `firebase/firebase.json` —
+  konfiguracja emulatorów.
+- `testy/reguly/`: testy reguł w emulatorze (17/17), test aplikacji w przeglądarce z emulatorem
+  (15/15), `package.json` z narzędziami testowymi i instrukcja.
+- `.nojekyll` — GitHub Pages serwuje pliki bez przetwarzania.
+
+**Zmieniono**
+- `firebase/firebase-config.js` — moduł ES i puste pole `appCheckSiteKey` (zgoda właściciela, P13);
+  wartości konfiguracji bez zmian.
+- Wybór sposobu zapisu: adres w internecie → Firebase; `localhost` → tryb lokalny;
+  `localhost?emulator` → emulator.
+- „Zapisano” pojawia się dopiero, gdy wszystkie ruchy są zapisane (wcześniej mogło pojawić się po
+  zapisaniu przedostatniego ruchu).
+- FIREBASE.md: przepływ logowania ze skrótem hasła, opis reguł, kroki właściciela (konta `Player1` …
+  `Player7`, Player7 — Wydawca), App Check; decyzje D39–D42; P13 rozstrzygnięte.
 
 ### 2026-11-02 — Etap 2 i 3: aplikacja działa lokalnie
 

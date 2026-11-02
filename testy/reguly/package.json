@@ -1,0 +1,14 @@
+{
+  "name": "gryparagrafowe-testy-regul",
+  "private": true,
+  "description": "Testy reguł Firestore i aplikacji w emulatorze Firebase (narzędzia testowe — nie są częścią aplikacji)",
+  "scripts": {
+    "test:reguly": "cd ../../firebase && ../testy/reguly/node_modules/.bin/firebase emulators:exec --only firestore --project demo-gryparagrafowe \"node --test ../testy/reguly/test-regul.mjs\"",
+    "test:aplikacja": "node test-aplikacji-z-emulatorem.cjs"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "6.0.0",
+    "firebase": "13.1.0",
+    "firebase-tools": "15.34.2"
+  }
+}
