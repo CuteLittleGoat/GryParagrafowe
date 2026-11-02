@@ -42,7 +42,9 @@ pisemnej zgody wydawcy. Dlatego w projekcie korzystamy wyłącznie z tytułów, 
   zawiera dosłowne cytaty kluczowych zdań zgód.
 - **Brak wpisu = brak zgody.** Tytułu bez zgody nie dodajemy do repozytorium w żadnej formie —
   nawet roboczo, nawet na osobnej gałęzi. Tytułów z odmową nie używamy w żadnej formie (tekst,
-  okładka, opis, wzmianka w aplikacji).
+  okładka, opis, pozycja w katalogu aplikacji). Wzmianki o takich tytułach, które są częścią tekstu
+  licencjonowanej książki (np. lista publikacji wydawcy na stronach wstępnych), zostają bez zmian —
+  obowiązuje zakaz skracania (rozdz. 1.3 pkt 1).
 - Przy pracy nad książką stosuj **zasady ogólne z tego rozdziału oraz warunki szczegółowe jej
   wpisu**. Warunki szczegółowe mogą zasady ogólne zaostrzać lub doprecyzowywać; złagodzenie zasady
   ogólnej wymaga pisemnej zgody wydawcy i zmiany tego pliku przez właściciela.
