@@ -289,17 +289,20 @@ aplikację do końca miesiąca (albo do *Unenforce*).
 
 ### 7.2. App Check — kroki wdrożenia (Etap 5)
 
-1. Google Cloud → reCAPTCHA (`console.cloud.google.com/security/recaptcha`), projekt
-   `gryparagrafowe-e1fb3` → **Create key**: typ *Website*, domena `cutelittlegoat.github.io` →
-   skopiować klucz witryny.
-2. Firebase → App Check → *Apps* → **Register** przy każdej aplikacji Web → reCAPTCHA Enterprise →
-   wkleić klucz witryny; TTL `1 days`.
-3. Wpisać klucz witryny w `firebase/firebase-config.js` w polu `appCheckSiteKey` (np.
-   `export const appCheckSiteKey = "6Lc…";` — może to zrobić agent na polecenie właściciela, P13).
+1. ✅ Google Cloud → reCAPTCHA / Fraud Defense (`console.cloud.google.com/security/recaptcha`),
+   projekt `gryparagrafowe-e1fb3` → **Utwórz klucz**: typ *Sieć* (Website), domena
+   `cutelittlegoat.github.io`, weryfikacja domeny włączona — właściciel, 2026-11-02.
+2. ✅ Firebase → App Check → *Apps* → aplikacja Web *GryParagrafowe* → „Fraud Defense (formerly known
+   as reCAPTCHA Enterprise)” → klucz witryny; TTL `1 days` → *Save* — właściciel, 2026-11-02.
+3. ✅ Klucz witryny w `firebase/firebase-config.js` (`appCheckSiteKey`) — agent, 2026-11-02 (P13).
    Aplikacja wywołuje `initializeAppCheck(...)` z automatycznym odświeżaniem tokenu **przed**
-   pierwszym użyciem Firestore; przy pustym polu działa bez App Check.
-4. Obserwacja przez kilka dni (zakładka *APIs*).
-5. **Enforce** dla Cloud Firestore (oraz dla Authentication, jeśli konsola na to pozwala).
+   pierwszym użyciem Firestore; przy pustym polu działa bez App Check. Klucz działa tylko pod adresem
+   `cutelittlegoat.github.io` (na `localhost` aplikacja nie używa App Check).
+4. ⬜ Obserwacja przez kilka dni od uruchomienia strony i pierwszych logowań: Firebase → App Check →
+   zakładka *APIs* → *Cloud Firestore* — wykres żądań „Verified” (zweryfikowane) i „Unverified”.
+5. ⬜ **Enforce** (Wymuś) dla Cloud Firestore, gdy prawie wszystkie żądania są zweryfikowane (oraz dla
+   Authentication, jeśli konsola na to pozwala). Hamulec bezpieczeństwa: *Unenforce* (Wyłącz
+   wymuszanie) — natychmiast przywraca dostęp, gdyby gracze nie mogli się zalogować.
 
 App Check można zarejestrować wcześniej, ale wymuszenie (krok 5) ma sens dopiero wtedy, gdy
 aplikacja korzysta z bazy z docelowymi regułami.
@@ -410,8 +413,9 @@ Opcjonalnie (plan Blaze): zarządzany eksport Firestore / odtwarzanie do punktu 
    `https://cutelittlegoat.github.io/GryParagrafowe/` (pierwsza publikacja trwa kilka minut). Można
    włączyć w dowolnej chwili — bez kont i reguł docelowych strona pokazuje tylko formularz logowania.
 8. ⬜ Sprawdzenie: logowanie każdym kontem, gra, zapis, wylogowanie.
-9. ⬜ **App Check** (zalecane przed rozesłaniem odnośnika) — rozdz. 7.2; opcjonalnie ograniczenia
-   klucza API — rozdz. 7.3.
+9. ◐ **App Check** — klucz utworzony i zarejestrowany, wpisany do aplikacji (2026-11-02); po kilku
+   dniach obserwacji — wymuszenie (rozdz. 7.2, kroki 4–5); opcjonalnie ograniczenia klucza API —
+   rozdz. 7.3.
 
 **Dodanie gracza** (np. siódmego)
 1. Firestore → kolekcja `secrets` → „Dodaj dokument” → ID dokumentu: `Player7`.

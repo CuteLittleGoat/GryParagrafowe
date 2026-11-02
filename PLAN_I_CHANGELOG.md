@@ -24,8 +24,9 @@
    (2026-11-02); ⬜ publikacja reguł z `firebase/firestore.rules`; ⬜ konta `Player1` … `Player7`
    w kolekcji `secrets` (Player7 — Wydawca); ⬜ włączenie GitHub Pages; potem próba agenta (połączenie,
    odrzucenie złego hasła) i sprawdzenie logowania przez właściciela.
-2. **App Check** (zalecane przed wysłaniem odnośnika Wydawcy): klucz reCAPTCHA Enterprise — właściciel
-   tworzy klucz, agent wpisuje go w `firebase/firebase-config.js` (P13), po obserwacji — wymuszenie.
+2. **App Check**: ✅ klucz reCAPTCHA Enterprise utworzony i zarejestrowany przez właściciela, wpisany
+   do aplikacji (2026-11-02); ⬜ po kilku dniach obserwacji (zweryfikowane żądania) — wymuszenie
+   (*Enforce*) dla Cloud Firestore (FIREBASE.md, rozdz. 7.2).
 3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1–PW3 (i P14 wg
    decyzji).
 3. **Na końcu — właściciel**: konto dla Wydawcy (dodatkowe konto gracza), wysłanie odnośnika do
@@ -88,7 +89,8 @@
 - [x] Format `firebase/firebase-config.js` (moduł ES) i pole klucza App Check `appCheckSiteKey` — za zgodą właściciela (P13) (2026-11-02)
 - [x] `firebase/firestore.rules` + testy reguł w emulatorze (`testy/reguly/test-regul.mjs`, 17/17) i test aplikacji z emulatorem (15/15) (2026-11-02)
 - [ ] **Właściciel**: publikacja reguł w konsoli (rozdz. 9, krok 3)
-- [ ] App Check wg FIREBASE.md, rozdz. 7.2 (reCAPTCHA Enterprise, TTL 1 dzień, obserwacja → Enforce); opcjonalnie ograniczenia klucza API
+- [x] App Check: klucz reCAPTCHA Enterprise (domena `cutelittlegoat.github.io`), rejestracja w Firebase (TTL 1 dzień) — właściciel; klucz w `firebase/firebase-config.js` — agent (2026-11-02)
+- [ ] App Check: obserwacja → **Enforce** dla Cloud Firestore (właściciel, FIREBASE.md rozdz. 7.2); opcjonalnie ograniczenia klucza API
 - [x] `FirestoreAdapter`: logowanie loginem i hasłem (sesje ważne 30 dni, w sesji tylko skrót hasła), profil, autozapis w transakcji z kontrolą `revision`, ręczne zapisy, `appConfig` (liczba kont, przerwa techniczna, wyłączone książki); bez pamięci offline (D40) (2026-11-02)
 - [ ] **Właściciel**: konta `Player1` … `Player7` w kolekcji `secrets` (pola `PlayerName`, `PlayerPassword`; Player7 — Wydawca) — FIREBASE.md, rozdz. 9, krok 4; opcjonalnie `appConfig/public`, a przed panelem administratora — `admins/Player1`
 
@@ -195,6 +197,14 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-02 — App Check: klucz reCAPTCHA Enterprise w aplikacji
+
+**Dodano**
+- Klucz witryny reCAPTCHA Enterprise (utworzony przez właściciela dla domeny
+  `cutelittlegoat.github.io`, zarejestrowany w Firebase App Check z TTL 1 dzień) w
+  `firebase/firebase-config.js` (`appCheckSiteKey`). Sprawdzono: aplikacja pod adresem innym niż
+  `localhost` wczytuje App Check i reCAPTCHA bez błędów. Wymuszenie (*Enforce*) — po obserwacji.
 
 ### 2026-11-02 — Próba na projekcie Firebase; P14; `appConfig` opcjonalny
 
