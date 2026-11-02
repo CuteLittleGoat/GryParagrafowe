@@ -201,6 +201,9 @@ ISBN 978-83-951564-0-3
    przygotowaną przeze mnie wizję (33), czy też…”) — to zwykły tekst z odnośnikiem.
 9. Literówki i błędy oryginału **zostają bez zmian** (np. „cześci A” w §9, „Open Source Licensee” w
    stopce, „Po po kolejnym okresie” w jednym z paragrafów).
+10. Strona „od Wydawnictwa” zawiera listę publikacji Wydawcy, w tym tytuł, na który nie mamy zgody
+    („Wagabunda”). ✅ Decyzja właściciela (2026-11-02, P14): **bez skracania** — to część tekstu
+    „Vae Victis”; zainteresowani pobiorą tytuł bezpośrednio od Wydawcy.
 
 ## 9. Wykryte błędy w treści (do zgłoszenia, NIE do poprawiania)
 

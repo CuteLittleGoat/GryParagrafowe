@@ -359,3 +359,8 @@ Pytania do Wydawcy zbieramy w [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](../An
 6. **Krój pisma i ustawienia wyświetlania** — decyzja właściciela (2026-10-29): krój jak w oryginale,
    dwa przyciski zmiany wielkości liter. Zmiana kroju przez gracza — **dopiero po zgodzie Wydawcy**
    (pytanie PW1); pozostałe ustawienia wyświetlania — z prośbą o potwierdzenie (pytanie PW2).
+7. **Wzmianka o „Wagabundzie” w tekście „Vae Victis”** — strona „od Wydawnictwa” (część publikacji)
+   wymienia publikacje Wydawcy, m.in. „Wagabunda, Krzysztof Firkowski. Fantastyka”. ✅ Decyzja
+   właściciela (2026-11-02): **nie skracać** — to tekst „Vae Victis”, a nie użycie tytułu „Wagabunda”
+   w aplikacji (zakaz Z4 dotyczy m.in. katalogu aplikacji); zainteresowani pobiorą tytuł bezpośrednio
+   od Wydawcy (odnośnik do strony Wydawnictwa jest w aplikacji).

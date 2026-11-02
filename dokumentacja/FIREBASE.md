@@ -136,7 +136,7 @@ graczowi o tym `playerId` (administrator loguje się swoim kontem gracza).
 
 | Pole | Typ | Opis |
 |---|---|---|
-| `playerCount` | number | liczba kont graczy (`Player1` … `PlayerN`); przy logowaniu aplikacja sprawdza kolejno te konta — obecnie **7** (6 graczy + konto Wydawcy); bez tego dokumentu aplikacja przyjmuje 6 |
+| `playerCount` | number | liczba kont graczy (`Player1` … `PlayerN`); przy logowaniu aplikacja sprawdza kolejno te konta — obecnie **7** (6 graczy + konto Wydawcy); **dokument opcjonalny** — bez niego aplikacja sprawdza konta `Player1` … `Player10` |
 | `maintenance` | boolean | tryb serwisowy — aplikacja pokazuje komunikat |
 | `disabledBooks` | array&lt;string&gt; | awaryjne wyłączenie książek (np. wycofanie zgody — N9) |
 
@@ -380,24 +380,35 @@ Opcjonalnie (plan Blaze): zarządzany eksport Firestore / odtwarzanie do punktu 
 
 ## 9. Procedury administratora (konsola Firebase)
 
-**Pierwsza konfiguracja** (kolejność ma znaczenie; kroki 2–5 można wykonać przed publikacją strony)
+**Pierwsza konfiguracja**
+
+> Kolekcje `players` i `sessions` tworzy **aplikacja** (przy pierwszym logowaniu i pierwszej grze) —
+> nie trzeba ich zakładać. Kolekcję `secrets` (loginy i hasła) zakłada **wyłącznie administrator w
+> konsoli**: aplikacja celowo nie ma do niej dostępu — gdyby mogła ją zapisywać, każdy mógłby założyć
+> sobie konto. Przy regułach tymczasowych (blokada wszystkiego) aplikacja nie może zapisać niczego.
+
 1. ✅ Projekt Firebase `gryparagrafowe-e1fb3` z aplikacją Web (bez Google Analytics) i bazą Firestore —
    właściciel, 2026-10-29; konfiguracja w `firebase/firebase-config.js`.
-2. ⬜ **Logowanie anonimowe**: Authentication → *Sign-in method* (Metody logowania) → *Anonymous*
-   (Anonimowe) → włącz → Zapisz.
-3. ⬜ **Konta graczy**: Firestore Database → *Start collection* (Rozpocznij kolekcję) → ID kolekcji
+2. ✅ **Logowanie anonimowe**: Authentication → *Sign-in method* (Metody logowania) → *Anonymous*
+   (Anonimowe) → włącz → Zapisz — właściciel, 2026-11-02 (sprawdzone próbą: działa).
+3. ⬜ **Reguły**: Firestore Database → *Rules* (Reguły) → zastąpić całą treść zawartością pliku
+   `firebase/firestore.rules` → *Publish* (Opublikuj). Bezpieczne także przed założeniem kont — bez
+   kont nikt się nie zaloguje.
+4. ⬜ **Konta graczy**: Firestore Database → *Start collection* (Rozpocznij kolekcję) → ID kolekcji
    `secrets` → dokumenty o ID `Player1`, `Player2`, … `Player7` (Player7 — konto dla Wydawcy). W
    każdym dwa pola typu *string*: `PlayerName` (login, inny dla każdego konta) i `PlayerPassword`
-   (hasło; zalecane min. 12 znaków, losowe).
-4. ⬜ **Ustawienia aplikacji**: kolekcja `appConfig` → dokument `public` → pola: `playerCount` (typ
-   *number*) = `7`, `maintenance` (typ *boolean*) = `false`, `disabledBooks` (typ *array*) — puste.
-5. ⬜ **Administrator**: kolekcja `admins` → dokument o ID konta administratora (np. `Player1`) — z
-   dowolnym polem, np. `rola` = `administrator` (liczy się samo istnienie dokumentu).
-6. ⬜ **Reguły**: Firestore Database → *Rules* (Reguły) → zastąpić całą treść zawartością pliku
-   `firebase/firestore.rules` → *Publish* (Opublikuj).
+   (hasło; zalecane min. 12 znaków, losowe). Wielkość liter ma znaczenie.
+5. ⬜ (opcjonalnie) **Ustawienia aplikacji**: kolekcja `appConfig` → dokument `public` → pola:
+   `playerCount` (typ *number*) = `7`, `maintenance` (typ *boolean*) = `false`, `disabledBooks` (typ
+   *array*) — puste. Bez tego dokumentu aplikacja sprawdza konta `Player1` … `Player10`; dokument
+   przyda się przy przerwie technicznej, wyłączeniu książki albo ponad 10 kontach.
+6. ⬜ (później, przed panelem administratora — Etap 6) **Administrator**: kolekcja `admins` → dokument
+   o ID konta administratora (np. `Player1`) — z dowolnym polem, np. `rola` = `administrator` (liczy
+   się samo istnienie dokumentu).
 7. ⬜ **Publikacja strony**: GitHub → repozytorium → *Settings* → *Pages* → *Source*: „Deploy from a
    branch” → *Branch*: `main`, folder `/ (root)` → *Save*. Adres aplikacji:
-   `https://cutelittlegoat.github.io/GryParagrafowe/` (pierwsza publikacja trwa kilka minut).
+   `https://cutelittlegoat.github.io/GryParagrafowe/` (pierwsza publikacja trwa kilka minut). Można
+   włączyć w dowolnej chwili — bez kont i reguł docelowych strona pokazuje tylko formularz logowania.
 8. ⬜ Sprawdzenie: logowanie każdym kontem, gra, zapis, wylogowanie.
 9. ⬜ **App Check** (zalecane przed rozesłaniem odnośnika) — rozdz. 7.2; opcjonalnie ograniczenia
    klucza API — rozdz. 7.3.

@@ -20,9 +20,10 @@
 
 ## 2. Następne kroki
 
-1. **Właściciel — konsola Firebase i GitHub** (FIREBASE.md, rozdz. 9, kroki 2–8): logowanie
-   anonimowe, konta `Player1` … `Player7` (Player7 — Wydawca), `appConfig/public`, administrator,
-   publikacja reguł, włączenie GitHub Pages, sprawdzenie logowania.
+1. **Właściciel — konsola Firebase i GitHub** (FIREBASE.md, rozdz. 9): ✅ logowanie anonimowe
+   (2026-11-02); ⬜ publikacja reguł z `firebase/firestore.rules`; ⬜ konta `Player1` … `Player7`
+   w kolekcji `secrets` (Player7 — Wydawca); ⬜ włączenie GitHub Pages; potem próba agenta (połączenie,
+   odrzucenie złego hasła) i sprawdzenie logowania przez właściciela.
 2. **App Check** (zalecane przed wysłaniem odnośnika Wydawcy): klucz reCAPTCHA Enterprise — właściciel
    tworzy klucz, agent wpisuje go w `firebase/firebase-config.js` (P13), po obserwacji — wymuszenie.
 3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1–PW3 (i P14 wg
@@ -82,13 +83,14 @@
 ### Etap 5 — Firebase: konta i zapis postępu
 - [x] Porównanie z instrukcją App Check z projektu „Karty” (P1) — wnioski w FIREBASE.md, rozdz. 7 (2026-10-29)
 - [x] Projekt Firebase `gryparagrafowe-e1fb3`, konfiguracja webowa w `firebase/firebase-config.js`, Firestore z tymczasowymi regułami blokującymi cały dostęp — właściciel, 2026-10-29
-- [ ] **Właściciel**: Authentication — dostawca anonimowy (FIREBASE.md, rozdz. 9, krok 2); odnotowanie regionu bazy w FIREBASE.md
+- [x] **Właściciel**: Authentication — dostawca anonimowy (2026-11-02; próba agenta: działa, baza odpowiada, reguły tymczasowe blokują odczyt i zapis)
+- [ ] Odnotowanie regionu bazy w FIREBASE.md
 - [x] Format `firebase/firebase-config.js` (moduł ES) i pole klucza App Check `appCheckSiteKey` — za zgodą właściciela (P13) (2026-11-02)
 - [x] `firebase/firestore.rules` + testy reguł w emulatorze (`testy/reguly/test-regul.mjs`, 17/17) i test aplikacji z emulatorem (15/15) (2026-11-02)
-- [ ] **Właściciel**: publikacja reguł w konsoli (rozdz. 9, krok 6)
+- [ ] **Właściciel**: publikacja reguł w konsoli (rozdz. 9, krok 3)
 - [ ] App Check wg FIREBASE.md, rozdz. 7.2 (reCAPTCHA Enterprise, TTL 1 dzień, obserwacja → Enforce); opcjonalnie ograniczenia klucza API
 - [x] `FirestoreAdapter`: logowanie loginem i hasłem (sesje ważne 30 dni, w sesji tylko skrót hasła), profil, autozapis w transakcji z kontrolą `revision`, ręczne zapisy, `appConfig` (liczba kont, przerwa techniczna, wyłączone książki); bez pamięci offline (D40) (2026-11-02)
-- [ ] **Właściciel**: konta `Player1` … `Player7` (pola `PlayerName`, `PlayerPassword`; Player7 — Wydawca), `appConfig/public.playerCount` = 7, uprawnienia administratora (FIREBASE.md, rozdz. 9, kroki 3–5)
+- [ ] **Właściciel**: konta `Player1` … `Player7` w kolekcji `secrets` (pola `PlayerName`, `PlayerPassword`; Player7 — Wydawca) — FIREBASE.md, rozdz. 9, krok 4; opcjonalnie `appConfig/public`, a przed panelem administratora — `admins/Player1`
 
 ### Etap 6 — Kopie zapasowe i odtwarzanie
 - [ ] Panel administratora (lista graczy, ostatnia aktywność)
@@ -154,6 +156,8 @@
 | D40 | 2026-11-02 | Firestore bez trwałej pamięci podręcznej (tylko w pamięci karty); w pamięci przeglądarki tylko identyfikator konta i login | żadnych danych logowania ani kopii danych na dysku urządzenia |
 | D41 | 2026-11-02 | Konto dla Wydawcy = `Player7`; `appConfig/public.playerCount` = 7 | zapowiedź właściciela (konto i hasło dla Wydawcy) |
 | D42 | 2026-11-02 | `firebase/firebase-config.js` jako moduł ES z polem `appCheckSiteKey`; biblioteka Firebase JS SDK **12.19.0** z `www.gstatic.com` (przypięta wersja); emulator tylko pod `localhost?emulator` | zgoda właściciela (P13); stabilna wersja sprzed 2 miesięcy |
+| D43 | 2026-11-02 | Strona „od Wydawnictwa” w „Vae Victis” pozostaje bez skrótów — także linijka o „Wagabundzie” (lista publikacji Wydawcy jest częścią tekstu książki); w aplikacji jest odnośnik do strony Wydawcy | decyzja właściciela (P14): „nie skracaj. To, że nie mamy zgody na Wagabundę nie oznacza, że nie możemy o niej pisać.” |
+| D44 | 2026-11-02 | Dokument `appConfig/public` opcjonalny — bez niego aplikacja sprawdza konta `Player1` … `Player10`; kolekcje `players` i `sessions` tworzy aplikacja; konta (`secrets`) zakłada wyłącznie administrator w konsoli | mniej pracy w konsoli; bezpieczeństwo — aplikacja nie może zakładać kont |
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
 | D29 | 2026-11-01 | `AGENTS.md` jest uniwersalny — zawiera tylko zasady stałe; tytuły i warunki zgód są w rejestrze zgód (`dokumentacja/LICENCJA_I_ZGODA.md`), stan Firebase w `FIREBASE.md`, etapy i decyzje w tym pliku | wymóg właściciela |
 | D30 | 2026-11-01 | Oryginały zgód i korespondencji z wydawcą mogą zostać usunięte z repozytorium; wiążącym zapisem warunków jest rejestr zgód z dosłownymi cytatami kluczowych zdań | informacja właściciela |
@@ -168,7 +172,6 @@
 
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
-| P14 | **Wzmianka o „Wagabundzie” w tekście „Vae Victis”.** Na stronie „od Wydawnictwa”, która jest częścią książki „Vae Victis”, Wydawca sam wymienia swoje publikacje — wśród nich jedną linijkę: „Wagabunda, Krzysztof Firkowski. Fantastyka”. Na „Wagabundę” nie mamy zgody i zasady mówią, żeby jej nie wspominać; jednocześnie nie wolno nam skracać ani pomijać fragmentów „Vae Victis”. Przykład: to tak, jakby na końcu książki była lista „inne nasze książki” — to tekst Wydawcy, nie nasza reklama. | **A ★** zostawić stronę bez zmian — to tekst „Vae Victis” napisany przez Wydawcę, a nie nasze użycie „Wagabundy” (tak jest teraz, bo pominięcie złamałoby zakaz skracania); **B** jak A i dodatkowo dopytać Wydawcę przy wysyłce pytań PW1–PW3; **C** ukryć całą stronę „od Wydawnictwa” — niezalecane: pominięcie fragmentu książki |
 
 ### 5.2. Rozstrzygnięte
 
@@ -185,12 +188,26 @@
 | P9 | „Nowa gra” a notatki | (2026-11-01) aplikacja **pyta gracza**, czy zostawić dotychczasowe notatki, czy je wyczyścić |
 | P10 | Kto może odtwarzać dane gracza z kopii zapasowej? | (2026-10-29) **tylko administrator** |
 | P11 | Krój pisma | (2026-10-29) **jak w oryginale** (Old Standard TT); **dwa przyciski zmiany rozmiaru tekstu**; później do rozważenia zmiana kroju (np. na przyjazny dla osób z dysleksją) — najpierw pytanie do Wydawcy (PW1) |
+| P14 | Linijka o „Wagabundzie” na stronie „od Wydawnictwa” w „Vae Victis” | (2026-11-02) **nie skracać** — „To, że nie mamy zgody na Wagabundę nie oznacza, że nie możemy o niej pisać. W aplikacji będzie link do strony wydawcy i jak ktoś będzie zainteresowany to sam sobie pobierze bezpośrednio od wydawcy.” |
 | P13 | Czy agent może zmienić plik z ustawieniami Firebase (dopisać klucz App Check)? | (2026-11-02) **tak** — zgoda właściciela na modyfikację pliku |
 | P12 | 6 graczy wobec „ok. 5 osób” w prośbie do Wydawcy | (2026-10-29) po ukończeniu pierwszej książki i przygotowaniu kont dla 6 graczy właściciel poprosi Wydawcę o kolejne tytuły i poinformuje o planie zwiększenia liczby graczy |
 
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-02 — Próba na projekcie Firebase; P14; `appConfig` opcjonalny
+
+**Sprawdzono** (próba agenta na projekcie `gryparagrafowe-e1fb3`): logowanie anonimowe działa (włączone
+przez właściciela; próba utworzyła jedno anonimowe konto testowe), baza odpowiada, a reguły tymczasowe
+odrzucają każdy odczyt i zapis (403) — przy nich aplikacja nie może założyć żadnych dokumentów.
+
+**Zmieniono**
+- Dokument `appConfig/public` jest opcjonalny — bez niego aplikacja sprawdza konta `Player1` …
+  `Player10` (D44). Instrukcja w FIREBASE.md (rozdz. 9) uporządkowana: reguły → konta w `secrets` →
+  GitHub Pages; `appConfig` i `admins` — opcjonalnie / później.
+- P14 rozstrzygnięte: strona „od Wydawnictwa” bez skrótów (D43; LICENCJA_I_ZGODA rozdz. 9 pkt 7,
+  karta książki pkt 10).
 
 ### 2026-11-02 — Etap 5: Firebase — logowanie hasłem, zapis w chmurze, reguły
 

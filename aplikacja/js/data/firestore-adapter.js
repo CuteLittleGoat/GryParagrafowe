@@ -11,7 +11,8 @@ import { ConflictError, LoginError, SAVE_SLOTS, SESSION_DAYS } from './storage-e
 export const FIREBASE_SDK_VERSION = '12.19.0';
 const SDK = `https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}/`;
 const LOCAL_SESSION_KEY = 'gp1:firebase-session'; // tylko identyfikator konta i login — bez hasła
-const DEFAULT_PLAYER_COUNT = 6;
+// Bez dokumentu appConfig/public aplikacja sprawdza konta Player1 … Player10 (dokument jest opcjonalny).
+const DEFAULT_PLAYER_COUNT = 10;
 
 export async function createFirestoreAdapter({ config, appCheckSiteKey = null, emulator = false }) {
   const [appSdk, authSdk, fsSdk, appCheckSdk] = await Promise.all([
