@@ -1,6 +1,7 @@
 # Architektura aplikacji
 
-> Status: **projekt** — dokument opisuje docelową architekturę; szczegóły doprecyzowujemy w
+> Status: **wdrażane** — ekrany, silnik i zapis lokalny działają (2026-11-02); Firebase — Etap 5.
+> Dokument opisuje docelową architekturę; szczegóły doprecyzowujemy w
 > kolejnych etapach ([PLAN_I_CHANGELOG.md](../PLAN_I_CHANGELOG.md)). Zasady licencyjne
 > ([LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md)) mają pierwszeństwo przed każdym zapisem poniżej.
 
@@ -43,7 +44,7 @@ python3 -m http.server 8000
 
 | Ekran | Zawartość |
 |---|---|
-| **Ekran główny** | nazwa aplikacji; logowanie (**login i hasło** — ustawiane przez administratora w Firebase) albo „Zalogowano jako …” + Wyloguj; **katalog książek** — karta każdej książki: okładka z podpisem autorki ilustracji, tytuł, autor, wydawnictwo, odnośniki (strona publikacji, strona Wydawnictwa, **oryginały do pobrania**), **ostrzeżenie o treści ze strony Wydawnictwa** (dosłownie, z informacją o źródle), przyciski „Kontynuuj” / „Nowa gra” / „O książce”, **pełna stopka redakcyjna**; stopka aplikacji (projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy) |
+| **Ekran główny** | nazwa aplikacji; logowanie (**login i hasło** — ustawiane przez administratora w Firebase) albo „Zalogowano jako …” + Wyloguj; **po zalogowaniu** — **katalog książek** (przed zalogowaniem: tylko opis aplikacji i formularz — bez okładek i treści) — karta każdej książki: okładka z podpisem autorki ilustracji, tytuł, autor, wydawnictwo, odnośniki (strona publikacji, strona Wydawnictwa, **oryginały do pobrania**), **ostrzeżenie o treści ze strony Wydawnictwa** (dosłownie, z informacją o źródle), przyciski „Kontynuuj” / „Nowa gra” / „O książce”, **pełna stopka redakcyjna**; stopka aplikacji (projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy) |
 | **Gra** | pasek: „Menu główne”, tytuł i autor, przyciski włączonych modułów (np. „Karta postaci”, „Kości”), „Notatki”, „Historia”, „Zapis/Wczytaj”, „Ustawienia”, „O książce”, **dwa przyciski wielkości liter (A− / A+)**; **treść węzła 1:1** z klikalnymi odnośnikami w tekście; **panel przejść** — przyciski „Przejdź do N” generowane z odnośników węzła, ze stanem warunków; przycisk **„Cofnij”** z dopiskiem „To Twoja gra :) Graj jak lubisz!”; komunikaty mechaniki wizualnie oddzielone od tekstu |
 | **Karta postaci** | panel składany z modułów książki (Informacje, statystyki, ekwipunek, liczniki…) + ręczna edycja (jak kartka papieru) |
 | **Kości** | rzut wg wyrażenia (`k6`, `2k6`, `k100`…), animacja, historia rzutów — tylko gdy książka ma moduł `dice` |
@@ -138,15 +139,19 @@ Losowość w module `dice`: `crypto.getRandomValues` (z odrzucaniem wyników, by
 
 ## 6. Warstwa danych (`aplikacja/js/data/`)
 
-Interfejs adaptera zapisu (wspólny dla obu implementacji):
+Interfejs adaptera zapisu (wspólny dla obu implementacji; adapter po zalogowaniu zna bieżącego gracza):
 
 | Metoda | Opis |
 |---|---|
-| `login(login, password)` / `logout()` / `currentPlayer()` | sesja gracza (login i hasło → konto `PlayerN`) |
-| `loadProfile()` / `saveProfile(profile)` | profil i ustawienia |
-| `loadBookState(bookId)` / `saveBookState(bookId, state)` | autozapis (z kontrolą `revision`) |
-| `listSaves(bookId)` / `saveToSlot(bookId, saveId, data)` / `loadSave(bookId, saveId)` / `deleteSave(…)` | 3 miejsca na ręczny zapis (`save1` … `save3`) |
-| `exportBackup(scope)` / `restoreBackup(file, options)` | kopie zapasowe (restore — tylko admin) |
+| `restoreSession()` / `login(login, password)` / `logout()` | sesja gracza (login i hasło → konto `PlayerN`); logowanie pamiętane 30 dni |
+| `loadProfile()` / `saveSettings(settings)` | profil i ustawienia gracza (motyw, rozmiar tekstu, tryb mechaniki) |
+| `loadBookState(bookId)` / `saveBookState(bookId, state, { force })` | autozapis po każdym ruchu z kontrolą `revision` — konflikt (inne okno / urządzenie) zgłaszany jako `ConflictError`; gracz wybiera: wczytać nowszy stan albo zastąpić |
+| `listSaves(bookId)` / `writeSave(bookId, saveId, { label, state })` / `readSave(…)` / `deleteSave(…)` | 3 miejsca na ręczny zapis (`save1` … `save3`) |
+| `exportBackup(scope)` / `restoreBackup(file, options)` | kopie zapasowe (restore — tylko admin) — Etap 6 |
+
+Wybór adaptera (`storage.js`): **`LocalAdapter` działa wyłącznie pod adresem `localhost`** (komputer
+dewelopera); pod każdym innym adresem, do czasu wdrożenia Firebase, logowanie jest niedostępne — nie
+da się grać bez logowania (N7).
 
 - `LocalAdapter` — localStorage, **wyłącznie do rozwoju i testów lokalnych** (bez prawdziwego
   uwierzytelniania; nie publikujemy go jako trybu gościa — N7).

@@ -276,31 +276,35 @@ dokonuje gracz**. Tryb „ręczny” (jak na papierze) musi pozwalać grać bez 
 
 ## 6. Wymagane elementy w aplikacji (checklista)
 
+> Przegląd 2026-11-02 (aplikacja w trybie lokalnym, „Vae Victis”): wszystkie elementy obecne — sprawdzone
+> testem w przeglądarce (`testy/e2e/test-dymny.cjs`). Ponowny przegląd po wdrożeniu Firebase i przed
+> publikacją strony.
+
 **Ekran główny — karta każdej książki**
-- [ ] okładka + podpis autorki ilustracji (N4)
-- [ ] tytuł, autor(zy), „Wydawnictwo Wielokrotnego Wyboru” / „portal Masz Wybór” (N1)
-- [ ] odnośnik do oficjalnej strony publikacji i do strony Wydawnictwa (N1)
-- [ ] **pełna stopka redakcyjna** w wiernym brzmieniu (N3)
-- [ ] informacja o źródle: wydawca, wydanie, ISBN, odnośniki do oryginałów na stronie Wydawnictwa (N2)
-- [ ] ostrzeżenie o treści ze strony Wydawnictwa — dosłownie, z informacją o źródle i odnośnikiem
+- [x] okładka + podpis autorki ilustracji (N4)
+- [x] tytuł, autor(zy), „Wydawnictwo Wielokrotnego Wyboru” / „portal Masz Wybór” (N1)
+- [x] odnośnik do oficjalnej strony publikacji i do strony Wydawnictwa (N1)
+- [x] **pełna stopka redakcyjna** w wiernym brzmieniu (N3)
+- [x] informacja o źródle: wydawca, wydanie, ISBN, odnośniki do oryginałów na stronie Wydawnictwa (N2)
+- [x] ostrzeżenie o treści ze strony Wydawnictwa — dosłownie, z informacją o źródle i odnośnikiem
   (decyzja właściciela; patrz rozdz. 9 pkt 4)
 
 **Ekran gry**
-- [ ] tytuł i autor widoczne (np. w nagłówku)
-- [ ] dostęp do „O książce” z menu gry: stopka, okładka z podpisem, linki, informacja o zgodzie
-- [ ] tekst paragrafu 1:1, komunikaty aplikacji wizualnie oddzielone (rozdz. 5)
-- [ ] krój pisma oryginalny; wybór innego kroju tylko po zgodzie Wydawcy (rozdz. 5.1 pkt 5)
+- [x] tytuł i autor widoczne (np. w nagłówku)
+- [x] dostęp do „O książce” z menu gry: stopka, okładka z podpisem, linki, informacja o zgodzie
+- [x] tekst paragrafu 1:1, komunikaty aplikacji wizualnie oddzielone (rozdz. 5)
+- [x] krój pisma oryginalny; wybór innego kroju tylko po zgodzie Wydawcy (rozdz. 5.1 pkt 5)
 
 **Cała aplikacja**
-- [ ] stopka aplikacji: projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy (N10)
-- [ ] brak reklam, płatności, zbiórek, trackerów marketingowych (Z5)
-- [ ] brak grafik AI; ikony tylko jako piktogramy funkcji z odnotowaną licencją (Z2)
-- [ ] gra dostępna tylko po zalogowaniu (N7)
+- [x] stopka aplikacji: projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy (N10)
+- [x] brak reklam, płatności, zbiórek, trackerów marketingowych (Z5)
+- [x] brak grafik AI; ikony tylko jako piktogramy funkcji z odnotowaną licencją (Z2)
+- [x] gra dostępna tylko po zalogowaniu (N7)
 
 **Repozytorium**
-- [ ] README z atrybucją książek
-- [ ] wpis w rejestrze zgód z warunkami i cytatami kluczowych zdań (N8)
-- [ ] brak pliku licencji open source obejmującego treść (patrz rozdz. 7, pkt 7)
+- [x] README z atrybucją książek
+- [x] wpis w rejestrze zgód z warunkami i cytatami kluczowych zdań (N8)
+- [x] brak pliku licencji open source obejmującego treść (patrz rozdz. 7, pkt 7)
 
 ---
 

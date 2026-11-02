@@ -1,0 +1,1023 @@
+/* Style aplikacji „Gry paragrafowe”.
+   Tekst książki: krój Old Standard TT (jak w publikacji). Interfejs aplikacji: krój systemowy —
+   dzięki temu komunikaty aplikacji są wyraźnie oddzielone od tekstu książki. */
+
+@font-face {
+  font-family: 'Old Standard TT';
+  src: url('../assets/fonts/OldStandard-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Old Standard TT';
+  src: url('../assets/fonts/OldStandard-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Old Standard TT';
+  src: url('../assets/fonts/OldStandard-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Pogrubiona kursywa nie ma osobnego pliku — przeglądarka nie podrabia kroju (bez syntezy). */
+
+:root {
+  --font-book: 'Old Standard TT', 'Times New Roman', serif;
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-scale: 1;
+
+  --bg: #f6f1e7;
+  --surface: #fffcf5;
+  --surface-2: #efe7d8;
+  --text: #1d1a16;
+  --muted: #5c5346;
+  --border: #d3c6b1;
+  --accent: #8b2e1f;
+  --accent-hover: #6f2418;
+  --accent-contrast: #ffffff;
+  --link: #8b2e1f;
+  --ok: #2e6b35;
+  --bad: #a3271b;
+  --notice-bg: #e6edf5;
+  --notice-border: #3d6185;
+  --notice-text: #17283a;
+  --warning-bg: #fbecdc;
+  --warning-border: #a8641a;
+  --highlight: #f7dd8f;
+  --focus: #1d5fbf;
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.12), 0 4px 14px rgb(0 0 0 / 0.06);
+
+  color-scheme: light;
+  quotes: '„' '”' '‚' '’';
+}
+
+:root[data-theme='dark'] {
+  --bg: #14120f;
+  --surface: #1e1b17;
+  --surface-2: #29251f;
+  --text: #ece5d8;
+  --muted: #b5ab97;
+  --border: #463f35;
+  --accent: #e3876f;
+  --accent-hover: #f2a28d;
+  --accent-contrast: #1a0f0c;
+  --link: #f09a85;
+  --ok: #8fd19a;
+  --bad: #ff9d8b;
+  --notice-bg: #1c2633;
+  --notice-border: #6f9cc9;
+  --notice-text: #dbe7f3;
+  --warning-bg: #2e2416;
+  --warning-border: #d49a4c;
+  --highlight: #5c4a14;
+  --focus: #8ab4ff;
+  --shadow: 0 1px 3px rgb(0 0 0 / 0.5);
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='auto'] {
+    --bg: #14120f;
+    --surface: #1e1b17;
+    --surface-2: #29251f;
+    --text: #ece5d8;
+    --muted: #b5ab97;
+    --border: #463f35;
+    --accent: #e3876f;
+    --accent-hover: #f2a28d;
+    --accent-contrast: #1a0f0c;
+    --link: #f09a85;
+    --ok: #8fd19a;
+    --bad: #ff9d8b;
+    --notice-bg: #1c2633;
+    --notice-border: #6f9cc9;
+    --notice-text: #dbe7f3;
+    --warning-bg: #2e2416;
+    --warning-border: #d49a4c;
+    --highlight: #5c4a14;
+    --focus: #8ab4ff;
+    --shadow: 0 1px 3px rgb(0 0 0 / 0.5);
+
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 50rem;
+  min-height: 100vh;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+main {
+  flex: 1;
+}
+
+main:focus {
+  outline: none;
+}
+
+a {
+  color: var(--link);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.25;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -10rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--surface);
+  border: 2px solid var(--focus);
+  border-radius: 0.4rem;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+.muted,
+.muted-label {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 0.875rem;
+}
+
+/* --- nagłówek i stopka aplikacji ------------------------------------------------------------- */
+
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.app-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-label {
+  color: var(--muted);
+}
+
+.app-footer {
+  margin-top: 2.5rem;
+  padding: 1rem 0 1.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.app-footer p {
+  margin: 0;
+}
+
+.noscript {
+  padding: 1rem;
+  background: var(--warning-bg);
+}
+
+/* --- przyciski i formularze ------------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-family: var(--font-ui);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: var(--accent-contrast);
+}
+
+.btn-danger {
+  background: var(--bad);
+  border-color: var(--bad);
+  color: var(--accent-contrast);
+}
+
+.btn-quiet {
+  background: transparent;
+  border-color: transparent;
+}
+
+.btn-small {
+  min-height: 2.25rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.actions,
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.field {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0.75rem 0;
+}
+
+.field-label {
+  font-weight: 600;
+}
+
+.input,
+.notes-input {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+.notes-input {
+  min-height: 16rem;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.form-error {
+  min-height: 1.4em;
+  margin: 0.25rem 0;
+  color: var(--bad);
+  font-weight: 600;
+}
+
+.fieldset {
+  margin: 0 0 1rem;
+  padding: 0.6rem 1rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+
+.fieldset legend {
+  padding: 0 0.3rem;
+  font-weight: 600;
+}
+
+.radio,
+.checkbox {
+  display: block;
+  margin: 0.35rem 0;
+}
+
+.scale-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.scale-value {
+  min-width: 3.5rem;
+  text-align: center;
+}
+
+/* --- panele ---------------------------------------------------------------------------------- */
+
+.panel {
+  margin: 1rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+}
+
+.panel h2 {
+  margin-top: 0;
+}
+
+.login-panel {
+  max-width: 27rem;
+}
+
+.dev-banner {
+  padding: 0.5rem 0.75rem;
+  background: var(--warning-bg);
+  border-left: 4px solid var(--warning-border);
+  border-radius: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.error-text {
+  color: var(--bad);
+}
+
+.loading {
+  padding: 2rem 0;
+  color: var(--muted);
+}
+
+/* --- ekran główny ---------------------------------------------------------------------------- */
+
+.intro h1 {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.8rem;
+}
+
+.lead {
+  font-size: 1.05rem;
+  margin: 0.25rem 0;
+}
+
+.section-title {
+  margin: 1.75rem 0 0.75rem;
+  font-size: 1.3rem;
+}
+
+.book-card {
+  margin: 1rem 0 2rem;
+  padding: 1rem 1.25rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+}
+
+.book-card-main {
+  display: grid;
+  grid-template-columns: minmax(6rem, 10rem) 1fr;
+  gap: 1rem 1.25rem;
+  align-items: start;
+}
+
+.book-card-title {
+  margin: 0;
+  font-family: var(--font-book);
+  font-size: 1.7rem;
+}
+
+.book-card-author {
+  margin: 0.15rem 0 0.75rem;
+  font-size: 1.05rem;
+}
+
+.cover {
+  margin: 0;
+}
+
+.cover img {
+  display: block;
+  width: 100%;
+  border-radius: 0.3rem;
+  box-shadow: var(--shadow);
+}
+
+.cover-large {
+  max-width: 14rem;
+}
+
+.app-caption {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.progress {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.content-warning {
+  margin: 0.5rem 0 0.75rem;
+  padding: 0.5rem 0.8rem;
+  background: var(--warning-bg);
+  border-left: 4px solid var(--warning-border);
+  border-radius: 0.3rem;
+  font-size: 0.92rem;
+}
+
+.content-warning p {
+  margin: 0.15rem 0;
+}
+
+.content-warning-title {
+  font-weight: 700;
+}
+
+.content-warning-source {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.book-info {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.3rem 1rem;
+  margin: 1rem 0;
+  font-size: 0.92rem;
+}
+
+.book-info dt {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.book-info dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.colophon {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.app-section-title {
+  margin: 0.5rem 0 0.75rem;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.colophon-text {
+  font-size: calc(0.95rem * var(--font-scale));
+}
+
+.colophon-text .book-image {
+  max-height: 5rem;
+  width: auto;
+}
+
+/* --- tekst książki --------------------------------------------------------------------------- */
+
+.book-text {
+  font-family: var(--font-book);
+  font-size: calc(1.125rem * var(--font-scale));
+  line-height: 1.65;
+  overflow-wrap: break-word;
+  font-synthesis: none;
+}
+
+.book-text p {
+  margin: 0 0 0.85em;
+}
+
+.book-text .book-heading {
+  margin: 0.25em 0 0.75em;
+  font-family: var(--font-book);
+  font-size: 1.3em;
+  font-weight: 400;
+}
+
+.book-text .align-center {
+  text-align: center;
+}
+
+.book-text .align-right {
+  text-align: right;
+}
+
+.book-text .align-justify {
+  text-align: justify;
+}
+
+.book-text .mark-b {
+  font-weight: 700;
+}
+
+.book-text .mark-i {
+  font-style: italic;
+}
+
+.book-list {
+  margin: 0 0 1em;
+  padding-left: 1.75em;
+}
+
+.book-list li > p {
+  margin: 0 0 0.3em;
+}
+
+.book-link {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  border-radius: 0.2em;
+}
+
+.book-link.is-unmet {
+  text-decoration-style: dotted;
+}
+
+.book-link.is-target {
+  background: var(--highlight);
+}
+
+.book-link-static {
+  color: inherit;
+}
+
+/* Grafiki w treści: wyrównanie jak w pliku źródłowym (do lewej); okładka — na środku. */
+.book-figure {
+  margin: 1em 0;
+}
+
+.book-figure-cover {
+  text-align: center;
+}
+
+/* Grafiki z publikacji (np. logotypy w stopce) mają przezroczyste tło i ciemny rysunek — pokazujemy je
+   na białym tle jak na stronie oryginału, także w motywie ciemnym. Samych grafik nie zmieniamy
+   (bez filtrów i odwracania kolorów — AGENTS.md, rozdz. 1.3 pkt 6). */
+.book-image:not(.book-cover-image) {
+  padding: 0.3rem;
+  background: #ffffff;
+  border-radius: 0.2rem;
+}
+
+.book-figure-cover img {
+  max-width: min(100%, 22rem);
+  box-shadow: var(--shadow);
+}
+
+/* --- ekran gry ------------------------------------------------------------------------------- */
+
+.game-bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.75rem;
+  margin: 0 -1rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.game-bar-title {
+  flex: 1;
+  min-width: 8rem;
+}
+
+.game-book-title {
+  margin: 0;
+  font-family: var(--font-book);
+  font-size: 1.15rem;
+}
+
+.game-book-author {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.font-buttons {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.save-status {
+  min-width: 5.5rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.save-status.is-error {
+  color: var(--bad);
+  font-weight: 600;
+}
+
+.game-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.app-notice {
+  margin: 1rem 0;
+  padding: 0.6rem 0.9rem;
+  background: var(--notice-bg);
+  border-left: 4px solid var(--notice-border);
+  border-radius: 0.4rem;
+  color: var(--notice-text);
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+}
+
+.app-notice p,
+.app-notice ul {
+  margin: 0.2rem 0;
+}
+
+.app-notice ul {
+  padding-left: 1.2rem;
+}
+
+.app-notice-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.game-text {
+  padding: 1rem 0 0.5rem;
+}
+
+.game-text:focus {
+  outline: none;
+}
+
+.choices {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.choices-title {
+  margin: 0 0 0.6rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.choice-list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.choice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+}
+
+.btn-choice {
+  justify-content: flex-start;
+  min-width: 11rem;
+  font-size: 1rem;
+}
+
+.choice-condition {
+  font-size: 0.875rem;
+}
+
+.choice-met .choice-condition {
+  color: var(--ok);
+}
+
+.choice-unmet .choice-condition {
+  color: var(--bad);
+}
+
+.choice-unmet .btn-choice {
+  border-style: dashed;
+}
+
+.ending-box {
+  margin: 1rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  border-radius: 0.75rem;
+}
+
+.ending-box h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.ending-box p {
+  margin: 0.3rem 0;
+}
+
+.undo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.9rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.undo-caption {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.mode-info {
+  margin: 0.5rem 0;
+}
+
+/* --- okna dialogowe -------------------------------------------------------------------------- */
+
+.app-dialog {
+  width: min(32rem, calc(100vw - 1.5rem));
+  max-height: calc(100vh - 2rem);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 10px 40px rgb(0 0 0 / 0.35);
+}
+
+.app-dialog-wide {
+  width: min(46rem, calc(100vw - 1.5rem));
+}
+
+.app-dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem 0.5rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.dialog-title {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.dialog-body {
+  max-height: calc(100vh - 12rem);
+  padding: 0.75rem 1.25rem;
+  overflow: auto;
+}
+
+.dialog-body h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1rem;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.codeword-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(3.6rem, 1fr));
+  gap: 0.4rem;
+  margin: 0.75rem 0;
+}
+
+.codeword {
+  min-height: 2.6rem;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.codeword.is-owned {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 700;
+}
+
+.history-list {
+  margin: 0;
+  padding-left: 2.5rem;
+  columns: 10rem;
+}
+
+.endings-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.save-list {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.save-slot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+
+.save-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+/* --- „O książce” ------------------------------------------------------------------------------ */
+
+.about h1 {
+  margin: 1rem 0;
+  font-family: var(--font-book);
+}
+
+.about-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.about-nav-bottom {
+  margin-top: 2rem;
+}
+
+.about-header {
+  display: grid;
+  grid-template-columns: minmax(8rem, 14rem) 1fr;
+  gap: 1rem 1.5rem;
+  align-items: start;
+}
+
+.about-toc ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  columns: 14rem;
+}
+
+.about-section {
+  margin: 1.5rem 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 1rem;
+}
+
+.about-section:focus {
+  outline: none;
+}
+
+/* --- ekrany wąskie (telefony) ------------------------------------------------------------------ */
+
+@media (max-width: 34rem) {
+  .book-card-main,
+  .about-header {
+    grid-template-columns: 1fr;
+  }
+
+  .cover {
+    max-width: 11rem;
+  }
+
+  .book-info {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+
+  .book-info dd {
+    margin-bottom: 0.5rem;
+  }
+
+  .save-status {
+    min-width: 0;
+  }
+
+  /* Na telefonie pasek gry nie jest przyklejony — zostawia więcej miejsca na tekst. */
+  .game-bar {
+    position: static;
+  }
+
+  .btn-choice {
+    flex: 1 1 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+  }
+}

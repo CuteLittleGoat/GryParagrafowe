@@ -4,14 +4,14 @@
 > „Stan bieżący” i „Następne kroki”; na końcu zaktualizuj stan, odhacz wykonane punkty planu i dodaj
 > wpis w changelogu. Decyzje zapisuj w „Decyzjach”, wątpliwości — w „Otwartych pytaniach”.
 
-**Ostatnia aktualizacja:** 2026-11-01
+**Ostatnia aktualizacja:** 2026-11-02
 
 ## 1. Stan bieżący
 
 | | |
 |---|---|
-| Etap | **1 — Konwersja: zakończony** (2026-11-01); w toku: Etap 2 (szkielet aplikacji) i Etap 3 (mechanika — silnik i `mechanika.json` gotowe, testy 12/12) |
-| Aplikacja | w budowie |
+| Etap | **2 i 3 — aplikacja i mechanika: zakończone** (2026-11-02, tryb lokalny); następny: **Etap 5 — Firebase** |
+| Aplikacja | **działa lokalnie** (`localhost`): logowanie (tryb lokalny), katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy, zakończenia, „O książce”; test w przeglądarce 43/43, testy silnika 12/12. Pod innymi adresami logowanie wyłączone do czasu Firebase |
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`** utworzony przez właściciela (2026-10-29); konfiguracja webowa w `firebase/firebase-config.js`; reguły w konsoli tymczasowo blokują cały dostęp; logowanie loginem i hasłem (konta `Player1` … `Player6`), App Check i reguły docelowe — Etap 5 ([dokumentacja/FIREBASE.md](dokumentacja/FIREBASE.md)) |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna, podmieniona przez właściciela 2026-11-01 |
@@ -20,9 +20,9 @@
 
 ## 2. Następne kroki
 
-1. **Etap 2 i 3**: szkielet aplikacji, czytnik i mechanika „Vae Victis” (lokalny zapis).
-2. **Etap 5** (gdy aplikacja działa lokalnie): Firebase — logowanie, zapis postępu, reguły, App Check;
-   kroki w konsoli wykonuje właściciel (FIREBASE.md, rozdz. 9).
+1. **Etap 5**: Firebase — logowanie, zapis postępu, reguły, App Check; kroki w konsoli wykonuje
+   właściciel (FIREBASE.md, rozdz. 9).
+2. **Etap 7 (część)**: publikacja na GitHub Pages — dopiero z działającym logowaniem.
 3. **Na końcu — właściciel**: konto dla Wydawcy (dodatkowe konto gracza), wysłanie odnośnika do
    aplikacji i pytań PW1–PW3.
 
@@ -48,25 +48,25 @@
 - [x] Aktualizacja karty książki — błędów w treści nie wykryto
 
 ### Etap 2 — Szkielet aplikacji i czytnik
-- [ ] `index.html`, style (motyw jasny/ciemny, mobile-first), router ekranów
-- [ ] Ekran główny: logowanie (lokalny adapter — tylko rozwój), katalog, karta książki (okładka z podpisem autorki, atrybucja, linki, **odnośniki do oryginałów** na stronie Wydawnictwa — P2), **ostrzeżenie o treści ze strony Wydawnictwa** (P7), **pełna stopka**, stopka aplikacji
-- [ ] Ekran gry: węzeł 1:1, klikalne odnośniki w tekście, panel przejść, „Menu główne”
-- [ ] „O książce”: strony wstępne, stopka, okładka z podpisem, linki, informacja o zgodzie
-- [ ] Tekst: krój jak w oryginale (Old Standard TT, z plikiem licencji OFL), **dwa przyciski zmiany rozmiaru tekstu** (P11); motyw jasny/ciemny
-- [ ] Autozapis lokalny (`LocalAdapter`), kilku graczy lokalnie (tryb deweloperski)
-- [ ] Przegląd zgodności z checklistą [LICENCJA_I_ZGODA.md](dokumentacja/LICENCJA_I_ZGODA.md), rozdz. 6
+- [x] `index.html`, style (motyw jasny/ciemny, mobile-first), router ekranów (2026-11-02)
+- [x] Ekran główny: logowanie (lokalny adapter — tylko rozwój), katalog, karta książki (okładka z podpisem autorki, atrybucja, linki, **odnośniki do oryginałów** na stronie Wydawnictwa — P2), **ostrzeżenie o treści ze strony Wydawnictwa** (P7), **pełna stopka**, stopka aplikacji
+- [x] Ekran gry: węzeł 1:1, klikalne odnośniki w tekście, panel przejść, „Menu główne” (2026-11-02)
+- [x] „O książce”: strony wstępne, stopka, okładka z podpisem, linki, informacja o zgodzie (2026-11-02)
+- [x] Tekst: krój jak w oryginale (Old Standard TT, z plikiem licencji OFL), **dwa przyciski zmiany rozmiaru tekstu** (P11); motyw jasny/ciemny (2026-11-02)
+- [x] Autozapis lokalny (`LocalAdapter`), kilku graczy lokalnie (tryb deweloperski) (2026-11-02)
+- [x] Przegląd zgodności z checklistą [LICENCJA_I_ZGODA.md](dokumentacja/LICENCJA_I_ZGODA.md), rozdz. 6 (2026-11-02; ponownie po wdrożeniu Firebase)
 
 ### Etap 3 — Silnik mechaniki i „Vae Victis”
 - [x] Silnik (`aplikacja/js/core/`): warunki, efekty, odwiedziny, zakończenia; tryb automatyczny i ręczny; zasada neutralności (2026-11-01)
-- [ ] Moduły: `codewords` („Informacje”), `visits`, `endings`, `notes`
-- [ ] Karta postaci (Informacje + ręczna edycja), notatki, historia, „Odkryte zakończenia”
-- [ ] Przycisk **„Cofnij”** — krok po kroku, do początku bieżącej rozgrywki — z dopiskiem „To Twoja gra :) Graj jak lubisz!” (P5)
+- [x] Moduły: `codewords` („Informacje”), `visits`, `endings`, `notes` (2026-11-02)
+- [x] Karta postaci (Informacje + ręczna edycja), notatki, historia, „Odkryte zakończenia” (2026-11-02)
+- [x] Przycisk **„Cofnij”** — krok po kroku, do początku bieżącej rozgrywki — z dopiskiem „To Twoja gra :) Graj jak lubisz!” (P5) (2026-11-02)
 - [x] `ksiazki/vae-victis/mechanika.json` — generator `narzedzia/konwersja/generuj_mechanike.py` (odczyt dosłowny) + przegląd ręczny; 48 zdobyć Informacji, 88 warunków, przypadek opisany prozą (§85) w konfiguracji (2026-11-01)
 - [x] Walidacja M1–M5 (`narzedzia/weryfikacja/weryfikuj_mechanike.py`) — 5/5; niejednoznaczne warunki (§170, §259, §286, §289) oznaczone flagą `ambiguous`: obie drogi dostępne, wybiera gracz (P8; do czasu odpowiedzi Wydawcy na PW3) (2026-11-01)
-- [ ] 3 miejsca na ręczny zapis w każdej książce (lokalnie) (P6)
-- [ ] „Nowa gra”: pytanie, czy zostawić dotychczasowe notatki, czy je wyczyścić (P9)
+- [x] 3 miejsca na ręczny zapis w każdej książce (lokalnie) (P6) (2026-11-02)
+- [x] „Nowa gra”: pytanie, czy zostawić dotychczasowe notatki, czy je wyczyścić (P9) (2026-11-02)
 - [x] Testy jednostkowe silnika na prawdziwych danych (`node --test 'testy/**/*.test.mjs'`, 12/12): §9, §57, §91, §98, §161, §170, zakończenia, „Cofnij”, „Nowa gra”, tryb ręczny (2026-11-01)
-- [ ] Scenariusze ręczne w przeglądarce (Playwright) — po zbudowaniu ekranu gry
+- [x] Scenariusze w przeglądarce (Playwright): `testy/e2e/test-dymny.cjs` — 43/43 (2026-11-02)
 
 ### Etap 4 — Moduły ogólne (dla kolejnych książek)
 - [ ] `stats` — statystyki (np. HP/Wytrzymałość) z wartościami początkowymi i limitami
@@ -98,7 +98,9 @@
 - [ ] Hosting: **GitHub Pages** (P3) — publikacja dopiero z działającym logowaniem; nagłówek CSP
 - [ ] Instrukcje dla graczy i dla administratora
 - [ ] Opcjonalnie: zmiana kroju pisma przez gracza (np. krój przyjazny dla osób z dysleksją — licencja kroju do sprawdzenia) — **tylko po zgodzie Wydawcy** (pytanie PW1) (P11)
-- [ ] Opcjonalnie: testy E2E (Playwright), PWA / tryb offline
+- [x] Test E2E (Playwright) — `testy/e2e/test-dymny.cjs` (2026-11-02)
+- [ ] Lżejsza wersja okładki dla telefonów (oryginał PNG 3,5 MB) — tylko proporcjonalne zmniejszenie i kompresja (Z6), jako opisany krok
+- [ ] Opcjonalnie: PWA / tryb offline
 
 ### Etap 8+ — Kolejne książki
 - [ ] **Właściciel**: po ukończeniu „Vae Victis” i przygotowaniu kont dla 6 graczy — prośba do Wydawcy o kolejne tytuły i informacja o planie zwiększenia liczby graczy (P12)
@@ -138,6 +140,10 @@
 | D32 | 2026-11-01 | Warunki w `mechanika.json` odczytywane z tekstu **dosłownie** (generator); węzły, w których wskazówki pasują do kilku dróg, mają flagę `ambiguous` — aplikacja nie oznacza w nich dróg, tylko informuje, że wybiera gracz, i pokazuje jego Informacje związane z tym miejscem | neutralność silnika; realizacja D27 bez wybierania za gracza jednej z interpretacji |
 | D33 | 2026-11-01 | Tryb automatyczny oznacza drogi (warunek spełniony / niespełniony), ale niczego nie blokuje — wybór drogi z niespełnionym warunkiem wymaga potwierdzenia | „To Twoja gra” (P5); zasada „W razie niejednoznaczności opcji nie blokuj” |
 | D34 | 2026-11-01 | Krój Old Standard TT dołączony do aplikacji (pliki z repozytorium Google Fonts, licencja OFL — `aplikacja/assets/fonts/`), bez pobierania fontów z zewnętrznych serwerów | wierność wyglądu (P11); brak zewnętrznych zapytań i śledzenia |
+| D35 | 2026-11-02 | Przed zalogowaniem ekran główny pokazuje tylko opis aplikacji i formularz logowania; katalog (okładki, stopki, ostrzeżenia, gra) — dopiero po zalogowaniu | wąskie grono, projekt wewnętrzny (N7) |
+| D36 | 2026-11-02 | Tryb lokalny (`LocalAdapter`, bez sprawdzania hasła) działa wyłącznie pod adresem `localhost`; pod innymi adresami logowanie jest niedostępne do czasu wdrożenia Firebase | nie da się grać bez logowania, nawet gdyby strona została opublikowana wcześniej |
+| D37 | 2026-11-02 | Grafiki z publikacji z przezroczystym tłem (logotypy w stopce) wyświetlane na białym tle, bez zmian samych grafik; okładka na środku, pozostałe grafiki wyrównane jak w pliku źródłowym | widoczność w motywie ciemnym bez filtrów i przeróbek (Z6) |
+| D38 | 2026-11-02 | Autozapis po każdym ruchu z kontrolą wersji — przy konflikcie (dwa okna / urządzenia) gracz wybiera: wczytać nowszy stan albo zastąpić; przy wczytaniu ręcznego zapisu gracz decyduje, czy przywrócić notatki z zapisu | brak cichej utraty postępu; spójnie z P9 |
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
 | D29 | 2026-11-01 | `AGENTS.md` jest uniwersalny — zawiera tylko zasady stałe; tytuły i warunki zgód są w rejestrze zgód (`dokumentacja/LICENCJA_I_ZGODA.md`), stan Firebase w `FIREBASE.md`, etapy i decyzje w tym pliku | wymóg właściciela |
 | D30 | 2026-11-01 | Oryginały zgód i korespondencji z wydawcą mogą zostać usunięte z repozytorium; wiążącym zapisem warunków jest rejestr zgód z dosłownymi cytatami kluczowych zdań | informacja właściciela |
@@ -152,6 +158,7 @@
 
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
+| P14 | **Wzmianka o „Wagabundzie” w tekście „Vae Victis”.** Na stronie „od Wydawnictwa”, która jest częścią książki „Vae Victis”, Wydawca sam wymienia swoje publikacje — wśród nich jedną linijkę: „Wagabunda, Krzysztof Firkowski. Fantastyka”. Na „Wagabundę” nie mamy zgody i zasady mówią, żeby jej nie wspominać; jednocześnie nie wolno nam skracać ani pomijać fragmentów „Vae Victis”. Przykład: to tak, jakby na końcu książki była lista „inne nasze książki” — to tekst Wydawcy, nie nasza reklama. | **A ★** zostawić stronę bez zmian — to tekst „Vae Victis” napisany przez Wydawcę, a nie nasze użycie „Wagabundy” (tak jest teraz, bo pominięcie złamałoby zakaz skracania); **B** jak A i dodatkowo dopytać Wydawcę przy wysyłce pytań PW1–PW3; **C** ukryć całą stronę „od Wydawnictwa” — niezalecane: pominięcie fragmentu książki |
 | P13 | **Plik z ustawieniami Firebase** (będzie potrzebne w Etapie 5). Trzeba będzie dopisać do niego jeden dodatkowy klucz zabezpieczenia (App Check) — jest jawny, to nie hasło. Czy agent może wtedy sam zmienić ten plik, czy wolisz zrobić to ręcznie według instrukcji? | odpowiedź potrzebna dopiero przed Etapem 5 |
 
 ### 5.2. Rozstrzygnięte
@@ -174,6 +181,32 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-02 — Etap 2 i 3: aplikacja działa lokalnie
+
+**Dodano**
+- `index.html` i style (`aplikacja/css/style.css`): krój Old Standard TT dla tekstu książki, krój
+  systemowy dla komunikatów aplikacji, motyw jasny / ciemny / automatyczny, rozmiar tekstu (A− / A+),
+  układ na telefon.
+- Ekran główny: opis aplikacji i logowanie; po zalogowaniu katalog z kartą książki (okładka z podpisem
+  autorki ilustracji, atrybucja, odnośniki, oryginały do pobrania, źródło tekstu, ISBN, informacja o
+  zgodzie, ostrzeżenie o treści ze strony Wydawnictwa, pełna stopka redakcyjna) i stan gry.
+- Ekran gry: tekst węzła 1:1 z klikalnymi odnośnikami, przyciski przejść (etykiety techniczne, numerowane
+  duplikaty), oznaczenia warunków i potwierdzenie drogi z niespełnionym warunkiem, komunikat w miejscach
+  niejednoznacznych, komunikaty o zdobytych Informacjach, zakończenia z licznikiem odkrytych, „Cofnij” z
+  dopiskiem, panele: karta postaci (Informacje #1–#43, ręczna edycja), notatki, historia i odkryte
+  zakończenia, 3 miejsca zapisu, ustawienia (motyw, rozmiar tekstu, tryb mechaniki), „Nowa gra” z
+  pytaniem o notatki.
+- „O książce”: okładka z podpisem, atrybucja, ostrzeżenie o treści i strony wstępne 1:1 (stopka, „od
+  Wydawnictwa”, strona tytułowa, dedykacja, spis treści, wprowadzenie, prolog).
+- Warstwa danych `aplikacja/js/data/`: `LocalAdapter` (tylko `localhost`, bez haseł), autozapis z kontrolą
+  wersji, wczytywanie książek z kontrolą sumy SHA-256 treści względem mechaniki.
+- `testy/e2e/test-dymny.cjs` — test w przeglądarce (Playwright): 43/43.
+
+**Zmieniono**
+- README (stan, uruchomienie, testy), ARCHITEKTURA (warstwa danych, ekran główny), FIREBASE (format listy
+  „Cofnij” i zapisów ręcznych), LICENCJA_I_ZGODA (checklista rozdz. 6 — przegląd 2026-11-02).
+- Decyzje D35–D38; otwarte pytanie P14 („Wagabunda” na stronie „od Wydawnictwa”).
 
 ### 2026-11-01 — Etap 3 (część 1): mechanika „Vae Victis” i silnik gry
 

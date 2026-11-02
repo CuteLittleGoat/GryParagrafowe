@@ -97,7 +97,7 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 | `notes` | string | notatki gracza |
 | `endingsFound` | array&lt;string&gt; | ID węzłów zakończeń odkrytych we wszystkich podejściach |
 | `playthrough` | number | numer podejścia (rośnie przy „Nowej grze”) |
-| `undo` | array&lt;map&gt; | poprzednie stany rozgrywki dla przycisku „Cofnij” (miejsce, moduły, odwiedziny) — krok po kroku, do początku bieżącej rozgrywki |
+| `undo` | array&lt;map&gt; | lista ruchów do cofnięcia (przycisk „Cofnij”) — krok po kroku, do początku bieżącej rozgrywki (technicznie: do 1000 ostatnich ruchów). Każdy wpis zapisuje tylko **zmiany** wprowadzone ruchem: `from` (węzeł przed ruchem), `entered` (węzeł po ruchu), `historyLength`, `status`, `added` / `removed` (Informacje zdobyte / utracone w tym ruchu) — mały rozmiar dokumentu |
 | `revision` | number | licznik zapisów — wykrywanie konfliktu przy grze na dwóch urządzeniach |
 | `startedAt`, `updatedAt` | timestamp | |
 
@@ -107,7 +107,7 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 |---|---|---|
 | `schemaVersion` | number | |
 | `label` | string | nazwa nadana przez gracza |
-| `state` | map | kopia pól rozgrywki: `currentNode`, `history`, `visits`, `modules`, `notes`, `playthrough`, `contentVersion` |
+| `state` | map | kopia pól rozgrywki: `currentNode`, `status`, `history`, `visits`, `modules`, `notes`, `playthrough`, `undo`, `contentVersion`, `startedAt` (bez `endingsFound` — odkryte zakończenia są wspólne dla wszystkich rozgrywek; przy wczytaniu gracz decyduje, czy przywrócić notatki z zapisu) |
 | `createdAt` | timestamp | |
 
 **`secrets/{playerId}`** — dokumenty `secrets/Player1` … `secrets/Player6`
@@ -172,7 +172,11 @@ Dla „Vae Victis” stan modułów to wyłącznie `codewords` (Informacje #1–
   "notes": "",
   "endingsFound": [],
   "playthrough": 1,
-  "undo": [ { "currentNode": "p1", "visits": { "wprowadzenie": 1, "prolog": 1, "p1": 1 }, "modules": { "codewords": { "owned": [] } } } ],
+  "undo": [
+    { "from": "wprowadzenie", "historyLength": 1, "status": "inProgress", "added": [], "removed": [], "entered": "prolog" },
+    { "from": "prolog", "historyLength": 2, "status": "inProgress", "added": [], "removed": [], "entered": "p1" },
+    { "from": "p1", "historyLength": 3, "status": "inProgress", "added": [], "removed": [], "entered": "p22" }
+  ],
   "revision": 4,
   "startedAt": "<timestamp>",
   "updatedAt": "<timestamp>"

@@ -10,14 +10,16 @@ postępu (Firebase), wiele kont graczy i wiele książek — z mechaniką dopaso
 
 ## Status
 
-**Etap 0 — struktura repozytorium i dokumentacja.** Aplikacja jeszcze nie istnieje.
+**Aplikacja działa lokalnie** (tryb testowy na własnym komputerze): logowanie, katalog, gra w „Vae
+Victis” z automatyczną mechaniką, „Cofnij”, notatki, zapisy, zakończenia. **Następny krok: Firebase**
+(konta graczy, zapis postępu w chmurze) i publikacja na GitHub Pages.
 Plan prac, stan bieżący i changelog: [`PLAN_I_CHANGELOG.md`](PLAN_I_CHANGELOG.md).
 
 ## Katalog gier
 
 | Gra | Autor | Wydawca | Zgoda | Status w aplikacji |
 |---|---|---|---|---|
-| **Vae Victis** | Beniamin Muszyński | Wydawnictwo Wielokrotnego Wyboru (portal Masz Wybór) | ✅ 29.10.2026 | 🚧 w przygotowaniu |
+| **Vae Victis** | Beniamin Muszyński | Wydawnictwo Wielokrotnego Wyboru (portal Masz Wybór) | ✅ 29.10.2026 | ✅ gotowa (tryb lokalny); 🚧 publikacja po wdrożeniu Firebase |
 
 ### Atrybucja
 
@@ -61,12 +63,35 @@ Szczegółowy opis katalogów: [`AGENTS.md`](AGENTS.md), rozdział „Struktura 
 | [KONWERSJA.md](dokumentacja/KONWERSJA.md) | konwersja EPUB → JSON i weryfikacja wierności treści |
 | [ksiazki/vae-victis/README.md](ksiazki/vae-victis/README.md) | karta książki „Vae Victis”: wyniki analizy pliku, mechanika, stopka |
 
-## Uruchomienie lokalne (od Etapu 2)
+## Uruchomienie lokalne
 
-Moduły ES wymagają serwera HTTP (nie działają z `file://`):
+Moduły ES wymagają serwera HTTP (nie działają z `file://`). Z katalogu głównego repozytorium:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Następnie: <http://localhost:8000/>.
+Następnie: <http://localhost:8000/>. Na `localhost` działa **tryb lokalny**: dowolny login, hasło
+nie jest sprawdzane ani zapisywane, postęp zapisuje się tylko w tej przeglądarce. Pod każdym innym
+adresem (np. GitHub Pages) logowanie lokalne jest wyłączone — do czasu wdrożenia Firebase nie da się
+tam grać.
+
+## Testy i weryfikacja
+
+```bash
+node --test 'testy/**/*.test.mjs'
+```
+
+```bash
+python3 narzedzia/weryfikacja/weryfikuj_tresc.py narzedzia/konwersja/konfiguracja_vae-victis.json
+```
+
+```bash
+python3 narzedzia/weryfikacja/weryfikuj_mechanike.py ksiazki/vae-victis
+```
+
+Test w przeglądarce (Playwright, przy uruchomionym serwerze na porcie 8765):
+
+```bash
+node testy/e2e/test-dymny.cjs
+```

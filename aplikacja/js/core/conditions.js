@@ -19,7 +19,7 @@ export function describe(condition, labels = {}) {
   if (!condition) return '';
   if ('all' in condition) return condition.all.map((item) => wrap(item, labels)).join(' i ');
   if ('any' in condition) return condition.any.map((item) => wrap(item, labels)).join(' lub ');
-  if ('not' in condition) return `nie: ${wrap(condition.not, labels)}`;
+  if ('not' in condition) return `nie jest prawdą, że ${wrap(condition.not, labels)}`;
   if ('has' in condition) return `masz Informację ${prefix}${condition.has}`;
   if ('notHas' in condition) return `nie masz Informacji ${prefix}${condition.notHas}`;
   if ('visitsAtLeast' in condition) {

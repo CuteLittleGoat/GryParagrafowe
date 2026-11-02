@@ -186,3 +186,15 @@ export function nodeLabel(content, nodeId) {
   const text = first ? first.inline.map((item) => item.text ?? '').join('').trim() : '';
   return text || nodeId;
 }
+
+// Etykieta z samego identyfikatora węzła (bez wczytywania treści) — np. na ekranie głównym.
+// Dla stron wstępnych zwraca null.
+export function nodeIdLabel(nodeId) {
+  let match = /^p(\d+)$/.exec(nodeId);
+  if (match) return `§${match[1]}`;
+  match = /^p(\d+)([A-Z])$/.exec(nodeId);
+  if (match) return `§${match[1]} ${match[2]}`;
+  match = /^p(\d+)-\d+$/.exec(nodeId);
+  if (match) return `§${match[1]} (ciąg dalszy)`;
+  return null;
+}
