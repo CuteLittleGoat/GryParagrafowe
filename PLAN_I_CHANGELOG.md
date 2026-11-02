@@ -10,27 +10,24 @@
 
 | | |
 |---|---|
-| Etap | **2, 3 i 5 (część programistyczna) — zakończone** (2026-11-02); czeka na **kroki właściciela w konsoli Firebase i GitHub Pages** (FIREBASE.md, rozdz. 9) |
-| Aplikacja | **działa lokalnie** (`localhost`): logowanie (tryb lokalny), katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy, zakończenia, „O książce”; test w przeglądarce 43/43, testy silnika 12/12. Pod innymi adresami logowanie wyłączone do czasu Firebase |
+| Etap | **2, 3 i 5 — zakończone; aplikacja opublikowana** (2026-11-02): `https://cutelittlegoat.github.io/GryParagrafowe/`; do naprawy: App Check (błąd 400 — usługa reCAPTCHA Enterprise / projekt klucza) |
+| Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy: przeglądarka 43/43, emulator 15/15, reguły 17/17, silnik 12/12 |
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
-| Firebase | projekt **`gryparagrafowe-e1fb3`** (właściciel, 2026-10-29); aplikacja ma gotowe logowanie loginem i hasłem i zapis w Firestore; **reguły docelowe** w `firebase/firestore.rules` (testy w emulatorze: 17/17 + test aplikacji 15/15) — **do opublikowania przez właściciela**; w konsoli wciąż reguły tymczasowe blokujące dostęp; App Check — po utworzeniu klucza ([dokumentacja/FIREBASE.md](dokumentacja/FIREBASE.md)) |
-| Instrukcje agentów | `AGENTS.md` — wersja uniwersalna, podmieniona przez właściciela 2026-11-01 |
+| Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ◐ — klucz w aplikacji, ale wymiana tokenu zwraca błąd 400 ([FIREBASE_KONSOLA.md](dokumentacja/FIREBASE_KONSOLA.md), rozdz. 12) |
+| Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
 | Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1–PW3 przygotowane; **właściciel wyśle je na końcu**, razem z odnośnikiem do gotowej aplikacji i kontem dla Wydawcy |
 | Blokery | brak |
 
 ## 2. Następne kroki
 
-1. **Właściciel — konsola Firebase i GitHub** ([instrukcja krok po kroku](dokumentacja/FIREBASE_KONSOLA.md)): ✅ logowanie anonimowe
-   (2026-11-02); ⬜ publikacja reguł z `firebase/firestore.rules`; ⬜ konta `Player1` … `Player7`
-   w kolekcji `secrets` (Player7 — Wydawca); ⬜ włączenie GitHub Pages; potem próba agenta (połączenie,
-   odrzucenie złego hasła) i sprawdzenie logowania przez właściciela.
-2. **App Check**: ✅ klucz reCAPTCHA Enterprise utworzony i zarejestrowany przez właściciela, wpisany
-   do aplikacji (2026-11-02); ⬜ po kilku dniach obserwacji (zweryfikowane żądania) — wymuszenie
-   (*Enforce*) dla Cloud Firestore (FIREBASE.md, rozdz. 7.2).
-3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1–PW3 (i P14 wg
-   decyzji).
-3. **Na końcu — właściciel**: konto dla Wydawcy (dodatkowe konto gracza), wysłanie odnośnika do
-   aplikacji i pytań PW1–PW3.
+1. **App Check — naprawa błędu 400** (właściciel): włączenie usługi *reCAPTCHA Enterprise API* w
+   projekcie `gryparagrafowe-e1fb3` i sprawdzenie, czy klucz jest w tym projekcie
+   ([FIREBASE_KONSOLA.md](dokumentacja/FIREBASE_KONSOLA.md), rozdz. 12); potem ponowna próba agenta,
+   kilka dni obserwacji i wymuszenie (*Enforce*) dla Cloud Firestore.
+2. **Właściciel**: sprawdzenie logowania prawdziwymi kontami (w tym kontem Wydawnictwa `Player2`).
+3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1–PW3.
+4. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
+   uprawnienia administratora).
 
 ## 3. Plan prac (etapy)
 
@@ -88,11 +85,11 @@
 - [ ] Odnotowanie regionu bazy w FIREBASE.md
 - [x] Format `firebase/firebase-config.js` (moduł ES) i pole klucza App Check `appCheckSiteKey` — za zgodą właściciela (P13) (2026-11-02)
 - [x] `firebase/firestore.rules` + testy reguł w emulatorze (`testy/reguly/test-regul.mjs`, 17/17) i test aplikacji z emulatorem (15/15) (2026-11-02)
-- [ ] **Właściciel**: publikacja reguł w konsoli (rozdz. 9, krok 3)
+- [x] **Właściciel**: publikacja reguł w konsoli (2026-11-02; sprawdzone próbą agenta)
 - [x] App Check: klucz reCAPTCHA Enterprise (domena `cutelittlegoat.github.io`), rejestracja w Firebase (TTL 1 dzień) — właściciel; klucz w `firebase/firebase-config.js` — agent (2026-11-02)
 - [ ] App Check: obserwacja → **Enforce** dla Cloud Firestore (właściciel, FIREBASE.md rozdz. 7.2); opcjonalnie ograniczenia klucza API
 - [x] `FirestoreAdapter`: logowanie loginem i hasłem (sesje ważne 30 dni, w sesji tylko skrót hasła), profil, autozapis w transakcji z kontrolą `revision`, ręczne zapisy, `appConfig` (liczba kont, przerwa techniczna, wyłączone książki); bez pamięci offline (D40) (2026-11-02)
-- [ ] **Właściciel**: konta `Player1` … `Player7` w kolekcji `secrets` (pola `PlayerName`, `PlayerPassword`; Player7 — Wydawca) — FIREBASE.md, rozdz. 9, krok 4; opcjonalnie `appConfig/public`, a przed panelem administratora — `admins/Player1`
+- [x] **Właściciel**: konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) w kolekcji `secrets`; `appConfig/public.playerCount` = 5 (int64); `admins/Player1` (2026-11-02)
 
 ### Etap 6 — Kopie zapasowe i odtwarzanie
 - [ ] Panel administratora (lista graczy, ostatnia aktywność)
@@ -104,7 +101,7 @@
 ### Etap 7 — Jakość i wdrożenie
 - [ ] Dostępność (klawiatura, ARIA, kontrast), testy na telefonach
 - [ ] CI (GitHub Actions): weryfikacja treści i mechaniki, testy
-- [ ] Hosting: **GitHub Pages** (P3) — publikacja dopiero z działającym logowaniem (gotowe po stronie kodu, plik `.nojekyll`; włącza właściciel — FIREBASE.md, rozdz. 9, krok 7)
+- [x] Hosting: **GitHub Pages** (P3) — włączone przez właściciela 2026-11-02 (repozytorium publiczne, gałąź `main`): `https://cutelittlegoat.github.io/GryParagrafowe/`
 - [ ] Polityka CSP (znacznik w `index.html`) — po sprawdzeniu działania na GitHub Pages, żeby nie zablokować Firebase ani App Check
 - [ ] Instrukcje dla graczy i dla administratora
 - [ ] Opcjonalnie: zmiana kroju pisma przez gracza (np. krój przyjazny dla osób z dysleksją — licencja kroju do sprawdzenia) — **tylko po zgodzie Wydawcy** (pytanie PW1) (P11)
@@ -156,9 +153,10 @@
 | D38 | 2026-11-02 | Autozapis po każdym ruchu z kontrolą wersji — przy konflikcie (dwa okna / urządzenia) gracz wybiera: wczytać nowszy stan albo zastąpić; przy wczytaniu ręcznego zapisu gracz decyduje, czy przywrócić notatki z zapisu | brak cichej utraty postępu; spójnie z P9 |
 | D39 | 2026-11-02 | W dokumencie sesji zamiast hasła — jego skrót SHA-256 (liczony w przeglądarce); reguły liczą skrót `PlayerPassword` i porównują | hasło jawnym tekstem tylko w `secrets` (wymóg ręcznej edycji); realizacja „utwardzenia” z FIREBASE.md rozdz. 5 |
 | D40 | 2026-11-02 | Firestore bez trwałej pamięci podręcznej (tylko w pamięci karty); w pamięci przeglądarki tylko identyfikator konta i login | żadnych danych logowania ani kopii danych na dysku urządzenia |
-| D41 | 2026-11-02 | Konto dla Wydawcy = `Player7`; `appConfig/public.playerCount` = 7 | zapowiedź właściciela (konto i hasło dla Wydawcy) |
+| D41 | 2026-11-02 | ~~Konto dla Wydawcy = `Player7`; `appConfig/public.playerCount` = 7~~ — zastąpione przez D45 | zapowiedź właściciela (konto i hasło dla Wydawcy) |
 | D42 | 2026-11-02 | `firebase/firebase-config.js` jako moduł ES z polem `appCheckSiteKey`; biblioteka Firebase JS SDK **12.19.0** z `www.gstatic.com` (przypięta wersja); emulator tylko pod `localhost?emulator` | zgoda właściciela (P13); stabilna wersja sprzed 2 miesięcy |
 | D43 | 2026-11-02 | Strona „od Wydawnictwa” w „Vae Victis” pozostaje bez skrótów — także linijka o „Wagabundzie” (lista publikacji Wydawcy jest częścią tekstu książki); w aplikacji jest odnośnik do strony Wydawcy | decyzja właściciela (P14): „nie skracaj. To, że nie mamy zgody na Wagabundę nie oznacza, że nie możemy o niej pisać.” |
+| D45 | 2026-11-02 | Konta: `Player1` — właściciel (administrator), `Player2` — Wydawnictwo, `Player3` … `Player5` — gracze; `playerCount` = 5 (typ *int64* w obecnej konsoli); kolejne konta później | decyzja i konfiguracja właściciela |
 | D44 | 2026-11-02 | Dokument `appConfig/public` opcjonalny — bez niego aplikacja sprawdza konta `Player1` … `Player10`; kolekcje `players` i `sessions` tworzy aplikacja; konta (`secrets`) zakłada wyłącznie administrator w konsoli | mniej pracy w konsoli; bezpieczeństwo — aplikacja nie może zakładać kont |
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
 | D29 | 2026-11-01 | `AGENTS.md` jest uniwersalny — zawiera tylko zasady stałe; tytuły i warunki zgód są w rejestrze zgód (`dokumentacja/LICENCJA_I_ZGODA.md`), stan Firebase w `FIREBASE.md`, etapy i decyzje w tym pliku | wymóg właściciela |
@@ -197,6 +195,20 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-02 — Aplikacja opublikowana; próba na prawdziwym projekcie; App Check do naprawy
+
+**Sprawdzono** (próba agenta na `https://cutelittlegoat.github.io/GryParagrafowe/`, bez prawdziwych
+haseł): strona i pliki dostępne; reguły docelowe opublikowane (konto anonimowe czyta tylko
+`appConfig/public`); `playerCount` typu *int64* odczytywane poprawnie (5); zmyślony login odrzucony
+komunikatem „Nieprawidłowy login lub hasło”. **App Check**: wymiana tokenu reCAPTCHA zwraca błąd 400
+(„ensure that the reCAPTCHA Enterprise API is enabled and that the site key is from the same project”)
+— instrukcja naprawy w FIREBASE_KONSOLA.md (rozdz. 12); wymuszenie wstrzymane.
+
+**Zmieniono**
+- Puste elementy listy `disabledBooks` są pomijane.
+- Dokumentacja (FIREBASE.md, FIREBASE_KONSOLA.md, plan): konta założone przez właściciela (`Player2` —
+  Wydawnictwo, 5 kont), typ *int64*, GitHub Pages włączone, repozytorium publiczne; D45 zastępuje D41.
 
 ### 2026-11-02 — Instrukcja zakładania struktury w konsoli Firebase
 

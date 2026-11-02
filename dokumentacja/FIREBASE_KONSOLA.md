@@ -16,19 +16,20 @@ Nazwy przycisków podaję po angielsku (tak wyświetla je konsola), a w nawiasie
 2. **Identyfikator dokumentu wpisujesz sam.** Przy tworzeniu dokumentu konsola proponuje losowy
    identyfikator (przycisk *Auto-ID*) — **nie używaj go**; wpisz np. `Player1`.
 3. **Typ pola musi się zgadzać.** Login i hasło to zawsze typ **string** (tekst) — także wtedy, gdy
-   hasło składa się z samych cyfr. Liczba kont to typ **number**, a przerwa techniczna — **boolean**.
+   hasło składa się z samych cyfr. Liczba kont to liczba całkowita — typ **int64** (w starszych
+   wersjach konsoli: *number*), a przerwa techniczna — **boolean**.
 
 ## 1. Mapa bazy — co zakładasz Ty, a co aplikacja
 
 ```text
 Firestore Database
 ├── secrets/                ← zakładasz Ty — OBOWIĄZKOWO (konta: loginy i hasła)
-│   ├── Player1             PlayerName: "…"   PlayerPassword: "…"
-│   ├── Player2             PlayerName: "…"   PlayerPassword: "…"
-│   ├── …
-│   └── Player7             PlayerName: "…"   PlayerPassword: "…"   ← konto dla Wydawcy
+│   ├── Player1             PlayerName: "…"   PlayerPassword: "…"   ← właściciel (administrator)
+│   ├── Player2             PlayerName: "…"   PlayerPassword: "…"   ← Wydawnictwo
+│   ├── Player3 … Player5   PlayerName: "…"   PlayerPassword: "…"   ← gracze
+│   └── (kolejne konta później: Player6, Player7, …)
 ├── appConfig/              ← zakładasz Ty — OPCJONALNIE (zalecane)
-│   └── public              playerCount: 7   maintenance: false   disabledBooks: (pusta lista)
+│   └── public              playerCount: 5   maintenance: false   disabledBooks: (pusta lista)
 ├── admins/                 ← zakładasz Ty — PÓŹNIEJ (przed panelem administratora)
 │   └── Player1             rola: "administrator"
 ├── players/                ← tworzy APLIKACJA (postęp graczy) — nie zakładaj
@@ -95,17 +96,16 @@ W kolekcji `secrets` kliknij **+ Add document** (Dodaj dokument) i powtórz krok
 
 Tylko te dwa pola — innych nie dodawaj.
 
-### 4.4. Konta do założenia
+### 4.4. Konta (stan na 2026-11-02 — założone przez właściciela)
 
 | Identyfikator dokumentu | Dla kogo |
 |---|---|
-| `Player1` | Ty (administrator) |
-| `Player2` | gracz 2 |
-| `Player3` | gracz 3 |
-| `Player4` | gracz 4 |
-| `Player5` | gracz 5 |
-| `Player6` | gracz 6 |
-| `Player7` | **Wydawca** (konto do wysłania razem z odnośnikiem do aplikacji) |
+| `Player1` | właściciel (administrator) |
+| `Player2` | **Wydawnictwo** (konto do wysłania razem z odnośnikiem do aplikacji) |
+| `Player3` | gracz |
+| `Player4` | gracz |
+| `Player5` | gracz |
+| `Player6`, `Player7`, … | kolejni gracze — później (pamiętaj o zwiększeniu `playerCount`) |
 
 Identyfikator to zawsze `Player` + numer bez zera na początku (`Player1`, nie `Player01`), od 1 do 99.
 Numer konta jest stały — gracz loguje się **loginem** (`PlayerName`), a jego postęp jest zapisany
@@ -119,15 +119,16 @@ przy numerze konta. Dzięki temu login i hasło można później zmienić bez ut
 
 | Pole | Typ | Wartość teraz | Co robi |
 |---|---|---|---|
-| `playerCount` | **number** | `7` | ile kont aplikacja sprawdza przy logowaniu (`Player1` … `PlayerN`); bez tego pola: 10 |
+| `playerCount` | **int64** (starsze konsole: *number*) | `5` (tyle kont jest teraz) | ile kont aplikacja sprawdza przy logowaniu (`Player1` … `PlayerN`); bez tego pola: 10 |
 | `maintenance` | **boolean** | `false` | `true` = **przerwa techniczna**: gracze widzą komunikat „Przerwa techniczna” i nie mogą grać (postęp zostaje) |
-| `disabledBooks` | **array** | (pusta lista — możesz pominąć to pole) | lista książek wyłączonych awaryjnie, np. po wycofaniu zgody: element typu `string` o wartości `vae-victis` ukrywa „Vae Victis” |
+| `disabledBooks` | **array** | pusta lista (możesz pominąć to pole; pusty element tekstowy jest ignorowany) | lista książek wyłączonych awaryjnie, np. po wycofaniu zgody: element typu `string` o wartości `vae-victis` ukrywa „Vae Victis” |
 
 4. *Save*.
 
 Uwagi:
-- `playerCount` musi być typu **number** — tekst `"7"` (typ string) aplikacja zignoruje.
-- Po dodaniu konta o wyższym numerze niż `playerCount` (np. `Player8` przy `playerCount` = 7)
+- `playerCount` musi być liczbą (**int64**; w starszych konsolach *number*) — tekst `"5"` (typ string)
+  aplikacja zignoruje.
+- Po dodaniu konta o wyższym numerze niż `playerCount` (np. `Player6` przy `playerCount` = 5)
   **zwiększ `playerCount`** — inaczej nowy gracz nie zaloguje się.
 - `maintenance` musi być typu **boolean** (przełącznik *true / false*), nie tekstem.
 
@@ -158,9 +159,10 @@ Tych dokumentów nie edytuj ręcznie — wyjątki opisuje rozdz. 10.
 - [ ] *Authentication* → *Sign-in method*: **Anonymous — Enabled**.
 - [ ] *Firestore Database* → *Rules*: opublikowana treść z `firebase/firestore.rules` (zaczyna się od
       `rules_version = '2';`, zawiera m.in. `match /secrets/{playerId}`).
-- [ ] *Data*: kolekcja `secrets` z dokumentami `Player1` … `Player7`; w każdym dokładnie dwa pola
-      `PlayerName` i `PlayerPassword`, oba typu **string**.
-- [ ] (opcjonalnie) `appConfig/public` z polem `playerCount` typu **number** = 7.
+- [x] *Data*: kolekcja `secrets` z dokumentami `Player1` … `Player5`; w każdym dokładnie dwa pola
+      `PlayerName` i `PlayerPassword`, oba typu **string** (właściciel, 2026-11-02).
+- [x] `appConfig/public` z polem `playerCount` typu **int64** = 5 (sprawdzone 2026-11-02: aplikacja
+      odczytuje wartość poprawnie).
 - [ ] Na stronie aplikacji logowanie działa dla każdego konta; zły login lub hasło daje komunikat
       „Nieprawidłowy login lub hasło”.
 
@@ -179,7 +181,7 @@ Tych dokumentów nie edytuj ręcznie — wyjątki opisuje rozdz. 10.
 
 | Co | Jak |
 |---|---|
-| **Dodanie gracza** | `secrets` → *Add document* → `Player8` z polami `PlayerName` i `PlayerPassword`; w `appConfig/public` zwiększ `playerCount` (np. do 8) |
+| **Dodanie gracza** | `secrets` → *Add document* → `Player6` z polami `PlayerName` i `PlayerPassword`; w `appConfig/public` zwiększ `playerCount` (np. do 6) |
 | **Zmiana loginu lub hasła** | edytuj pole `PlayerName` lub `PlayerPassword` w `secrets/PlayerN` — gracz zostaje od razu wylogowany na wszystkich urządzeniach, loguje się nowymi danymi; postęp zostaje |
 | **Wylogowanie wszystkich** | usuń dokumenty w kolekcji `sessions` (menu ⋮ przy kolekcji → *Delete collection*); kolekcja powstanie znów przy następnym logowaniu |
 | **Przerwa techniczna** | `appConfig/public` → `maintenance` = `true`; po pracach — `false` |
@@ -192,5 +194,25 @@ Tych dokumentów nie edytuj ręcznie — wyjątki opisuje rozdz. 10.
 
 | Usługa | Stan | Co dalej |
 |---|---|---|
-| **App Check** (potwierdzenie, że zapytania pochodzą z naszej aplikacji) | ✅ klucz reCAPTCHA utworzony dla `cutelittlegoat.github.io`, zarejestrowany w App Check (TTL 1 dzień), wpisany do aplikacji — 2026-11-02 | po uruchomieniu strony i kilku dniach obserwacji (*App Check* → *APIs* → *Cloud Firestore*: żądania „Verified”) — **Enforce**; gdyby gracze nie mogli się zalogować — **Unenforce** ([FIREBASE.md](FIREBASE.md), rozdz. 7.2) |
-| **GitHub Pages** (adres aplikacji) | ⬜ do włączenia | GitHub → repozytorium → *Settings* → *Pages* → *Deploy from a branch* → gałąź `main`, folder `/ (root)` → *Save*; adres: `https://cutelittlegoat.github.io/GryParagrafowe/` |
+| **App Check** (potwierdzenie, że zapytania pochodzą z naszej aplikacji) | ◐ klucz reCAPTCHA utworzony dla `cutelittlegoat.github.io`, zarejestrowany w App Check (TTL 1 dzień), wpisany do aplikacji — 2026-11-02; **próba na stronie: wymiana tokenu kończy się błędem 400** („reCAPTCHA Enterprise API” wyłączone w projekcie albo klucz z innego projektu) | włączyć *reCAPTCHA Enterprise API* w projekcie `gryparagrafowe-e1fb3` i sprawdzić, czy klucz jest w tym projekcie (rozdz. 12); potem kilka dni obserwacji (*App Check* → *APIs* → *Cloud Firestore*: żądania „Verified”) i **Enforce**; gdyby gracze nie mogli się zalogować — **Unenforce** ([FIREBASE.md](FIREBASE.md), rozdz. 7.2) |
+| **GitHub Pages** (adres aplikacji) | ✅ włączone 2026-11-02 (repozytorium publiczne, gałąź `main`) | adres: `https://cutelittlegoat.github.io/GryParagrafowe/` |
+
+## 12. App Check — błąd 400 przy wymianie tokenu (do naprawy)
+
+Komunikat serwera (2026-11-02): *„Unable to call the reCAPTCHA Enterprise CreateAssessment method;
+ensure that the reCAPTCHA Enterprise API is enabled and that the site key is from the same project as
+the one containing this app.”* Aplikacja działa (wymuszenie jest wyłączone), ale App Check jeszcze
+niczego nie potwierdza — **nie włączaj Enforce, dopóki to nie zostanie naprawione**.
+
+1. **Włącz usługę reCAPTCHA Enterprise w projekcie gry**: otwórz
+   <https://console.cloud.google.com/apis/library/recaptchaenterprise.googleapis.com?project=gryparagrafowe-e1fb3>
+   → sprawdź, czy u góry strony wybrany jest projekt **gryparagrafowe-e1fb3** → **Enable** (Włącz).
+   Jeśli zamiast przycisku jest *Manage* (Zarządzaj) — usługa jest już włączona.
+2. **Sprawdź, w którym projekcie jest klucz**: otwórz
+   <https://console.cloud.google.com/security/recaptcha?project=gryparagrafowe-e1fb3> — na liście
+   powinien być klucz `gryparagrafowe-e1fb3` o identyfikatorze zaczynającym się od `6LefCQ0u`.
+   - jest na liście → wystarczy krok 1;
+   - nie ma go (klucz powstał w innym projekcie, np. „Karty”) → utwórz nowy klucz **w tym projekcie**
+     (typ *Sieć*, domena `cutelittlegoat.github.io`), wpisz go w Firebase → *App Check* → aplikacja Web
+     (*Edit*) i przekaż agentowi — wpisze go do `firebase/firebase-config.js`.
+3. Daj znać agentowi — sprawdzi stronę ponownie (wymiana tokenu powinna zwracać kod 200).

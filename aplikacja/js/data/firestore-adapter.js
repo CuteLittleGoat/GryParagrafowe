@@ -65,7 +65,8 @@ class FirestoreAdapter {
     this.config = {
       playerCount: count,
       maintenance: data.maintenance === true,
-      disabledBooks: Array.isArray(data.disabledBooks) ? data.disabledBooks.filter((id) => typeof id === 'string') : [],
+      // Puste elementy listy (konsola czasem wymaga wpisania wartości) są pomijane.
+      disabledBooks: Array.isArray(data.disabledBooks) ? data.disabledBooks.filter((id) => typeof id === 'string' && id.trim()) : [],
     };
     return this.config;
   }

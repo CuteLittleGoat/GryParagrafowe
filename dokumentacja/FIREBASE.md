@@ -14,10 +14,10 @@
 1. Firebase przechowuje **wyłącznie dane graczy**: profil, stan gry w każdej książce, ręczne zapisy,
    odkryte zakończenia, notatki. **Treść książek nie trafia do Firebase** — leży w repozytorium
    (zakaz Z10 w [LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md)).
-2. Wielu graczy (obecnie **6 graczy + konto dla Wydawcy**, liczba nieograniczona strukturą), wiele książek, każdy gracz
+2. Wielu graczy (obecnie **5 kont**: właściciel, Wydawnictwo i 3 graczy; kolejne — później; liczba nieograniczona strukturą), wiele książek, każdy gracz
    niezależny — osobne dokumenty, osobne hasła, brak wglądu w dane innych.
 3. Logowanie **loginem i hasłem przechowywanymi w Firestore** (decyzja właściciela, P4): konta
-   graczy `Player1` … `Player7` (`Player7` — konto dla Wydawcy), a w dokumencie każdego konta dwa pola — `PlayerName` (login) i
+   graczy `Player1` … `Player5` (`Player1` — właściciel i administrator, `Player2` — Wydawnictwo), a w dokumencie każdego konta dwa pola — `PlayerName` (login) i
    `PlayerPassword` (hasło). Administrator ustawia i zmienia je ręcznie w konsoli Firebase. Aplikacja
    **nigdy** nie odczytuje ich z bazy; hasło nie trafia do backupu, logów ani localStorage.
 4. Modyfikacja bazy **wyłącznie przez aplikację**: Firebase App Check + reguły bezpieczeństwa +
@@ -66,7 +66,7 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 
 | Identyfikator | Format | Uwagi |
 |---|---|---|
-| `playerId` | `Player1` … `Player7` (wzorzec `^Player[1-9][0-9]?$`) | stały identyfikator konta; tworzy administrator; **niezmienny**. Login gracza to osobne pole `PlayerName` — można go zmienić bez przenoszenia danych |
+| `playerId` | `Player1` … `PlayerN`, obecnie `Player5` (wzorzec `^Player[1-9][0-9]?$`) | stały identyfikator konta; tworzy administrator; **niezmienny**. Login gracza to osobne pole `PlayerName` — można go zmienić bez przenoszenia danych |
 | `bookId` | nazwa katalogu w `ksiazki/` (np. `vae-victis`) | **niezmienny** — zmiana = utrata powiązania zapisów |
 | `saveId` | `save1`, `save2`, `save3` | 3 miejsca na ręczny zapis w każdej książce (decyzja właściciela, P6) |
 | ID węzła (paragrafu) | np. `p1`, `p91A`, `p98-2`, `prolog` | bez kropek i ukośników (klucze map w Firestore) — patrz [FORMAT_KSIAZKI.md](FORMAT_KSIAZKI.md) |
@@ -136,7 +136,7 @@ graczowi o tym `playerId` (administrator loguje się swoim kontem gracza).
 
 | Pole | Typ | Opis |
 |---|---|---|
-| `playerCount` | number | liczba kont graczy (`Player1` … `PlayerN`); przy logowaniu aplikacja sprawdza kolejno te konta — obecnie **7** (6 graczy + konto Wydawcy); **dokument opcjonalny** — bez niego aplikacja sprawdza konta `Player1` … `Player10` |
+| `playerCount` | number | liczba kont graczy (`Player1` … `PlayerN`); przy logowaniu aplikacja sprawdza kolejno te konta — obecnie **5** (typ w konsoli: *int64*); **dokument opcjonalny** — bez niego aplikacja sprawdza konta `Player1` … `Player10` |
 | `maintenance` | boolean | tryb serwisowy — aplikacja pokazuje komunikat |
 | `disabledBooks` | array&lt;string&gt; | awaryjne wyłączenie książek (np. wycofanie zgody — N9) |
 
@@ -397,28 +397,29 @@ Opcjonalnie (plan Blaze): zarządzany eksport Firestore / odtwarzanie do punktu 
    właściciel, 2026-10-29; konfiguracja w `firebase/firebase-config.js`.
 2. ✅ **Logowanie anonimowe**: Authentication → *Sign-in method* (Metody logowania) → *Anonymous*
    (Anonimowe) → włącz → Zapisz — właściciel, 2026-11-02 (sprawdzone próbą: działa).
-3. ⬜ **Reguły**: Firestore Database → *Rules* (Reguły) → zastąpić całą treść zawartością pliku
-   `firebase/firestore.rules` → *Publish* (Opublikuj). Bezpieczne także przed założeniem kont — bez
-   kont nikt się nie zaloguje.
-4. ⬜ **Konta graczy**: Firestore Database → *Start collection* (Rozpocznij kolekcję) → ID kolekcji
-   `secrets` → dokumenty o ID `Player1`, `Player2`, … `Player7` (Player7 — konto dla Wydawcy). W
+3. ✅ **Reguły**: Firestore Database → *Rules* (Reguły) → zastąpić całą treść zawartością pliku
+   `firebase/firestore.rules` → *Publish* (Opublikuj) — właściciel, 2026-11-02 (sprawdzone próbą).
+4. ✅ **Konta graczy** (właściciel, 2026-11-02: `Player1` — właściciel, `Player2` — Wydawnictwo,
+   `Player3` … `Player5` — gracze): Firestore Database → *Start collection* (Rozpocznij kolekcję) →
+   ID kolekcji `secrets` → dokumenty o ID `Player1`, `Player2`, … W
    każdym dwa pola typu *string*: `PlayerName` (login, inny dla każdego konta) i `PlayerPassword`
    (hasło; zalecane min. 12 znaków, losowe). Wielkość liter ma znaczenie.
-5. ⬜ (opcjonalnie) **Ustawienia aplikacji**: kolekcja `appConfig` → dokument `public` → pola:
-   `playerCount` (typ *number*) = `7`, `maintenance` (typ *boolean*) = `false`, `disabledBooks` (typ
-   *array*) — puste. Bez tego dokumentu aplikacja sprawdza konta `Player1` … `Player10`; dokument
+5. ✅ (opcjonalnie) **Ustawienia aplikacji** (właściciel, 2026-11-02): kolekcja `appConfig` →
+   dokument `public` → pola: `playerCount` (typ *int64*) = `5`, `maintenance` (typ *boolean*) =
+   `false`, `disabledBooks` (typ *array*) — puste. Bez tego dokumentu aplikacja sprawdza konta `Player1` … `Player10`; dokument
    przyda się przy przerwie technicznej, wyłączeniu książki albo ponad 10 kontach.
-6. ⬜ (później, przed panelem administratora — Etap 6) **Administrator**: kolekcja `admins` → dokument
+6. ✅ **Administrator** (właściciel, 2026-11-02 — `admins/Player1`): kolekcja `admins` → dokument
    o ID konta administratora (np. `Player1`) — z dowolnym polem, np. `rola` = `administrator` (liczy
    się samo istnienie dokumentu).
-7. ⬜ **Publikacja strony**: GitHub → repozytorium → *Settings* → *Pages* → *Source*: „Deploy from a
+7. ✅ **Publikacja strony** (właściciel, 2026-11-02; repozytorium publiczne): GitHub → repozytorium → *Settings* → *Pages* → *Source*: „Deploy from a
    branch” → *Branch*: `main`, folder `/ (root)` → *Save*. Adres aplikacji:
    `https://cutelittlegoat.github.io/GryParagrafowe/` (pierwsza publikacja trwa kilka minut). Można
    włączyć w dowolnej chwili — bez kont i reguł docelowych strona pokazuje tylko formularz logowania.
 8. ⬜ Sprawdzenie: logowanie każdym kontem, gra, zapis, wylogowanie.
-9. ◐ **App Check** — klucz utworzony i zarejestrowany, wpisany do aplikacji (2026-11-02); po kilku
-   dniach obserwacji — wymuszenie (rozdz. 7.2, kroki 4–5); opcjonalnie ograniczenia klucza API —
-   rozdz. 7.3.
+9. ◐ **App Check** — klucz utworzony i zarejestrowany, wpisany do aplikacji (2026-11-02); próba na
+   stronie: wymiana tokenu kończy się błędem 400 — do naprawy wg
+   [FIREBASE_KONSOLA.md](FIREBASE_KONSOLA.md), rozdz. 12; potem obserwacja i wymuszenie (rozdz. 7.2,
+   kroki 4–5); opcjonalnie ograniczenia klucza API — rozdz. 7.3.
 
 **Dodanie gracza** (np. siódmego)
 1. Firestore → kolekcja `secrets` → „Dodaj dokument” → ID dokumentu: `Player7`.
