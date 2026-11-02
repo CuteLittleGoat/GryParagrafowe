@@ -20,7 +20,7 @@
 
 ## 2. Następne kroki
 
-1. **Właściciel — konsola Firebase i GitHub** (FIREBASE.md, rozdz. 9): ✅ logowanie anonimowe
+1. **Właściciel — konsola Firebase i GitHub** ([instrukcja krok po kroku](dokumentacja/FIREBASE_KONSOLA.md)): ✅ logowanie anonimowe
    (2026-11-02); ⬜ publikacja reguł z `firebase/firestore.rules`; ⬜ konta `Player1` … `Player7`
    w kolekcji `secrets` (Player7 — Wydawca); ⬜ włączenie GitHub Pages; potem próba agenta (połączenie,
    odrzucenie złego hasła) i sprawdzenie logowania przez właściciela.
@@ -197,6 +197,15 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-02 — Instrukcja zakładania struktury w konsoli Firebase
+
+**Dodano**
+- `dokumentacja/FIREBASE_KONSOLA.md` — instrukcja krok po kroku dla administratora: mapa bazy (co
+  zakłada administrator, a co aplikacja), kolekcje `secrets` (konta `Player1` … `Player7`, pola
+  `PlayerName` i `PlayerPassword` typu string), `appConfig/public` (`playerCount`, `maintenance`,
+  `disabledBooks`), `admins`, publikacja reguł, sprawdzenie, najczęstsze pomyłki, późniejsze zmiany,
+  App Check i GitHub Pages (polecenie właściciela). Odnośniki w FIREBASE.md (rozdz. 9) i README.
 
 ### 2026-11-02 — App Check: klucz reCAPTCHA Enterprise w aplikacji
 

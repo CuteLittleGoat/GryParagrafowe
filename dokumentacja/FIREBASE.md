@@ -383,6 +383,9 @@ Opcjonalnie (plan Blaze): zarządzany eksport Firestore / odtwarzanie do punktu 
 
 ## 9. Procedury administratora (konsola Firebase)
 
+> **Instrukcja krok po kroku dla administratora** — dokładne nazwy kolekcji, dokumentów i pól, typy,
+> wartości i najczęstsze pomyłki: [FIREBASE_KONSOLA.md](FIREBASE_KONSOLA.md).
+
 **Pierwsza konfiguracja**
 
 > Kolekcje `players` i `sessions` tworzy **aplikacja** (przy pierwszym logowaniu i pierwszej grze) —
