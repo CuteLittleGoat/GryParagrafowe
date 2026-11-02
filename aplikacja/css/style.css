@@ -217,10 +217,23 @@ h4 {
 }
 
 .app-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--text);
   text-decoration: none;
+}
+
+/* Piktogram kozy (aplikacja/assets/icons/koza.svg — licencja w README katalogu); kolor z motywu. */
+.app-logo {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--accent);
+  -webkit-mask: url('../assets/icons/koza.svg') center / contain no-repeat;
+  mask: url('../assets/icons/koza.svg') center / contain no-repeat;
 }
 
 .user-area {
@@ -243,6 +256,11 @@ h4 {
 
 .app-footer p {
   margin: 0;
+}
+
+.app-footer .app-credits {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
 }
 
 .noscript {
@@ -550,6 +568,13 @@ h4 {
   font-size: calc(0.95rem * var(--font-scale));
 }
 
+/* Stopka i strony wstępne — zwarte jak w publikacji: bez odstępów między akapitami (puste wiersze
+   tworzą puste akapity z pliku źródłowego). */
+.book-text.colophon-text p,
+.book-text.front-text p {
+  margin: 0;
+}
+
 .colophon-text .book-image {
   max-height: 5rem;
   width: auto;
@@ -603,6 +628,24 @@ h4 {
 
 .book-list li > p {
   margin: 0 0 0.3em;
+}
+
+/* Numeracja list jak w publikacji (PDF): „1)”, „2)”… — każda lista od 1. */
+ol.book-list {
+  list-style: none;
+  counter-reset: book-list-item;
+}
+
+ol.book-list > li {
+  position: relative;
+  counter-increment: book-list-item;
+}
+
+ol.book-list > li::before {
+  content: counter(book-list-item) ")";
+  position: absolute;
+  right: calc(100% + 0.4em);
+  white-space: nowrap;
 }
 
 .book-link {

@@ -178,7 +178,10 @@ ISBN 978-83-951564-0-3
 ## 8. Pułapki konwersji (wykryte podczas analizy)
 
 1. **Zagnieżdżone `<div>` w stopce**: tekst „Logo Masz Wybór:” stoi w tym samym bloku zewnętrznym
-   co grafika, ale **po** zagnieżdżonym bloku z grafiką — naiwny parser go gubi (sprawdzone).
+   co grafika, ale **po** zagnieżdżonym bloku z grafiką — naiwny parser go gubi (sprawdzone). W PDF
+   (układ strony) logo stoi **pod** podpisem — ramka z grafiką (`g-fr1`) jest zakotwiczona w akapicie z
+   podpisem. Od wersji 1.1.0 generatora ramki z grafiką w akapicie z tekstem trafiają za tekst
+   (`frameClassPattern` w konfiguracji) — kolejność jak w PDF (2026-11-02).
 2. Formatowanie zapisane klasami CSS (`s-t…`, `p-p…`) — kursywa/pogrubienie/wyrównanie trzeba
    odczytać z `stylesheet.css`; np. podpis autora pod zakończeniami jest wyrównany do prawej.
 3. Liczne **twarde spacje** (U+00A0), m.in. na końcach wierszy stopki — zachować.
@@ -195,8 +198,10 @@ ISBN 978-83-951564-0-3
    „#41 – 278”, „Brak #40 lub Brak #41 – 242” — przy posiadaniu tylko #40 pasują wiersze do 235 i
    242). ✅ Decyzja właściciela (2026-11-01): na razie w tych miejscach **obie drogi są dostępne i
    wybiera gracz** (bez blokowania opcji) — w mechanice węzły mają flagę `ambiguous`, a aplikacja
-   nie podpowiada w nich drogi; pytanie do Wydawcy o właściwe rozumienie przygotowane jako PW3
-   (`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`).
+   nie podpowiada w nich drogi. Wydawcy o treść nie pytamy (decyzja właściciela 2026-11-02; pytanie
+   PW3 usunięte) — opis problemu prostym językiem:
+   [`Analizy/Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md`](../../Analizy/Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md).
+   Wiersze wskazówek są identyczne w EPUB i w PDF (sprawdzone 2026-11-02).
 8. Uwagi autora w nawiasach kwadratowych nie zawsze są warunkami (np. „[Decyduj! Chcesz odczytać
    przygotowaną przeze mnie wizję (33), czy też…”) — to zwykły tekst z odnośnikiem.
 9. Literówki i błędy oryginału **zostają bez zmian** (np. „cześci A” w §9, „Open Source Licensee” w
@@ -207,4 +212,11 @@ ISBN 978-83-951564-0-3
 
 ## 9. Wykryte błędy w treści (do zgłoszenia, NIE do poprawiania)
 
-Brak zgłoszeń. (Literówki z pkt 8.9 nie wymagają zgłaszania — to wierne odwzorowanie oryginału.)
+Literówki z pkt 8.9 nie wymagają zgłaszania — to wierne odwzorowanie oryginału.
+
+**Rozbieżność między plikami Wydawnictwa (EPUB a PDF)** — porównanie z 2026-11-02 (PDF ze strony
+Wydawnictwa, SHA-256 `3d6962e1…21ee`): na stronie „od Wydawnictwa”, na liście publikacji, tytuł jednej
+z gier zaczyna się w EPUB zwykłą literą „H” (`Hé-mu-ù-zu`), a w PDF literą „Ḫ” — H z łuczkiem pod spodem
+(`Ḫé-mu-ù-zu`). Aplikacja wiernie odwzorowuje EPUB (plik źródłowy) — **bez zmian**. Poza tym tekst
+wszystkich 408 części gry jest zgodny z PDF, a odnośniki prowadzą do wydrukowanych numerów paragrafów
+(szczegóły: [`Analizy/Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md`](../../Analizy/Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md), rozdz. 1 i 6).

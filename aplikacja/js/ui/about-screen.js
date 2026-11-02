@@ -19,6 +19,10 @@ const FRONT_LABELS = {
   prolog: 'Prolog',
 };
 
+// Strony wstępne złożone wierszami (stopka, listy, dedykacja) — zwarte, bez odstępów między akapitami,
+// jak w publikacji. Strony z ciągłym tekstem (wprowadzenie, prolog) zachowują odstępy między akapitami.
+const COMPACT_FRONTS = new Set(['stopka', 'wydawnictwo', 'tytul', 'dedykacja', 'spis-tresci']);
+
 function hasText(blocks) {
   return blocks.some((block) => {
     if (block.type === 'list') return true;
@@ -69,7 +73,7 @@ export async function renderAbout(app, root, bookId) {
           'section',
           { class: 'about-section', id: `front-${id}`, tabindex: '-1', 'aria-labelledby': `front-${id}-title` },
           h('h2', { id: `front-${id}-title`, class: 'app-section-title' }, FRONT_LABELS[id] ?? nodeLabel(content, id)),
-          h('div', { class: 'book-text', lang: manifest.language ?? 'pl' }, renderBlocks(content.nodes[id].blocks, renderOptions)),
+          h('div', { class: COMPACT_FRONTS.has(id) ? 'book-text front-text' : 'book-text', lang: manifest.language ?? 'pl' }, renderBlocks(content.nodes[id].blocks, renderOptions)),
         )),
       h(
         'nav',

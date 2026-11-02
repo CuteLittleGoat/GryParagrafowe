@@ -15,17 +15,18 @@
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ◐ — klucz w aplikacji, ale wymiana tokenu zwraca błąd 400 ([FIREBASE_KONSOLA.md](dokumentacja/FIREBASE_KONSOLA.md), rozdz. 12) |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
-| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1–PW3 przygotowane; **właściciel wyśle je na końcu**, razem z odnośnikiem do gotowej aplikacji i kontem dla Wydawcy |
+| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1–PW2 przygotowane (**tylko sprawy licencyjne** — decyzja właściciela 2026-11-02; PW3 usunięte); właściciel wyśle je razem z odnośnikiem do aplikacji i kontem dla Wydawnictwa |
 | Blokery | brak |
 
 ## 2. Następne kroki
 
-1. **App Check — naprawa błędu 400** (właściciel): włączenie usługi *reCAPTCHA Enterprise API* w
-   projekcie `gryparagrafowe-e1fb3` i sprawdzenie, czy klucz jest w tym projekcie
-   ([FIREBASE_KONSOLA.md](dokumentacja/FIREBASE_KONSOLA.md), rozdz. 12); potem ponowna próba agenta,
-   kilka dni obserwacji i wymuszenie (*Enforce*) dla Cloud Firestore.
+1. **App Check — nowy klucz** (właściciel): pierwszy klucz powstał w projekcie AudioRPG (usunięty z
+   konfiguracji aplikacji); nowy klucz w projekcie **`gryparagrafowe-e1fb3`** (bez nowego projektu),
+   podmiana w App Check, przekazanie agentowi, usunięcie starego klucza z AudioRPG
+   ([FIREBASE_KONSOLA.md](dokumentacja/FIREBASE_KONSOLA.md), rozdz. 12); potem próba agenta, kilka dni
+   obserwacji i wymuszenie (*Enforce*) dla Cloud Firestore.
 2. **Właściciel**: sprawdzenie logowania prawdziwymi kontami (w tym kontem Wydawnictwa `Player2`).
-3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1–PW3.
+3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1–PW2.
 4. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
    uprawnienia administratora).
 
@@ -65,7 +66,7 @@
 - [x] Karta postaci (Informacje + ręczna edycja), notatki, historia, „Odkryte zakończenia” (2026-11-02)
 - [x] Przycisk **„Cofnij”** — krok po kroku, do początku bieżącej rozgrywki — z dopiskiem „To Twoja gra :) Graj jak lubisz!” (P5) (2026-11-02)
 - [x] `ksiazki/vae-victis/mechanika.json` — generator `narzedzia/konwersja/generuj_mechanike.py` (odczyt dosłowny) + przegląd ręczny; 48 zdobyć Informacji, 88 warunków, przypadek opisany prozą (§85) w konfiguracji (2026-11-01)
-- [x] Walidacja M1–M5 (`narzedzia/weryfikacja/weryfikuj_mechanike.py`) — 5/5; niejednoznaczne warunki (§170, §259, §286, §289) oznaczone flagą `ambiguous`: obie drogi dostępne, wybiera gracz (P8; do czasu odpowiedzi Wydawcy na PW3) (2026-11-01)
+- [x] Walidacja M1–M5 (`narzedzia/weryfikacja/weryfikuj_mechanike.py`) — 5/5; niejednoznaczne warunki (§170, §259, §286, §289) oznaczone flagą `ambiguous`: wszystkie drogi dostępne, wybiera gracz (P8; Wydawcy o treść nie pytamy — opis problemu w `Analizy/Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md`) (2026-11-01, aktualizacja 2026-11-02)
 - [x] 3 miejsca na ręczny zapis w każdej książce (lokalnie) (P6) (2026-11-02)
 - [x] „Nowa gra”: pytanie, czy zostawić dotychczasowe notatki, czy je wyczyścić (P9) (2026-11-02)
 - [x] Testy jednostkowe silnika na prawdziwych danych (`node --test 'testy/**/*.test.mjs'`, 12/12): §9, §57, §91, §98, §161, §170, zakończenia, „Cofnij”, „Nowa gra”, tryb ręczny (2026-11-01)
@@ -104,7 +105,8 @@
 - [x] Hosting: **GitHub Pages** (P3) — włączone przez właściciela 2026-11-02 (repozytorium publiczne, gałąź `main`): `https://cutelittlegoat.github.io/GryParagrafowe/`
 - [ ] Polityka CSP (znacznik w `index.html`) — po sprawdzeniu działania na GitHub Pages, żeby nie zablokować Firebase ani App Check
 - [ ] Instrukcje dla graczy i dla administratora
-- [ ] Opcjonalnie: zmiana kroju pisma przez gracza (np. krój przyjazny dla osób z dysleksją — licencja kroju do sprawdzenia) — **tylko po zgodzie Wydawcy** (pytanie PW1) (P11)
+- [ ] Opcjonalnie: zmiana kroju pisma przez gracza (np. krój przyjazny dla osób z dysleksją — licencja kroju do sprawdzenia) — **tylko po zgodzie Wydawcy** (pytanie PW1) (P11); przełącznik w oknie „Ustawienia” (właściciel 2026-11-02: „Docelowo, po uzyskaniu zgody, będzie tu przełącznik do zmiany fontu”; w kolejnej wiadomości: „…do zmiany języka” — do doprecyzowania)
+- [ ] Opcjonalnie (do decyzji właściciela): tekst gry złożony jak w PDF — akapity z wcięciem pierwszego wiersza, bez odstępów, wyjustowane (teraz: odstępy między akapitami, bez wcięć)
 - [x] Test E2E (Playwright) — `testy/e2e/test-dymny.cjs` (2026-11-02)
 - [ ] Lżejsza wersja okładki dla telefonów (oryginał PNG 3,5 MB) — tylko proporcjonalne zmniejszenie i kompresja (Z6), jako opisany krok
 - [ ] Opcjonalnie: PWA / tryb offline
@@ -143,7 +145,7 @@
 | D24 | 2026-10-29 | Pytania do Wydawcy zbieramy w `Analizy/Pytania_Do_Wydawcy_2026-10-29.md` (plik uzupełniany na bieżąco; o wysłaniu decyduje właściciel) | wymóg właściciela |
 | D25 | 2026-11-01 | Logowanie loginem i hasłem: konta `Player1` … `Player6`; w `secrets/PlayerN` pola `PlayerName` (login) i `PlayerPassword` (hasło); liczba kont w `appConfig/public.playerCount`; postęp przypisany do konta, nie do loginu | decyzja właściciela (P4) |
 | D26 | 2026-11-01 | 3 miejsca na ręczny zapis w każdej książce (`save1` … `save3`); logowanie pamiętane 30 dni | decyzja właściciela (P6) |
-| D27 | 2026-11-01 | Niejednoznaczne warunki (§170, §286, §289; §259 dopisany przy przygotowaniu mechaniki): na razie obie drogi dostępne, wybiera gracz; pytanie do Wydawcy (PW3) | decyzja właściciela (P8) |
+| D27 | 2026-11-01 | Niejednoznaczne warunki (§170, §286, §289; §259 dopisany przy przygotowaniu mechaniki): obie drogi dostępne, wybiera gracz; ~~pytanie do Wydawcy (PW3)~~ — usunięte 2026-11-02 (D46) | decyzja właściciela (P8) |
 | D32 | 2026-11-01 | Warunki w `mechanika.json` odczytywane z tekstu **dosłownie** (generator); węzły, w których wskazówki pasują do kilku dróg, mają flagę `ambiguous` — aplikacja nie oznacza w nich dróg, tylko informuje, że wybiera gracz, i pokazuje jego Informacje związane z tym miejscem | neutralność silnika; realizacja D27 bez wybierania za gracza jednej z interpretacji |
 | D33 | 2026-11-01 | Tryb automatyczny oznacza drogi (warunek spełniony / niespełniony), ale niczego nie blokuje — wybór drogi z niespełnionym warunkiem wymaga potwierdzenia | „To Twoja gra” (P5); zasada „W razie niejednoznaczności opcji nie blokuj” |
 | D34 | 2026-11-01 | Krój Old Standard TT dołączony do aplikacji (pliki z repozytorium Google Fonts, licencja OFL — `aplikacja/assets/fonts/`), bez pobierania fontów z zewnętrznych serwerów | wierność wyglądu (P11); brak zewnętrznych zapytań i śledzenia |
@@ -156,12 +158,16 @@
 | D41 | 2026-11-02 | ~~Konto dla Wydawcy = `Player7`; `appConfig/public.playerCount` = 7~~ — zastąpione przez D45 | zapowiedź właściciela (konto i hasło dla Wydawcy) |
 | D42 | 2026-11-02 | `firebase/firebase-config.js` jako moduł ES z polem `appCheckSiteKey`; biblioteka Firebase JS SDK **12.19.0** z `www.gstatic.com` (przypięta wersja); emulator tylko pod `localhost?emulator` | zgoda właściciela (P13); stabilna wersja sprzed 2 miesięcy |
 | D43 | 2026-11-02 | Strona „od Wydawnictwa” w „Vae Victis” pozostaje bez skrótów — także linijka o „Wagabundzie” (lista publikacji Wydawcy jest częścią tekstu książki); w aplikacji jest odnośnik do strony Wydawcy | decyzja właściciela (P14): „nie skracaj. To, że nie mamy zgody na Wagabundę nie oznacza, że nie możemy o niej pisać.” |
+| D46 | 2026-11-02 | Wydawcę pytamy **wyłącznie o sprawy licencyjne**, nie o treść ani zasady gry w poszczególnych książkach; pytanie PW3 usunięte; wątpliwości dotyczące treści — w analizach w `Analizy/` | decyzja właściciela |
+| D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
+| D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
+| D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
 | D45 | 2026-11-02 | Konta: `Player1` — właściciel (administrator), `Player2` — Wydawnictwo, `Player3` … `Player5` — gracze; `playerCount` = 5 (typ *int64* w obecnej konsoli); kolejne konta później | decyzja i konfiguracja właściciela |
 | D44 | 2026-11-02 | Dokument `appConfig/public` opcjonalny — bez niego aplikacja sprawdza konta `Player1` … `Player10`; kolekcje `players` i `sessions` tworzy aplikacja; konta (`secrets`) zakłada wyłącznie administrator w konsoli | mniej pracy w konsoli; bezpieczeństwo — aplikacja nie może zakładać kont |
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
 | D29 | 2026-11-01 | `AGENTS.md` jest uniwersalny — zawiera tylko zasady stałe; tytuły i warunki zgód są w rejestrze zgód (`dokumentacja/LICENCJA_I_ZGODA.md`), stan Firebase w `FIREBASE.md`, etapy i decyzje w tym pliku | wymóg właściciela |
 | D30 | 2026-11-01 | Oryginały zgód i korespondencji z wydawcą mogą zostać usunięte z repozytorium; wiążącym zapisem warunków jest rejestr zgód z dosłownymi cytatami kluczowych zdań | informacja właściciela |
-| D31 | 2026-11-01 | Pytania PW1–PW3 do Wydawcy — na końcu prac, razem z odnośnikiem do gotowej aplikacji z jedną książką i kontem gracza dla Wydawcy | decyzja właściciela |
+| D31 | 2026-11-01 | Pytania PW1–PW2 do Wydawcy (PW3 usunięte — D46) — na końcu prac, razem z odnośnikiem do gotowej aplikacji z jedną książką i kontem gracza dla Wydawcy | decyzja właściciela |
 
 ## 5. Otwarte pytania
 
@@ -184,7 +190,7 @@
 | P5 | Czy można cofać ruchy? | (2026-10-29) **tak** — przycisk „Cofnij” z dopiskiem w stylu „To Twoja gra :) Graj jak lubisz!” |
 | P6 | Ręczne zapisy i pamiętanie logowania | (2026-11-01) zgodnie z rekomendacją: **3 miejsca na ręczny zapis** w każdej książce; logowanie pamiętane **30 dni** |
 | P7 | Czy pokazywać ostrzeżenie o treści ze strony Wydawnictwa? | (2026-10-29) **tak** — na ekranie głównym, tam gdzie gracze wybierają książki |
-| P8 | Niejasne wskazówki w §170, §286, §289 | (2026-11-01) **na razie wariant A** — obie drogi dostępne, wybiera gracz; dodatkowo pytanie do Wydawcy (PW3) |
+| P8 | Niejasne wskazówki w §170, §286, §289 | (2026-11-01) **na razie wariant A** — obie drogi dostępne, wybiera gracz; dodatkowo pytanie do Wydawcy (PW3 — usunięte 2026-11-02: „Wystawcy będziemy pytać tylko o rzeczy związane z licencjami a nie treścią poszczególnych książek”) |
 | P9 | „Nowa gra” a notatki | (2026-11-01) aplikacja **pyta gracza**, czy zostawić dotychczasowe notatki, czy je wyczyścić |
 | P10 | Kto może odtwarzać dane gracza z kopii zapasowej? | (2026-10-29) **tylko administrator** |
 | P11 | Krój pisma | (2026-10-29) **jak w oryginale** (Old Standard TT); **dwa przyciski zmiany rozmiaru tekstu**; później do rozważenia zmiana kroju (np. na przyjazny dla osób z dysleksją) — najpierw pytanie do Wydawcy (PW1) |
@@ -195,6 +201,29 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-02 — Zgodność z PDF, piktogram kozy, PW3 usunięte
+
+**Dodano**
+- `Analizy/Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md` — opis problemu z czterema
+  niejednoznacznymi wskazówkami (§170, §259, §286, §289) prostym językiem, dla osoby nieznającej
+  książki; wynik porównania aplikacji z PDF Wydawnictwa (przejścia identyczne).
+- Piktogram kozy (Game Icons, autor Skoll, CC BY 3.0) w nagłówku aplikacji i jako ikona karty
+  przeglądarki (`aplikacja/assets/icons/` z opisem licencji; podpis autora w stopce aplikacji).
+
+**Zmieniono**
+- Generator treści 1.1.0: ramka z grafiką zakotwiczona w akapicie z tekstem trafia za ten tekst —
+  w stopce „Logo Masz Wybór:” stoi nad logo, jak w PDF (zmiana tylko kolejności bloków w węźle
+  `stopka`; W1–W8: 8/8, M1–M5: 5/5); `contentVersion` 1.0.1.
+- Stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)”, jak w PDF.
+- Usunięto zdanie o wąskim gronie graczy z ekranu głównego i zdanie o kroju pisma z „Ustawień”.
+- Pytanie PW3 usunięte z rejestru pytań do Wydawcy; zasada: Wydawcę pytamy tylko o licencje (D46).
+- Karta książki: rozbieżność EPUB/PDF w tytule na liście publikacji („Hé-mu-ù-zu” / „Ḫé-mu-ù-zu”) —
+  bez zmian w treści.
+- Decyzje D46–D49.
+- App Check: klucz z projektu AudioRPG usunięty z `firebase/firebase-config.js` (aplikacja działa bez
+  App Check do czasu nowego klucza z projektu `gryparagrafowe-e1fb3`); instrukcja w FIREBASE_KONSOLA.md
+  (rozdz. 12) i FIREBASE.md poprawione.
 
 ### 2026-11-02 — Aplikacja opublikowana; próba na prawdziwym projekcie; App Check do naprawy
 

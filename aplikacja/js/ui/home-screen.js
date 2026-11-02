@@ -23,7 +23,6 @@ export async function renderHome(app, root) {
         'Aplikacja do grania w gry paragrafowe — książki, w których czytelnik sam decyduje, dokąd prowadzi '
           + 'historia. Tekst książek wyświetlamy bez żadnych zmian, za zgodą wydawców.',
       ),
-      h('p', { class: 'muted' }, 'Aplikacja jest przeznaczona dla wąskiego grona graczy — konta zakłada administrator.'),
     ),
   );
 

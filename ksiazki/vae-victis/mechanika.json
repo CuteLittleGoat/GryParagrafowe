@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "bookId": "vae-victis",
-  "contentSha256": "c1757e6f46f502f364f4a2c1836f8f88baba3fa4a878875951270c5e6ceffab7",
+  "contentSha256": "7df246e61becf3890d7ca44198bf3ea4f096d214afa378c58cf636172f76bd36",
   "generator": {"script":"narzedzia/konwersja/generuj_mechanike.py","version":"1.0.0"},
   "startNode": "wprowadzenie",
   "modules": {"codewords":{"label":"Informacje","prefix":"#","values":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43"]},"visits":{},"endings":{},"notes":{}},

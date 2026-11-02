@@ -256,7 +256,8 @@ dokumencie i testami.
   kilku dróg, a tekst nie rozstrzyga, jak je rozumieć (np. §170, §259, §286, §289 „Vae Victis”),
   węzeł dostaje `"ambiguous": true`: aplikacja nie oznacza w nim dróg jako spełnionych lub
   niespełnionych, tylko informuje gracza, że wybiera sam, i pokazuje jego Informacje związane z tym
-  miejscem (decyzja właściciela P8, pytanie do Wydawcy PW3).
+  miejscem (decyzja właściciela P8; opis problemu:
+  [`Analizy/Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md`](../Analizy/Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md)).
 
 ## 7. Wersjonowanie
 

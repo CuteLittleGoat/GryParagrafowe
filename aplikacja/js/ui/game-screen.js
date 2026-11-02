@@ -653,7 +653,6 @@ export async function renderGame(app, root, bookId) {
           },
           !mechanics,
         ),
-        h('p', { class: 'muted small' }, 'Krój pisma: Old Standard TT — taki sam jak w publikacji.'),
       ],
     });
   }

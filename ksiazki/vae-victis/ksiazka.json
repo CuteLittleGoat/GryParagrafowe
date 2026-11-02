@@ -34,7 +34,7 @@
     "register": "dokumentacja/LICENCJA_I_ZGODA.md",
     "date": "2026-10-29"
   },
-  "contentVersion": "1.0.0",
+  "contentVersion": "1.0.1",
   "modules": ["codewords", "visits", "endings", "notes"],
   "startNode": "wprowadzenie"
 }

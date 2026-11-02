@@ -173,6 +173,12 @@ Patrz zakaz Z5.
   `aplikacja/assets/icons/`), symbole Unicode albo proste kształty SVG/CSS.
 - Ikony **nie mogą przedstawiać treści książki** (postaci, miejsc, wydarzeń, przedmiotów
   fabularnych) — np. przedmioty w ekwipunku pokazujemy nazwą z tekstu, bez obrazków. [OSTROŻNOŚĆ]
+- **Logo aplikacji**: piktogram kozy z biblioteki Game Icons (autor: Skoll, licencja CC BY 3.0,
+  `aplikacja/assets/icons/README.md`) — w nagłówku i jako ikona karty przeglądarki (decyzja
+  właściciela, 2026-11-02). To znak aplikacji (nawiązanie do nazwy właściciela), a nie ilustracja
+  książki — kozy występują wprawdzie w kilku paragrafach „Vae Victis” jako zwierzęta gospodarskie, ale
+  piktogram nie przedstawia żadnej sceny ani postaci z książki. Gotowa ikona, nie grafika AI.
+  [WŁAŚCICIEL]
 
 **Z3. Zakaz innych treści generowanych przez AI na podstawie książki** [OSTROŻNOŚĆ]
 - Żadnych streszczeń, „podpowiedzi fabularnych”, dopisanych opisów, tłumaczeń, wersji audio

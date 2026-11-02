@@ -21,6 +21,7 @@
     "Pictures/10000000000005D3000005095A2B5BD5.jpg": "logo-wydawnictwo-wielokrotnego-wyboru.jpg",
     "Pictures/1000000100000AA300000396016F193A.png": "logo-patronite.png"
   },
+  "frameClassPattern": "g-fr\\d*",
   "endingPattern": "To nosi tytuł: (.+?)\\.(?=\\s|$)",
   "markerPattern": "\\(U#(\\d+)\\)",
   "expected": {

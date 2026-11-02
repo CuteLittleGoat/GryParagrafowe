@@ -1,7 +1,11 @@
 # Pytania do Wydawcy (Wydawnictwo Wielokrotnego Wyboru)
 
 > Plik roboczy, **uzupełniany na bieżąco** o kolejne pytania wraz z postępem prac.
-> Utworzony: 2026-10-29 · ostatnia aktualizacja: 2026-11-01.
+> Utworzony: 2026-10-29 · ostatnia aktualizacja: 2026-11-02.
+>
+> **Zakres pytań (decyzja właściciela, 2026-11-02): Wydawcę pytamy wyłącznie o sprawy licencyjne**
+> (zakres zgody, sposób prezentacji i wykorzystania materiałów) — **nie o treść ani zasady gry w
+> poszczególnych książkach**. Wątpliwości dotyczące treści opisujemy w osobnych analizach w `Analizy/`.
 
 ## Polecenie użytkownika
 
@@ -10,9 +14,14 @@
 > czytniki ebooków pozwalają na to, ale w tym przypadku wolę mieć pewność. Plik będzie uzupełniany o
 > kolejne pytania wraz z postępem prac.
 
-Uzupełnienie z 2026-11-01 (pytanie PW3):
+Uzupełnienie z 2026-11-01 (pytanie PW3 — usunięte 2026-11-02):
 
 > P8 - teraz robimy wariant a). Dopisz też to jako dodatkowe pytanie do wydawcy.
+
+Polecenie z 2026-11-02 (usunięcie PW3):
+
+> Usuń pytanie "PW3. Niejednoznaczne wskazówki w §170, §259, §286 i §289".
+> Wystawcy będziemy pytać tylko o rzeczy związane z licencjami a nie treścią poszczególnych książek.
 
 ## Źródła
 
@@ -34,9 +43,12 @@ Uzupełnienie z 2026-11-01 (pytanie PW3):
 |---|---|---|---|---|---|
 | PW1 | Czy gracz może zmienić krój pisma (czcionkę)? | 📝 przygotowane | — | — | tylko krój oryginalny (Old Standard); funkcji zmiany kroju nie budujemy |
 | PW2 | Czy można dodać typowe ustawienia wyświetlania (wielkość liter, tryb ciemny, dopasowanie do ekranu telefonu)? | 📝 przygotowane | — | — | przygotowujemy je jak w czytnikach e-booków; przy braku zgody — wycofamy |
-| PW3 | Jak rozumieć niejednoznaczne wskazówki w §170, §259, §286 i §289? | 📝 przygotowane | — | — | obie drogi dostępne, wybiera gracz (decyzja właściciela) |
 
 Statusy: 📝 przygotowane → 📤 wysłane → ✅ zgoda / ⛔ brak zgody / ❓ odpowiedź wymaga doprecyzowania.
+
+Pytanie PW3 (niejednoznaczne wskazówki w §170, §259, §286 i §289) — **usunięte 2026-11-02** na polecenie
+właściciela (pytamy tylko o licencje); opis problemu:
+[`Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md`](Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md).
 
 ## PW1. Zmiana kroju pisma (czcionki)
 
@@ -70,30 +82,7 @@ wielkości liter, tryb ciemny oraz dopasowanie układu tekstu do ekranu telefonu
 **Do czasu odpowiedzi:** przygotowujemy te ustawienia zgodnie z dokumentacją; jeśli Wydawca się nie
 zgodzi — wycofamy je.
 
-## PW3. Niejednoznaczne wskazówki w §170, §259, §286 i §289
-
-**Dlaczego pytamy.** W czterech paragrafach wskazówki, dokąd przejść, przy dosłownym czytaniu pasują
-jednocześnie do dwóch dróg (zapis dosłowny z książki):
-- §170: „Brak #34 lub Brak #35 – część A tego paragrafu” oraz „#34 lub #35 – część B tego paragrafu”,
-- §259: „#40 – 235”, „#41 – 278” oraz „Brak #40 lub Brak #41 – 242” (dopisane 2026-11-01 — gracz,
-  który ma tylko #40, pasuje do wierszy prowadzących do 235 i do 242),
-- §286: „#42 albo #43 – 277” oraz „Brak #42 lub #43 – 245”,
-- §289: „#42 albo #43 – 291” oraz „Brak #42 lub Brak #43 – 285”.
-
-Np. w §170 gracz, który ma tylko Informację #34 (a nie ma #35), pasuje do obu linijek.
-Prawdopodobnie chodziło o: „masz którąkolwiek z tych dwóch Informacji → linijka bez słowa „Brak”;
-nie masz żadnej → linijka z „Brak””, ale nie chcemy zgadywać zasad za autora. Tekst książki w
-aplikacji zostaje bez zmian — chodzi wyłącznie o podpowiedzi, które aplikacja pokazuje graczowi.
-Beniamin Muszyński jest autorem książki i redaktorem naczelnym portalu, więc może to rozstrzygnąć.
-
-**Pytanie:** W paragrafach 170, 259, 286 i 289 wskazówki, dokąd przejść, przy dosłownym czytaniu
-pasują do dwóch dróg naraz. Czy chodziło o to, że gracz, który ma którąkolwiek z wymienionych
-Informacji, wybiera linijkę bez słowa „Brak”, a gracz, który nie ma żadnej z nich — linijkę z „Brak”?
-Jak postąpić w §259, gdy gracz ma tylko jedną z Informacji #40 i #41?
-
-**Do czasu odpowiedzi:** obie drogi są dostępne i wybiera gracz (decyzja właściciela P8, wariant A).
-
-## Szkic wiadomości (PW1 + PW2 + PW3)
+## Szkic wiadomości (PW1 + PW2)
 
 Do skopiowania i wysłania przez właściciela (można dopisać pytania z sekcji „Propozycje”):
 
@@ -102,13 +91,11 @@ Dzień dobry,
 
 dziękuję za zgodę na wykorzystanie „Vae victis”. Prace nad aplikacją ruszyły. Tekst i pełna stopka redakcyjna zostaną przeniesione bez żadnych zmian.
 
-Zanim przygotuję sposób wyświetlania tekstu i podpowiedzi dla graczy, chcę się upewnić co do trzech kwestii:
+Zanim ostatecznie przygotuję sposób wyświetlania tekstu, chcę się upewnić co do dwóch kwestii:
 
 1. Czy gracz może w aplikacji zmienić krój pisma (czcionkę), którym wyświetlany jest tekst? Domyślnie będzie to Old Standard, jak w publikacji. Dodatkowo gracz mógłby wybrać inną czcionkę, np. ułatwiającą czytanie osobom z dysleksją. Treść pozostaje bez zmian — zmienia się tylko wygląd liter.
 
 2. Czy możemy dodać typowe ustawienia wyświetlania, znane z czytników e-booków: zmianę wielkości liter, tryb ciemny (jasny tekst na ciemnym tle) oraz dopasowanie układu tekstu do ekranu telefonu? Tutaj również treść pozostaje bez zmian.
-
-3. Pytanie o zasady gry: w paragrafach 170, 259, 286 i 289 wskazówki, dokąd przejść, przy dosłownym czytaniu pasują do dwóch dróg naraz. Na przykład w §170 gracz, który ma tylko Informację #34, pasuje zarówno do linijki „#34 lub #35 – część B tego paragrafu”, jak i do „Brak #34 lub Brak #35 – część A tego paragrafu”. Czy chodziło o to, że gracz, który ma którąkolwiek z wymienionych Informacji, wybiera linijkę bez słowa „Brak”, a gracz, który nie ma żadnej z nich — linijkę z „Brak”? Podobnie w §259 („#40 – 235”, „#41 – 278”, „Brak #40 lub Brak #41 – 242”): dokąd powinien przejść gracz, który ma tylko jedną z Informacji #40 i #41? Tekst w aplikacji zostaje bez zmian — chodzi tylko o podpowiedzi dla gracza.
 
 Pozdrawiam serdecznie,
 [podpis]
@@ -120,7 +107,7 @@ Pozdrawiam serdecznie,
 |---|---|---|
 | K1 | Czy możemy pokazać w aplikacji ostrzeżenie o treści z Państwa strony („Trigger warning: #Środki psychoaktywne”), z informacją, że pochodzi z Państwa strony? **Propozycja: dołączyć do pierwszej wiadomości** (to tylko potwierdzenie). | decyzja właściciela P7 (wyświetlamy na ekranie głównym); tekst pochodzi ze strony Wydawnictwa, nie z publikacji (zasada Z12 w LICENCJA_I_ZGODA.md) |
 | K2 | Czy możemy pokazać w aplikacji opis książki z Państwa strony (zamiast samego odnośnika)? | LICENCJA_I_ZGODA.md, rozdz. 9 pkt 3 — obecnie tylko odnośnik |
-| K3 | → przeniesione do rejestru jako **PW3** (decyzja właściciela, 2026-11-01) | — |
+| K3 | → przeniesione do rejestru jako PW3 (2026-11-01); **PW3 usunięte 2026-11-02** — Wydawcę pytamy tylko o licencje | decyzja właściciela |
 | K4 | Prośba o kolejne tytuły i informacja o planie zwiększenia liczby graczy | decyzja właściciela P12 — po ukończeniu „Vae Victis” i przygotowaniu kont dla 6 graczy |
 
 ## Niepewności

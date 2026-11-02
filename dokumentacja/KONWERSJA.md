@@ -48,6 +48,9 @@ opisany krok.
      `font-weight: bold` → `b`, `text-align` → `align` bloku,
    - `<a href>` → odnośniki wewnętrzne (mapowanie `plik.xhtml#kotwica` → ID węzła) lub zewnętrzne,
    - `<img>` → bloki/elementy `image` (z kopiowaniem pliku grafiki),
+   - ramki z grafiką zakotwiczone w akapicie z tekstem (klasy wg `frameClassPattern` w konfiguracji,
+     dla „Vae Victis” `g-fr…`) → blok grafiki **za** tekstem tego akapitu, jak w układzie strony
+     publikacji (PDF); w akapicie bez tekstu kolejność z EPUB zostaje (generator 1.1.0, 2026-11-02),
    - `<ol>/<ul>/<li>` → bloki `list`.
 4. **Granice węzłów**: każdy dokument XHTML w `spine` to jeden węzeł; rodzaj rozpoznawany po
    pierwszym wierszu (numer → `paragraph`, litera A/B/C → `part` z rodzicem = ostatni numerowany

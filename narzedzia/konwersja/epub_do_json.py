@@ -26,7 +26,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 GENERATOR_SCRIPT = "narzedzia/konwersja/epub_do_json.py"
-GENERATOR_VERSION = "1.0.0"
+GENERATOR_VERSION = "1.1.0"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 ASCII_WS = re.compile(r"[ \t\n\r\f]+")
@@ -101,11 +101,18 @@ def parse_css(css_text):
 # ---------------------------------------------------------------------------
 
 class XhtmlParser(HTMLParser):
-    """Zamienia <body> dokumentu XHTML na listę bloków (akapity, listy, grafiki)."""
+    """Zamienia <body> dokumentu XHTML na listę bloków (akapity, listy, grafiki).
 
-    def __init__(self, css):
+    Ramki z grafiką zakotwiczone w akapicie z tekstem (klasy pasujące do `frame_pattern`, np. `g-fr1`)
+    trafiają ZA tekst tego akapitu — tak jak w układzie strony publikacji (PDF), gdzie ramka stoi pod
+    wierszem, do którego jest zakotwiczona; w pliku EPUB ramka jest zapisana przed tekstem akapitu.
+    W akapicie bez tekstu (np. sama twarda spacja) kolejność z EPUB zostaje bez zmian.
+    """
+
+    def __init__(self, css, frame_pattern=None):
         super().__init__(convert_charrefs=True)
         self.css = css
+        self.frame_pattern = re.compile(frame_pattern) if frame_pattern else None
         self.blocks = []
         self.containers = [self.blocks]
         self.ctx = []
@@ -143,13 +150,21 @@ class XhtmlParser(HTMLParser):
         if self.current is None:
             self._open_block()
 
-    def _flush(self):
+    def _flush(self, into=None):
         if self.current is not None:
             block = finalize_block(self.current)
             if block is not None:
-                self.containers[-1].append(block)
+                (self.containers[-1] if into is None else into).append(block)
         self.current = None
         self.link = None
+
+    def _current_has_text(self):
+        return self.current is not None and bool(inline_text(self.current["inline"]).strip())
+
+    def _is_frame(self, attrs):
+        if self.frame_pattern is None:
+            return False
+        return any(self.frame_pattern.fullmatch(cls) for cls in (attrs.get("class") or "").split())
 
     def _append(self, item):
         self._ensure_block()
@@ -184,7 +199,11 @@ class XhtmlParser(HTMLParser):
             self.ctx.append({"tag": tag, **style})
         elif tag in BLOCK_TAGS:
             self._flush()
-            self.ctx.append({"tag": tag, **style})
+            if self._is_frame(attrs):
+                self.ctx.append({"tag": tag, "frame": True, **style})
+            else:
+                # Bloki z ramkami do wstawienia za tekstem tego bloku (patrz opis klasy).
+                self.ctx.append({"tag": tag, "pending": [], **style})
         elif tag in ("img", "image"):
             src = attrs.get("src") or attrs.get("xlink:href") or attrs.get("href")
             if not src:
@@ -210,8 +229,10 @@ class XhtmlParser(HTMLParser):
             return
         if not any(context["tag"] == tag for context in self.ctx):
             raise ConversionError(f"Niesparowany znacznik zamykający </{tag}>")
+        closed = []
         while self.ctx:
-            if self.ctx.pop()["tag"] == tag:
+            closed.append(self.ctx.pop())
+            if closed[-1]["tag"] == tag:
                 break
         if tag in LIST_TAGS:
             self._flush()
@@ -220,7 +241,18 @@ class XhtmlParser(HTMLParser):
             self._flush()
             self.containers.pop()
         elif tag in BLOCK_TAGS:
-            self._flush()
+            if closed[-1].get("frame"):
+                host = next((context for context in reversed(self.ctx) if "pending" in context), None)
+                self._flush(into=host["pending"] if host is not None else None)
+            else:
+                pending = [block for context in closed for block in context.get("pending", [])]
+                if pending and not self._current_has_text():
+                    # Akapit bez tekstu (np. sama twarda spacja) — ramka zostaje przed nim, jak w EPUB.
+                    self.containers[-1].extend(pending)
+                    self._flush()
+                else:
+                    self._flush()
+                    self.containers[-1].extend(pending)
         elif tag == "a":
             self.link = None
 
@@ -549,7 +581,7 @@ def convert(config_path, output_dir=None):
             css.update(parse_css(zf.read(css_file).decode("utf-8")))
         docs = []
         for path in spine:
-            parser = XhtmlParser(css)
+            parser = XhtmlParser(css, cfg.get("frameClassPattern"))
             parser.feed(zf.read(path).decode("utf-8"))
             parser.close()
             docs.append({"path": path, "blocks": parser.blocks, "ids": parser.ids})

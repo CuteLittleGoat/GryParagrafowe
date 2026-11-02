@@ -194,25 +194,35 @@ Tych dokumentów nie edytuj ręcznie — wyjątki opisuje rozdz. 10.
 
 | Usługa | Stan | Co dalej |
 |---|---|---|
-| **App Check** (potwierdzenie, że zapytania pochodzą z naszej aplikacji) | ◐ klucz reCAPTCHA utworzony dla `cutelittlegoat.github.io`, zarejestrowany w App Check (TTL 1 dzień), wpisany do aplikacji — 2026-11-02; **próba na stronie: wymiana tokenu kończy się błędem 400** („reCAPTCHA Enterprise API” wyłączone w projekcie albo klucz z innego projektu) | włączyć *reCAPTCHA Enterprise API* w projekcie `gryparagrafowe-e1fb3` i sprawdzić, czy klucz jest w tym projekcie (rozdz. 12); potem kilka dni obserwacji (*App Check* → *APIs* → *Cloud Firestore*: żądania „Verified”) i **Enforce**; gdyby gracze nie mogli się zalogować — **Unenforce** ([FIREBASE.md](FIREBASE.md), rozdz. 7.2) |
+| **App Check** (potwierdzenie, że zapytania pochodzą z naszej aplikacji) | ◐ pierwszy klucz reCAPTCHA powstał w innym projekcie (AudioRPG) — usunięty z konfiguracji aplikacji (2026-11-02) | nowy klucz w projekcie `gryparagrafowe-e1fb3` wg rozdz. 12; potem kilka dni obserwacji (*App Check* → *APIs* → *Cloud Firestore*: żądania „Verified”) i **Enforce**; gdyby gracze nie mogli się zalogować — **Unenforce** ([FIREBASE.md](FIREBASE.md), rozdz. 7.2) |
 | **GitHub Pages** (adres aplikacji) | ✅ włączone 2026-11-02 (repozytorium publiczne, gałąź `main`) | adres: `https://cutelittlegoat.github.io/GryParagrafowe/` |
 
-## 12. App Check — błąd 400 przy wymianie tokenu (do naprawy)
+## 12. App Check — klucz z niewłaściwego projektu (do naprawy)
 
-Komunikat serwera (2026-11-02): *„Unable to call the reCAPTCHA Enterprise CreateAssessment method;
-ensure that the reCAPTCHA Enterprise API is enabled and that the site key is from the same project as
-the one containing this app.”* Aplikacja działa (wymuszenie jest wyłączone), ale App Check jeszcze
-niczego nie potwierdza — **nie włączaj Enforce, dopóki to nie zostanie naprawione**.
+**Diagnoza (2026-11-02):** pierwszy klucz reCAPTCHA (`6LefCQ0u…`) powstał w projekcie Google Cloud
+**AudioRPG**, a musi być w projekcie Firebase gry. Serwer App Check odrzucał go komunikatem:
+*„…ensure that the reCAPTCHA Enterprise API is enabled and that the site key is from the same project
+as the one containing this app.”* Klucz został usunięty z konfiguracji aplikacji (aplikacja działa bez
+App Check do czasu wpisania nowego klucza). **Nie włączaj Enforce, dopóki App Check nie zadziała.**
 
-1. **Włącz usługę reCAPTCHA Enterprise w projekcie gry**: otwórz
+Ważne: projekt Firebase gry **jest już projektem Google Cloud** — ma identyfikator dokładnie
+**`gryparagrafowe-e1fb3`** (bez żadnej końcówki). Nowego projektu nie trzeba zakładać; projekt
+o identyfikatorze z końcówką (np. `gryparagrafowe-e1fb3-513516`) to **inny, pusty projekt** — nie
+twórz w nim klucza (można go usunąć: *IAM i administracja* → *Ustawienia* → *Wyłącz*).
+
+1. **Otwórz właściwy projekt bezpośrednio z odnośnika** (identyfikator projektu jest w adresie):
    <https://console.cloud.google.com/apis/library/recaptchaenterprise.googleapis.com?project=gryparagrafowe-e1fb3>
-   → sprawdź, czy u góry strony wybrany jest projekt **gryparagrafowe-e1fb3** → **Enable** (Włącz).
-   Jeśli zamiast przycisku jest *Manage* (Zarządzaj) — usługa jest już włączona.
-2. **Sprawdź, w którym projekcie jest klucz**: otwórz
-   <https://console.cloud.google.com/security/recaptcha?project=gryparagrafowe-e1fb3> — na liście
-   powinien być klucz `gryparagrafowe-e1fb3` o identyfikatorze zaczynającym się od `6LefCQ0u`.
-   - jest na liście → wystarczy krok 1;
-   - nie ma go (klucz powstał w innym projekcie, np. „Karty”) → utwórz nowy klucz **w tym projekcie**
-     (typ *Sieć*, domena `cutelittlegoat.github.io`), wpisz go w Firebase → *App Check* → aplikacja Web
-     (*Edit*) i przekaż agentowi — wpisze go do `firebase/firebase-config.js`.
-3. Daj znać agentowi — sprawdzi stronę ponownie (wymiana tokenu powinna zwracać kod 200).
+   → sprawdź, czy w adresie strony jest `project=gryparagrafowe-e1fb3` → **Enable** (Włącz). Jeśli jest
+   *Manage* (Zarządzaj) — usługa jest już włączona.
+2. **Utwórz klucz w tym projekcie**:
+   <https://console.cloud.google.com/security/recaptcha?project=gryparagrafowe-e1fb3> → *Utwórz klucz*:
+   - *Nazwa wyświetlana*: dowolna, np. `GryParagrafowe` (to tylko etykieta na liście),
+   - *Typ aplikacji*: **Sieć**,
+   - *Lista domen*: `cutelittlegoat.github.io`; weryfikacja domeny włączona,
+   - test zabezpieczający (wyzwanie) — **nie**; pozostałe ustawienia bez zmian → *Utwórz*.
+3. **Podmień klucz w Firebase**: Firebase → *App Check* → *Apps* → aplikacja Web *GryParagrafowe* →
+   dostawca *Fraud Defense (reCAPTCHA Enterprise)* → wpisz nowy klucz (TTL `1 days`) → *Save*.
+4. **Przekaż nowy klucz agentowi** — wpisze go do `firebase/firebase-config.js` i sprawdzi stronę
+   (wymiana tokenu powinna zwracać kod 200).
+5. **Usuń stary klucz z projektu AudioRPG** — wyłącznie klucz o nazwie `gryparagrafowe-e1fb3`
+   (`6LefCQ0u…`). **Nie usuwaj** klucza `WrathAndGlory-AudioRPG` — używa go inna Twoja aplikacja.

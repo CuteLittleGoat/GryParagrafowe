@@ -3,7 +3,7 @@
   "bookId": "vae-victis",
   "generator": {
     "script": "narzedzia/konwersja/epub_do_json.py",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "source": {
     "file": "Pliki/Vae-Victis-15-to-lecie-MW.epub",
@@ -360,11 +360,6 @@
       ]
     },
     {
-      "type": "image",
-      "src": "grafiki/logo-masz-wybor.png",
-      "alt": ""
-    },
-    {
       "type": "p",
       "inline": [
         {
@@ -374,6 +369,11 @@
           ]
         }
       ]
+    },
+    {
+      "type": "image",
+      "src": "grafiki/logo-masz-wybor.png",
+      "alt": ""
     },
     {
       "type": "p",
