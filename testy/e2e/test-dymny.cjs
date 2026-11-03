@@ -143,9 +143,9 @@ function check(name, condition, details = '') {
   await page.screenshot({ path: path.join(OUT, '07-zdobycie.png'), fullPage: true });
 
   // 8. Zdobyte Informacje (w tej książce zamiast „Karty postaci”): #19 zaznaczona, ręczne przełączanie
-  check('przycisk „Informacja” zamiast „Karta postaci”', (await page.locator('.game-tools button', { hasText: 'Informacja' }).count()) === 1
+  check('przycisk „Informacje” zamiast „Karta postaci”', (await page.locator('.game-tools button', { hasText: 'Informacje' }).count()) === 1
     && (await page.locator('.game-tools button', { hasText: 'Karta postaci' }).count()) === 0);
-  await page.click('.game-tools button:has-text("Informacja")');
+  await page.click('.game-tools button:has-text("Informacje")');
   await page.waitForSelector('dialog[open] .codeword-grid');
   check('okno „Zdobyte Informacje”', (await page.textContent('dialog[open] .dialog-title')) === 'Zdobyte Informacje');
   check('karta: #19 zaznaczona', (await page.getAttribute('dialog[open] [aria-label="Informacja #19"]', 'aria-pressed')) === 'true');

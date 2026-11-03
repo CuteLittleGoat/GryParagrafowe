@@ -27,7 +27,7 @@ export async function renderGame(app, root, bookId) {
   const cover = coverInfo(manifest);
   const codewordsModule = mechanics?.modules?.codewords ?? null;
   const prefix = codewordsModule?.prefix ?? '#';
-  // Nazwy przycisku i okna z mechaniki książki (np. „Vae Victis”: „Informacja” / „Zdobyte Informacje”);
+  // Nazwy przycisku i okna z mechaniki książki (np. „Vae Victis”: „Informacje” / „Zdobyte Informacje”);
   // książki bez własnych nazw — „Karta postaci”.
   const sheetButtonLabel = codewordsModule?.buttonLabel ?? 'Karta postaci';
   const sheetTitle = codewordsModule?.panelTitle ?? `Karta postaci — ${codewordsModule?.label ?? 'Informacje'}`;
