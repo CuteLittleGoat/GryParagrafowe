@@ -10,7 +10,7 @@ generowanych przez AI** (AGENTS.md, rozdz. 1.3; dokumentacja/LICENCJA_I_ZGODA.md
 | `koza-180.png` | ta sama ikona jako PNG 180×180 na jasnym tle (ikona na ekranie telefonu) | `koza.svg` | Skoll | CC BY 3.0 | jw.; jasne tło `#f6f1e7`, zapis do PNG |
 
 - Wymóg licencji: wzmianka o autorze („Icons made by Skoll”), nazwa licencji i informacja o zmianach —
-  podane w stopce aplikacji (`index.html`) i w tym pliku.
+  podane w stopce aplikacji (`index.html`, widoczna na ekranie głównym) i w tym pliku.
 - Pobrano 2026-11-02 z `https://raw.githubusercontent.com/game-icons/icons/master/skoll/goat.svg`
   (SHA-256 oryginału: `6cae2c21b57da7dca5d296a3a318b63090956ee5495f50fb54eb11354036fb81`); do
   `koza.svg` przeniesiono bez zmian ścieżkę rysunku kozy.

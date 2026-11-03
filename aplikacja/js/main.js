@@ -16,6 +16,7 @@ const app = {
   settings: normalizeSettings({ ...DEFAULT_SETTINGS, ...loadDeviceSettings() }),
   main: document.getElementById('app'),
   userArea: document.getElementById('user-area'),
+  footer: document.querySelector('.app-footer'),
   dispose: null,
 
   async updateSettings(partial) {
@@ -105,6 +106,10 @@ async function route() {
   const bookId = match?.[2] ?? null;
   clear(app.main);
   window.scrollTo(0, 0);
+  // Stopka aplikacji (projekt nieoficjalny, zgoda wydawców, autor piktogramu) — tylko na ekranie
+  // głównym; przy czytaniu książki i w „O książce” jej nie pokazujemy (decyzja właściciela, 2026-11-03).
+  const isHome = !app.session || screen === '' || !match || !['gra', 'o-ksiazce'].includes(screen) || !bookId;
+  app.footer.hidden = !isHome;
   try {
     if (!app.session || screen === '' || !match) {
       app.setTitle('');

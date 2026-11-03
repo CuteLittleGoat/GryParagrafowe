@@ -168,6 +168,8 @@ logowania (N7).
 
 - Prosty router ekranów (hash w adresie, np. `#/`, `#/gra/vae-victis`), przycisk „Menu główne”
   zawsze dostępny w grze.
+- Stopka aplikacji (projekt nieoficjalny, zgoda wydawców, autor piktogramu) — tylko na ekranie
+  głównym; ekran gry i „O książce” są bez niej (decyzja właściciela, 2026-11-03).
 - Komponenty: karta książki, stopka książki, czytnik węzła, panel przejść, karta postaci, kości,
   okno zapisu, panel administratora, ustawienia, komunikaty.
 - Bezpieczeństwo DOM: tekst książki budowany przez `createElement`/`textContent` z modelu JSON —

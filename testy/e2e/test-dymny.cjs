@@ -80,6 +80,7 @@ function check(name, condition, details = '') {
   await page.click('text=Rozpocznij grę');
   await page.waitForSelector('.game-text');
   check('start: Wprowadzenie', (await page.textContent('.game-text')).includes('Wprowadzenie'));
+  check('przy czytaniu książki stopka aplikacji ukryta', !(await page.isVisible('.app-footer')));
   check('Cofnij nieaktywne na starcie', await page.isDisabled('.undo-row button'));
   check('brak napisu null na ekranie gry', !(await page.textContent('.game')).includes('null'));
   check('dopisek przy Cofnij', (await page.textContent('.undo-caption')) === 'To Twoja gra :) Graj jak lubisz!');
@@ -218,6 +219,7 @@ function check(name, condition, details = '') {
   const about = await page.textContent('.about');
   check('O książce: stopka, od Wydawnictwa, dedykacja', about.includes('Copyright © by Beniamin Muszyński') && about.includes('Wydawnictwo Wielokrotnego Wyboru') && about.includes('Michałowi Jezierskiemu'));
   check('O książce: podpis okładki', about.includes('Ilustracja na okładce: Justyna Bzdoń'));
+  check('O książce: stopka aplikacji ukryta', !(await page.isVisible('.app-footer')));
   await page.waitForFunction(() => { const img = document.querySelector('.cover-large img'); return img && img.complete && img.naturalWidth > 0; }, null, { timeout: 30000 });
   check('O książce: okładka wczytana', true);
   await page.screenshot({ path: path.join(OUT, '14-o-ksiazce.png') });
@@ -245,6 +247,7 @@ function check(name, condition, details = '') {
   await page.goto(`${BASE}#/`);
   await page.waitForSelector('.book-card');
   check('rozwinięta karta zapamiętana w tej sesji', (await page.getAttribute('.book-toggle', 'aria-expanded')) === 'true');
+  check('ekran główny: stopka aplikacji widoczna (z autorem piktogramu)', (await page.isVisible('.app-footer')) && (await page.textContent('.app-footer')).includes('Skoll'));
   await page.click('.book-card a:has-text("Nowa gra")');
   await page.waitForSelector('dialog[open]');
   check('Nowa gra z ekranu głównego', (await page.textContent('dialog[open] .dialog-title')) === 'Nowa gra');

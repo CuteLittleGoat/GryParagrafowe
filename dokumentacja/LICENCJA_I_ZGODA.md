@@ -155,6 +155,10 @@ Patrz zakaz Z5.
 - Stopka aplikacji zawiera informację, że to **nieoficjalny, niekomercyjny projekt hobbystyczny**,
   a treść „Vae Victis” wykorzystano **za zgodą Wydawnictwa Wielokrotnego Wyboru** — tak, by nikt nie
   odniósł wrażenia, że to oficjalna aplikacja Wydawnictwa.
+- Stopka aplikacji jest widoczna **na ekranie głównym** (przed zalogowaniem i po nim) — tam zaczyna
+  każdy gracz; przy czytaniu książki i w „O książce” jej nie pokazujemy (decyzja właściciela
+  2026-11-03: „Przy czytaniu książek nie chcę, żeby wyświetlała się ta stopka.”). Zgoda Wydawcy nie
+  wymaga stopki aplikacji; atrybucja książki w grze zostaje (tytuł i autor na pasku gry, „O książce”).
 
 **N11. Odnośniki zewnętrzne z treści zachowujemy** [ZGODA] + [OSTROŻNOŚĆ]
 - Linki w treści (strona Wydawnictwa, Patronite Wydawnictwa, adresy e-mail ze stopki, odesłanie
@@ -309,7 +313,7 @@ dokonuje gracz**. Tryb „ręczny” (jak na papierze) musi pozwalać grać bez 
 - [x] krój pisma oryginalny; wybór innego kroju tylko po zgodzie Wydawcy (rozdz. 5.1 pkt 5)
 
 **Cała aplikacja**
-- [x] stopka aplikacji: projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy (N10)
+- [x] stopka aplikacji na ekranie głównym: projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy (N10)
 - [x] brak reklam, płatności, zbiórek, trackerów marketingowych (Z5)
 - [x] brak grafik AI; ikony tylko jako piktogramy funkcji z odnotowaną licencją (Z2)
 - [x] gra dostępna tylko po zalogowaniu (N7)
