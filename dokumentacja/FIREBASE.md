@@ -289,15 +289,16 @@ aplikację do końca miesiąca (albo do *Unenforce*).
 
 ### 7.2. App Check — kroki wdrożenia (Etap 5)
 
-1. ◐ Google Cloud → reCAPTCHA / Fraud Defense (`console.cloud.google.com/security/recaptcha`),
+1. ✅ Google Cloud → reCAPTCHA / Fraud Defense (`console.cloud.google.com/security/recaptcha`),
    projekt **`gryparagrafowe-e1fb3`** (ten sam co Firebase — bez końcówki w identyfikatorze) →
-   **Utwórz klucz**: typ *Sieć* (Website), domena `cutelittlegoat.github.io`, weryfikacja domeny
-   włączona. Pierwszy klucz (2026-11-02) powstał w projekcie AudioRPG — do ponownego utworzenia
-   ([FIREBASE_KONSOLA.md](FIREBASE_KONSOLA.md), rozdz. 12).
+   **Utwórz klucz**: nazwa „GryParagrafowe”, typ *Sieć* (Website), domena `cutelittlegoat.github.io`,
+   weryfikacja domeny włączona — właściciel, 2026-11-03. (Pierwszy klucz z 2026-11-02 powstał w
+   projekcie AudioRPG — zastąpiony; [FIREBASE_KONSOLA.md](FIREBASE_KONSOLA.md), rozdz. 12.)
 2. ✅ Firebase → App Check → *Apps* → aplikacja Web *GryParagrafowe* → „Fraud Defense (formerly known
-   as reCAPTCHA Enterprise)” → klucz witryny; TTL `1 days` → *Save* — właściciel, 2026-11-02.
-3. ◐ Klucz witryny w `firebase/firebase-config.js` (`appCheckSiteKey`) — agent (P13); pierwszy klucz
-   usunięty 2026-11-02 (zły projekt), pole czeka na nowy klucz.
+   as reCAPTCHA Enterprise)” → klucz witryny; TTL **`7 days`** (zmiana właściciela; mniej sprawdzeń
+   reCAPTCHA, token ważny dłużej) → *Save* — właściciel, 2026-11-03.
+3. ✅ Klucz witryny w `firebase/firebase-config.js` (`appCheckSiteKey`) — agent, 2026-11-03 (P13).
+   Sprawdzone na stronie: wymiana tokenu reCAPTCHA na token App Check zwraca kod 200.
    Aplikacja wywołuje `initializeAppCheck(...)` z automatycznym odświeżaniem tokenu **przed**
    pierwszym użyciem Firestore; przy pustym polu działa bez App Check. Klucz działa tylko pod adresem
    `cutelittlegoat.github.io` (na `localhost` aplikacja nie używa App Check).
@@ -419,10 +420,9 @@ Opcjonalnie (plan Blaze): zarządzany eksport Firestore / odtwarzanie do punktu 
    `https://cutelittlegoat.github.io/GryParagrafowe/` (pierwsza publikacja trwa kilka minut). Można
    włączyć w dowolnej chwili — bez kont i reguł docelowych strona pokazuje tylko formularz logowania.
 8. ⬜ Sprawdzenie: logowanie każdym kontem, gra, zapis, wylogowanie.
-9. ◐ **App Check** — pierwszy klucz powstał w innym projekcie (AudioRPG) i został usunięty z
-   konfiguracji; nowy klucz w projekcie `gryparagrafowe-e1fb3` wg
-   [FIREBASE_KONSOLA.md](FIREBASE_KONSOLA.md), rozdz. 12; potem obserwacja i wymuszenie (rozdz. 7.2,
-   kroki 4–5); opcjonalnie ograniczenia klucza API — rozdz. 7.3.
+9. ◐ **App Check** — działa (klucz z projektu `gryparagrafowe-e1fb3`, 2026-11-03; wymiana tokenu: kod
+   200); dalej: kilka dni obserwacji i wymuszenie (rozdz. 7.2, kroki 4–5); opcjonalnie ograniczenia
+   klucza API — rozdz. 7.3.
 
 **Dodanie gracza** (np. siódmego)
 1. Firestore → kolekcja `secrets` → „Dodaj dokument” → ID dokumentu: `Player7`.

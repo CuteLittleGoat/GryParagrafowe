@@ -4,27 +4,25 @@
 > „Stan bieżący” i „Następne kroki”; na końcu zaktualizuj stan, odhacz wykonane punkty planu i dodaj
 > wpis w changelogu. Decyzje zapisuj w „Decyzjach”, wątpliwości — w „Otwartych pytaniach”.
 
-**Ostatnia aktualizacja:** 2026-11-02
+**Ostatnia aktualizacja:** 2026-11-03
 
 ## 1. Stan bieżący
 
 | | |
 |---|---|
-| Etap | **2, 3 i 5 — zakończone; aplikacja opublikowana** (2026-11-02): `https://cutelittlegoat.github.io/GryParagrafowe/`; do naprawy: App Check (błąd 400 — usługa reCAPTCHA Enterprise / projekt klucza) |
+| Etap | **2, 3 i 5 — zakończone; aplikacja opublikowana** (2026-11-02): `https://cutelittlegoat.github.io/GryParagrafowe/`; App Check działa (2026-11-03) — czeka na obserwację i wymuszenie |
 | Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy: przeglądarka 43/43, emulator 15/15, reguły 17/17, silnik 12/12 |
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
-| Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ◐ — klucz w aplikacji, ale wymiana tokenu zwraca błąd 400 ([FIREBASE_KONSOLA.md](dokumentacja/FIREBASE_KONSOLA.md), rozdz. 12) |
+| Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ✅ — klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni, wymiana tokenu działa (2026-11-03); wymuszenie (*Enforce*) — po obserwacji |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
 | Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1–PW2 przygotowane (**tylko sprawy licencyjne** — decyzja właściciela 2026-11-02; PW3 usunięte); właściciel wyśle je razem z odnośnikiem do aplikacji i kontem dla Wydawnictwa |
 | Blokery | brak |
 
 ## 2. Następne kroki
 
-1. **App Check — nowy klucz** (właściciel): pierwszy klucz powstał w projekcie AudioRPG (usunięty z
-   konfiguracji aplikacji); nowy klucz w projekcie **`gryparagrafowe-e1fb3`** (bez nowego projektu),
-   podmiana w App Check, przekazanie agentowi, usunięcie starego klucza z AudioRPG
-   ([FIREBASE_KONSOLA.md](dokumentacja/FIREBASE_KONSOLA.md), rozdz. 12); potem próba agenta, kilka dni
-   obserwacji i wymuszenie (*Enforce*) dla Cloud Firestore.
+1. **App Check — obserwacja i wymuszenie** (właściciel): przez kilka dni sprawdzać w Firebase → *App
+   Check* → *APIs* → *Cloud Firestore*, czy żądania są „Verified”; potem **Enforce** (hamulec:
+   *Unenforce*). Przy okazji usunąć stary klucz `gryparagrafowe-e1fb3` z projektu AudioRPG (tylko ten!).
 2. **Właściciel**: sprawdzenie logowania prawdziwymi kontami (w tym kontem Wydawnictwa `Player2`).
 3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1–PW2.
 4. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
@@ -87,7 +85,7 @@
 - [x] Format `firebase/firebase-config.js` (moduł ES) i pole klucza App Check `appCheckSiteKey` — za zgodą właściciela (P13) (2026-11-02)
 - [x] `firebase/firestore.rules` + testy reguł w emulatorze (`testy/reguly/test-regul.mjs`, 17/17) i test aplikacji z emulatorem (15/15) (2026-11-02)
 - [x] **Właściciel**: publikacja reguł w konsoli (2026-11-02; sprawdzone próbą agenta)
-- [x] App Check: klucz reCAPTCHA Enterprise (domena `cutelittlegoat.github.io`), rejestracja w Firebase (TTL 1 dzień) — właściciel; klucz w `firebase/firebase-config.js` — agent (2026-11-02)
+- [x] App Check: klucz reCAPTCHA Enterprise „GryParagrafowe” z projektu `gryparagrafowe-e1fb3` (domena `cutelittlegoat.github.io`), rejestracja w Firebase (TTL 7 dni) — właściciel; klucz w `firebase/firebase-config.js` — agent; wymiana tokenu na stronie: kod 200 (2026-11-03; pierwszy klucz z projektu AudioRPG zastąpiony)
 - [ ] App Check: obserwacja → **Enforce** dla Cloud Firestore (właściciel, FIREBASE.md rozdz. 7.2); opcjonalnie ograniczenia klucza API
 - [x] `FirestoreAdapter`: logowanie loginem i hasłem (sesje ważne 30 dni, w sesji tylko skrót hasła), profil, autozapis w transakcji z kontrolą `revision`, ręczne zapisy, `appConfig` (liczba kont, przerwa techniczna, wyłączone książki); bez pamięci offline (D40) (2026-11-02)
 - [x] **Właściciel**: konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) w kolekcji `secrets`; `appConfig/public.playerCount` = 5 (int64); `admins/Player1` (2026-11-02)
@@ -105,8 +103,8 @@
 - [x] Hosting: **GitHub Pages** (P3) — włączone przez właściciela 2026-11-02 (repozytorium publiczne, gałąź `main`): `https://cutelittlegoat.github.io/GryParagrafowe/`
 - [ ] Polityka CSP (znacznik w `index.html`) — po sprawdzeniu działania na GitHub Pages, żeby nie zablokować Firebase ani App Check
 - [ ] Instrukcje dla graczy i dla administratora
-- [ ] Opcjonalnie: zmiana kroju pisma przez gracza (np. krój przyjazny dla osób z dysleksją — licencja kroju do sprawdzenia) — **tylko po zgodzie Wydawcy** (pytanie PW1) (P11); przełącznik w oknie „Ustawienia” (właściciel 2026-11-02: „Docelowo, po uzyskaniu zgody, będzie tu przełącznik do zmiany fontu”; w kolejnej wiadomości: „…do zmiany języka” — do doprecyzowania)
-- [ ] Opcjonalnie (do decyzji właściciela): tekst gry złożony jak w PDF — akapity z wcięciem pierwszego wiersza, bez odstępów, wyjustowane (teraz: odstępy między akapitami, bez wcięć)
+- [ ] Opcjonalnie: zmiana kroju pisma przez gracza (np. krój przyjazny dla osób z dysleksją — licencja kroju do sprawdzenia) — **tylko po zgodzie Wydawcy** (pytanie PW1) (P11); przełącznik **czcionki** w oknie „Ustawienia” — dopiero po potwierdzeniu Wydawcy (właściciel 2026-11-03: „Przełącznik będzie dotyczyć zmiany fontu a nie języka - ale to po potwierdzeniu z wydawcą”)
+- [ ] Do decyzji właściciela **na koniec prac nad książką** (pytanie P15): tekst gry złożony jak w PDF — akapity z wcięciem pierwszego wiersza, bez odstępów, wyjustowane (teraz: odstępy między akapitami, bez wcięć — zostaje do tego czasu)
 - [x] Test E2E (Playwright) — `testy/e2e/test-dymny.cjs` (2026-11-02)
 - [ ] Lżejsza wersja okładki dla telefonów (oryginał PNG 3,5 MB) — tylko proporcjonalne zmniejszenie i kompresja (Z6), jako opisany krok
 - [ ] Opcjonalnie: PWA / tryb offline
@@ -132,7 +130,7 @@
 | D11 | 2026-10-29 | Gra tylko po zalogowaniu; publikacja strony dopiero z działającym logowaniem | „wąskie grono”, „projekt wewnętrzny” |
 | D12 | 2026-10-29 | Neutralność silnika + tryb ręczny „jak na papierze” | brak ingerencji w zasady gry |
 | D13 | 2026-10-29 | Projekt Firebase `gryparagrafowe-e1fb3`; konfiguracja webowa w `firebase/firebase-config.js` (decyzja właściciela) | plik jest jawny; zmienia go właściciel |
-| D14 | 2026-10-29 | App Check: reCAPTCHA Enterprise (plan Spark), domena `cutelittlegoat.github.io`, TTL 1 dzień, obserwacja → *Enforce*, hamulec *Unenforce* | doświadczenia z projektu „Karty” |
+| D14 | 2026-10-29 | App Check: reCAPTCHA Enterprise (plan Spark), domena `cutelittlegoat.github.io`, TTL 1 dzień (zmienione na 7 dni — D50), obserwacja → *Enforce*, hamulec *Unenforce* | doświadczenia z projektu „Karty” |
 | D15 | 2026-10-29 | Raporty z analiz w folderze `Analizy/`, wg zasad z `AGENTS.md` | wymóg właściciela (jak w innym projekcie) |
 | D16 | 2026-10-29 | `AGENTS.md` i `CLAUDE.md` zmienia wyłącznie właściciel; agenci proponują pełną treść w bloku kodu w czacie | wymóg właściciela |
 | D17 | 2026-10-29 | Oryginalny EPUB zostaje w repozytorium; w aplikacji odnośniki do oryginałów na stronie Wydawnictwa | decyzja właściciela (P2) |
@@ -162,6 +160,7 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
+| D50 | 2026-11-03 | App Check: ważność tokenu **7 dni** (zamiast 1 dnia); klucz reCAPTCHA w projekcie `gryparagrafowe-e1fb3` | decyzja właściciela — rzadsze sprawdzenia reCAPTCHA; mały, zamknięty krąg graczy |
 | D45 | 2026-11-02 | Konta: `Player1` — właściciel (administrator), `Player2` — Wydawnictwo, `Player3` … `Player5` — gracze; `playerCount` = 5 (typ *int64* w obecnej konsoli); kolejne konta później | decyzja i konfiguracja właściciela |
 | D44 | 2026-11-02 | Dokument `appConfig/public` opcjonalny — bez niego aplikacja sprawdza konta `Player1` … `Player10`; kolekcje `players` i `sessions` tworzy aplikacja; konta (`secrets`) zakłada wyłącznie administrator w konsoli | mniej pracy w konsoli; bezpieczeństwo — aplikacja nie może zakładać kont |
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
@@ -178,6 +177,7 @@
 
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
+| P15 | **Wygląd tekstu gry.** W pliku PDF akapity zaczynają się od wcięcia (pierwszy wiersz przesunięty w prawo), nie ma między nimi odstępów, a tekst jest wyrównany do obu krawędzi strony — jak w drukowanej książce. W aplikacji akapity są oddzielone pustym odstępem, bez wcięć, a tekst jest wyrównany do lewej (na wąskim ekranie telefonu czyta się to zwykle wygodniej). Treść jest w obu przypadkach identyczna — chodzi tylko o wygląd. | **A ★** zostawić jak teraz (wygodniej na telefonie); **B** jak w PDF na wszystkich ekranach; **C** jak w PDF tylko na dużych ekranach (komputer), na telefonie jak teraz. Właściciel (2026-11-03): „Na obecną chwilę zostaw jak jest” — **decyzja na koniec prac nad książką** |
 
 ### 5.2. Rozstrzygnięte
 
@@ -201,6 +201,17 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-03 — App Check działa; P15
+
+**Zmieniono**
+- `firebase/firebase-config.js`: klucz reCAPTCHA „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`
+  (utworzony i zarejestrowany w App Check przez właściciela, ważność tokenu 7 dni). Sprawdzone na
+  stronie: wymiana tokenu App Check — kod 200; zmyślony login odrzucony; brak błędów (D50).
+- Dokumentacja App Check (FIREBASE.md rozdz. 7.2 i 9, FIREBASE_KONSOLA.md rozdz. 11–12): naprawione;
+  dalej obserwacja i wymuszenie; stary klucz z projektu AudioRPG do usunięcia.
+- Plan: przełącznik w „Ustawieniach” dotyczy **czcionki** (po zgodzie Wydawcy); nowe otwarte pytanie
+  P15 (wygląd tekstu gry jak w PDF) — do decyzji na koniec prac nad książką.
 
 ### 2026-11-02 — Zgodność z PDF, piktogram kozy, PW3 usunięte
 

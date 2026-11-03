@@ -194,10 +194,15 @@ Tych dokumentów nie edytuj ręcznie — wyjątki opisuje rozdz. 10.
 
 | Usługa | Stan | Co dalej |
 |---|---|---|
-| **App Check** (potwierdzenie, że zapytania pochodzą z naszej aplikacji) | ◐ pierwszy klucz reCAPTCHA powstał w innym projekcie (AudioRPG) — usunięty z konfiguracji aplikacji (2026-11-02) | nowy klucz w projekcie `gryparagrafowe-e1fb3` wg rozdz. 12; potem kilka dni obserwacji (*App Check* → *APIs* → *Cloud Firestore*: żądania „Verified”) i **Enforce**; gdyby gracze nie mogli się zalogować — **Unenforce** ([FIREBASE.md](FIREBASE.md), rozdz. 7.2) |
+| **App Check** (potwierdzenie, że zapytania pochodzą z naszej aplikacji) | ✅ działa (2026-11-03): klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni; próba na stronie — wymiana tokenu: kod 200 | kilka dni obserwacji (*App Check* → *APIs* → *Cloud Firestore*: żądania „Verified”), potem **Enforce**; gdyby gracze nie mogli się zalogować — **Unenforce** ([FIREBASE.md](FIREBASE.md), rozdz. 7.2); stary klucz z projektu AudioRPG do usunięcia (rozdz. 12, krok 5) |
 | **GitHub Pages** (adres aplikacji) | ✅ włączone 2026-11-02 (repozytorium publiczne, gałąź `main`) | adres: `https://cutelittlegoat.github.io/GryParagrafowe/` |
 
-## 12. App Check — klucz z niewłaściwego projektu (do naprawy)
+## 12. App Check — klucz z niewłaściwego projektu (✅ naprawione 2026-11-03)
+
+> Naprawione: właściciel utworzył klucz „GryParagrafowe” w projekcie `gryparagrafowe-e1fb3` i podmienił
+> go w App Check (ważność tokenu 7 dni); agent wpisał go do aplikacji — wymiana tokenu działa (kod 200).
+> Do zrobienia zostaje krok 5 (usunięcie starego klucza z projektu AudioRPG). Poniżej — opis na
+> wypadek podobnego problemu w przyszłości.
 
 **Diagnoza (2026-11-02):** pierwszy klucz reCAPTCHA (`6LefCQ0u…`) powstał w projekcie Google Cloud
 **AudioRPG**, a musi być w projekcie Firebase gry. Serwer App Check odrzucał go komunikatem:
