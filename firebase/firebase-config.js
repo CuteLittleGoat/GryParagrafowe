@@ -11,8 +11,8 @@ export const firebaseConfig = {
 };
 
 // Klucz witryny reCAPTCHA Enterprise dla App Check (jawny — dokumentacja/FIREBASE.md, rozdz. 7.2).
-// Pusty = aplikacja działa bez App Check. Klucz musi pochodzić z projektu Google Cloud
-// `gryparagrafowe-e1fb3` (tego samego co Firebase) — pierwszy klucz (2026-11-02) powstał w innym
-// projekcie i został usunięty z konfiguracji; nowy klucz wpisze agent po otrzymaniu od właściciela.
+// Klucz „GryParagrafowe” z projektu Google Cloud `gryparagrafowe-e1fb3` (tego samego co Firebase),
+// domena cutelittlegoat.github.io; utworzony i zarejestrowany w App Check przez właściciela
+// 2026-11-03 (ważność tokenu: 7 dni). Pusty = aplikacja działa bez App Check.
 // NIGDY nie wpisuj tutaj tokenu debug App Check.
-export const appCheckSiteKey = "";
+export const appCheckSiteKey = "6LdTpQ0uAAAAAJpDYkBmPVXuUykwYY4WXpJW6vT0";
