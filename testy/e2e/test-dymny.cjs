@@ -27,6 +27,13 @@ function check(name, condition, details = '') {
   page.on('pageerror', (err) => errors.push(`pageerror: ${err.message}`));
   page.on('requestfailed', (req) => errors.push(`requestfailed: ${req.url()}`));
 
+  // Układ „Dokąd dalej?”: przejścia po lewej, „Cofnij” po prawej (na tej samej wysokości).
+  const undoOnRight = (target) => target.evaluate(() => {
+    const list = document.querySelector('.choices-main').getBoundingClientRect();
+    const undo = document.querySelector('.undo-block').getBoundingClientRect();
+    return undo.left >= list.right - 1 && Math.abs(undo.top - list.top) < 5;
+  });
+
   // 1. Ekran logowania
   await page.goto(BASE);
   await page.waitForSelector('form.login-panel');
@@ -81,7 +88,7 @@ function check(name, condition, details = '') {
   await page.waitForSelector('.game-text');
   check('start: Wprowadzenie', (await page.textContent('.game-text')).includes('Wprowadzenie'));
   check('przy czytaniu książki stopka aplikacji ukryta', !(await page.isVisible('.app-footer')));
-  check('Cofnij nieaktywne na starcie', await page.isDisabled('.undo-row button'));
+  check('Cofnij nieaktywne na starcie', await page.isDisabled('.undo-button'));
   check('brak napisu null na ekranie gry', !(await page.textContent('.game')).includes('null'));
   check('dopisek przy Cofnij', (await page.textContent('.undo-caption')) === 'To Twoja gra :) Graj jak lubisz!');
   await page.screenshot({ path: path.join(OUT, '03-wprowadzenie.png'), fullPage: true });
@@ -94,12 +101,13 @@ function check(name, condition, details = '') {
   await page.waitForFunction(() => document.querySelector('.game-text h2')?.textContent.includes('1 Ogień'));
   const choices = await page.$$eval('.btn-choice', (els) => els.map((el) => el.textContent));
   check('§1: przyciski przejść', JSON.stringify(choices) === JSON.stringify(['Przejdź do §22', 'Przejdź do §15', 'Przejdź do §16', 'Przejdź do §6']), JSON.stringify(choices));
+  check('„Dokąd dalej?”: przejścia po lewej, „Cofnij” po prawej', await undoOnRight(page));
   await page.screenshot({ path: path.join(OUT, '04-paragraf-1.png'), fullPage: true });
 
   // 5. Cofnij
   await page.click('.btn-choice:has-text("Przejdź do §22")');
   await page.waitForFunction(() => document.querySelector('.game-text h2')?.textContent.startsWith('22'));
-  await page.click('.undo-row button');
+  await page.click('.undo-button');
   await page.waitForFunction(() => document.querySelector('.game-text h2')?.textContent.startsWith('1 '));
   check('Cofnij wraca do §1', true);
 
@@ -242,6 +250,7 @@ function check(name, condition, details = '') {
   await mobile.click('.game-text a.book-link:has-text("Prologu")');
   await mobile.click('.btn-choice:has-text("Przejdź do §1")');
   await mobile.waitForFunction(() => document.querySelector('.game-text h2')?.textContent.includes('1 Ogień'));
+  check('telefon: „Cofnij” po prawej stronie przejść', await undoOnRight(mobile));
   await mobile.screenshot({ path: path.join(OUT, '16-telefon-gra.png'), fullPage: false });
   const overflow = await mobile.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
   check('telefon: brak przewijania w poziomie', !overflow);

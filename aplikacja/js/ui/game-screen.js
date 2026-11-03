@@ -12,7 +12,8 @@ import { coverInfo, renderBlocks } from './content-renderer.js';
 import { alertDialog, confirmDialog, openDialog, promptDialog } from './dialogs.js';
 import { FONT_SCALES, MODE_LABELS, THEME_LABELS, THEMES, stepFontScale } from './settings.js';
 
-const UNDO_CAPTION = 'To Twoja gra :) Graj jak lubisz!'; // decyzja właściciela P5
+// Dopisek przy „Cofnij” (decyzja właściciela P5) — w dwóch linijkach, równo pod przyciskiem.
+const UNDO_CAPTION_LINES = ['To Twoja gra :)', 'Graj jak lubisz!'];
 
 export async function renderGame(app, root, bookId) {
   if (!(await isActiveBook(bookId)) || !app.isBookEnabled(bookId)) {
@@ -173,8 +174,7 @@ export async function renderGame(app, root, bookId) {
       noticesBox(),
       textArticle(),
       ambiguousNote(),
-      finished ? endingBox() : choicesSection(),
-      undoRow(),
+      finished ? endingSection() : choicesSection(),
       h('p', { class: 'mode-info muted small' }, `Tryb mechaniki: ${mode() === 'auto' ? 'automatyczny' : 'ręczny'}`, mechanics ? '' : ' (książka bez automatycznej mechaniki)'),
     ]);
     if (focusText) {
@@ -287,11 +287,8 @@ export async function renderGame(app, root, bookId) {
     const totals = new Map();
     options.forEach((option) => totals.set(option.to, (totals.get(option.to) ?? 0) + 1));
     const seen = new Map();
-    return h(
-      'section',
-      { class: 'choices', 'aria-labelledby': 'choices-title' },
-      h('h2', { id: 'choices-title', class: 'choices-title' }, 'Dokąd dalej?'),
-      options.length
+    // Dwie kolumny: po lewej przejścia „Przejdź do…”, po prawej „Cofnij” z dopiskiem (decyzja właściciela).
+    const list = options.length
         ? h('ul', { class: 'choice-list' }, options.map((option) => {
           const index = (seen.get(option.to) ?? 0) + 1;
           seen.set(option.to, index);
@@ -320,8 +317,18 @@ export async function renderGame(app, root, bookId) {
               : null,
           );
         }))
-        : h('p', { class: 'muted' }, 'Z tego miejsca nie prowadzi dalej żaden odnośnik.'),
+        : h('p', { class: 'muted' }, 'Z tego miejsca nie prowadzi dalej żaden odnośnik.');
+    return h(
+      'section',
+      { class: 'choices', 'aria-labelledby': 'choices-title' },
+      h('h2', { id: 'choices-title', class: 'choices-title' }, 'Dokąd dalej?'),
+      h('div', { class: 'choices-layout' }, h('div', { class: 'choices-main' }, list), undoBlock()),
     );
+  }
+
+  // Zakończenie: ramka „Koniec tej drogi” po lewej, „Cofnij” po prawej (na telefonie — pod ramką).
+  function endingSection() {
+    return h('div', { class: 'choices-layout ending-layout' }, endingBox(), undoBlock());
   }
 
   function goToLabel(nodeId) {
@@ -351,12 +358,12 @@ export async function renderGame(app, root, bookId) {
     );
   }
 
-  function undoRow() {
+  function undoBlock() {
     return h(
       'div',
-      { class: 'undo-row' },
-      h('button', { type: 'button', class: 'btn', disabled: !game.canUndo, onClick: undoMove }, 'Cofnij'),
-      h('span', { class: 'undo-caption' }, UNDO_CAPTION),
+      { class: 'undo-block' },
+      h('button', { type: 'button', class: 'btn undo-button', disabled: !game.canUndo, onClick: undoMove }, 'Cofnij'),
+      h('p', { class: 'undo-caption' }, `${UNDO_CAPTION_LINES[0]} `, h('br'), UNDO_CAPTION_LINES[1]),
     );
   }
 

@@ -205,6 +205,15 @@
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
 
+### 2026-11-03 — Sekcja „Dokąd dalej?” w dwóch kolumnach
+
+**Zmieniono**
+- Ekran gry: przyciski „Przejdź do…” po lewej, po prawej „Cofnij” z dopiskiem „To Twoja gra :) / Graj jak
+  lubisz!” (mała, pochyła czcionka, dwie linijki) — polecenie właściciela. Na telefonie dwie kolumny
+  zostają (węższa prawa); na bardzo wąskich ekranach (ok. 320 px) „Cofnij” pod przejściami, wyrównane do
+  prawej. W zakończeniu: ramka „Koniec tej drogi” po lewej, „Cofnij” po prawej (na telefonie — pod
+  ramką). Test w przeglądarce: nowe sprawdzenia układu.
+
 ### 2026-11-03 — Przycisk „Informacje” (liczba mnoga)
 
 **Zmieniono**
