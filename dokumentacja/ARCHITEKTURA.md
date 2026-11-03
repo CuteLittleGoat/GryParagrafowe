@@ -172,6 +172,32 @@ logowania (N7).
   głównym; ekran gry i „O książce” są bez niej (decyzja właściciela, 2026-11-03).
 - Komponenty: karta książki, stopka książki, czytnik węzła, panel przejść, karta postaci, kości,
   okno zapisu, panel administratora, ustawienia, komunikaty.
+- **Znaczniki ekranu gry zgodne z rolą elementów** (decyzja D55, 2026-11-03). Style opierają się na
+  klasach, nie na nazwach znaczników.
+
+  | Znacznik | Zawartość |
+  |---|---|
+  | `header.game-bar` | „Menu główne”, tytuł i autor (atrybucja), A−/A+, stan zapisu |
+  | `nav.game-tools` | narzędzia gry |
+  | `aside.app-notices` | komunikaty aplikacji; wewnątrz obszar `role="status"` |
+  | `article.book-text` | **wyłącznie tekst książki 1:1** |
+  | `aside.ambiguous-note` | komunikat o niejednoznacznych wskazówkach |
+  | `nav.choices` | „Dokąd dalej?” i „Cofnij” |
+  | `aside.ending-area` | zakończenie „Koniec tej drogi” (zamiast `nav.choices`) |
+  | `footer.game-footer` | informacja o trybie mechaniki |
+
+  - Dzięki temu czytniki ekranu i funkcje czytania na głos w przeglądarkach odróżniają tekst paragrafu
+    od elementów aplikacji. Chrome w „Trybie czytania” pomija przyciski, `nav`, `aside` i `footer`.
+  - Aplikacja nie ma własnego lektora (D54); przycisk „Sam tekst” — dopiero po odpowiedzi Wydawcy
+    (PW4).
+  - Analiza: [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](../Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md).
+- **Komentarze HTML po polsku**:
+  - są w `index.html` i w drzewie strony — ekrany wstawiają je funkcją `htmlComment` (`dom.js`) przed
+    swoimi częściami (widoczne po F12 → „Zbadaj”);
+  - **nigdy wewnątrz tekstu książki** (`.book-text`);
+  - funkcje czytania na głos ich nie czytają.
+- Atrybut `hidden` zawsze ukrywa element — reguła CSS `[hidden] { display: none !important; }`, bo inaczej
+  przegrywałby z `display: flex/grid` z klas.
 - Bezpieczeństwo DOM: tekst książki budowany przez `createElement`/`textContent` z modelu JSON —
   **bez `innerHTML` dla treści**.
 - Ikony: tylko piktogramy funkcji (licencje odnotowane w `aplikacja/assets/icons/`).

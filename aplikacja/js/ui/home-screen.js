@@ -2,7 +2,7 @@
 // ostrzeżeniem o treści i pełną stopką redakcyjną (AGENTS.md, rozdz. 1.2).
 // Przed zalogowaniem nie pokazujemy treści ani okładek — gra jest tylko dla zalogowanych graczy.
 
-import { h, formatDateTime, plural } from './dom.js';
+import { h, formatDateTime, htmlComment, plural } from './dom.js';
 import { coverInfo, renderBlocks } from './content-renderer.js';
 import { bookInfoList, contentWarning } from './book-info.js';
 import { activeBooks, bookBase, loadColophon, loadManifest } from '../data/book-loader.js';
@@ -13,6 +13,7 @@ export async function renderHome(app, root) {
   const page = h('div', { class: 'home' });
   root.append(page);
   page.append(
+    htmlComment('Ekran główny. Wstęp: nazwa i krótki opis aplikacji.'),
     h(
       'section',
       { class: 'intro' },
@@ -39,7 +40,10 @@ export async function renderHome(app, root) {
   }
 
   if (!app.session) {
-    page.append(loginForm(app));
+    page.append(
+      htmlComment('Logowanie: login i hasło zakłada administrator (bez trybu gościa i bez otwartej rejestracji).'),
+      loginForm(app),
+    );
     return null;
   }
 
@@ -56,7 +60,11 @@ export async function renderHome(app, root) {
   }
 
   const books = (await activeBooks()).filter((book) => app.isBookEnabled(book.id));
-  page.append(h('h2', { class: 'section-title' }, 'Książki'));
+  page.append(
+    htmlComment('Katalog książek. Karta książki: okładka z podpisem autorki ilustracji, tytuł, autor, wydawca; '
+      + 'po rozwinięciu — ostrzeżenie o treści, stan gry, przyciski, atrybucja i odnośniki, pełna stopka redakcyjna.'),
+    h('h2', { class: 'section-title' }, 'Książki'),
+  );
   if (!books.length) {
     page.append(h('p', { class: 'muted' }, 'Brak książek w katalogu.'));
     return null;
@@ -230,6 +238,7 @@ async function bookCard(app, bookId) {
     progressText(state),
     actions,
     bookInfoList(manifest),
+    htmlComment('Stopka redakcyjna — pełna i dosłowna, z pliku źródłowego publikacji (zasada N3).'),
     h(
       'section',
       { class: 'colophon', 'aria-labelledby': `${titleId}-colophon` },

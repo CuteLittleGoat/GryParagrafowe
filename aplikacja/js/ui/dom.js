@@ -30,6 +30,13 @@ export function clear(element) {
   return element;
 }
 
+// Komentarz HTML po polsku (widoczny w narzędziach przeglądarki, F12 → „Zbadaj”), np. opis części
+// ekranu. Funkcje czytania na głos i czytniki ekranu go nie czytają. Nigdy nie wstawiamy komentarzy do
+// tekstu książki (wnętrze <article class="book-text">) — tam jest wyłącznie treść 1:1.
+export function htmlComment(text) {
+  return document.createComment(` ${String(text).replaceAll('--', '—')} `);
+}
+
 // Odnośnik zewnętrzny (otwierany w nowej karcie, bez przekazywania informacji o stronie).
 export function externalLink(href, text, props = {}) {
   return h('a', { href, target: '_blank', rel: 'noopener noreferrer', ...props }, text);

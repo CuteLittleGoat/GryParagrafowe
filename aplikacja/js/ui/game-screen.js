@@ -1,13 +1,26 @@
 // Ekran gry: treść bieżącego węzła 1:1, przejścia, komunikaty mechaniki, „Cofnij”, panele
 // (karta postaci / zdobyte Informacje, notatki, historia, zapisy, ustawienia) i „Nowa gra”.
 // Komunikaty aplikacji są wizualnie oddzielone od tekstu książki; przyciski mają etykiety techniczne.
+//
+// Układ HTML ekranu gry (w drzewie strony opisany komentarzami po polsku — F12 → „Zbadaj”):
+//   <header class="game-bar">        pasek: „Menu główne”, tytuł i autor (atrybucja), A−/A+, stan zapisu
+//   <nav class="game-tools">         narzędzia: Informacje / Karta postaci, Notatki, Historia, Zapisy…
+//   <aside class="app-notices">      komunikaty aplikacji (np. „Zdobywasz Informację #19.”)
+//   <article class="book-text">      TEKST KSIĄŻKI — wyłącznie treść 1:1, bez komentarzy i dopisków
+//   <aside class="ambiguous-note">   komunikat o niejednoznacznych wskazówkach
+//   <nav class="choices">            „Dokąd dalej?”: przejścia i „Cofnij” (albo <aside class="ending-area">)
+//   <footer class="game-footer">     informacja o trybie mechaniki
+// Znaczniki zgodne z rolą elementów pomagają czytnikom ekranu i funkcjom czytania na głos w
+// przeglądarkach odróżnić tekst paragrafu od przycisków i komunikatów aplikacji (Chrome „Tryb czytania”
+// pomija nav, aside i footer; Firefox „Widok czytnika” usuwa aside i footer). Aplikacja nie ma własnego
+// lektora — czyta przeglądarka gracza (decyzja D54; Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md).
 
 import { Game, nodeLabel } from '../core/engine.js';
 import { describe } from '../core/conditions.js';
 import { validateState } from '../core/state.js';
 import { bookBase, isActiveBook, loadBook } from '../data/book-loader.js';
 import { ConflictError } from '../data/storage-errors.js';
-import { h, append, clear, formatDateTime, plural } from './dom.js';
+import { h, append, clear, formatDateTime, htmlComment, plural } from './dom.js';
 import { coverInfo, renderBlocks } from './content-renderer.js';
 import { alertDialog, confirmDialog, openDialog, promptDialog } from './dialogs.js';
 import { FONT_SCALES, MODE_LABELS, THEME_LABELS, THEMES, stepFontScale } from './settings.js';
@@ -168,14 +181,20 @@ export async function renderGame(app, root, bookId) {
     clear(view);
     const finished = game.state.status === 'finished';
     // append() z dom.js pomija puste elementy (null) — natywne Element.append wstawiłoby tekst „null”.
+    // Komentarze HTML stoją przed częściami ekranu, nigdy wewnątrz tekstu książki.
     append(view, [
+      htmlComment('Pasek gry: „Menu główne”, tytuł i autor książki (atrybucja), wielkość tekstu, stan zapisu.'),
       gameBar(),
+      htmlComment('Narzędzia gry: panele (Informacje / Karta postaci, Notatki, Historia, Zapisy, Ustawienia), „O książce”, „Nowa gra”.'),
       toolbar(),
       noticesBox(),
+      htmlComment('TEKST KSIĄŻKI — bez żadnych zmian (1:1). Jedyny fragment ekranu przeznaczony do czytania na głos.'),
       textArticle(),
+      htmlComment('Koniec tekstu książki.'),
       ambiguousNote(),
       finished ? endingSection() : choicesSection(),
-      h('p', { class: 'mode-info muted small' }, `Tryb mechaniki: ${mode() === 'auto' ? 'automatyczny' : 'ręczny'}`, mechanics ? '' : ' (książka bez automatycznej mechaniki)'),
+      htmlComment('Informacja o trybie mechaniki (automatyczny albo ręczny — zmiana w „Ustawieniach”).'),
+      modeFooter(),
     ]);
     if (focusText) {
       window.scrollTo(0, 0);
@@ -183,10 +202,11 @@ export async function renderGame(app, root, bookId) {
     }
   }
 
+  // Pasek gry jako <header> (nagłówek ekranu gry). Tytuł i autor są tu zawsze widoczne (N1, Z7).
   function gameBar() {
     const scaleIndex = FONT_SCALES.indexOf(app.settings.fontScale);
     return h(
-      'div',
+      'header',
       { class: 'game-bar' },
       h('a', { href: '#/', class: 'btn btn-small' }, 'Menu główne'),
       h(
@@ -227,12 +247,21 @@ export async function renderGame(app, root, bookId) {
       if (notice.type === 'lose') items.push(`Tracisz Informację ${prefix}${notice.code}.`);
     }
     if (!items.length) return null;
-    return h(
-      'div',
-      { class: 'app-notice', role: 'status' },
-      h('p', { class: 'app-notice-label' }, 'Komunikat aplikacji'),
-      h('ul', {}, items.map((text) => h('li', {}, text))),
-    );
+    // <aside> — treść poboczna względem tekstu książki; wewnątrz obszar role="status", żeby czytniki
+    // ekranu ogłaszały komunikat.
+    return [
+      htmlComment('Komunikaty aplikacji — nie są częścią książki.'),
+      h(
+        'aside',
+        { class: 'app-notices', 'aria-label': 'Komunikaty aplikacji' },
+        h(
+          'div',
+          { class: 'app-notice', role: 'status' },
+          h('p', { class: 'app-notice-label' }, 'Komunikat aplikacji'),
+          h('ul', {}, items.map((text) => h('li', {}, text))),
+        ),
+      ),
+    ];
   }
 
   function conditionState(option) {
@@ -270,16 +299,23 @@ export async function renderGame(app, root, bookId) {
     };
     game.options().forEach((option) => collect(option.condition));
     const sorted = [...codes].sort((a, b) => Number(a) - Number(b));
-    return h(
-      'div',
-      { class: 'app-notice app-notice-info', role: 'note' },
-      h('p', { class: 'app-notice-label' }, 'Komunikat aplikacji'),
-      h('p', {}, 'Wskazówki w tym miejscu można odczytać na więcej niż jeden sposób. Aplikacja nie podpowiada, '
-        + 'którą drogę wybrać — zdecyduj według własnego odczytania tekstu.'),
-      sorted.length
-        ? h('p', {}, 'Informacje wymienione w tym miejscu: ', sorted.map((code) => `${prefix}${code} — ${game.hasCodeword(code) ? 'masz' : 'nie masz'}`).join('; '), '.')
-        : null,
-    );
+    return [
+      htmlComment('Komunikat aplikacji o niejednoznacznych wskazówkach (aplikacja nie podpowiada drogi).'),
+      h(
+        'aside',
+        { class: 'ambiguous-note', 'aria-label': 'Komunikat aplikacji o wskazówkach' },
+        h(
+          'div',
+          { class: 'app-notice app-notice-info', role: 'note' },
+          h('p', { class: 'app-notice-label' }, 'Komunikat aplikacji'),
+          h('p', {}, 'Wskazówki w tym miejscu można odczytać na więcej niż jeden sposób. Aplikacja nie podpowiada, '
+            + 'którą drogę wybrać — zdecyduj według własnego odczytania tekstu.'),
+          sorted.length
+            ? h('p', {}, 'Informacje wymienione w tym miejscu: ', sorted.map((code) => `${prefix}${code} — ${game.hasCodeword(code) ? 'masz' : 'nie masz'}`).join('; '), '.')
+            : null,
+        ),
+      ),
+    ];
   }
 
   function choicesSection() {
@@ -318,17 +354,38 @@ export async function renderGame(app, root, bookId) {
           );
         }))
         : h('p', { class: 'muted' }, 'Z tego miejsca nie prowadzi dalej żaden odnośnik.');
-    return h(
-      'section',
-      { class: 'choices', 'aria-labelledby': 'choices-title' },
-      h('h2', { id: 'choices-title', class: 'choices-title' }, 'Dokąd dalej?'),
-      h('div', { class: 'choices-layout' }, h('div', { class: 'choices-main' }, list), undoBlock()),
-    );
+    // <nav> — przejścia między paragrafami to nawigacja (czytniki ekranu: obszar „Dokąd dalej?”).
+    return [
+      htmlComment('Dokąd dalej? Przejścia do kolejnych paragrafów (etykiety techniczne) i „Cofnij”.'),
+      h(
+        'nav',
+        { class: 'choices', 'aria-labelledby': 'choices-title' },
+        h('h2', { id: 'choices-title', class: 'choices-title' }, 'Dokąd dalej?'),
+        h('div', { class: 'choices-layout' }, h('div', { class: 'choices-main' }, list), undoBlock()),
+      ),
+    ];
   }
 
   // Zakończenie: ramka „Koniec tej drogi” po lewej, „Cofnij” po prawej (na telefonie — pod ramką).
+  // <aside> — informacja aplikacji o zakończeniu, poza tekstem książki.
   function endingSection() {
-    return h('div', { class: 'choices-layout ending-layout' }, endingBox(), undoBlock());
+    return [
+      htmlComment('Koniec tej drogi: informacja o zakończeniu, odkryte zakończenia, „Zagraj ponownie”, „Cofnij”.'),
+      h(
+        'aside',
+        { class: 'ending-area', 'aria-labelledby': 'ending-title' },
+        h('div', { class: 'choices-layout ending-layout' }, endingBox(), undoBlock()),
+      ),
+    ];
+  }
+
+  // Stopka ekranu gry (<footer>): informacja o trybie mechaniki.
+  function modeFooter() {
+    return h(
+      'footer',
+      { class: 'game-footer' },
+      h('p', { class: 'mode-info muted small' }, `Tryb mechaniki: ${mode() === 'auto' ? 'automatyczny' : 'ręczny'}`, mechanics ? '' : ' (książka bez automatycznej mechaniki)'),
+    );
   }
 
   function goToLabel(nodeId) {
@@ -341,9 +398,10 @@ export async function renderGame(app, root, bookId) {
     const ending = game.node.ending;
     const notice = lastNotices.find((item) => item.type === 'ending');
     const found = game.state.endingsFound.length;
+    // Nazwę obszaru („Koniec tej drogi”) nadaje otaczający <aside class="ending-area">.
     return h(
-      'section',
-      { class: 'ending-box', 'aria-labelledby': 'ending-title' },
+      'div',
+      { class: 'ending-box' },
       h('h2', { id: 'ending-title' }, 'Koniec tej drogi'),
       ending ? h('p', {}, 'Zakończenie: ', h('q', {}, ending.title)) : null,
       notice ? h('p', { class: 'ending-first' }, notice.first ? 'To zakończenie odkrywasz po raz pierwszy!' : 'To zakończenie odkryto już wcześniej.') : null,

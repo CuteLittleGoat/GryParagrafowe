@@ -143,6 +143,13 @@ main:focus {
   outline: none;
 }
 
+/* Atrybut hidden zawsze ukrywa element — także wtedy, gdy jego klasa nadaje display: flex albo grid
+   (bez tej reguły np. pasek gry z atrybutem hidden zostałby na ekranie). Ukryty element nie jest
+   wyświetlany ani czytany przez czytniki ekranu i funkcje czytania na głos w przeglądarkach. */
+[hidden] {
+  display: none !important;
+}
+
 a {
   color: var(--link);
 }
@@ -787,6 +794,9 @@ ol.book-list > li::before {
 }
 
 /* --- ekran gry ------------------------------------------------------------------------------- */
+/* Układ (game-screen.js): header.game-bar → nav.game-tools → aside.app-notices → article.book-text
+   (tekst książki) → aside.ambiguous-note → nav.choices albo aside.ending-area → footer.game-footer.
+   Style opierają się na klasach, nie na nazwach znaczników. */
 
 .game-bar {
   position: sticky;

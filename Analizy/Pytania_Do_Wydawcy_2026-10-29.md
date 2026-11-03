@@ -51,7 +51,7 @@ Polecenie z 2026-11-03 (pytanie PW4):
 |---|---|---|---|---|---|
 | PW1 | Czy gracz może zmienić krój pisma (czcionkę)? | 📝 przygotowane | — | — | tylko krój oryginalny (Old Standard); funkcji zmiany kroju nie budujemy |
 | PW2 | Czy można dodać typowe ustawienia wyświetlania (wielkość liter, tryb ciemny, dopasowanie do ekranu telefonu)? | 📝 przygotowane | — | — | przygotowujemy je jak w czytnikach e-booków; przy braku zgody — wycofamy |
-| PW4 | Czy możemy dodać przycisk, który na czas słuchania chowa przyciski aplikacji, tak żeby funkcja czytania na głos **wbudowana w przeglądarkę** czytała sam tekst paragrafu? (aplikacja nie ma własnego lektora) | 📝 przygotowane | — | — | własnego lektora nie tworzymy (Z3); przycisku „Sam tekst” nie dodajemy (propozycja — decyzja właściciela, pytanie P17 w `PLAN_I_CHANGELOG.md`); funkcji przeglądarki nie blokujemy |
+| PW4 | Czy możemy dodać przycisk, który na czas słuchania chowa przyciski aplikacji, tak żeby funkcja czytania na głos **wbudowana w przeglądarkę** czytała sam tekst paragrafu? (aplikacja nie ma własnego lektora) | 📝 przygotowane | — | — | własnego lektora nie tworzymy (Z3); przycisku „Sam tekst” nie dodajemy (decyzja właściciela 2026-11-03, P17); porządek w znacznikach HTML i komentarze — zrobione (2026-11-03); funkcji przeglądarki nie blokujemy |
 
 Statusy: 📝 przygotowane → 📤 wysłane → ✅ zgoda / ⛔ brak zgody / ❓ odpowiedź wymaga doprecyzowania.
 
@@ -117,9 +117,12 @@ aplikacji, tak aby funkcja czytania na głos wbudowana w przeglądarkę (włącz
 tylko tekst paragrafu? Aplikacja nie ma własnego lektora i niczego nie nagrywa; głos i tempo ustawia
 gracz w przeglądarce. Tekst pozostaje bez zmian, a tytuł i autor zostają widoczne.
 
-**Do czasu odpowiedzi** (propozycja; decyzja właściciela — pytanie P17 w `PLAN_I_CHANGELOG.md`):
+**Do czasu odpowiedzi** (decyzja właściciela 2026-11-03, pytanie P17 w `PLAN_I_CHANGELOG.md`: „Czekając na
+odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.”):
 - własnego lektora nie tworzymy;
 - przycisku „Sam tekst” nie dodajemy;
+- porządek w znacznikach HTML i komentarze po polsku — zrobione (2026-11-03); Chrome czyta teraz tekst
+  paragrafu i tytuł książki, ale funkcje czytające całą stronę nadal czytają przyciski;
 - funkcji przeglądarki nie blokujemy — to narzędzie gracza, jak czytnik ekranu dla osób niewidomych.
 
 ## Szkic wiadomości (PW1 + PW2 + PW4)

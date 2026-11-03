@@ -11,7 +11,7 @@
 | | |
 |---|---|
 | Etap | **2, 3 i 5 — zakończone; aplikacja opublikowana** (2026-11-02): `https://cutelittlegoat.github.io/GryParagrafowe/`; App Check działa (2026-11-03) — czeka na obserwację i wymuszenie |
-| Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy: przeglądarka 43/43, emulator 15/15, reguły 17/17, silnik 12/12 |
+| Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy (2026-11-03): przeglądarka 71/71, emulator 15/15, reguły 17/17, silnik 12/12 |
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ✅ — klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni, wymiana tokenu działa (2026-11-03); wymuszenie (*Enforce*) — po obserwacji |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
@@ -28,8 +28,8 @@
    (gotowy szkic wiadomości w pliku pytań).
 4. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
    uprawnienia administratora).
-5. **Właściciel — decyzje**: P17 (czytanie na głos — co robimy i kiedy) i P16 (dopisek „Tryb
-   mechaniki”); potem agent wdraża wybrany wariant.
+5. **Właściciel — decyzja P16** (dopisek „Tryb mechaniki”); potem agent wdraża wybrany wariant.
+   Czytanie na głos (P17 — rozstrzygnięte): przycisk „Sam tekst” dopiero po odpowiedzi Wydawcy na PW4.
 
 ## 3. Plan prac (etapy)
 
@@ -102,7 +102,7 @@
 
 ### Etap 7 — Jakość i wdrożenie
 - [ ] Dostępność (klawiatura, ARIA, kontrast), testy na telefonach
-- [ ] Czytanie na głos przez przeglądarkę — porządek w znacznikach HTML ekranu gry (`header`, `nav`, `aside`, `footer`), reguła CSS `[hidden]` i komentarze po polsku w HTML (wariant A z [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)) — po decyzji właściciela (P17)
+- [x] Czytanie na głos przez przeglądarkę — porządek w znacznikach HTML ekranu gry (`header`, `nav`, `aside`, `footer`), reguła CSS `[hidden]` i komentarze po polsku w HTML (wariant A z [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)) — 2026-11-03 (P17, D55)
 - [ ] Przycisk „Sam tekst” (wariant B2: na czas słuchania chowa przyciski i komunikaty, atrybucja zostaje widoczna) — **tylko po odpowiedzi Wydawcy** (PW4) i decyzji właściciela (P17)
 - [ ] CI (GitHub Actions): weryfikacja treści i mechaniki, testy
 - [x] Hosting: **GitHub Pages** (P3) — włączone przez właściciela 2026-11-02 (repozytorium publiczne, gałąź `main`): `https://cutelittlegoat.github.io/GryParagrafowe/`
@@ -165,6 +165,7 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
+| D55 | 2026-11-03 | **Znaczniki ekranu gry zgodne z rolą elementów**: pasek gry `<header>`, narzędzia i „Dokąd dalej?” `<nav>`, komunikaty i zakończenie `<aside>`, informacja o trybie mechaniki `<footer>`; tekst książki wyłącznie w `<article class="book-text">`. **Komentarze HTML po polsku** w `index.html` i w drzewie strony (wstawiane przez ekrany funkcją `htmlComment`) — nigdy wewnątrz tekstu książki. Reguła CSS `[hidden] { display: none !important; }` | decyzja właściciela P17 („Czekając na odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.”); Chrome „Tryb czytania” czyta teraz tekst paragrafu i tytuł książki, bez dopisków i komunikatów |
 | D54 | 2026-11-03 | **Bez własnego lektora/TTS** — aplikacja może co najwyżej ułatwić pracę funkcji czytania na głos wbudowanej w przeglądarkę (gracz sam ją włącza; głos, tempo i inne ustawienia odczytu — w przeglądarce); czy przycisk „Sam tekst” jest zgodny ze zgodą — pytanie PW4 do Wydawcy | polecenie właściciela („Nie tworzymy żadnego bota do odczytu”; „nie chcę tworzyć własnego lektora/TTS tylko nakierować już istniejącego w przeglądarce”); zasada Z3 |
 | D53 | 2026-11-03 | „Vae Victis”: przycisk **„Informacje”** (liczba mnoga — poprawka właściciela z tego samego dnia; wcześniej „Informacja”) i okno **„Zdobyte Informacje”** zamiast „Karta postaci” (pola `buttonLabel` i `panelTitle` modułu `codewords`, generator mechaniki 1.1.0); inne książki — domyślnie „Karta postaci”; komunikaty i opisy trybów bez odwołań do „karty postaci” | decyzja właściciela — książka nie ma klasycznej karty postaci ze statystykami |
 | D52 | 2026-11-03 | Stopka aplikacji (projekt nieoficjalny i niekomercyjny, zgoda wydawców, autor piktogramu kozy) **tylko na ekranie głównym** — bez niej przy czytaniu książki i w „O książce” | decyzja właściciela; zgoda Wydawcy nie wymaga stopki aplikacji, zasada N10 i licencja CC BY 3.0 spełnione na ekranie głównym |
@@ -187,13 +188,13 @@
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
 | P15 | **Wygląd tekstu gry.** W pliku PDF akapity zaczynają się od wcięcia (pierwszy wiersz przesunięty w prawo), nie ma między nimi odstępów, a tekst jest wyrównany do obu krawędzi strony — jak w drukowanej książce. W aplikacji akapity są oddzielone pustym odstępem, bez wcięć, a tekst jest wyrównany do lewej (na wąskim ekranie telefonu czyta się to zwykle wygodniej). Treść jest w obu przypadkach identyczna — chodzi tylko o wygląd. | **A ★** zostawić jak teraz (wygodniej na telefonie); **B** jak w PDF na wszystkich ekranach; **C** jak w PDF tylko na dużych ekranach (komputer), na telefonie jak teraz. Właściciel (2026-11-03): „Na obecną chwilę zostaw jak jest” — **decyzja na koniec prac nad książką** |
-| P16 | **Dopisek „Tryb mechaniki: automatyczny” pod przyciskami gry.** Mówi, w jakim trybie działa gra. W trybie automatycznym aplikacja sama zapisuje zdobyte Informacje i oznacza drogi ✓/✗. W ręcznym — jak na papierze — wszystko zaznacza gracz. Bez dopisku ktoś, kto przypadkiem włączył tryb ręczny, mógłby się dziwić, czemu znaczki ✓/✗ zniknęły. (Przy czytaniu na głos Chrome czyta ten dopisek — porządek w znacznikach z P17 to naprawia niezależnie od wyboru tutaj.) | **A** zostawić jak jest; **B ★** zamienić w odnośnik, który od razu otwiera „Ustawienia”; **C** usunąć (tryb widoczny tylko w „Ustawieniach”). Pytanie zadane w rozmowie 2026-11-03 — czeka na odpowiedź |
-| P17 | **Czytanie na głos — co robimy i kiedy?** Przykład: w Edge klikasz „Czytaj na głos”, a przeglądarka czyta dziś także „Ustawienia”, „Przejdź do §54” i „Cofnij”. Analiza: [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md) | **A** tylko porządek w znacznikach i komentarze po polsku — gracz nic nie zauważy, Chrome przestanie czytać m.in. „Dokąd dalej?”, warunki i komunikaty, ale czytanie całej strony nadal obejmie przyciski; **B ★** teraz porządek w znacznikach i komentarze, a przycisk „Sam tekst” (tryb stały, pamiętany na urządzeniu) po odpowiedzi Wydawcy na PW4; **C** wszystko teraz, a jeśli Wydawca się nie zgodzi — przycisk usuniemy (jak przy PW2) |
+| P16 | **Dopisek „Tryb mechaniki: automatyczny” pod przyciskami gry.** Mówi, w jakim trybie działa gra. W trybie automatycznym aplikacja sama zapisuje zdobyte Informacje i oznacza drogi ✓/✗. W ręcznym — jak na papierze — wszystko zaznacza gracz. Bez dopisku ktoś, kto przypadkiem włączył tryb ręczny, mógłby się dziwić, czemu znaczki ✓/✗ zniknęły. (Przy czytaniu na głos Chrome czytał ten dopisek — od 2026-11-03 dopisek jest w stopce ekranu gry i Chrome go pomija, niezależnie od wyboru tutaj.) | **A** zostawić jak jest; **B ★** zamienić w odnośnik, który od razu otwiera „Ustawienia”; **C** usunąć (tryb widoczny tylko w „Ustawieniach”). Pytanie zadane w rozmowie 2026-11-03 — czeka na odpowiedź |
 
 ### 5.2. Rozstrzygnięte
 
 | # | Pytanie | Odpowiedź właściciela |
 |---|---|---|
+| P17 | Czytanie na głos — co robimy i kiedy? (analiza: [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)) | (2026-11-03) **wariant B**: „Czekając na odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.” — porządek w znacznikach i komentarze po polsku wykonane (D55); przycisk „Sam tekst” — po odpowiedzi Wydawcy na PW4 |
 | P1 | Analiza zabezpieczeń z innego projektu | (2026-10-29) dostarczona (instrukcja App Check z projektu „Karty”); wnioski w FIREBASE.md, rozdz. 7 |
 | P2 | Czy oryginalny EPUB zostaje w repozytorium? | (2026-10-29) **zostaje**; w aplikacji będą odnośniki do oryginałów na stronie Wydawnictwa |
 | P3 | Gdzie publikujemy stronę? | (2026-10-29) **GitHub Pages** |
@@ -212,6 +213,41 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-03 — Porządek w znacznikach ekranu gry i komentarze HTML po polsku
+
+**Zmieniono**
+- Ekran gry (`game-screen.js`) — polecenie właściciela (P17, wariant B; D55):
+  - pasek gry: `<header>`;
+  - „Dokąd dalej?”: `<nav>`;
+  - komunikaty aplikacji i komunikat o niejednoznaczności: `<aside>`;
+  - zakończenie: `<aside>` „Koniec tej drogi”;
+  - informacja o trybie mechaniki: `<footer>`;
+  - tekst książki — jak dotąd — wyłącznie w `<article class="book-text">`.
+
+  Wygląd bez zmian.
+- Skutek dla czytania na głos (sprawdzone na nowym kodzie):
+  - Chrome „Tryb czytania” czyta tekst paragrafu i tytuł książki, bez „Dokąd dalej?”, warunków,
+    komunikatów i dopisków;
+  - Firefox „Widok czytnika” czyta sam tekst w dłuższych paragrafach;
+  - funkcje czytające całą stronę nadal czytają przyciski — to zmieni dopiero przycisk „Sam tekst”
+    (po odpowiedzi Wydawcy na PW4).
+- `style.css`: reguła `[hidden] { display: none !important; }` — wcześniej atrybut `hidden` przegrywał z
+  `display: flex/grid`.
+
+**Dodano**
+- Komentarze po polsku w `index.html` (przy każdej części strony).
+- Komentarze HTML wstawiane przez ekrany (gra, ekran główny, „O książce”) — widoczne po F12 →
+  „Zbadaj”, nigdy wewnątrz tekstu książki. Wstawia je funkcja `htmlComment` w `dom.js`.
+- Test w przeglądarce: 14 nowych sprawdzeń, razem **71/71**. Sprawdzają układ ekranu gry, komentarze
+  poza tekstem książki, działanie `hidden` oraz to, że poza tekstem książki jest tylko tytuł (w pięciu
+  sytuacjach).
+- Pozostałe testy: z emulatorem 15/15, silnik 12/12.
+
+**Naprawiono**
+- Analiza odczytu na głos: przy czytaniu całej strony czytane są 24–27 linijki interfejsu (wcześniej
+  podano 21–26). Przyczyna: w części pomiarów nagłówek aplikacji został ukryty po poprzednim przypadku
+  testowym.
 
 ### 2026-11-03 — Analiza: czytanie na głos funkcją przeglądarki; pytanie PW4
 

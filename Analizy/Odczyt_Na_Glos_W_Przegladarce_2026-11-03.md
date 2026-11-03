@@ -120,7 +120,7 @@ widocznym tekście strony, więc żaden mechanizm nie powinien go przeczytać.
 |---|---|
 | Chrome „Tryb czytania” | przyciski pomija; czyta jednak: „Vae Victis” (tytuł z paska gry), „Dokąd dalej?”, warunki przy przejściach (§91, §37), „Komunikat aplikacji” i „Zdobywasz Informację #19.” (§54), cały komunikat o niejednoznaczności (§170), ramkę „Koniec tej drogi” z liczbą odkrytych zakończeń (§122), „To Twoja gra :) Graj jak lubisz!”, „Tryb mechaniki: automatyczny” |
 | Firefox „Widok czytnika” | dłuższe paragrafy (§57, §54, §122) — **sam tekst**; w nagłówku widoku czytnika Firefox pokazuje i czyta tytuł karty „Vae Victis — Gry paragrafowe” oraz autora rozpoznanego z paska gry. Krótkie paragrafy (§91 — 434 znaki, §37, §170 — 302 znaki): **także** „Menu główne”, autor, „Dokąd dalej?”, warunki, komunikat, dopisek przy „Cofnij”, „Tryb mechaniki…” |
-| Cały widoczny tekst | tekst paragrafu i 21–26 linijek interfejsu: „Przejdź do treści”, „Gry paragrafowe”, „Gracz: …”, „Wyloguj”, „Menu główne”, „Vae Victis”, „Beniamin Muszyński”, „A−”, „A+”, „Informacje”, „Notatki”, „Historia”, „Zapisy”, „Ustawienia”, „O książce”, „Nowa gra”, „Dokąd dalej?”, „Przejdź do §54 (odnośnik 1 z 2)” …, „Cofnij”, „To Twoja gra :)”, „Graj jak lubisz!”, „Tryb mechaniki: automatyczny” |
+| Cały widoczny tekst | tekst paragrafu i 24–27 linijek interfejsu: „Przejdź do treści”, „Gry paragrafowe”, „Gracz: …”, „Wyloguj”, „Menu główne”, „Vae Victis”, „Beniamin Muszyński”, „A−”, „A+”, „Informacje”, „Notatki”, „Historia”, „Zapisy”, „Ustawienia”, „O książce”, „Nowa gra”, „Dokąd dalej?”, „Przejdź do §54 (odnośnik 1 z 2)” …, „Cofnij”, „To Twoja gra :)”, „Graj jak lubisz!”, „Tryb mechaniki: automatyczny” |
 | Zaznaczenie całego tekstu paragrafu | **dokładnie tekst paragrafu** — w każdej sytuacji |
 
 **Dlaczego Firefox myli się przy krótkich paragrafach.**
@@ -140,7 +140,7 @@ Zbiorcze wyniki testu (sytuacje z rozdz. 2; „+” = co jest czytane poza tekst
 
 | Wariant | Chrome „Tryb czytania” | Firefox „Widok czytnika” | Cały widoczny tekst |
 |---|---|---|---|
-| obecny | + tytuł, „Dokąd dalej?”, warunki, komunikaty, zakończenie, dopiski | dłuższe: sam tekst; krótkie: + wiele elementów interfejsu | + wszystkie przyciski i napisy (21–26 linijek) |
+| obecny | + tytuł, „Dokąd dalej?”, warunki, komunikaty, zakończenie, dopiski | dłuższe: sam tekst; krótkie: + wiele elementów interfejsu | + wszystkie przyciski i napisy (24–27 linijek) |
 | **A** — znaczniki | + tylko tytuł „Vae Victis” | dłuższe: sam tekst; część krótkich: + autor, „Dokąd dalej?”, warunki, dopisek | bez zmian (wszystko) |
 | **B** — „Sam tekst” | **sam tekst** | **sam tekst** (także krótkie paragrafy) | + 2 linijki na końcu: przycisk powrotu i „Vae Victis · Beniamin Muszyński · O książce” |
 | D — `aria-hidden` (odrzucony) | sam tekst | sam tekst | bez zmian (wszystko); szkodzi osobom niewidomym |

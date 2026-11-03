@@ -2,7 +2,7 @@
 // książki 1:1 (stopka redakcyjna, „od Wydawnictwa”, strona tytułowa, dedykacja, spis treści, …).
 // Odnośniki wewnętrzne są tu zwykłym tekstem (bez skoków do paragrafów); zewnętrzne — działają.
 
-import { h } from './dom.js';
+import { h, htmlComment } from './dom.js';
 import { renderBlocks, coverInfo } from './content-renderer.js';
 import { bookInfoList, contentWarning, coverFigure } from './book-info.js';
 import { bookBase, isActiveBook, loadBook } from '../data/book-loader.js';
@@ -45,12 +45,14 @@ export async function renderAbout(app, root, bookId) {
     h(
       'div',
       { class: 'about' },
+      htmlComment('Ekran „O książce”. Nawigacja: „Przejdź do gry”, „Menu główne”.'),
       h(
         'nav',
         { class: 'about-nav', 'aria-label': 'Nawigacja' },
         h('a', { href: `#/gra/${bookId}`, class: 'btn btn-primary' }, 'Przejdź do gry'),
         h('a', { href: '#/', class: 'btn' }, 'Menu główne'),
       ),
+      htmlComment('Atrybucja: tytuł, okładka z podpisem autorki ilustracji, autor, ostrzeżenie o treści, źródło tekstu i odnośniki.'),
       h('h1', {}, h('span', { class: 'muted-label' }, 'O książce: '), manifest.title),
       h(
         'div',
@@ -58,6 +60,7 @@ export async function renderAbout(app, root, bookId) {
         coverFigure(manifest, base, { large: true }),
         h('div', { class: 'about-header-info' }, h('p', { class: 'book-card-author' }, manifest.authors.join(', ')), contentWarning(manifest), bookInfoList(manifest)),
       ),
+      htmlComment('Spis stron wstępnych książki (odnośniki w obrębie tego ekranu).'),
       h(
         'nav',
         { class: 'about-toc panel', 'aria-label': 'Strony wstępne książki' },
@@ -68,6 +71,7 @@ export async function renderAbout(app, root, bookId) {
           document.getElementById(`front-${id}`)?.focus({ preventScroll: true });
         } }, FRONT_LABELS[id] ?? nodeLabel(content, id))))),
       ),
+      htmlComment('Strony wstępne książki (m.in. pełna stopka redakcyjna) — tekst bez żadnych zmian (1:1).'),
       fronts.map((id) =>
         h(
           'section',
@@ -75,6 +79,7 @@ export async function renderAbout(app, root, bookId) {
           h('h2', { id: `front-${id}-title`, class: 'app-section-title' }, FRONT_LABELS[id] ?? nodeLabel(content, id)),
           h('div', { class: COMPACT_FRONTS.has(id) ? 'book-text front-text' : 'book-text', lang: manifest.language ?? 'pl' }, renderBlocks(content.nodes[id].blocks, renderOptions)),
         )),
+      htmlComment('Nawigacja na dole ekranu.'),
       h(
         'nav',
         { class: 'about-nav about-nav-bottom', 'aria-label': 'Nawigacja' },

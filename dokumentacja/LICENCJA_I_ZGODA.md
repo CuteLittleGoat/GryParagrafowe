@@ -387,5 +387,7 @@ Pytania do Wydawcy zbieramy w [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](../An
    komunikaty aplikacji, tak żeby przeglądarka czytała sam tekst paragrafu (tekst bez zmian, atrybucja
    widoczna — N1, Z7). Ponieważ przycisk ma ułatwiać czytanie na głos, właściciel polecił zapytać
    Wydawcę (pytanie PW4). Funkcji przeglądarki nie blokujemy — to narzędzie gracza, jak czytnik ekranu.
-   Analiza:
+   Decyzja właściciela (2026-11-03, P17): do czasu odpowiedzi tylko porządek w znacznikach HTML ekranu
+   gry i komentarze po polsku (wykonane — tekst książki bez zmian); przycisk „Sam tekst” — po odpowiedzi
+   Wydawcy. Analiza:
    [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](../Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md).

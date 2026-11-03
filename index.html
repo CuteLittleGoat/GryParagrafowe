@@ -1,24 +1,40 @@
 <!doctype html>
+<!-- Gry paragrafowe — jedyny plik HTML aplikacji. Ekrany (ekran główny, gra, „O książce”) buduje
+     JavaScript z katalogu aplikacja/js/ — ich układ opisują komentarze wstawiane przez aplikację
+     (widoczne w przeglądarce po F12 → „Zbadaj”). Projekt nieoficjalny i niekomercyjny. -->
 <html lang="pl" data-theme="auto">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Strona nie trafia do wyszukiwarek: projekt wewnętrzny dla wąskiego grona graczy (zasada N7). -->
   <meta name="robots" content="noindex, nofollow">
   <meta name="color-scheme" content="light dark">
   <title>Gry paragrafowe</title>
+  <!-- Ikona karty przeglądarki i ekranu telefonu: piktogram kozy (Skoll, game-icons.net, CC BY 3.0). -->
   <link rel="icon" href="aplikacja/assets/icons/koza.svg" type="image/svg+xml">
   <link rel="icon" href="aplikacja/assets/icons/koza-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="aplikacja/assets/icons/koza-180.png">
+  <!-- Wygląd aplikacji: motyw jasny i ciemny, układ dla telefonu i komputera. -->
   <link rel="stylesheet" href="aplikacja/css/style.css">
+  <!-- Kod aplikacji (moduły JavaScript): logowanie, router ekranów, silnik gry. -->
   <script type="module" src="aplikacja/js/main.js"></script>
 </head>
 <body>
+  <!-- Odnośnik „Przejdź do treści” dla osób korzystających z klawiatury (pojawia się po naciśnięciu Tab). -->
   <a class="skip-link" href="#app">Przejdź do treści</a>
+
+  <!-- Nagłówek aplikacji: logo (piktogram kozy) z nazwą aplikacji oraz zalogowany gracz i „Wyloguj”
+       (wstawia je aplikacja). -->
   <header class="app-header">
     <a class="app-name" href="#/"><span class="app-logo" aria-hidden="true"></span>Gry paragrafowe</a>
     <div id="user-area" class="user-area"></div>
   </header>
+
+  <!-- Główna część strony: tu aplikacja wstawia bieżący ekran. Tekst książki trafia wyłącznie do
+       elementu <article class="book-text"> — bez żadnych zmian (1:1). -->
   <main id="app" tabindex="-1"></main>
+
+  <!-- Stopka aplikacji — widoczna tylko na ekranie głównym (decyzja właściciela D52, zasada N10). -->
   <footer class="app-footer">
     <p>Gry paragrafowe — projekt nieoficjalny i niekomercyjny. Treści książek wykorzystane za zgodą
       wydawców; prawa do tekstów, okładek i logotypów należą do ich właścicieli.</p>
@@ -27,6 +43,8 @@
       licencja <a href="https://creativecommons.org/licenses/by/3.0/deed.pl" target="_blank"
       rel="noopener noreferrer">CC BY 3.0</a> (zmieniony kolor).</p>
   </footer>
+
+  <!-- Komunikat dla przeglądarek z wyłączonym JavaScriptem. -->
   <noscript><p class="noscript">Aplikacja wymaga włączonej obsługi JavaScriptu.</p></noscript>
 </body>
 </html>
