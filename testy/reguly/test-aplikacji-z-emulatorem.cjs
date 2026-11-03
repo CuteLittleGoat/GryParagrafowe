@@ -82,6 +82,7 @@ async function main() {
     && !JSON.stringify(sessions).includes('Tajne') && sessions[0].playerId === 'Player1', JSON.stringify(sessions.map((s) => s.playerId)));
 
   // 3. Gra i zapis w bazie
+  await page.click('.book-toggle');
   await page.click('text=Rozpocznij grę');
   await page.waitForSelector('.game-text', { timeout: 30000 });
   await page.click('.game-text a.book-link:has-text("Prologu")');

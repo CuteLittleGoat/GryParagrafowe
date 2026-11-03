@@ -160,6 +160,7 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
+| D51 | 2026-11-03 | **Zwijane karty książek** na ekranie głównym: zwinięta = okładka z podpisem autorki ilustracji, tytuł, autor, wydawca + belka „Rozwiń” (z dopiskiem „szczegóły, ostrzeżenie o treści, stopka redakcyjna”); rozwinięta = ostrzeżenie o treści, stan gry, przyciski, atrybucja i odnośniki, pełna stopka; kliknięcie nagłówka lub belki rozwija i zwija; stan pamiętany do końca sesji przeglądarki | polecenie właściciela — czytelność ekranu głównego przy wielu książkach; zgodne z N1, N3, N4 i Z7 (LICENCJA_I_ZGODA.md) |
 | D50 | 2026-11-03 | App Check: ważność tokenu **7 dni** (zamiast 1 dnia); klucz reCAPTCHA w projekcie `gryparagrafowe-e1fb3` | decyzja właściciela — rzadsze sprawdzenia reCAPTCHA; mały, zamknięty krąg graczy |
 | D45 | 2026-11-02 | Konta: `Player1` — właściciel (administrator), `Player2` — Wydawnictwo, `Player3` … `Player5` — gracze; `playerCount` = 5 (typ *int64* w obecnej konsoli); kolejne konta później | decyzja i konfiguracja właściciela |
 | D44 | 2026-11-02 | Dokument `appConfig/public` opcjonalny — bez niego aplikacja sprawdza konta `Player1` … `Player10`; kolekcje `players` i `sessions` tworzy aplikacja; konta (`secrets`) zakłada wyłącznie administrator w konsoli | mniej pracy w konsoli; bezpieczeństwo — aplikacja nie może zakładać kont |
@@ -201,6 +202,17 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-03 — Zwijane karty książek na ekranie głównym
+
+**Zmieniono**
+- Ekran główny: karta każdej książki jest zwijana (D51). Zwinięta — okładka z podpisem autorki
+  ilustracji, tytuł, autor, wydawca i belka „Rozwiń” (z dopiskiem: szczegóły, ostrzeżenie o treści,
+  stopka redakcyjna); rozwinięta — wszystko, co dotąd (ostrzeżenie o treści, stan gry, przyciski,
+  atrybucja, odnośniki, pełna stopka) i przycisk „Zwiń kartę” na dole. Kliknięcie nagłówka lub belki
+  rozwija i zwija kartę; dostępność: przycisk z `aria-expanded` i `aria-controls`; układ na telefon.
+- Testy: test w przeglądarce 50/50 (nowe sprawdzenia zwijania), test z emulatorem 15/15.
+- LICENCJA_I_ZGODA.md (N3, Z7) i ARCHITEKTURA.md — opis zwijanej karty i jej zgodności z zasadami.
 
 ### 2026-11-03 — App Check działa; P15
 

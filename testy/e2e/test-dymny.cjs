@@ -54,7 +54,27 @@ function check(name, condition, details = '') {
     await Promise.all([...document.images].map((img) => (img.complete ? null : new Promise((r) => { img.onload = r; img.onerror = r; }))));
   });
   check('obrazy na ekranie głównym wczytane', await page.evaluate(() => [...document.images].every((img) => img.complete && img.naturalWidth > 0)));
+
+  // 2a. Zwijana karta książki: na starcie zwinięta (okładka z podpisem, tytuł, autor, wydawca)
+  const cardState = () => page.$eval('.book-card', (c) => ({
+    expanded: c.querySelector('.book-toggle').getAttribute('aria-expanded'),
+    panelVisible: !c.querySelector('.book-card-panel').hidden && c.querySelector('.book-card-panel').offsetHeight > 0,
+    header: c.querySelector('.book-card-header').innerText,
+  }));
+  let state = await cardState();
+  check('karta zwinięta na starcie', state.expanded === 'false' && !state.panelVisible, JSON.stringify(state.expanded));
+  check('zwinięta karta: tytuł, autor, wydawca, podpis okładki', ['Vae Victis', 'Beniamin Muszyński', 'Wydawnictwo Wielokrotnego Wyboru', 'Ilustracja na okładce: Justyna Bzdoń'].every((t) => state.header.includes(t)));
+  check('belka wskazuje stopkę redakcyjną', (await page.textContent('.book-toggle')).includes('stopka redakcyjna'));
   await page.screenshot({ path: path.join(OUT, '02-katalog.png'), fullPage: true });
+  await page.click('.book-toggle');
+  state = await cardState();
+  check('belka rozwija kartę', state.expanded === 'true' && state.panelVisible);
+  await page.click('.book-card-header');
+  state = await cardState();
+  check('kliknięcie nagłówka zwija kartę', state.expanded === 'false' && !state.panelVisible);
+  await page.click('.book-card-header');
+  check('stopka widoczna po rozwinięciu', await page.isVisible('.colophon-text >> text=ISBN 978-83-951564-0-3'));
+  await page.screenshot({ path: path.join(OUT, '02b-karta-rozwinieta.png'), fullPage: true });
 
   // 3. Rozpoczęcie gry
   await page.click('text=Rozpocznij grę');
@@ -211,6 +231,7 @@ function check(name, condition, details = '') {
   await mobile.click('button[type=submit]');
   await mobile.waitForSelector('.book-card');
   await mobile.screenshot({ path: path.join(OUT, '15-telefon-katalog.png'), fullPage: true });
+  await mobile.click('.book-toggle');
   await mobile.click('text=Rozpocznij grę');
   await mobile.waitForSelector('.game-text');
   await mobile.click('.game-text a.book-link:has-text("Prologu")');
@@ -223,6 +244,7 @@ function check(name, condition, details = '') {
   // 16. „Nowa gra” z ekranu głównego otwiera pytanie w ekranie gry
   await page.goto(`${BASE}#/`);
   await page.waitForSelector('.book-card');
+  check('rozwinięta karta zapamiętana w tej sesji', (await page.getAttribute('.book-toggle', 'aria-expanded')) === 'true');
   await page.click('.book-card a:has-text("Nowa gra")');
   await page.waitForSelector('dialog[open]');
   check('Nowa gra z ekranu głównego', (await page.textContent('dialog[open] .dialog-title')) === 'Nowa gra');

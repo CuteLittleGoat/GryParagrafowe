@@ -113,7 +113,11 @@ Informacja o źródle jest widoczna w aplikacji („O książce”) i zapisana w
   (w „Vae Victis”: od „Copyright © by Beniamin Muszyński, 2018.” do „ISBN 978-83-951564-0-3”),
   łącznie z sekcjami LICENCJA i WYDAWCA, danymi kontaktowymi i logotypami, które są częścią stopki.
 - Wyświetlana **na ekranie głównym przy danej książce** (wymóg właściciela) oraz dostępna z poziomu
-  gry (ekran „O książce”).
+  gry (ekran „O książce”). Od 2026-11-03 karta książki na ekranie głównym jest **zwijana** (decyzja
+  właściciela — czytelność przy wielu książkach): zwinięta karta pokazuje okładkę z podpisem autorki
+  ilustracji, tytuł, autora i wydawcę, a belka „Rozwiń” wprost wymienia „stopkę redakcyjną”; po
+  rozwinięciu stopka jest pełna, w zwykłym rozmiarze. Sama zgoda Wydawcy wymaga pełnej zawartości
+  stopki (bez wskazania miejsca) — umieszczenie na ekranie głównym to wymóg właściciela.
 - Stopka jest generowana automatycznie z pliku źródłowego (nie przepisywana ręcznie) — patrz
   [KONWERSJA.md](KONWERSJA.md).
 
@@ -206,6 +210,9 @@ Patrz zakaz Z5.
 **Z7. Zakaz usuwania, skracania i ukrywania stopki oraz atrybucji** [ZGODA]
 - Nie skracamy, nie parafrazujemy, nie przenosimy w trudno dostępne miejsca, nie ukrywamy
   stylami (np. mikroskopijna czcionka, kolor tła).
+- Zwijana karta książki na ekranie głównym (rozdz. N3) nie jest ukrywaniem: tytuł, autor, wydawca i
+  okładka z podpisem są zawsze widoczne, belka nazywa stopkę redakcyjną, a po jednym kliknięciu stopka
+  jest pełna i czytelna (w „O książce” — zawsze rozwinięta).
 
 **Z8. Zakaz używania logotypów Wydawnictwa/portalu poza odwzorowaniem stopki** [OSTROŻNOŚĆ]
 - Nie jako logo aplikacji, favicon, ikona PWA, ekran powitalny, element brandingu.
