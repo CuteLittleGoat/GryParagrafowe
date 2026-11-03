@@ -381,3 +381,11 @@ Pytania do Wydawcy zbieramy w [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](../An
    właściciela (2026-11-02): **nie skracać** — to tekst „Vae Victis”, a nie użycie tytułu „Wagabunda”
    w aplikacji (zakaz Z4 dotyczy m.in. katalogu aplikacji); zainteresowani pobiorą tytuł bezpośrednio
    od Wydawcy (odnośnik do strony Wydawnictwa jest w aplikacji).
+8. **Czytanie na głos funkcją wbudowaną w przeglądarkę** — decyzja właściciela (2026-11-03): **bez
+   własnego lektora/TTS** (zgodnie z Z3). Przeglądarka czyta stronę na polecenie gracza, a głos i tempo
+   ustawia gracz w przeglądarce. Rozważany przycisk „Sam tekst” chowałby na czas słuchania przyciski i
+   komunikaty aplikacji, tak żeby przeglądarka czytała sam tekst paragrafu (tekst bez zmian, atrybucja
+   widoczna — N1, Z7). Ponieważ przycisk ma ułatwiać czytanie na głos, właściciel polecił zapytać
+   Wydawcę (pytanie PW4). Funkcji przeglądarki nie blokujemy — to narzędzie gracza, jak czytnik ekranu.
+   Analiza:
+   [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](../Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md).

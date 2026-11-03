@@ -15,7 +15,7 @@
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ✅ — klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni, wymiana tokenu działa (2026-11-03); wymuszenie (*Enforce*) — po obserwacji |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
-| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1–PW2 przygotowane (**tylko sprawy licencyjne** — decyzja właściciela 2026-11-02; PW3 usunięte); właściciel wyśle je razem z odnośnikiem do aplikacji i kontem dla Wydawnictwa |
+| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1, PW2 i PW4 przygotowane (**tylko sprawy licencyjne** — decyzja właściciela 2026-11-02; PW3 usunięte; PW4 — czytanie na głos funkcją przeglądarki, 2026-11-03); właściciel wyśle je razem z odnośnikiem do aplikacji i kontem dla Wydawnictwa |
 | Blokery | brak |
 
 ## 2. Następne kroki
@@ -24,9 +24,12 @@
    Check* → *APIs* → *Cloud Firestore*, czy żądania są „Verified”; potem **Enforce** (hamulec:
    *Unenforce*). Przy okazji usunąć stary klucz `gryparagrafowe-e1fb3` z projektu AudioRPG (tylko ten!).
 2. **Właściciel**: sprawdzenie logowania prawdziwymi kontami (w tym kontem Wydawnictwa `Player2`).
-3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1–PW2.
+3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1, PW2 i PW4
+   (gotowy szkic wiadomości w pliku pytań).
 4. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
    uprawnienia administratora).
+5. **Właściciel — decyzje**: P17 (czytanie na głos — co robimy i kiedy) i P16 (dopisek „Tryb
+   mechaniki”); potem agent wdraża wybrany wariant.
 
 ## 3. Plan prac (etapy)
 
@@ -99,6 +102,8 @@
 
 ### Etap 7 — Jakość i wdrożenie
 - [ ] Dostępność (klawiatura, ARIA, kontrast), testy na telefonach
+- [ ] Czytanie na głos przez przeglądarkę — porządek w znacznikach HTML ekranu gry (`header`, `nav`, `aside`, `footer`), reguła CSS `[hidden]` i komentarze po polsku w HTML (wariant A z [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)) — po decyzji właściciela (P17)
+- [ ] Przycisk „Sam tekst” (wariant B2: na czas słuchania chowa przyciski i komunikaty, atrybucja zostaje widoczna) — **tylko po odpowiedzi Wydawcy** (PW4) i decyzji właściciela (P17)
 - [ ] CI (GitHub Actions): weryfikacja treści i mechaniki, testy
 - [x] Hosting: **GitHub Pages** (P3) — włączone przez właściciela 2026-11-02 (repozytorium publiczne, gałąź `main`): `https://cutelittlegoat.github.io/GryParagrafowe/`
 - [ ] Polityka CSP (znacznik w `index.html`) — po sprawdzeniu działania na GitHub Pages, żeby nie zablokować Firebase ani App Check
@@ -160,6 +165,7 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
+| D54 | 2026-11-03 | **Bez własnego lektora/TTS** — aplikacja może co najwyżej ułatwić pracę funkcji czytania na głos wbudowanej w przeglądarkę (gracz sam ją włącza; głos, tempo i inne ustawienia odczytu — w przeglądarce); czy przycisk „Sam tekst” jest zgodny ze zgodą — pytanie PW4 do Wydawcy | polecenie właściciela („Nie tworzymy żadnego bota do odczytu”; „nie chcę tworzyć własnego lektora/TTS tylko nakierować już istniejącego w przeglądarce”); zasada Z3 |
 | D53 | 2026-11-03 | „Vae Victis”: przycisk **„Informacje”** (liczba mnoga — poprawka właściciela z tego samego dnia; wcześniej „Informacja”) i okno **„Zdobyte Informacje”** zamiast „Karta postaci” (pola `buttonLabel` i `panelTitle` modułu `codewords`, generator mechaniki 1.1.0); inne książki — domyślnie „Karta postaci”; komunikaty i opisy trybów bez odwołań do „karty postaci” | decyzja właściciela — książka nie ma klasycznej karty postaci ze statystykami |
 | D52 | 2026-11-03 | Stopka aplikacji (projekt nieoficjalny i niekomercyjny, zgoda wydawców, autor piktogramu kozy) **tylko na ekranie głównym** — bez niej przy czytaniu książki i w „O książce” | decyzja właściciela; zgoda Wydawcy nie wymaga stopki aplikacji, zasada N10 i licencja CC BY 3.0 spełnione na ekranie głównym |
 | D51 | 2026-11-03 | **Zwijane karty książek** na ekranie głównym: zwinięta = okładka z podpisem autorki ilustracji, tytuł, autor, wydawca + belka „Rozwiń” (z dopiskiem „szczegóły, ostrzeżenie o treści, stopka redakcyjna”); rozwinięta = ostrzeżenie o treści, stan gry, przyciski, atrybucja i odnośniki, pełna stopka; kliknięcie nagłówka lub belki rozwija i zwija; stan pamiętany do końca sesji przeglądarki | polecenie właściciela — czytelność ekranu głównego przy wielu książkach; zgodne z N1, N3, N4 i Z7 (LICENCJA_I_ZGODA.md) |
@@ -169,7 +175,7 @@
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
 | D29 | 2026-11-01 | `AGENTS.md` jest uniwersalny — zawiera tylko zasady stałe; tytuły i warunki zgód są w rejestrze zgód (`dokumentacja/LICENCJA_I_ZGODA.md`), stan Firebase w `FIREBASE.md`, etapy i decyzje w tym pliku | wymóg właściciela |
 | D30 | 2026-11-01 | Oryginały zgód i korespondencji z wydawcą mogą zostać usunięte z repozytorium; wiążącym zapisem warunków jest rejestr zgód z dosłownymi cytatami kluczowych zdań | informacja właściciela |
-| D31 | 2026-11-01 | Pytania PW1–PW2 do Wydawcy (PW3 usunięte — D46) — na końcu prac, razem z odnośnikiem do gotowej aplikacji z jedną książką i kontem gracza dla Wydawcy | decyzja właściciela |
+| D31 | 2026-11-01 | Pytania PW1–PW2 do Wydawcy (PW3 usunięte — D46; PW4 dodane 2026-11-03 — D54) — na końcu prac, razem z odnośnikiem do gotowej aplikacji z jedną książką i kontem gracza dla Wydawcy | decyzja właściciela |
 
 ## 5. Otwarte pytania
 
@@ -181,6 +187,8 @@
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
 | P15 | **Wygląd tekstu gry.** W pliku PDF akapity zaczynają się od wcięcia (pierwszy wiersz przesunięty w prawo), nie ma między nimi odstępów, a tekst jest wyrównany do obu krawędzi strony — jak w drukowanej książce. W aplikacji akapity są oddzielone pustym odstępem, bez wcięć, a tekst jest wyrównany do lewej (na wąskim ekranie telefonu czyta się to zwykle wygodniej). Treść jest w obu przypadkach identyczna — chodzi tylko o wygląd. | **A ★** zostawić jak teraz (wygodniej na telefonie); **B** jak w PDF na wszystkich ekranach; **C** jak w PDF tylko na dużych ekranach (komputer), na telefonie jak teraz. Właściciel (2026-11-03): „Na obecną chwilę zostaw jak jest” — **decyzja na koniec prac nad książką** |
+| P16 | **Dopisek „Tryb mechaniki: automatyczny” pod przyciskami gry.** Mówi, w jakim trybie działa gra. W trybie automatycznym aplikacja sama zapisuje zdobyte Informacje i oznacza drogi ✓/✗. W ręcznym — jak na papierze — wszystko zaznacza gracz. Bez dopisku ktoś, kto przypadkiem włączył tryb ręczny, mógłby się dziwić, czemu znaczki ✓/✗ zniknęły. (Przy czytaniu na głos Chrome czyta ten dopisek — porządek w znacznikach z P17 to naprawia niezależnie od wyboru tutaj.) | **A** zostawić jak jest; **B ★** zamienić w odnośnik, który od razu otwiera „Ustawienia”; **C** usunąć (tryb widoczny tylko w „Ustawieniach”). Pytanie zadane w rozmowie 2026-11-03 — czeka na odpowiedź |
+| P17 | **Czytanie na głos — co robimy i kiedy?** Przykład: w Edge klikasz „Czytaj na głos”, a przeglądarka czyta dziś także „Ustawienia”, „Przejdź do §54” i „Cofnij”. Analiza: [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md) | **A** tylko porządek w znacznikach i komentarze po polsku — gracz nic nie zauważy, Chrome przestanie czytać m.in. „Dokąd dalej?”, warunki i komunikaty, ale czytanie całej strony nadal obejmie przyciski; **B ★** teraz porządek w znacznikach i komentarze, a przycisk „Sam tekst” (tryb stały, pamiętany na urządzeniu) po odpowiedzi Wydawcy na PW4; **C** wszystko teraz, a jeśli Wydawca się nie zgodzi — przycisk usuniemy (jak przy PW2) |
 
 ### 5.2. Rozstrzygnięte
 
@@ -204,6 +212,28 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-03 — Analiza: czytanie na głos funkcją przeglądarki; pytanie PW4
+
+**Dodano**
+- Analiza [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)
+  (polecenie właściciela): jak sprawić, żeby funkcja czytania na głos wbudowana w przeglądarkę czytała
+  tylko tekst paragrafu. Kod aplikacji bez zmian.
+  - **Test w przeglądarce:** reguły „Trybu czytania” z kodu Chrome i biblioteka Readability z
+    Firefoksa, uruchomione na prawdziwym ekranie gry.
+  - **Wyniki:** Chrome czyta dziś także tytuł, „Dokąd dalej?”, warunki, komunikaty i dopiski. Funkcje
+    czytające całą stronę czytają wszystkie przyciski.
+  - **Pewny sposób:** przycisk „Sam tekst” — na czas słuchania chowa przyciski i komunikaty, a
+    atrybucja zostaje.
+  - **Rekomendacja:** porządek w znacznikach i komentarze po polsku od razu, przycisk po odpowiedzi
+    Wydawcy (P17).
+  - **Przy okazji:** atrybut `hidden` nie ukrywa dziś paska gry, narzędzi ani nagłówka aplikacji, bo
+    wygrywa z nim `display: flex/grid` z arkusza stylów. Do poprawy przy wdrożeniu regułą
+    `[hidden] { display: none !important; }`.
+- Pytanie **PW4** do Wydawcy (polecenie właściciela) wraz z punktem 3 w szkicu wiadomości. Numer PW3
+  nie jest używany ponownie.
+- Decyzja D54 (bez własnego lektora/TTS); `dokumentacja/LICENCJA_I_ZGODA.md`, rozdz. 9 pkt 8.
+- Otwarte pytania P16 (dopisek „Tryb mechaniki” — zadane wcześniej w rozmowie) i P17 (czytanie na głos).
 
 ### 2026-11-03 — Sekcja „Dokąd dalej?” w dwóch kolumnach
 
