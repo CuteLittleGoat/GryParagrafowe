@@ -211,6 +211,11 @@ rozdz. 4); każdy węzeł zapisany w jednym wierszu (czytelne różnice w histor
 }
 ```
 
+Moduł `codewords` może mieć pola `buttonLabel` i `panelTitle` — nazwy przycisku i okna z oznaczeniami
+w aplikacji (dla „Vae Victis”: „Informacja” i „Zdobyte Informacje”, bo książka nie ma klasycznej karty
+postaci ze statystykami); bez nich aplikacja używa nazwy „Karta postaci”. Wartości ustawia się w
+konfiguracji mechaniki (`narzedzia/konwersja/mechanika_<bookId>.json`, sekcja `codewords`).
+
 | Pole węzła | Znaczenie |
 |---|---|
 | `onEnter` | efekty przy wejściu do węzła |

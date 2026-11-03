@@ -160,6 +160,7 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
+| D53 | 2026-11-03 | „Vae Victis”: przycisk **„Informacja”** i okno **„Zdobyte Informacje”** zamiast „Karta postaci” (pola `buttonLabel` i `panelTitle` modułu `codewords`, generator mechaniki 1.1.0); inne książki — domyślnie „Karta postaci”; komunikaty i opisy trybów bez odwołań do „karty postaci” | decyzja właściciela — książka nie ma klasycznej karty postaci ze statystykami |
 | D52 | 2026-11-03 | Stopka aplikacji (projekt nieoficjalny i niekomercyjny, zgoda wydawców, autor piktogramu kozy) **tylko na ekranie głównym** — bez niej przy czytaniu książki i w „O książce” | decyzja właściciela; zgoda Wydawcy nie wymaga stopki aplikacji, zasada N10 i licencja CC BY 3.0 spełnione na ekranie głównym |
 | D51 | 2026-11-03 | **Zwijane karty książek** na ekranie głównym: zwinięta = okładka z podpisem autorki ilustracji, tytuł, autor, wydawca + belka „Rozwiń” (z dopiskiem „szczegóły, ostrzeżenie o treści, stopka redakcyjna”); rozwinięta = ostrzeżenie o treści, stan gry, przyciski, atrybucja i odnośniki, pełna stopka; kliknięcie nagłówka lub belki rozwija i zwija; stan pamiętany do końca sesji przeglądarki | polecenie właściciela — czytelność ekranu głównego przy wielu książkach; zgodne z N1, N3, N4 i Z7 (LICENCJA_I_ZGODA.md) |
 | D50 | 2026-11-03 | App Check: ważność tokenu **7 dni** (zamiast 1 dnia); klucz reCAPTCHA w projekcie `gryparagrafowe-e1fb3` | decyzja właściciela — rzadsze sprawdzenia reCAPTCHA; mały, zamknięty krąg graczy |
@@ -203,6 +204,17 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-03 — „Informacja” zamiast „Karty postaci” w „Vae Victis”
+
+**Zmieniono**
+- Przycisk „Karta postaci” → **„Informacja”**, okno „Karta postaci — Informacje” → **„Zdobyte
+  Informacje”** (D53) — nazwy z mechaniki książki (`buttonLabel`, `panelTitle`; generator mechaniki
+  1.1.0, M1–M5: 5/5); dla książek bez własnych nazw zostaje „Karta postaci”.
+- Komunikaty bez odwołań do karty postaci: „Zdobywasz Informację #19.”, „Ta droga nie spełnia
+  warunku: …”, w miejscach niejednoznacznych — „Informacje wymienione w tym miejscu: …”; opisy trybów
+  mechaniki w „Ustawieniach” — ogólne (bez nazw z konkretnej książki).
+- FORMAT_KSIAZKI.md, ARCHITEKTURA.md, karta książki; test w przeglądarce.
 
 ### 2026-11-03 — Stopka aplikacji tylko na ekranie głównym
 

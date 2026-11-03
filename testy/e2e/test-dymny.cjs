@@ -142,9 +142,12 @@ function check(name, condition, details = '') {
   check('komunikat o zdobyciu Informacji #19', (await page.textContent('.app-notice')).includes('#19'));
   await page.screenshot({ path: path.join(OUT, '07-zdobycie.png'), fullPage: true });
 
-  // 8. Karta postaci: #19 zaznaczona, ręczne przełączanie
-  await page.click('.game-tools button:has-text("Karta postaci")');
+  // 8. Zdobyte Informacje (w tej książce zamiast „Karty postaci”): #19 zaznaczona, ręczne przełączanie
+  check('przycisk „Informacja” zamiast „Karta postaci”', (await page.locator('.game-tools button', { hasText: 'Informacja' }).count()) === 1
+    && (await page.locator('.game-tools button', { hasText: 'Karta postaci' }).count()) === 0);
+  await page.click('.game-tools button:has-text("Informacja")');
   await page.waitForSelector('dialog[open] .codeword-grid');
+  check('okno „Zdobyte Informacje”', (await page.textContent('dialog[open] .dialog-title')) === 'Zdobyte Informacje');
   check('karta: #19 zaznaczona', (await page.getAttribute('dialog[open] [aria-label="Informacja #19"]', 'aria-pressed')) === 'true');
   await page.click('dialog[open] [aria-label="Informacja #5"]');
   check('karta: ręczne zaznaczenie #5', (await page.getAttribute('dialog[open] [aria-label="Informacja #5"]', 'aria-pressed')) === 'true');

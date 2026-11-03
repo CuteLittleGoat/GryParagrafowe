@@ -3,7 +3,7 @@
   "content": "ksiazki/vae-victis/tresc.json",
   "output": "ksiazki/vae-victis/mechanika.json",
   "startNode": "wprowadzenie",
-  "codewords": { "label": "Informacje", "prefix": "#" },
+  "codewords": { "label": "Informacje", "prefix": "#", "buttonLabel": "Informacja", "panelTitle": "Zdobyte Informacje" },
   "ambiguousNodes": ["p170", "p259", "p286", "p289"],
   "linkConditions": [
     {

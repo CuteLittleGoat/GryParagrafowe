@@ -24,7 +24,7 @@ import sys
 from pathlib import Path
 
 GENERATOR_SCRIPT = "narzedzia/konwersja/generuj_mechanike.py"
-GENERATOR_VERSION = "1.0.0"
+GENERATOR_VERSION = "1.1.0"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 EDGE_WS = "  \t\n"
 
@@ -189,6 +189,8 @@ def generate(cfg):
         "startNode": cfg["startNode"],
         "modules": {
             "codewords": {"label": cfg["codewords"]["label"], "prefix": cfg["codewords"]["prefix"],
+                          **{key: cfg["codewords"][key] for key in ("buttonLabel", "panelTitle")
+                             if key in cfg["codewords"]},
                           "values": sorted(codewords, key=int)},
             "visits": {},
             "endings": {},

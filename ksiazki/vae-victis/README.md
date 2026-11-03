@@ -127,6 +127,10 @@ dalszy ciąg jest osobnym dokumentem bez nagłówka (`index_split_115`) → węz
 - **Moduły aplikacji**: `codewords` (etykieta „Informacje”), `visits`, `endings`, `notes`.
   Bez `stats`, `dice`, `inventory`, `combat`.
 
+W aplikacji (decyzja właściciela, 2026-11-03): książka nie ma klasycznej karty postaci ze
+statystykami — zebrane Informacje otwiera przycisk **„Informacja”**, a okno nosi tytuł **„Zdobyte
+Informacje”** (`buttonLabel` i `panelTitle` w konfiguracji mechaniki).
+
 ## 6. Grafiki w EPUB
 
 | Plik w EPUB | Wymiary | Zawartość | Użycie w aplikacji |

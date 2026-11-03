@@ -46,6 +46,6 @@ export function saveDeviceSettings(settings) {
 
 export const THEME_LABELS = { auto: 'Automatyczny (jak w systemie)', light: 'Jasny', dark: 'Ciemny' };
 export const MODE_LABELS = {
-  auto: 'Automatyczny — aplikacja zapisuje zdobyte Informacje i oznacza drogi',
-  manual: 'Ręczny — jak na papierze: sam prowadzisz kartę, aplikacja niczego nie oznacza',
+  auto: 'Automatyczny — aplikacja sama zapisuje to, co zdobywasz w grze, i oznacza drogi',
+  manual: 'Ręczny — jak na papierze: wszystko zapisujesz sam, aplikacja niczego nie oznacza',
 };

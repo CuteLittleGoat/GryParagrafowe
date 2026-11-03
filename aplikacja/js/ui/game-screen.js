@@ -1,5 +1,5 @@
 // Ekran gry: treść bieżącego węzła 1:1, przejścia, komunikaty mechaniki, „Cofnij”, panele
-// (karta postaci, notatki, historia, zapisy, ustawienia) i „Nowa gra”.
+// (karta postaci / zdobyte Informacje, notatki, historia, zapisy, ustawienia) i „Nowa gra”.
 // Komunikaty aplikacji są wizualnie oddzielone od tekstu książki; przyciski mają etykiety techniczne.
 
 import { Game, nodeLabel } from '../core/engine.js';
@@ -27,6 +27,10 @@ export async function renderGame(app, root, bookId) {
   const cover = coverInfo(manifest);
   const codewordsModule = mechanics?.modules?.codewords ?? null;
   const prefix = codewordsModule?.prefix ?? '#';
+  // Nazwy przycisku i okna z mechaniki książki (np. „Vae Victis”: „Informacja” / „Zdobyte Informacje”);
+  // książki bez własnych nazw — „Karta postaci”.
+  const sheetButtonLabel = codewordsModule?.buttonLabel ?? 'Karta postaci';
+  const sheetTitle = codewordsModule?.panelTitle ?? `Karta postaci — ${codewordsModule?.label ?? 'Informacje'}`;
   const endingNodes = content.order.filter((id) => content.nodes[id].ending);
   app.setTitle(manifest.title);
 
@@ -205,7 +209,7 @@ export async function renderGame(app, root, bookId) {
     return h(
       'nav',
       { class: 'game-tools', 'aria-label': 'Narzędzia gry' },
-      game.state.modules.codewords ? h('button', { type: 'button', class: 'btn btn-small', onClick: openSheet }, 'Karta postaci') : null,
+      game.state.modules.codewords ? h('button', { type: 'button', class: 'btn btn-small', onClick: openSheet }, sheetButtonLabel) : null,
       h('button', { type: 'button', class: 'btn btn-small', onClick: openNotes }, 'Notatki'),
       h('button', { type: 'button', class: 'btn btn-small', onClick: openHistory }, 'Historia'),
       h('button', { type: 'button', class: 'btn btn-small', onClick: openSaves }, 'Zapisy'),
@@ -219,8 +223,8 @@ export async function renderGame(app, root, bookId) {
     const items = [];
     if (book.mechanicsProblem) items.push(book.mechanicsProblem);
     for (const notice of lastNotices) {
-      if (notice.type === 'gain') items.push(`Zdobywasz Informację ${prefix}${notice.code} — zapisano na karcie postaci.`);
-      if (notice.type === 'lose') items.push(`Tracisz Informację ${prefix}${notice.code} — usunięto z karty postaci.`);
+      if (notice.type === 'gain') items.push(`Zdobywasz Informację ${prefix}${notice.code}.`);
+      if (notice.type === 'lose') items.push(`Tracisz Informację ${prefix}${notice.code}.`);
     }
     if (!items.length) return null;
     return h(
@@ -273,7 +277,7 @@ export async function renderGame(app, root, bookId) {
       h('p', {}, 'Wskazówki w tym miejscu można odczytać na więcej niż jeden sposób. Aplikacja nie podpowiada, '
         + 'którą drogę wybrać — zdecyduj według własnego odczytania tekstu.'),
       sorted.length
-        ? h('p', {}, 'Twoja karta: ', sorted.map((code) => `Informacja ${prefix}${code} — ${game.hasCodeword(code) ? 'masz' : 'nie masz'}`).join('; '), '.')
+        ? h('p', {}, 'Informacje wymienione w tym miejscu: ', sorted.map((code) => `${prefix}${code} — ${game.hasCodeword(code) ? 'masz' : 'nie masz'}`).join('; '), '.')
         : null,
     );
   }
@@ -365,7 +369,7 @@ export async function renderGame(app, root, bookId) {
       const confirmed = await confirmDialog({
         title: 'Warunek niespełniony',
         message: [
-          `Według Twojej karty postaci ta droga nie spełnia warunku: ${describe(option.condition)}.`,
+          `Ta droga nie spełnia warunku: ${describe(option.condition)}.`,
           'Możesz mimo to przejść dalej — wybór należy do Ciebie.',
         ],
         confirmLabel: goToLabel(option.to),
@@ -446,13 +450,13 @@ export async function renderGame(app, root, bookId) {
     };
     fill();
     openDialog({
-      title: `Karta postaci — ${codewordsModule?.label ?? 'Informacje'}`,
+      title: sheetTitle,
       wide: true,
       body: [
         h('p', {}, mode() === 'auto'
           ? 'Zdobyte Informacje są zaznaczane automatycznie.'
           : 'Tryb ręczny: zaznaczaj zdobyte Informacje samodzielnie, jak na kartce papieru.'),
-        h('p', { class: 'muted small' }, 'Kliknij numer, aby go zaznaczyć lub odznaczyć. Ręcznych zmian na karcie nie cofa przycisk „Cofnij”.'),
+        h('p', { class: 'muted small' }, 'Kliknij numer, aby go zaznaczyć lub odznaczyć. Ręcznych zmian nie cofa przycisk „Cofnij”.'),
         summary,
         grid,
       ],
