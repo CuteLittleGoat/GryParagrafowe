@@ -28,8 +28,7 @@
    (gotowy szkic wiadomości w pliku pytań).
 4. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
    uprawnienia administratora).
-5. **Właściciel — decyzja P16** (dopisek „Tryb mechaniki”); potem agent wdraża wybrany wariant.
-   Czytanie na głos (P17 — rozstrzygnięte): przycisk „Sam tekst” dopiero po odpowiedzi Wydawcy na PW4.
+5. Czytanie na głos (P17 — rozstrzygnięte): przycisk „Sam tekst” dopiero po odpowiedzi Wydawcy na PW4.
 
 ## 3. Plan prac (etapy)
 
@@ -195,12 +194,12 @@
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
 | P15 | **Wygląd tekstu gry.** W pliku PDF akapity zaczynają się od wcięcia (pierwszy wiersz przesunięty w prawo), nie ma między nimi odstępów, a tekst jest wyrównany do obu krawędzi strony — jak w drukowanej książce. W aplikacji akapity są oddzielone pustym odstępem, bez wcięć, a tekst jest wyrównany do lewej (na wąskim ekranie telefonu czyta się to zwykle wygodniej). Treść jest w obu przypadkach identyczna — chodzi tylko o wygląd. | **A ★** zostawić jak teraz (wygodniej na telefonie); **B** jak w PDF na wszystkich ekranach; **C** jak w PDF tylko na dużych ekranach (komputer), na telefonie jak teraz. Właściciel (2026-11-03): „Na obecną chwilę zostaw jak jest” — **decyzja na koniec prac nad książką** |
-| P16 | **Dopisek „Tryb mechaniki: automatyczny” pod przyciskami gry.** Mówi, w jakim trybie działa gra. W trybie automatycznym aplikacja sama zapisuje zdobyte Informacje i oznacza drogi ✓/✗. W ręcznym — jak na papierze — wszystko zaznacza gracz. Bez dopisku ktoś, kto przypadkiem włączył tryb ręczny, mógłby się dziwić, czemu znaczki ✓/✗ zniknęły. (Przy czytaniu na głos Chrome czytał ten dopisek — od 2026-11-03 dopisek jest w stopce ekranu gry i Chrome go pomija, niezależnie od wyboru tutaj.) | **A** zostawić jak jest; **B ★** zamienić w odnośnik, który od razu otwiera „Ustawienia”; **C** usunąć (tryb widoczny tylko w „Ustawieniach”). Pytanie zadane w rozmowie 2026-11-03 — czeka na odpowiedź |
 
 ### 5.2. Rozstrzygnięte
 
 | # | Pytanie | Odpowiedź właściciela |
 |---|---|---|
+| P16 | Dopisek „Tryb mechaniki: automatyczny” na dole ekranu gry — zostawić, zrobić z niego odnośnik do „Ustawień” czy usunąć? | (2026-11-08) **wariant A**: „Wariant A. Zostaje jak jest.” — zwykły napis bez zmian |
 | P18 | Liczba Informacji w oknie „Zdobyte Informacje” (książka jej nie podaje; „Masz 0 z 43 Informacji”) | (2026-11-08) **wariant B**: lista numerów zostaje, napis bez łącznej liczby — „Masz 0 Informacji” (D61) |
 | P17 | Czytanie na głos — co robimy i kiedy? (analiza: [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)) | (2026-11-03) **wariant B**: „Czekając na odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.” — porządek w znacznikach i komentarze po polsku wykonane (D55); przycisk „Sam tekst” — po odpowiedzi Wydawcy na PW4 |
 | P1 | Analiza zabezpieczeń z innego projektu | (2026-10-29) dostarczona (instrukcja App Check z projektu „Karty”); wnioski w FIREBASE.md, rozdz. 7 |
@@ -221,6 +220,11 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-08 — P16 rozstrzygnięte
+
+- Dopisek „Tryb mechaniki: automatyczny” na dole ekranu gry **zostaje bez zmian** (decyzja właściciela P16,
+  wariant A). Kod aplikacji bez zmian.
 
 ### 2026-11-08 — „Zdobyte Informacje” bez łącznej liczby (P18)
 
