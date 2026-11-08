@@ -15,7 +15,7 @@
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ✅ — klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni, wymiana tokenu działa (2026-11-03); wymuszenie (*Enforce*) — po obserwacji |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
-| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1, PW2 i PW4 przygotowane (**tylko sprawy licencyjne** — decyzja właściciela 2026-11-02; PW3 usunięte; PW4 — czytanie na głos funkcją przeglądarki, 2026-11-03); właściciel wyśle je razem z odnośnikiem do aplikacji i kontem dla Wydawnictwa |
+| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1 i PW2 przygotowane (**tylko sprawy licencyjne** — decyzja właściciela 2026-11-02; PW3 usunięte; PW4 — czytanie na głos — **wstrzymane** 2026-11-08); właściciel wyśle je razem z odnośnikiem do aplikacji i kontem dla Wydawnictwa; bez szkiców wiadomości — tylko pytania w pliku (D63) |
 | Blokery | brak |
 
 ## 2. Następne kroki
@@ -24,11 +24,10 @@
    Check* → *APIs* → *Cloud Firestore*, czy żądania są „Verified”; potem **Enforce** (hamulec:
    *Unenforce*). Przy okazji usunąć stary klucz `gryparagrafowe-e1fb3` z projektu AudioRPG (tylko ten!).
 2. **Właściciel**: sprawdzenie logowania prawdziwymi kontami (w tym kontem Wydawnictwa `Player2`).
-3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1, PW2 i PW4
-   (gotowy szkic wiadomości w pliku pytań).
+3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1 i PW2 (pytania
+   w pliku `Analizy/Pytania_Do_Wydawcy_2026-10-29.md`; wiadomość pisze właściciel).
 4. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
    uprawnienia administratora).
-5. Czytanie na głos (P17 — rozstrzygnięte): przycisk „Sam tekst” dopiero po odpowiedzi Wydawcy na PW4.
 
 ## 3. Plan prac (etapy)
 
@@ -102,7 +101,7 @@
 ### Etap 7 — Jakość i wdrożenie
 - [ ] Dostępność (klawiatura, ARIA, kontrast), testy na telefonach
 - [x] Czytanie na głos przez przeglądarkę — porządek w znacznikach HTML ekranu gry (`header`, `nav`, `aside`, `footer`), reguła CSS `[hidden]` i komentarze po polsku w HTML (wariant A z [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)) — 2026-11-03 (P17, D55)
-- [ ] Przycisk „Sam tekst” (wariant B2: na czas słuchania chowa przyciski i komunikaty, atrybucja zostaje widoczna) — **tylko po odpowiedzi Wydawcy** (PW4) i decyzji właściciela (P17)
+- ⏸ **Wstrzymane** (decyzja właściciela 2026-11-08, D62): przycisk „Sam tekst” (na czas słuchania chowałby przyciski i komunikaty) i pytanie PW4 do Wydawcy — był taki pomysł, ale został bez dalszych prac; opis w [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)
 - [ ] CI (GitHub Actions): weryfikacja treści i mechaniki, testy
 - [x] Hosting: **GitHub Pages** (P3) — włączone przez właściciela 2026-11-02 (repozytorium publiczne, gałąź `main`): `https://cutelittlegoat.github.io/GryParagrafowe/`
 - [ ] Polityka CSP (znacznik w `index.html`) — po sprawdzeniu działania na GitHub Pages, żeby nie zablokować Firebase ani App Check
@@ -165,6 +164,8 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
+| D63 | 2026-11-08 | Pytania do Wydawcy zapisujemy **tylko w pliku pytań** (`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`) — bez szkiców wiadomości e-mail; wiadomość pisze właściciel | polecenie właściciela („nie musisz pisać draftów maili do wydawcy. wystarczy, że będziesz pisać pytania w pliku”) |
+| D62 | 2026-11-08 | **Czytanie na głos — dalsze prace wstrzymane**: przycisk „Sam tekst” i pytanie PW4 do Wydawcy zostają jako opisany pomysł, bez dalszych prac (pytania nie wysyłamy). Zostaje porządek w znacznikach HTML i komentarze (D55); własnego lektora nie tworzymy (D54) | polecenie właściciela („na obecną chwilę nie będziemy kontynuować prac nad PW4 … był taki pomysł, ale został bez dalszych prac”) |
 | D61 | 2026-11-08 | Okno „Zdobyte Informacje”: lista wszystkich numerów zostaje (do zaznaczania w trybie ręcznym), ale napis bez łącznej liczby — „Masz 1 Informację.”, „Masz 2 Informacje.”, „Masz 0 Informacji.” (zamiast „Masz 0 z 43 Informacji”) | decyzja właściciela P18 (wariant B) |
 | D60 | 2026-11-08 | **„Odkryte zakończenia: X” bez łącznej liczby.** Zapis „X z Y” tylko wtedy, gdy Wydawca w opisie książki podaje liczbę zakończeń — pole `announcedEndings` w `ksiazka.json` z adresem opisu i datą sprawdzenia. Liczby policzonej przez nas z treści nie pokazujemy (także w „Instrukcji”). „Vae Victis”: ani książka, ani opis Wydawcy nie podają liczby zakończeń (sprawdzone 2026-11-08) | polecenie właściciela („Zapis X z Y będziemy stosować tylko jeżeli wydawca w opisie książki zaznaczył, że książka posiada 25 zakończeń”) |
 | D59 | 2026-11-08 | Przyciski przejść („Przejdź do…”) i „Cofnij” w kształcie **pastylek** (w pełni zaokrąglone boki, napis na środku) | decyzja właściciela |
@@ -182,7 +183,7 @@
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
 | D29 | 2026-11-01 | `AGENTS.md` jest uniwersalny — zawiera tylko zasady stałe; tytuły i warunki zgód są w rejestrze zgód (`dokumentacja/LICENCJA_I_ZGODA.md`), stan Firebase w `FIREBASE.md`, etapy i decyzje w tym pliku | wymóg właściciela |
 | D30 | 2026-11-01 | Oryginały zgód i korespondencji z wydawcą mogą zostać usunięte z repozytorium; wiążącym zapisem warunków jest rejestr zgód z dosłownymi cytatami kluczowych zdań | informacja właściciela |
-| D31 | 2026-11-01 | Pytania PW1–PW2 do Wydawcy (PW3 usunięte — D46; PW4 dodane 2026-11-03 — D54) — na końcu prac, razem z odnośnikiem do gotowej aplikacji z jedną książką i kontem gracza dla Wydawcy | decyzja właściciela |
+| D31 | 2026-11-01 | Pytania PW1–PW2 do Wydawcy (PW3 usunięte — D46; PW4 dodane 2026-11-03 — D54, wstrzymane 2026-11-08 — D62) — na końcu prac, razem z odnośnikiem do gotowej aplikacji z jedną książką i kontem gracza dla Wydawcy | decyzja właściciela |
 
 ## 5. Otwarte pytania
 
@@ -201,7 +202,7 @@
 |---|---|---|
 | P16 | Dopisek „Tryb mechaniki: automatyczny” na dole ekranu gry — zostawić, zrobić z niego odnośnik do „Ustawień” czy usunąć? | (2026-11-08) **wariant A**: „Wariant A. Zostaje jak jest.” — zwykły napis bez zmian |
 | P18 | Liczba Informacji w oknie „Zdobyte Informacje” (książka jej nie podaje; „Masz 0 z 43 Informacji”) | (2026-11-08) **wariant B**: lista numerów zostaje, napis bez łącznej liczby — „Masz 0 Informacji” (D61) |
-| P17 | Czytanie na głos — co robimy i kiedy? (analiza: [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)) | (2026-11-03) **wariant B**: „Czekając na odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.” — porządek w znacznikach i komentarze po polsku wykonane (D55); przycisk „Sam tekst” — po odpowiedzi Wydawcy na PW4 |
+| P17 | Czytanie na głos — co robimy i kiedy? (analiza: [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)) | (2026-11-03) **wariant B**: „Czekając na odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.” — porządek w znacznikach i komentarze po polsku wykonane (D55); przycisk „Sam tekst” — po odpowiedzi Wydawcy na PW4. 2026-11-08: przycisk i PW4 wstrzymane, bez dalszych prac (D62) |
 | P1 | Analiza zabezpieczeń z innego projektu | (2026-10-29) dostarczona (instrukcja App Check z projektu „Karty”); wnioski w FIREBASE.md, rozdz. 7 |
 | P2 | Czy oryginalny EPUB zostaje w repozytorium? | (2026-10-29) **zostaje**; w aplikacji będą odnośniki do oryginałów na stronie Wydawnictwa |
 | P3 | Gdzie publikujemy stronę? | (2026-10-29) **GitHub Pages** |
@@ -220,6 +221,19 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-08 — PW4 wstrzymane; pytania do Wydawcy bez szkiców wiadomości
+
+**Zmieniono**
+- Czytanie na głos — decyzja właściciela (D62): prace nad pytaniem PW4 i przyciskiem „Sam tekst” są
+  wstrzymane. Był taki pomysł, ale został bez dalszych prac.
+  - PW4 ma w rejestrze pytań status „⏸ wstrzymane”, a jego opis zostaje jako zapis pomysłu.
+  - Notę o statusie dopisano w analizie odczytu na głos, w `LICENCJA_I_ZGODA.md` (rozdz. 9 pkt 8) i w
+    `ARCHITEKTURA.md`.
+  - Porządek w znacznikach HTML (D55) zostaje.
+- Pytania do Wydawcy — tylko w pliku pytań, bez szkiców wiadomości e-mail (D63).
+  - Sekcję „Szkic wiadomości” usunięto z `Analizy/Pytania_Do_Wydawcy_2026-10-29.md`; wiadomość pisze
+    właściciel.
 
 ### 2026-11-08 — P16 rozstrzygnięte
 

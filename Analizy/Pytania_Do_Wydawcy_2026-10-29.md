@@ -1,7 +1,7 @@
 # Pytania do Wydawcy (Wydawnictwo Wielokrotnego Wyboru)
 
 > Plik roboczy, **uzupełniany na bieżąco** o kolejne pytania wraz z postępem prac.
-> Utworzony: 2026-10-29 · ostatnia aktualizacja: 2026-11-03.
+> Utworzony: 2026-10-29 · ostatnia aktualizacja: 2026-11-08.
 >
 > **Zakres pytań (decyzja właściciela, 2026-11-02): Wydawcę pytamy wyłącznie o sprawy licencyjne**
 > (zakres zgody, sposób prezentacji i wykorzystania materiałów) — **nie o treść ani zasady gry w
@@ -29,6 +29,15 @@ Polecenie z 2026-11-03 (pytanie PW4):
 > Niemniej dodaj to do pytań do wydawcy. Czy funkcja nakierowywania lektora wbudowanego w przeglądarkę
 > nie łamie zasad licencyjnych.
 
+Polecenie z 2026-11-08 (PW4 wstrzymane):
+
+> na obecną chwilę nie będziemy kontynuować prac nad PW4. Możesz to dopisać do dokumentacji, że był taki
+> pomysł, ale został bez dalszych prac.
+
+Polecenie z 2026-11-08 (bez szkiców wiadomości):
+
+> nie musisz pisać draftów maili do wydawcy. wystarczy, że będziesz pisać pytania w pliku.
+
 ## Źródła
 
 - `Pliki/Zgoda Vae Victis.pdf` (usunięty z repozytorium przez właściciela 2026-11-03; oryginał u
@@ -52,9 +61,10 @@ Polecenie z 2026-11-03 (pytanie PW4):
 |---|---|---|---|---|---|
 | PW1 | Czy gracz może zmienić krój pisma (czcionkę)? | 📝 przygotowane | — | — | tylko krój oryginalny (Old Standard); funkcji zmiany kroju nie budujemy |
 | PW2 | Czy można dodać typowe ustawienia wyświetlania (wielkość liter, tryb ciemny, dopasowanie do ekranu telefonu)? | 📝 przygotowane | — | — | przygotowujemy je jak w czytnikach e-booków; przy braku zgody — wycofamy |
-| PW4 | Czy możemy dodać przycisk, który na czas słuchania chowa przyciski aplikacji, tak żeby funkcja czytania na głos **wbudowana w przeglądarkę** czytała sam tekst paragrafu? (aplikacja nie ma własnego lektora) | 📝 przygotowane | — | — | własnego lektora nie tworzymy (Z3); przycisku „Sam tekst” nie dodajemy (decyzja właściciela 2026-11-03, P17); porządek w znacznikach HTML i komentarze — zrobione (2026-11-03); funkcji przeglądarki nie blokujemy |
+| PW4 | Czy możemy dodać przycisk, który na czas słuchania chowa przyciski aplikacji, tak żeby funkcja czytania na głos **wbudowana w przeglądarkę** czytała sam tekst paragrafu? (aplikacja nie ma własnego lektora) | ⏸ wstrzymane (2026-11-08) | — | — | decyzja właściciela 2026-11-08: na obecną chwilę bez dalszych prac — pytania nie wysyłamy, przycisku „Sam tekst” nie robimy; pomysł zostaje opisany w analizie odczytu na głos; własnego lektora nie tworzymy (Z3) |
 
-Statusy: 📝 przygotowane → 📤 wysłane → ✅ zgoda / ⛔ brak zgody / ❓ odpowiedź wymaga doprecyzowania.
+Statusy: 📝 przygotowane → 📤 wysłane → ✅ zgoda / ⛔ brak zgody / ❓ odpowiedź wymaga doprecyzowania;
+⏸ wstrzymane — pomysł bez dalszych prac, pytania nie wysyłamy.
 
 Pytanie PW3 (niejednoznaczne wskazówki w §170, §259, §286 i §289) — **usunięte 2026-11-02** na polecenie
 właściciela (pytamy tylko o licencje); opis problemu:
@@ -95,6 +105,10 @@ zgodzi — wycofamy je.
 
 ## PW4. Czytanie na głos funkcją wbudowaną w przeglądarkę
 
+> **Status: ⏸ wstrzymane (2026-11-08)** — decyzja właściciela: na obecną chwilę bez dalszych prac nad
+> tym pomysłem. Pytania nie wysyłamy i nie robimy przycisku „Sam tekst”.
+> Porządek w znacznikach HTML ekranu gry (D55) zostaje. Treść poniżej to zapis pomysłu z 2026-11-03.
+
 **Dlaczego pytamy.**
 - Przeglądarki internetowe (np. Microsoft Edge, Google Chrome, Safari, Firefox) mają wbudowaną funkcję
   czytania stron na głos. Gracz sam ją włącza i sam wybiera w przeglądarce głos i tempo.
@@ -126,32 +140,11 @@ odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.”):
   paragrafu i tytuł książki, ale funkcje czytające całą stronę nadal czytają przyciski;
 - funkcji przeglądarki nie blokujemy — to narzędzie gracza, jak czytnik ekranu dla osób niewidomych.
 
-## Szkic wiadomości (PW1 + PW2 + PW4)
-
-Do skopiowania i wysłania przez właściciela (można dopisać pytania z sekcji „Propozycje”):
-
-```text
-Dzień dobry,
-
-dziękuję za zgodę na wykorzystanie „Vae victis”. Prace nad aplikacją ruszyły. Tekst i pełna stopka redakcyjna zostaną przeniesione bez żadnych zmian.
-
-Zanim ostatecznie przygotuję sposób wyświetlania tekstu, chcę się upewnić co do trzech kwestii:
-
-1. Czy gracz może w aplikacji zmienić krój pisma (czcionkę), którym wyświetlany jest tekst? Domyślnie będzie to Old Standard, jak w publikacji. Dodatkowo gracz mógłby wybrać inną czcionkę, np. ułatwiającą czytanie osobom z dysleksją. Treść pozostaje bez zmian — zmienia się tylko wygląd liter.
-
-2. Czy możemy dodać typowe ustawienia wyświetlania, znane z czytników e-booków: zmianę wielkości liter, tryb ciemny (jasny tekst na ciemnym tle) oraz dopasowanie układu tekstu do ekranu telefonu? Tutaj również treść pozostaje bez zmian.
-
-3. Przeglądarki internetowe (np. Microsoft Edge, Google Chrome, Safari) mają wbudowaną funkcję czytania stron na głos — gracz sam ją włącza i sam wybiera w przeglądarce głos i tempo. Aplikacja nie ma własnego lektora, niczego nie nagrywa i nie tworzy plików dźwiękowych. Obecnie przeglądarka czyta jednak całą stronę, łącznie z przyciskami (np. „Ustawienia”, „Przejdź do §22”). Chciałbym dodać przycisk, który na czas słuchania ukryje przyciski i komunikaty aplikacji, tak żeby przeglądarka przeczytała sam tekst paragrafu. Treść pozostaje bez zmian, a tytuł i autor są nadal widoczne. Czy taka funkcja jest zgodna z udzieloną zgodą? Dodam, że niektóre przeglądarki korzystają z głosów działających przez internet — to ustawienie przeglądarki gracza, na które aplikacja nie ma wpływu.
-
-Pozdrawiam serdecznie,
-[podpis]
-```
-
 ## Propozycje kolejnych pytań (do decyzji właściciela)
 
 | Nr | Propozycja pytania | Skąd się wzięła |
 |---|---|---|
-| K1 | Czy możemy pokazać w aplikacji ostrzeżenie o treści z Państwa strony („Trigger warning: #Środki psychoaktywne”), z informacją, że pochodzi z Państwa strony? **Propozycja: dołączyć do pierwszej wiadomości** (to tylko potwierdzenie). | decyzja właściciela P7 (wyświetlamy na ekranie głównym); tekst pochodzi ze strony Wydawnictwa, nie z publikacji (zasada Z12 w LICENCJA_I_ZGODA.md) |
+| K1 | Czy możemy pokazać w aplikacji ostrzeżenie o treści z Państwa strony („Trigger warning: #Środki psychoaktywne”), z informacją, że pochodzi z Państwa strony? **Propozycja: zadać razem z PW1 i PW2** (to tylko potwierdzenie). | decyzja właściciela P7 (wyświetlamy na ekranie głównym); tekst pochodzi ze strony Wydawnictwa, nie z publikacji (zasada Z12 w LICENCJA_I_ZGODA.md) |
 | K2 | Czy możemy pokazać w aplikacji opis książki z Państwa strony (zamiast samego odnośnika)? | LICENCJA_I_ZGODA.md, rozdz. 9 pkt 3 — obecnie tylko odnośnik |
 | K3 | → przeniesione do rejestru jako PW3 (2026-11-01); **PW3 usunięte 2026-11-02** — Wydawcę pytamy tylko o licencje | decyzja właściciela |
 | K4 | Prośba o kolejne tytuły i informacja o planie zwiększenia liczby graczy | decyzja właściciela P12 — po ukończeniu „Vae Victis” i przygotowaniu kont dla 6 graczy |
@@ -163,7 +156,7 @@ Pozdrawiam serdecznie,
   kroju pisma za modyfikację (tekst się nie zmienia, ale zmienia się wygląd publikacji).
 - To, że czytniki e-booków standardowo pozwalają zmieniać krój i wielkość liter, jest argumentem, ale
   nie rozstrzyga sprawy dla tej aplikacji.
-- PW4: zgoda nie wspomina o czytaniu na głos. Nie wiadomo, czy Wydawca uzna pomoc dla lektora
+- PW4 (wstrzymane 2026-11-08): zgoda nie wspomina o czytaniu na głos. Nie wiadomo, czy Wydawca uzna pomoc dla lektora
   wbudowanego w przeglądarkę za „wersję audio”, której nasze zasady (Z3) nie dopuszczają, czy za zwykłe
   ułatwienie w czytaniu (jak tryb ciemny albo czytnik ekranu).
 
@@ -172,6 +165,8 @@ Pozdrawiam serdecznie,
 1. Nowe pytanie → wiersz w „Rejestrze pytań” (status 📝) i osobna sekcja: dlaczego pytamy, treść
    pytania (prostym, uprzejmym językiem), co robimy do czasu odpowiedzi.
 2. Propozycje agentów trafiają do sekcji „Propozycje kolejnych pytań”; o wysłaniu decyduje właściciel.
+   Szkiców wiadomości e-mail nie przygotowujemy — wystarczą pytania w tym pliku, a wiadomość pisze
+   właściciel (decyzja właściciela, 2026-11-08).
 3. Po wysłaniu → status 📤 i data.
 4. Po odpowiedzi → status, **dosłowny** cytat odpowiedzi i jej skutki dla projektu. Oryginał
    korespondencji przechowuje właściciel (w `Pliki/` albo poza repozytorium); zasady i rejestr zgód

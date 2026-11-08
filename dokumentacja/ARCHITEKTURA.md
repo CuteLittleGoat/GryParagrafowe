@@ -190,8 +190,8 @@ logowania (N7).
 
   - Dzięki temu czytniki ekranu i funkcje czytania na głos w przeglądarkach odróżniają tekst paragrafu
     od elementów aplikacji. Chrome w „Trybie czytania” pomija przyciski, `nav`, `aside` i `footer`.
-  - Aplikacja nie ma własnego lektora (D54); przycisk „Sam tekst” — dopiero po odpowiedzi Wydawcy
-    (PW4).
+  - Aplikacja nie ma własnego lektora (D54). Pomysł przycisku „Sam tekst” (i pytanie PW4 do Wydawcy)
+    jest wstrzymany — bez dalszych prac (D62).
   - Analiza: [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](../Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md).
 - **Komentarze HTML po polsku**:
   - są w `index.html` i w drzewie strony — ekrany wstawiają je funkcją `htmlComment` (`dom.js`) przed

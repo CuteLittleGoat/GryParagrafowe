@@ -390,5 +390,6 @@ Pytania do Wydawcy zbieramy w [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](../An
    Wydawcę (pytanie PW4). Funkcji przeglądarki nie blokujemy — to narzędzie gracza, jak czytnik ekranu.
    Decyzja właściciela (2026-11-03, P17): do czasu odpowiedzi tylko porządek w znacznikach HTML ekranu
    gry i komentarze po polsku (wykonane — tekst książki bez zmian); przycisk „Sam tekst” — po odpowiedzi
-   Wydawcy. Analiza:
+   Wydawcy. Decyzja właściciela (2026-11-08): **prace nad PW4 i przyciskiem „Sam tekst” wstrzymane** — był
+   taki pomysł, ale został bez dalszych prac; pytania nie wysyłamy. Analiza (zapis pomysłu):
    [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](../Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md).

@@ -4,6 +4,12 @@ Analiza z 2026-11-03. Rodzaj zadania: **wyłącznie analiza** (AGENTS.md, rozdz.
 pozostał bez zmian. Na polecenie właściciela dopisano też pytanie do Wydawcy (**PW4** w
 [`Pytania_Do_Wydawcy_2026-10-29.md`](Pytania_Do_Wydawcy_2026-10-29.md)).
 
+> **Status (2026-11-08):**
+> - Wariant A wdrożono 2026-11-03: porządek w znacznikach HTML i komentarze po polsku (D55).
+> - Wariant B (przycisk „Sam tekst”) i pytanie PW4 do Wydawcy są **wstrzymane** decyzją właściciela —
+>   na obecną chwilę bez dalszych prac (D62).
+> - Analiza zostaje jako opis pomysłu.
+
 ## Polecenie użytkownika
 
 > Przeprowadź analizę rozbudowy kodu HTML. Niektóre przeglądarki mają opcję czytania zawartości
