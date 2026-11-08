@@ -143,13 +143,23 @@ test('„Nowa gra” zachowuje zakończenia; notatki wg wyboru gracza', () => {
   const first = newGame();
   first.state.endingsFound.push('p122');
   first.setNotes('moje notatki');
-  const kept = newGame({ previous: first.state, keepNotes: true });
-  assert.equal(kept.state.playthrough, 2);
+  const later = new Date('2026-11-08T09:30:00Z');
+  const kept = newGame({ previous: first.state, keepNotes: true, now: later });
+  // Bez numerowania rozgrywek — nowa gra ma własną datę rozpoczęcia (decyzja właściciela, D56).
+  assert.equal('playthrough' in kept.state, false);
+  assert.equal(kept.state.startedAt, later.toISOString());
   assert.deepEqual(kept.state.endingsFound, ['p122']);
   assert.equal(kept.state.notes, 'moje notatki');
   const cleared = newGame({ previous: first.state, keepNotes: false });
   assert.equal(cleared.state.notes, '');
   assert.equal(cleared.nodeId, 'wprowadzenie');
+});
+
+test('stan ze starszej wersji: numer podejścia (playthrough) usuwany przy wczytaniu', () => {
+  const legacy = { ...newGame().state, playthrough: 8 };
+  const game = new Game({ content, mechanics, manifest, state: legacy });
+  assert.equal('playthrough' in game.state, false);
+  assert.deepEqual(validateState(game.state, content), []);
 });
 
 test('tryb ręczny: bez automatycznych efektów i bez oceny warunków', () => {

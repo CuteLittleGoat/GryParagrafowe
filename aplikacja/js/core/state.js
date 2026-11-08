@@ -15,12 +15,23 @@ export function createState({ manifest, mechanics, previous = null, keepNotes = 
     modules: initialModules(mechanics),
     notes: keepNotes && previous ? previous.notes ?? '' : '',
     endingsFound: previous ? [...(previous.endingsFound ?? [])] : [],
-    playthrough: previous ? (previous.playthrough ?? 0) + 1 : 1,
     undo: [],
     revision: previous ? previous.revision ?? 0 : 0,
     startedAt: timestamp,
     updatedAt: timestamp,
   };
+}
+
+// Pola wycofane ze stanu gry — usuwane, gdy wczytujemy starszy stan albo zapis. `playthrough` (numer
+// podejścia, rósł przy każdej „Nowej grze”) wycofano 2026-11-03 (decyzja właściciela, D56): rozgrywkę
+// opisuje data i godzina jej rozpoczęcia (`startedAt`).
+const LEGACY_FIELDS = ['playthrough'];
+
+export function dropLegacyFields(state) {
+  if (state && typeof state === 'object') {
+    for (const field of LEGACY_FIELDS) delete state[field];
+  }
+  return state;
 }
 
 export function initialModules(mechanics) {

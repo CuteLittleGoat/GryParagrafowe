@@ -45,15 +45,16 @@ python3 -m http.server 8000
 
 | Ekran | Zawartość |
 |---|---|
-| **Ekran główny** | nazwa aplikacji; logowanie (**login i hasło** — ustawiane przez administratora w Firebase) albo „Zalogowano jako …” + Wyloguj; **po zalogowaniu** — **katalog książek** (przed zalogowaniem: tylko opis aplikacji i formularz — bez okładek i treści) — karta każdej książki: okładka z podpisem autorki ilustracji, tytuł, autor, wydawnictwo, odnośniki (strona publikacji, strona Wydawnictwa, **oryginały do pobrania**), **ostrzeżenie o treści ze strony Wydawnictwa** (dosłownie, z informacją o źródle), przyciski „Kontynuuj” / „Nowa gra” / „O książce”, **pełna stopka redakcyjna**; stopka aplikacji (projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy) — **karty książek są zwijane** (decyzja właściciela 2026-11-03, czytelność przy wielu książkach): zwinięta karta = okładka z podpisem autorki ilustracji, tytuł, autor, wydawca i belka „Rozwiń” (z dopiskiem: szczegóły, ostrzeżenie o treści, stopka redakcyjna); kliknięcie nagłówka lub belki rozwija i zwija kartę; rozwinięte karty pamiętane do końca sesji przeglądarki |
-| **Gra** | pasek: „Menu główne”, tytuł i autor, przyciski włączonych modułów (np. „Karta postaci”, „Kości”), „Notatki”, „Historia”, „Zapis/Wczytaj”, „Ustawienia”, „O książce”, **dwa przyciski wielkości liter (A− / A+)**; **treść węzła 1:1** z klikalnymi odnośnikami w tekście; **panel przejść** — przyciski „Przejdź do N” generowane z odnośników węzła, ze stanem warunków; przycisk **„Cofnij”** z dopiskiem „To Twoja gra :) Graj jak lubisz!” (sekcja „Dokąd dalej?”: przejścia po lewej, „Cofnij” z dopiskiem małą pochyłą czcionką po prawej; na bardzo wąskich ekranach — pod przejściami); komunikaty mechaniki wizualnie oddzielone od tekstu |
+| **Ekran główny** | nazwa aplikacji; logowanie (**login i hasło** — ustawiane przez administratora w Firebase) albo „Zalogowano jako …” + Wyloguj; **po zalogowaniu** — **katalog książek** (przed zalogowaniem: tylko opis aplikacji i formularz — bez okładek i treści) — karta każdej książki: okładka z podpisem autorki ilustracji, tytuł, autor, wydawnictwo, odnośniki (strona publikacji, strona Wydawnictwa, **oryginały do pobrania**), **ostrzeżenie o treści ze strony Wydawnictwa** (dosłownie, z informacją o źródle), linijka stanu gry (data rozpoczęcia rozgrywki, miejsce, odkryte zakończenia, ostatni zapis), przyciski „Kontynuuj grę” (albo „Rozpocznij grę”), „Nowa gra” i **„Instrukcja”** po lewej oraz „O książce” po prawej, **pełna stopka redakcyjna**; stopka aplikacji (projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy) — **karty książek są zwijane** (decyzja właściciela 2026-11-03, czytelność przy wielu książkach): zwinięta karta = okładka z podpisem autorki ilustracji, tytuł, autor, wydawca i belka „Rozwiń” (z dopiskiem: szczegóły, ostrzeżenie o treści, stopka redakcyjna); kliknięcie nagłówka lub belki rozwija i zwija kartę; rozwinięte karty pamiętane do końca sesji przeglądarki |
+| **Gra** | pasek: „Menu główne”, tytuł i autor, przyciski włączonych modułów (np. „Karta postaci”, „Kości”), „Notatki”, „Historia”, „Zapis/Wczytaj”, „Ustawienia”, „O książce”, **dwa przyciski wielkości liter (A− / A+)**; **treść węzła 1:1** z klikalnymi odnośnikami w tekście; **panel przejść** — przyciski „Przejdź do N” (w kształcie pastylek) generowane z odnośników węzła, ze stanem warunków; przycisk **„Cofnij”** (także pastylka) z dopiskiem „To Twoja gra :) Graj jak lubisz!” (sekcja „Dokąd dalej?”: przejścia po lewej, „Cofnij” z dopiskiem małą pochyłą czcionką po prawej; na bardzo wąskich ekranach — pod przejściami); komunikaty mechaniki wizualnie oddzielone od tekstu |
 | **Karta postaci** | panel składany z modułów książki (Informacje, statystyki, ekwipunek, liczniki…) + ręczna edycja (jak kartka papieru); nazwa przycisku i okna zależy od książki — „Vae Victis” nie ma statystyk, więc przycisk „Informacje” otwiera okno „Zdobyte Informacje” (`buttonLabel`, `panelTitle` w module `codewords`) |
 | **Kości** | rzut wg wyrażenia (`k6`, `2k6`, `k100`…), animacja, historia rzutów — tylko gdy książka ma moduł `dice` |
 | **Zapis / wczytanie** | autozapis po każdym ruchu + **3 miejsca na ręczny zapis** w każdej książce (decyzja właściciela) |
 | **Zakończenie** | tekst zakończenia 1:1; lista „Odkryte zakończenia”; „Zagraj ponownie”, „Menu główne” |
 | **O książce** | okładka z podpisem, strona tytułowa, dedykacja, stopka, strona „od Wydawnictwa”, spis treści, odnośniki, informacja o zgodzie |
 | **Panel administratora** | tylko dla administratora: backup, odtwarzanie gracza z pliku, lista graczy z datą ostatniej aktywności |
-| **Ustawienia** | wielkość liter, motyw, tryb mechaniki (automatyczny / ręczny); krój pisma — tylko oryginalny do czasu zgody Wydawcy (pytanie PW1) |
+| **Ustawienia** | wielkość liter, motyw, tryb mechaniki (automatyczny / ręczny), przycisk **„Instrukcja”**; krój pisma — tylko oryginalny do czasu zgody Wydawcy (pytanie PW1) |
+| **Instrukcja** | okno otwierane z „Ustawień” i z karty książki (`instructions.js`): jak grać (przyciski gry), ustawienia aplikacji oraz część o książce złożona z opisów jej modułów mechaniki (np. „Informacje”, odwiedzone miejsca, zakończenia; w innych książkach np. punkty życia, ekwipunek) z nazwami z `mechanika.json`. Opisuje wyłącznie działanie aplikacji — nie streszcza zasad gry z książki, tylko odsyła do nich (np. „Wprowadzenie (zasady gry)”; Z1, Z3) |
 
 Zasady prezentacji (z [LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md), rozdz. 5):
 - tekst książki renderowany wiernie (akapity, kursywa, pogrubienie, wyrównanie, listy, grafiki),
@@ -95,7 +96,8 @@ początku bieżącej rozgrywki. Odkryte zakończenia pozostają odkryte. Dopisek
 gra :) Graj jak lubisz!”.
 
 **„Nowa gra”**: zeruje stan rozgrywki (węzeł, historia, odwiedziny, moduły, „Cofnij”), zachowuje
-odkryte zakończenia, zwiększa `playthrough`. Notatki: aplikacja **pyta gracza**, czy zostawić
+odkryte zakończenia i zapisuje nową datę rozpoczęcia (`startedAt`) — rozgrywek nie numerujemy (decyzja
+właściciela, D56). Notatki: aplikacja **pyta gracza**, czy zostawić
 dotychczasowe notatki, czy je wyczyścić (decyzja właściciela).
 
 **Niejednoznaczne warunki** (np. §170, §259, §286, §289 w „Vae Victis”): na razie wszystkie drogi są
@@ -196,6 +198,9 @@ logowania (N7).
     swoimi częściami (widoczne po F12 → „Zbadaj”);
   - **nigdy wewnątrz tekstu książki** (`.book-text`);
   - funkcje czytania na głos ich nie czytają.
+- **Jeden format daty i godziny** w całej aplikacji: `rrrr-MM-dd gg:mm` (np. 2026-11-03 08:52), czas lokalny
+  urządzenia gracza — funkcja `formatDateTime` w `dom.js` (data rozpoczęcia rozgrywki, ostatni zapis,
+  „Zapisy”; decyzja właściciela D57).
 - Atrybut `hidden` zawsze ukrywa element — reguła CSS `[hidden] { display: none !important; }`, bo inaczej
   przegrywałby z `display: flex/grid` z klas.
 - Bezpieczeństwo DOM: tekst książki budowany przez `createElement`/`textContent` z modelu JSON —

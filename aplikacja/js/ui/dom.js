@@ -47,11 +47,16 @@ export function srOnly(text) {
   return h('span', { class: 'visually-hidden' }, text);
 }
 
+// Jeden format daty i godziny w całej aplikacji: rrrr-MM-dd gg:mm (np. 2026-11-03 08:52), czas
+// lokalny urządzenia gracza (decyzja właściciela, 2026-11-03: „zastosuj jeden format daty i się go
+// trzymaj wszędzie”). Używany m.in. przy dacie rozpoczęcia rozgrywki, ostatnim zapisie i w „Zapisach”.
 export function formatDateTime(value) {
   if (!value) return '';
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return '';
-  return date.toLocaleString('pl-PL', { dateStyle: 'medium', timeStyle: 'short' });
+  const pad = (number) => String(number).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} `
+    + `${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
 // Polska odmiana liczebników: plural(3, ['zakończenie', 'zakończenia', 'zakończeń']).

@@ -5,7 +5,9 @@
 import { h, formatDateTime, htmlComment, plural } from './dom.js';
 import { coverInfo, renderBlocks } from './content-renderer.js';
 import { bookInfoList, contentWarning } from './book-info.js';
-import { activeBooks, bookBase, loadColophon, loadManifest } from '../data/book-loader.js';
+import { alertDialog } from './dialogs.js';
+import { openInstructions } from './instructions.js';
+import { activeBooks, bookBase, loadBook, loadColophon, loadManifest } from '../data/book-loader.js';
 import { LoginError } from '../data/storage-errors.js';
 import { nodeIdLabel } from '../core/engine.js';
 
@@ -189,9 +191,19 @@ async function bookCard(app, bookId) {
   const titleId = `book-${bookId}-title`;
   const panelId = `book-${bookId}-panel`;
   const hasGame = Boolean(state?.currentNode);
+  // Instrukcja potrzebuje mechaniki książki — wczytujemy ją dopiero po kliknięciu.
+  const showInstructions = async () => {
+    try {
+      await openInstructions(await loadBook(bookId));
+    } catch (error) {
+      console.error(error);
+      await alertDialog({ title: 'Instrukcja', message: 'Nie udało się wczytać instrukcji. Spróbuj ponownie.' });
+    }
+  };
+  // Przyciski karty: gra, „Nowa gra” i „Instrukcja” po lewej; „O książce” po prawej (decyzja właściciela).
   const actions = h(
     'div',
-    { class: 'actions' },
+    { class: 'actions book-actions' },
     h('a', { href: `#/gra/${bookId}`, class: 'btn btn-primary' }, hasGame ? 'Kontynuuj grę' : 'Rozpocznij grę'),
     hasGame
       ? h('a', {
@@ -202,7 +214,8 @@ async function bookCard(app, bookId) {
         },
       }, 'Nowa gra')
       : null,
-    h('a', { href: `#/o-ksiazce/${bookId}`, class: 'btn' }, 'O książce'),
+    h('button', { type: 'button', class: 'btn', onClick: showInstructions }, 'Instrukcja'),
+    h('a', { href: `#/o-ksiazce/${bookId}`, class: 'btn btn-about' }, 'O książce'),
   );
 
   // Nagłówek — zawsze widoczny; kliknięcie zwija i rozwija kartę (dla klawiatury: belka poniżej).
@@ -272,8 +285,9 @@ function progressText(state) {
   if (!state?.currentNode) return h('p', { class: 'progress muted' }, 'Gra jeszcze nie została rozpoczęta.');
   const place = nodeIdLabel(state.currentNode) ?? 'początek książki';
   const endings = state.endingsFound?.length ?? 0;
+  // Rozgrywkę opisuje data i godzina rozpoczęcia — bez numerowania kolejnych gier (decyzja właściciela).
   const parts = [
-    `Rozgrywka nr ${state.playthrough ?? 1}`,
+    state.startedAt ? `Rozgrywka (data rozpoczęcia: ${formatDateTime(state.startedAt)})` : 'Rozgrywka',
     state.status === 'finished' ? 'zakończona' : `miejsce: ${place}`,
     `odkryte zakończenia: ${endings}`,
   ];

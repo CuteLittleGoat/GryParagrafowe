@@ -96,10 +96,10 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 | `modules` | map | stan **włączonych w książce** modułów mechaniki (rozdz. 3.3) |
 | `notes` | string | notatki gracza |
 | `endingsFound` | array&lt;string&gt; | ID węzłów zakończeń odkrytych we wszystkich podejściach |
-| `playthrough` | number | numer podejścia (rośnie przy „Nowej grze”) |
+| ~~`playthrough`~~ | number | **pole wycofane** (decyzja właściciela D56): dawny numer podejścia. Aplikacja go już nie zapisuje — rozgrywkę opisuje data i godzina rozpoczęcia (`startedAt`) — i usuwa je przy wczytaniu starszego stanu albo zapisu. Reguły nadal dopuszczają je w starszych dokumentach; można je usunąć z reguł przy najbliższej ich zmianie |
 | `undo` | array&lt;map&gt; | lista ruchów do cofnięcia (przycisk „Cofnij”) — krok po kroku, do początku bieżącej rozgrywki (technicznie: do 1000 ostatnich ruchów). Każdy wpis zapisuje tylko **zmiany** wprowadzone ruchem: `from` (węzeł przed ruchem), `entered` (węzeł po ruchu), `historyLength`, `status`, `added` / `removed` (Informacje zdobyte / utracone w tym ruchu) — mały rozmiar dokumentu |
 | `revision` | number | licznik zapisów — wykrywanie konfliktu przy grze na dwóch urządzeniach |
-| `startedAt`, `updatedAt` | timestamp | |
+| `startedAt`, `updatedAt` | timestamp | data i godzina rozpoczęcia rozgrywki (nowa przy „Nowej grze”) i ostatniego zapisu; w aplikacji wyświetlane jako `rrrr-MM-dd gg:mm` (D57) |
 
 **`…/saves/{saveId}`** — ręczny zapis (3 miejsca: `save1` … `save3`)
 
@@ -107,7 +107,7 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 |---|---|---|
 | `schemaVersion` | number | |
 | `label` | string | nazwa nadana przez gracza |
-| `state` | map | kopia pól rozgrywki: `currentNode`, `status`, `history`, `visits`, `modules`, `notes`, `playthrough`, `undo`, `contentVersion`, `startedAt` (bez `endingsFound` — odkryte zakończenia są wspólne dla wszystkich rozgrywek; przy wczytaniu gracz decyduje, czy przywrócić notatki z zapisu) |
+| `state` | map | kopia pól rozgrywki: `currentNode`, `status`, `history`, `visits`, `modules`, `notes`, `undo`, `contentVersion`, `startedAt` (starsze zapisy mogą mieć jeszcze wycofane `playthrough`; bez `endingsFound` — odkryte zakończenia są wspólne dla wszystkich rozgrywek; przy wczytaniu gracz decyduje, czy przywrócić notatki z zapisu) |
 | `createdAt` | timestamp | |
 
 **`secrets/{playerId}`** — dokumenty `secrets/Player1` … `secrets/Player6`
@@ -171,7 +171,6 @@ Dla „Vae Victis” stan modułów to wyłącznie `codewords` (Informacje #1–
   "modules": { "codewords": { "owned": [] } },
   "notes": "",
   "endingsFound": [],
-  "playthrough": 1,
   "undo": [
     { "from": "wprowadzenie", "historyLength": 1, "status": "inProgress", "added": [], "removed": [], "entered": "prolog" },
     { "from": "prolog", "historyLength": 2, "status": "inProgress", "added": [], "removed": [], "entered": "p1" },

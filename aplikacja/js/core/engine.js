@@ -4,7 +4,7 @@
 // które drogi spełniają warunki zapisane w książce, a decyzja zawsze należy do gracza.
 
 import { evaluate } from './conditions.js';
-import { createState, sortCodes } from './state.js';
+import { createState, dropLegacyFields, sortCodes } from './state.js';
 
 export const UNDO_LIMIT = 1000;
 
@@ -13,13 +13,14 @@ export class Game {
     this.content = content;
     this.mechanics = mechanics;
     this.manifest = manifest;
-    this.state = state;
+    // Stan z zapisu może pochodzić ze starszej wersji aplikacji — bez pól wycofanych (np. numeru podejścia).
+    this.state = dropLegacyFields(state);
     this.mode = mechanics ? mode : 'manual';
     this.notices = [];
   }
 
-  // Nowa rozgrywka; poprzedni stan (jeśli jest) przekazuje odkryte zakończenia, numer podejścia i —
-  // na życzenie gracza — notatki.
+  // Nowa rozgrywka (z nową datą rozpoczęcia); poprzedni stan (jeśli jest) przekazuje odkryte zakończenia
+  // i — na życzenie gracza — notatki.
   static newGame({ content, mechanics, manifest, previous = null, keepNotes = false, mode = 'auto', now }) {
     const state = createState({ manifest, mechanics, previous, keepNotes, now });
     const game = new Game({ content, mechanics, manifest, state, mode });

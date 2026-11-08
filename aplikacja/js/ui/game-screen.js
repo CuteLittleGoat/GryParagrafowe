@@ -23,6 +23,7 @@ import { ConflictError } from '../data/storage-errors.js';
 import { h, append, clear, formatDateTime, htmlComment, plural } from './dom.js';
 import { coverInfo, renderBlocks } from './content-renderer.js';
 import { alertDialog, confirmDialog, openDialog, promptDialog } from './dialogs.js';
+import { openInstructions } from './instructions.js';
 import { FONT_SCALES, MODE_LABELS, THEME_LABELS, THEMES, stepFontScale } from './settings.js';
 
 // Dopisek przy „Cofnij” (decyzja właściciela P5) — w dwóch linijkach, równo pod przyciskiem.
@@ -550,7 +551,7 @@ export async function renderGame(app, root, bookId) {
       title: 'Historia i zakończenia',
       wide: true,
       body: [
-        h('h3', {}, `Bieżąca rozgrywka (nr ${game.state.playthrough})`),
+        h('h3', {}, game.state.startedAt ? `Bieżąca rozgrywka (data rozpoczęcia: ${formatDateTime(game.state.startedAt)})` : 'Bieżąca rozgrywka'),
         h('ol', { class: 'history-list' }, history.map((id) => h('li', {}, nodeLabel(content, id)))),
         h('h3', {}, `Odkryte zakończenia: ${found.length} z ${endingNodes.length}`),
         found.length
@@ -572,7 +573,6 @@ export async function renderGame(app, root, bookId) {
       visits: state.visits,
       modules: state.modules,
       notes: state.notes,
-      playthrough: state.playthrough,
       undo: state.undo,
       startedAt: state.startedAt,
     }));
@@ -721,6 +721,14 @@ export async function renderGame(app, root, bookId) {
             render();
           },
           !mechanics,
+        ),
+        // Instrukcja otwiera się nad oknem „Ustawienia”; po jej zamknięciu wracasz do ustawień.
+        h(
+          'fieldset',
+          { class: 'fieldset' },
+          h('legend', {}, 'Instrukcja'),
+          h('p', { class: 'muted small' }, 'Jak grać, co robią przyciski i ustawienia oraz jak aplikacja obsługuje mechanikę tej książki.'),
+          h('button', { type: 'button', class: 'btn btn-small', onClick: () => openInstructions({ manifest, mechanics, content }) }, 'Instrukcja'),
         ),
       ],
     });

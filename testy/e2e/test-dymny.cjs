@@ -44,6 +44,33 @@ function check(name, condition, details = '') {
     check(`${label}: poza tekstem książki tylko tytuł (czytanie na głos)`, outside.length === 1 && outside[0].startsWith('h1: '), JSON.stringify(outside));
   };
 
+  // Jeden format daty w całej aplikacji: rrrr-MM-dd gg:mm (np. 2026-11-03 08:52).
+  const DATE = '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}';
+
+  // Przyciski karty książki: kolejność i wyrównanie („O książce” przy prawej krawędzi).
+  const bookActions = (target) => target.$eval('.book-actions', (box) => {
+    const items = [...box.children].map((el) => ({ text: el.textContent.trim(), rect: el.getBoundingClientRect() }));
+    const boxRect = box.getBoundingClientRect();
+    const about = items.find((item) => item.text === 'O książce');
+    const others = items.filter((item) => item !== about);
+    return {
+      texts: items.map((item) => item.text),
+      aboutRight: Boolean(about) && Math.abs(about.rect.right - boxRect.right) < 2
+        && others.every((item) => item.rect.right <= about.rect.left + 1 || item.rect.bottom <= about.rect.top + 1),
+      othersLeft: others.length > 0 && Math.abs(others[0].rect.left - boxRect.left) < 2,
+    };
+  });
+
+  // Okno „Instrukcja” (otwarte jako ostatnie): tytuł i nagłówki części.
+  const instructionsDialog = (target) => target.$$eval('dialog[open]', (dialogs) => {
+    const dialog = dialogs.at(-1);
+    return {
+      title: dialog.querySelector('.dialog-title').textContent,
+      headings: [...dialog.querySelectorAll('h3, h4')].map((el) => el.textContent),
+      text: dialog.textContent,
+    };
+  });
+
   // Komentarze HTML po polsku wstawiane przez aplikację — i żadnego wewnątrz tekstu książki.
   const commentsIn = (target, rootSelector) => target.evaluate((selector) => {
     const root = document.querySelector(selector);
@@ -101,6 +128,8 @@ function check(name, condition, details = '') {
   await page.click('.book-toggle');
   state = await cardState();
   check('belka rozwija kartę', state.expanded === 'true' && state.panelVisible);
+  const actionsBefore = await bookActions(page);
+  check('karta: „Rozpocznij grę” i „Instrukcja” po lewej, „O książce” po prawej', JSON.stringify(actionsBefore.texts) === JSON.stringify(['Rozpocznij grę', 'Instrukcja', 'O książce']) && actionsBefore.aboutRight && actionsBefore.othersLeft, JSON.stringify(actionsBefore));
   await page.click('.book-card-header');
   state = await cardState();
   check('kliknięcie nagłówka zwija kartę', state.expanded === 'false' && !state.panelVisible);
@@ -151,6 +180,13 @@ function check(name, condition, details = '') {
     return display;
   });
   check('atrybut hidden ukrywa także pasek gry (display: flex)', hiddenDisplay === 'none', hiddenDisplay);
+  const pills = await page.$$eval('.btn-choice, .undo-button', (els) => els.map((el) => parseFloat(getComputedStyle(el).borderTopLeftRadius) >= el.getBoundingClientRect().height / 2));
+  check('przyciski przejść i „Cofnij” w kształcie pastylek', pills.length >= 2 && pills.every(Boolean), JSON.stringify(pills));
+  await page.click('.game-tools button:has-text("Historia")');
+  await page.waitForSelector('dialog[open] h3');
+  const historyHeading = await page.textContent('dialog[open] h3');
+  check('Historia: data rozpoczęcia zamiast numeru rozgrywki', new RegExp(`^Bieżąca rozgrywka \\(data rozpoczęcia: ${DATE}\\)$`).test(historyHeading), historyHeading);
+  await page.keyboard.press('Escape');
 
   // 5. Cofnij
   await page.click('.btn-choice:has-text("Przejdź do §22")');
@@ -240,6 +276,7 @@ function check(name, condition, details = '') {
   await page.click('.game-tools button:has-text("Notatki")');
   await page.fill('dialog[open] textarea', 'Moje notatki testowe');
   await page.keyboard.press('Escape');
+  const startedBefore = await page.evaluate(() => JSON.parse(localStorage.getItem(Object.keys(localStorage).find((k) => k.endsWith(':book:vae-victis')))).startedAt);
   await page.click('.game-tools button:has-text("Nowa gra")');
   await page.waitForSelector('dialog[open]');
   check('Nowa gra pyta o notatki', (await page.textContent('dialog[open]')).includes('notatkami'));
@@ -247,7 +284,8 @@ function check(name, condition, details = '') {
   await page.click('dialog[open] button[value=keep]');
   await page.waitForFunction(() => document.querySelector('.game-text').textContent.includes('Wprowadzenie'));
   const stateAfter = await page.evaluate(() => JSON.parse(localStorage.getItem(Object.keys(localStorage).find((k) => k.endsWith(':book:vae-victis')))));
-  check('nowa gra: notatki zachowane, zakończenie zapamiętane', stateAfter.notes === 'Moje notatki testowe' && stateAfter.endingsFound.includes('p122') && stateAfter.playthrough === 2, JSON.stringify({ notes: stateAfter.notes, endings: stateAfter.endingsFound, pt: stateAfter.playthrough }));
+  check('nowa gra: notatki zachowane, zakończenie zapamiętane', stateAfter.notes === 'Moje notatki testowe' && stateAfter.endingsFound.includes('p122'), JSON.stringify({ notes: stateAfter.notes, endings: stateAfter.endingsFound }));
+  check('nowa gra: bez numeru rozgrywki, nowa data rozpoczęcia', !('playthrough' in stateAfter) && stateAfter.startedAt > startedBefore, JSON.stringify({ before: startedBefore, after: stateAfter.startedAt, pt: stateAfter.playthrough }));
 
   // 12. Zapisy: zapis w miejscu 1 i wczytanie
   await page.click('.game-text a.book-link:has-text("Prologu")');
@@ -259,6 +297,8 @@ function check(name, condition, details = '') {
   await page.click('dialog[open] button[value=confirm]');
   await page.waitForFunction(() => [...document.querySelectorAll('dialog[open] .save-slot')].some((el) => el.textContent.includes('Przed ogniskiem')));
   check('zapis w miejscu 1', true);
+  const slotText = await page.textContent('dialog[open] .save-slot >> nth=0');
+  check('Zapisy: data w formacie rrrr-MM-dd gg:mm', new RegExp(` · ${DATE}`).test(slotText), slotText);
   await page.screenshot({ path: path.join(OUT, '12-zapisy.png') });
   await page.keyboard.press('Escape');
   await page.click('.btn-choice:has-text("Przejdź do §1")');
@@ -276,6 +316,14 @@ function check(name, condition, details = '') {
   check('krój Old Standard TT', (await page.evaluate(() => document.fonts.check('16px "Old Standard TT"'))));
   await page.click('.game-tools button:has-text("Ustawienia")');
   await page.click('dialog[open] input[value=dark]');
+  await page.click('dialog[open] button:has-text("Instrukcja")');
+  await page.waitForFunction(() => [...document.querySelectorAll('dialog[open] .dialog-title')].some((el) => el.textContent === 'Instrukcja'));
+  const fromSettings = await instructionsDialog(page);
+  check('Ustawienia → Instrukcja: jak grać, ustawienia, ta książka', fromSettings.title === 'Instrukcja' && fromSettings.headings.includes('Jak grać') && fromSettings.headings.some((t) => t.startsWith('Ustawienia')) && fromSettings.headings.includes('Ta książka: „Vae Victis”'), JSON.stringify(fromSettings.headings));
+  check('Instrukcja: mechanika Informacji i odesłanie do zasad z książki', fromSettings.headings.includes('Informacje') && fromSettings.text.includes('„Zdobyte Informacje”') && fromSettings.text.includes('Wprowadzenie (zasady gry)'));
+  await page.screenshot({ path: path.join(OUT, '13a-instrukcja.png') });
+  await page.keyboard.press('Escape');
+  check('po zamknięciu instrukcji wraca okno „Ustawienia”', (await page.textContent('dialog[open] .dialog-title')) === 'Ustawienia');
   await page.keyboard.press('Escape');
   await page.screenshot({ path: path.join(OUT, '13-ciemny.png'), fullPage: true });
 
@@ -302,6 +350,8 @@ function check(name, condition, details = '') {
   await mobile.waitForSelector('.book-card');
   await mobile.screenshot({ path: path.join(OUT, '15-telefon-katalog.png'), fullPage: true });
   await mobile.click('.book-toggle');
+  check('telefon: karta książki bez przewijania w poziomie', !(await mobile.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)));
+  await mobile.screenshot({ path: path.join(OUT, '15a-telefon-karta.png'), fullPage: true });
   await mobile.click('text=Rozpocznij grę');
   await mobile.waitForSelector('.game-text');
   await mobile.click('.game-text a.book-link:has-text("Prologu")');
@@ -317,6 +367,16 @@ function check(name, condition, details = '') {
   await page.waitForSelector('.book-card');
   check('rozwinięta karta zapamiętana w tej sesji', (await page.getAttribute('.book-toggle', 'aria-expanded')) === 'true');
   check('ekran główny: stopka aplikacji widoczna (z autorem piktogramu)', (await page.isVisible('.app-footer')) && (await page.textContent('.app-footer')).includes('Skoll'));
+  const progress = await page.textContent('.book-card .progress');
+  check('karta: data rozpoczęcia i ostatni zapis w jednym formacie, bez numeru', new RegExp(`^Rozgrywka \\(data rozpoczęcia: ${DATE}\\) · `).test(progress) && new RegExp(`ostatni zapis: ${DATE}`).test(progress) && !/nr \d/.test(progress), progress);
+  const actionsAfter = await bookActions(page);
+  check('karta: „Kontynuuj grę”, „Nowa gra”, „Instrukcja” po lewej, „O książce” po prawej', JSON.stringify(actionsAfter.texts) === JSON.stringify(['Kontynuuj grę', 'Nowa gra', 'Instrukcja', 'O książce']) && actionsAfter.aboutRight && actionsAfter.othersLeft, JSON.stringify(actionsAfter));
+  await page.click('.book-actions button:has-text("Instrukcja")');
+  await page.waitForSelector('dialog[open] .dialog-title');
+  const fromCard = await instructionsDialog(page);
+  check('karta → Instrukcja dla tej książki', fromCard.title === 'Instrukcja' && fromCard.headings.includes('Ta książka: „Vae Victis”') && fromCard.headings.includes('Informacje'), JSON.stringify(fromCard.headings));
+  await page.keyboard.press('Escape');
+  await page.screenshot({ path: path.join(OUT, '16a-karta-przyciski.png') });
   await page.click('.book-card a:has-text("Nowa gra")');
   await page.waitForSelector('dialog[open]');
   check('Nowa gra z ekranu głównego', (await page.textContent('dialog[open] .dialog-title')) === 'Nowa gra');

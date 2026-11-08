@@ -11,7 +11,7 @@
 | | |
 |---|---|
 | Etap | **2, 3 i 5 — zakończone; aplikacja opublikowana** (2026-11-02): `https://cutelittlegoat.github.io/GryParagrafowe/`; App Check działa (2026-11-03) — czeka na obserwację i wymuszenie |
-| Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy (2026-11-03): przeglądarka 71/71, emulator 15/15, reguły 17/17, silnik 12/12 |
+| Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy (2026-11-08): przeglądarka 83/83, emulator 15/15, reguły 17/17, silnik 13/13 |
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ✅ — klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni, wymiana tokenu działa (2026-11-03); wymuszenie (*Enforce*) — po obserwacji |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
@@ -107,7 +107,8 @@
 - [ ] CI (GitHub Actions): weryfikacja treści i mechaniki, testy
 - [x] Hosting: **GitHub Pages** (P3) — włączone przez właściciela 2026-11-02 (repozytorium publiczne, gałąź `main`): `https://cutelittlegoat.github.io/GryParagrafowe/`
 - [ ] Polityka CSP (znacznik w `index.html`) — po sprawdzeniu działania na GitHub Pages, żeby nie zablokować Firebase ani App Check
-- [ ] Instrukcje dla graczy i dla administratora
+- [x] Instrukcja dla graczy w aplikacji — okno „Instrukcja” w „Ustawieniach” i na karcie książki (2026-11-08, D58)
+- [ ] Instrukcja dla administratora
 - [ ] Opcjonalnie: zmiana kroju pisma przez gracza (np. krój przyjazny dla osób z dysleksją — licencja kroju do sprawdzenia) — **tylko po zgodzie Wydawcy** (pytanie PW1) (P11); przełącznik **czcionki** w oknie „Ustawienia” — dopiero po potwierdzeniu Wydawcy (właściciel 2026-11-03: „Przełącznik będzie dotyczyć zmiany fontu a nie języka - ale to po potwierdzeniu z wydawcą”)
 - [ ] Do decyzji właściciela **na koniec prac nad książką** (pytanie P15): tekst gry złożony jak w PDF — akapity z wcięciem pierwszego wiersza, bez odstępów, wyjustowane (teraz: odstępy między akapitami, bez wcięć — zostaje do tego czasu)
 - [x] Test E2E (Playwright) — `testy/e2e/test-dymny.cjs` (2026-11-02)
@@ -165,6 +166,10 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
+| D59 | 2026-11-08 | Przyciski przejść („Przejdź do…”) i „Cofnij” w kształcie **pastylek** (w pełni zaokrąglone boki, napis na środku) | decyzja właściciela |
+| D58 | 2026-11-03 | **Instrukcja** — okno z przyciskiem w „Ustawieniach” i na karcie książki. Zawiera: jak grać, ustawienia aplikacji i część o książce, złożoną z opisów jej modułów mechaniki (dla „Vae Victis”: zbieranie Informacji, odwiedzone miejsca, zakończenia; w innych książkach np. punkty życia, ekwipunek). Opisuje tylko działanie aplikacji, a do zasad gry odsyła do tekstu książki (bez streszczeń — Z1, Z3). Karta książki: „Kontynuuj grę” / „Rozpocznij grę”, „Nowa gra”, „Instrukcja” po lewej, „O książce” po prawej | polecenie właściciela |
+| D57 | 2026-11-03 | **Jeden format daty i godziny w całej aplikacji: `rrrr-MM-dd gg:mm`** (np. 2026-11-03 08:52), czas lokalny urządzenia — data rozpoczęcia rozgrywki, ostatni zapis, „Zapisy” | polecenie właściciela („zastosuj jeden format daty i się go trzymaj wszędzie, żeby było jednolicie”) |
+| D56 | 2026-11-03 | **Bez numerowania rozgrywek**: zamiast „Rozgrywka nr 8” — data i godzina rozpoczęcia (`startedAt`) w „Historii” i na karcie książki. Pole `playthrough` wycofane: aplikacja go nie zapisuje i usuwa ze starszych stanów i zapisów przy wczytaniu (reguły Firebase bez zmian — to pole i tak było opcjonalne) | polecenie właściciela („Nie chcę, żeby każde rozpoczęcie nowej gry było numerowane i zwiększało licznik”) |
 | D55 | 2026-11-03 | **Znaczniki ekranu gry zgodne z rolą elementów**: pasek gry `<header>`, narzędzia i „Dokąd dalej?” `<nav>`, komunikaty i zakończenie `<aside>`, informacja o trybie mechaniki `<footer>`; tekst książki wyłącznie w `<article class="book-text">`. **Komentarze HTML po polsku** w `index.html` i w drzewie strony (wstawiane przez ekrany funkcją `htmlComment`) — nigdy wewnątrz tekstu książki. Reguła CSS `[hidden] { display: none !important; }` | decyzja właściciela P17 („Czekając na odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.”); Chrome „Tryb czytania” czyta teraz tekst paragrafu i tytuł książki, bez dopisków i komunikatów |
 | D54 | 2026-11-03 | **Bez własnego lektora/TTS** — aplikacja może co najwyżej ułatwić pracę funkcji czytania na głos wbudowanej w przeglądarkę (gracz sam ją włącza; głos, tempo i inne ustawienia odczytu — w przeglądarce); czy przycisk „Sam tekst” jest zgodny ze zgodą — pytanie PW4 do Wydawcy | polecenie właściciela („Nie tworzymy żadnego bota do odczytu”; „nie chcę tworzyć własnego lektora/TTS tylko nakierować już istniejącego w przeglądarce”); zasada Z3 |
 | D53 | 2026-11-03 | „Vae Victis”: przycisk **„Informacje”** (liczba mnoga — poprawka właściciela z tego samego dnia; wcześniej „Informacja”) i okno **„Zdobyte Informacje”** zamiast „Karta postaci” (pola `buttonLabel` i `panelTitle` modułu `codewords`, generator mechaniki 1.1.0); inne książki — domyślnie „Karta postaci”; komunikaty i opisy trybów bez odwołań do „karty postaci” | decyzja właściciela — książka nie ma klasycznej karty postaci ze statystykami |
@@ -213,6 +218,43 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-08 — Data rozpoczęcia zamiast numeru rozgrywki, jeden format daty, „Instrukcja”, pastylki
+
+**Zmieniono**
+- „Historia i zakończenia”: „Bieżąca rozgrywka (data rozpoczęcia: 2026-11-08 08:04)” zamiast „(nr 8)”.
+- Karta książki: „Rozgrywka (data rozpoczęcia: …) · miejsce: … · odkryte zakończenia: … · ostatni zapis: …”
+  zamiast „Rozgrywka nr 8 · …”. Polecenie właściciela (D56).
+- Jeden format daty i godziny w całej aplikacji: `rrrr-MM-dd gg:mm` — data rozpoczęcia, ostatni zapis,
+  „Zapisy” (D57).
+- Karta książki: „Kontynuuj grę” (albo „Rozpocznij grę”), „Nowa gra” i nowy przycisk „Instrukcja” po
+  lewej, „O książce” po prawej. Na telefonie „O książce” przechodzi do nowego wiersza, przy prawej
+  krawędzi (D58).
+- Przyciski „Przejdź do…” i „Cofnij” w kształcie pastylek (D59).
+
+**Dodano**
+- Okno **„Instrukcja”** (`aplikacja/js/ui/instructions.js`) — przycisk w „Ustawieniach” i na karcie
+  książki (D58). Zawiera trzy części:
+  - jak grać — przyciski gry, zapis, „Nowa gra”, „O książce”, gra na dwóch urządzeniach;
+  - ustawienia — motyw, wielkość tekstu, tryb mechaniki;
+  - część o książce z opisów jej modułów mechaniki — w „Vae Victis”: Informacje, odwiedzone miejsca,
+    zakończenia.
+
+  Instrukcja opisuje tylko działanie aplikacji, a po zasady gry odsyła do „Wprowadzenia (zasady gry)” w
+  książce — bez streszczeń.
+- Testy:
+  - silnik: test usuwania wycofanego pola ze starszych stanów — razem 13/13;
+  - przeglądarka: 12 nowych sprawdzeń (format daty, brak numeru, nowa data rozpoczęcia po „Nowej
+    grze”, „Instrukcja” z „Ustawień” i z karty, układ przycisków karty, pastylki, karta na telefonie) —
+    razem 83/83;
+  - z emulatorem: 15/15.
+
+**Usunięto**
+- Licznik rozgrywek `playthrough`:
+  - aplikacja go nie zapisuje;
+  - starsze stany i zapisy tracą to pole przy wczytaniu;
+  - reguły Firebase bez zmian (pole było opcjonalne);
+  - opis w `dokumentacja/FIREBASE.md`.
 
 ### 2026-11-03 — Porządek w znacznikach ekranu gry i komentarze HTML po polsku
 

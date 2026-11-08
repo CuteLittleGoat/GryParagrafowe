@@ -344,6 +344,12 @@ h4 {
   margin: 0.75rem 0;
 }
 
+/* Przyciski karty książki: gra, „Nowa gra” i „Instrukcja” po lewej, „O książce” po prawej
+   (gdy brakuje miejsca, „O książce” przechodzi do nowego wiersza — nadal przy prawej krawędzi). */
+.book-actions .btn-about {
+  margin-left: auto;
+}
+
 .field {
   display: grid;
   gap: 0.3rem;
@@ -919,9 +925,16 @@ ol.book-list > li::before {
 }
 
 .btn-choice {
-  justify-content: flex-start;
   min-width: 11rem;
   font-size: 1rem;
+}
+
+/* Przyciski przejść („Przejdź do…”) i „Cofnij” w kształcie pastylek — w pełni zaokrąglone boki
+   (decyzja właściciela, 2026-11-08). Obrys fokusu z klawiatury dopasowuje się do kształtu. */
+.btn-choice,
+.undo-button {
+  border-radius: 999px;
+  padding-inline: 1.25rem;
 }
 
 .choice-condition {
@@ -1085,6 +1098,21 @@ ol.book-list > li::before {
 .endings-list {
   margin: 0;
   padding-left: 1.2rem;
+}
+
+/* Okno „Instrukcja” (instructions.js) — komunikaty aplikacji, krój interfejsu. */
+.instructions-list {
+  margin: 0.3rem 0 0.6rem;
+  padding-left: 1.2rem;
+}
+
+.instructions-list li {
+  margin: 0.25rem 0;
+}
+
+.instructions-module h4 {
+  margin: 0.8rem 0 0.2rem;
+  font-size: 0.95rem;
 }
 
 .save-list {
