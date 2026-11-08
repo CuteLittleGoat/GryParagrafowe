@@ -91,6 +91,13 @@ wycofanie zgody; treść musi zostać usunięta z repozytorium, patrz N9).
   właściciela P2); adresy sprawdzone 2026-10-29 — weryfikować przy wdrożeniu.
 - `contentWarning` — ostrzeżenie o treści **dosłownie** ze strony Wydawnictwa, wyświetlane na ekranie
   głównym przy karcie książki z informacją o źródle i odnośnikiem (decyzja właściciela P7).
+- `announcedEndings` (opcjonalne, decyzja właściciela D60) — liczba zakończeń **podana przez Wydawcę w
+  opisie książki**: `{ "count": 25, "source": "<adres opisu>", "checked": "RRRR-MM-DD" }`.
+  - Tylko z tym polem aplikacja pisze „Odkryte zakończenia: X z Y” i podaje liczbę zakończeń w
+    „Instrukcji”. Bez niego — „Odkryte zakończenia: X”.
+  - Liczby zakończeń policzonej przez nas z treści (węzły z `ending`) nie pokazujemy.
+  - Jeśli liczba z opisu różni się od liczby zakończeń wykrytych w treści, zgłoś to właścicielowi.
+  - „Vae Victis” nie ma tego pola: opis Wydawcy nie podaje liczby zakończeń (sprawdzone 2026-11-08).
 
 Weryfikacja automatyczna: `title`, każdy z `authors`, `isbn` i `cover.illustrator` muszą występować
 dosłownie w `stopka.json`; pliki `cover.file` i `source.file` muszą istnieć; tytuł musi mieć w

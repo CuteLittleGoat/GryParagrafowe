@@ -6,7 +6,7 @@
 // mechanika.json. Opisujemy wyłącznie działanie aplikacji — nie streszczamy ani nie zastępujemy zasad
 // gry z samej książki (zasady czyta się w jej tekście, np. we „Wprowadzeniu”; LICENCJA_I_ZGODA.md, Z1, Z3).
 
-import { h } from './dom.js';
+import { h, plural } from './dom.js';
 import { openDialog } from './dialogs.js';
 import { MODE_LABELS } from './settings.js';
 
@@ -21,7 +21,7 @@ export function openInstructions({ manifest, mechanics = null, content = null })
         + 'tak jak w papierowej książce.'),
       section('Jak grać', list(playItems())),
       section('Ustawienia (przycisk „Ustawienia” na ekranie gry)', list(settingsItems(mechanics))),
-      section(`Ta książka: „${manifest.title}”`, bookItems({ mechanics, content })),
+      section(`Ta książka: „${manifest.title}”`, bookItems({ manifest, mechanics, content })),
     ],
   });
 }
@@ -73,7 +73,7 @@ const MODULE_HELP = {
   endings: endingsHelp,
 };
 
-function bookItems({ mechanics, content }) {
+function bookItems({ manifest, mechanics, content }) {
   const hasIntroduction = Boolean(content?.nodes?.wprowadzenie);
   const rules = h('p', {}, hasIntroduction
     ? 'Zasady gry opisuje sama książka — w części „Wprowadzenie (zasady gry)”, którą czytasz na początku gry; '
@@ -89,7 +89,7 @@ function bookItems({ mechanics, content }) {
   }
   const modules = Object.entries(mechanics.modules ?? {})
     .filter(([name]) => MODULE_HELP[name])
-    .map(([name, module]) => MODULE_HELP[name](module, mechanics));
+    .map(([name, module]) => MODULE_HELP[name](module, mechanics, manifest));
   return [rules, h('p', {}, 'Aplikacja pomaga w tym, co trzeba zapamiętywać w trakcie gry:'), modules];
 }
 
@@ -105,7 +105,8 @@ function codewordsHelp(module, mechanics) {
     'div',
     { class: 'instructions-module' },
     h('h4', {}, label),
-    h('p', {}, `W tej książce zbierasz ${label} — każda ma swój numer (${example} itd.${values.length ? `; razem ${values.length}` : ''}).`),
+    // Bez łącznej liczby Informacji — książka jej nie podaje (por. zasadę dla zakończeń, D60).
+    h('p', {}, `W tej książce zbierasz ${label} — każda ma swój numer (np. ${example}).`),
     list([
       `Tryb automatyczny: gdy tekst paragrafu mówi, że zdobywasz albo tracisz Informację, aplikacja sama ją zaznacza `
         + `i pokazuje komunikat, np. „Zdobywasz Informację ${example}.”`,
@@ -137,7 +138,9 @@ function visitsHelp() {
   );
 }
 
-function endingsHelp() {
+function endingsHelp(module, mechanics, manifest) {
+  // Liczbę zakończeń podajemy tylko za opisem Wydawcy (manifest.announcedEndings, D60).
+  const announced = manifest?.announcedEndings?.count;
   return h(
     'div',
     { class: 'instructions-module' },
@@ -145,6 +148,9 @@ function endingsHelp() {
     list([
       'Gdy dojdziesz do zakończenia, aplikacja pokaże ramkę „Koniec tej drogi” i zapamięta odkryte zakończenie. '
         + 'Odkryte zakończenia widać w „Historii” — zostają także po „Nowej grze”.',
+      Number.isInteger(announced) && announced > 0
+        ? `Według opisu Wydawcy książka ma ${announced} ${plural(announced, ['zakończenie', 'zakończenia', 'zakończeń'])}.`
+        : null,
     ]),
   );
 }

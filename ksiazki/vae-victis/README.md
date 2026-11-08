@@ -121,6 +121,9 @@ dalszy ciąg jest osobnym dokumentem bez nagłówka (`index_split_115`) → węz
     przejdź od razu do 335]” (raz z przecinkiem po „drugi”).
 - **Zakończenia**: 21 fragmentów z formułą „Ukończyłeś grę książkową Vae Victis zdobywając jedno z
   zakończeń. To nosi tytuł: …” — 20 różnych tytułów („Twego trudu nastał kres.” występuje dwukrotnie).
+  Liczby zakończeń nie podaje ani książka, ani opis na stronie Wydawnictwa (sprawdzone 2026-11-08). Dlatego
+  aplikacja pisze „Odkryte zakończenia: N” bez łącznej liczby, a manifest nie ma pola `announcedEndings`
+  (decyzja właściciela D60).
 - **Odnośniki zewnętrzne w treści**: strona Wydawnictwa i adresy e-mail (stopka), Patronite
   Wydawnictwa (strona „od Wydawnictwa”), odesłanie do gry „Jestem” na stronie Masz Wybór (jedno z
   zakończeń) — pozostają linkami zewnętrznymi; **„Jestem” nie jest objęte zgodą**.

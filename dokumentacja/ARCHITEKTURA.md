@@ -50,7 +50,7 @@ python3 -m http.server 8000
 | **Karta postaci** | panel składany z modułów książki (Informacje, statystyki, ekwipunek, liczniki…) + ręczna edycja (jak kartka papieru); nazwa przycisku i okna zależy od książki — „Vae Victis” nie ma statystyk, więc przycisk „Informacje” otwiera okno „Zdobyte Informacje” (`buttonLabel`, `panelTitle` w module `codewords`) |
 | **Kości** | rzut wg wyrażenia (`k6`, `2k6`, `k100`…), animacja, historia rzutów — tylko gdy książka ma moduł `dice` |
 | **Zapis / wczytanie** | autozapis po każdym ruchu + **3 miejsca na ręczny zapis** w każdej książce (decyzja właściciela) |
-| **Zakończenie** | tekst zakończenia 1:1; lista „Odkryte zakończenia”; „Zagraj ponownie”, „Menu główne” |
+| **Zakończenie** | tekst zakończenia 1:1; „Odkryte zakończenia: X” (łączna liczba „X z Y” — tylko gdy podaje ją Wydawca w opisie książki, pole `announcedEndings`; D60); „Zagraj ponownie”, „Menu główne” |
 | **O książce** | okładka z podpisem, strona tytułowa, dedykacja, stopka, strona „od Wydawnictwa”, spis treści, odnośniki, informacja o zgodzie |
 | **Panel administratora** | tylko dla administratora: backup, odtwarzanie gracza z pliku, lista graczy z datą ostatniej aktywności |
 | **Ustawienia** | wielkość liter, motyw, tryb mechaniki (automatyczny / ręczny), przycisk **„Instrukcja”**; krój pisma — tylko oryginalny do czasu zgody Wydawcy (pytanie PW1) |

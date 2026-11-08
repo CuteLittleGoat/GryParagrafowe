@@ -186,6 +186,8 @@ function check(name, condition, details = '') {
   await page.waitForSelector('dialog[open] h3');
   const historyHeading = await page.textContent('dialog[open] h3');
   check('Historia: data rozpoczęcia zamiast numeru rozgrywki', new RegExp(`^Bieżąca rozgrywka \\(data rozpoczęcia: ${DATE}\\)$`).test(historyHeading), historyHeading);
+  const endingsHeading = await page.textContent('dialog[open] h3 >> nth=1');
+  check('Historia: „Odkryte zakończenia: 0” bez łącznej liczby', endingsHeading === 'Odkryte zakończenia: 0', endingsHeading);
   await page.keyboard.press('Escape');
 
   // 5. Cofnij
@@ -268,6 +270,7 @@ function check(name, condition, details = '') {
   await page.waitForSelector('.ending-box');
   const ending = await page.textContent('.ending-box');
   check('zakończenie: tytuł i pierwszy raz', ending.includes('Ea est natura hominum') && ending.includes('po raz pierwszy'), ending);
+  check('zakończenie: „Odkryte zakończenia: 1.” bez łącznej liczby', ending.includes('Odkryte zakończenia: 1.') && !/zakończenia: \d+ z \d+/.test(ending), ending);
   check('zakończenie w <aside> „Koniec tej drogi”', await page.$eval('.ending-box', (el) => el.closest('aside.ending-area')?.getAttribute('aria-labelledby') === 'ending-title'));
   await onlyTitleOutsideText(page, 'zakończenie');
   await page.screenshot({ path: path.join(OUT, '10-zakonczenie.png'), fullPage: true });
@@ -321,6 +324,7 @@ function check(name, condition, details = '') {
   const fromSettings = await instructionsDialog(page);
   check('Ustawienia → Instrukcja: jak grać, ustawienia, ta książka', fromSettings.title === 'Instrukcja' && fromSettings.headings.includes('Jak grać') && fromSettings.headings.some((t) => t.startsWith('Ustawienia')) && fromSettings.headings.includes('Ta książka: „Vae Victis”'), JSON.stringify(fromSettings.headings));
   check('Instrukcja: mechanika Informacji i odesłanie do zasad z książki', fromSettings.headings.includes('Informacje') && fromSettings.text.includes('„Zdobyte Informacje”') && fromSettings.text.includes('Wprowadzenie (zasady gry)'));
+  check('Instrukcja: bez łącznej liczby Informacji i zakończeń', !fromSettings.text.includes('razem') && !/\d+ zakończe/.test(fromSettings.text));
   await page.screenshot({ path: path.join(OUT, '13a-instrukcja.png') });
   await page.keyboard.press('Escape');
   check('po zamknięciu instrukcji wraca okno „Ustawienia”', (await page.textContent('dialog[open] .dialog-title')) === 'Ustawienia');
@@ -339,6 +343,23 @@ function check(name, condition, details = '') {
   await page.waitForFunction(() => { const img = document.querySelector('.cover-large img'); return img && img.complete && img.naturalWidth > 0; }, null, { timeout: 30000 });
   check('O książce: okładka wczytana', true);
   await page.screenshot({ path: path.join(OUT, '14-o-ksiazce.png') });
+
+  // 14a. Łączna liczba zakończeń tylko wtedy, gdy podaje ją Wydawca (manifest.announcedEndings) — symulacja
+  const announcedPage = await page.context().newPage();
+  announcedPage.on('pageerror', (err) => errors.push(`announced pageerror: ${err.message}`));
+  await announcedPage.route('**/ksiazki/vae-victis/ksiazka.json', async (route) => {
+    const response = await route.fetch();
+    const manifest = await response.json();
+    manifest.announcedEndings = { count: 25, source: 'https://example.invalid/opis-ksiazki', checked: '2026-11-08' };
+    await route.fulfill({ response, json: manifest });
+  });
+  await announcedPage.goto(`${BASE}#/gra/vae-victis`);
+  await announcedPage.waitForSelector('.game-text');
+  await announcedPage.click('.game-tools button:has-text("Historia")');
+  await announcedPage.waitForSelector('dialog[open] h3');
+  const announcedHeading = await announcedPage.textContent('dialog[open] h3 >> nth=1');
+  check('liczba zakończeń podana przez Wydawcę: „Odkryte zakończenia: X z 25”', /^Odkryte zakończenia: \d+ z 25$/.test(announcedHeading), announcedHeading);
+  await announcedPage.close();
 
   // 15. Telefon
   const phone = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, locale: 'pl-PL' });

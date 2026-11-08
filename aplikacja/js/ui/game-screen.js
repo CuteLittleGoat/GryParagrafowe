@@ -46,7 +46,13 @@ export async function renderGame(app, root, bookId) {
   // książki bez własnych nazw — „Karta postaci”.
   const sheetButtonLabel = codewordsModule?.buttonLabel ?? 'Karta postaci';
   const sheetTitle = codewordsModule?.panelTitle ?? `Karta postaci — ${codewordsModule?.label ?? 'Informacje'}`;
-  const endingNodes = content.order.filter((id) => content.nodes[id].ending);
+  // Liczbę wszystkich zakończeń podajemy tylko wtedy, gdy podaje ją Wydawca w opisie książki
+  // (manifest.announcedEndings) — liczby policzonej przez nas z treści nie ujawniamy (decyzja właściciela,
+  // D60): „Odkryte zakończenia: 1”, a przy liczbie od Wydawcy — „Odkryte zakończenia: 1 z 25”.
+  const announcedEndings = Number.isInteger(manifest.announcedEndings?.count) && manifest.announcedEndings.count > 0
+    ? manifest.announcedEndings.count
+    : null;
+  const endingsLabel = (found) => `Odkryte zakończenia: ${found}${announcedEndings ? ` z ${announcedEndings}` : ''}`;
   app.setTitle(manifest.title);
 
   const mode = () => (mechanics ? app.settings.mechanicsMode : 'manual');
@@ -406,7 +412,7 @@ export async function renderGame(app, root, bookId) {
       h('h2', { id: 'ending-title' }, 'Koniec tej drogi'),
       ending ? h('p', {}, 'Zakończenie: ', h('q', {}, ending.title)) : null,
       notice ? h('p', { class: 'ending-first' }, notice.first ? 'To zakończenie odkrywasz po raz pierwszy!' : 'To zakończenie odkryto już wcześniej.') : null,
-      h('p', {}, `Odkryte zakończenia: ${found} z ${endingNodes.length}.`),
+      h('p', {}, `${endingsLabel(found)}.`),
       h(
         'div',
         { class: 'actions' },
@@ -553,7 +559,7 @@ export async function renderGame(app, root, bookId) {
       body: [
         h('h3', {}, game.state.startedAt ? `Bieżąca rozgrywka (data rozpoczęcia: ${formatDateTime(game.state.startedAt)})` : 'Bieżąca rozgrywka'),
         h('ol', { class: 'history-list' }, history.map((id) => h('li', {}, nodeLabel(content, id)))),
-        h('h3', {}, `Odkryte zakończenia: ${found.length} z ${endingNodes.length}`),
+        h('h3', {}, endingsLabel(found.length)),
         found.length
           ? h('ul', { class: 'endings-list' }, found.map((id) => h('li', {}, `${nodeLabel(content, id)} — `, h('q', {}, content.nodes[id]?.ending?.title ?? ''))))
           : h('p', { class: 'muted' }, 'Jeszcze żadnego.'),
