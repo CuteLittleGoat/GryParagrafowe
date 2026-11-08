@@ -34,6 +34,10 @@ Polecenie z 2026-11-08 (PW4 wstrzymane):
 > na obecną chwilę nie będziemy kontynuować prac nad PW4. Możesz to dopisać do dokumentacji, że był taki
 > pomysł, ale został bez dalszych prac.
 
+Polecenie z 2026-11-08 (pytanie PW5 — wygląd akapitów, pytanie P15 w `PLAN_I_CHANGELOG.md`):
+
+> To powinno też być jako pytanie do wydawcy. Opisz mi je. Właśnie przygotowuję maila.
+
 Polecenie z 2026-11-08 (bez szkiców wiadomości):
 
 > nie musisz pisać draftów maili do wydawcy. wystarczy, że będziesz pisać pytania w pliku.
@@ -62,6 +66,7 @@ Polecenie z 2026-11-08 (bez szkiców wiadomości):
 | PW1 | Czy gracz może zmienić krój pisma (czcionkę)? | 📝 przygotowane | — | — | tylko krój oryginalny (Old Standard); funkcji zmiany kroju nie budujemy |
 | PW2 | Czy można dodać typowe ustawienia wyświetlania (wielkość liter, tryb ciemny, dopasowanie do ekranu telefonu)? | 📝 przygotowane | — | — | przygotowujemy je jak w czytnikach e-booków; przy braku zgody — wycofamy |
 | PW4 | Czy możemy dodać przycisk, który na czas słuchania chowa przyciski aplikacji, tak żeby funkcja czytania na głos **wbudowana w przeglądarkę** czytała sam tekst paragrafu? (aplikacja nie ma własnego lektora) | ⏸ wstrzymane (2026-11-08) | — | — | decyzja właściciela 2026-11-08: na obecną chwilę bez dalszych prac — pytania nie wysyłamy, przycisku „Sam tekst” nie robimy; pomysł zostaje opisany w analizie odczytu na głos; własnego lektora nie tworzymy (Z3) |
+| PW5 | Czy akapity mogą wyglądać inaczej niż w publikacji (odstęp zamiast wcięcia, tekst wyrównany do lewej zamiast do obu krawędzi)? | 📝 przygotowane | — | — | zostaje obecny układ (odstępy, wyrównanie do lewej) — decyzja właściciela z 2026-11-03; ostatecznie po odpowiedzi Wydawcy (pytanie P15 w `PLAN_I_CHANGELOG.md`) |
 
 Statusy: 📝 przygotowane → 📤 wysłane → ✅ zgoda / ⛔ brak zgody / ❓ odpowiedź wymaga doprecyzowania;
 ⏸ wstrzymane — pomysł bez dalszych prac, pytania nie wysyłamy.
@@ -140,6 +145,33 @@ odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.”):
   paragrafu i tytuł książki, ale funkcje czytające całą stronę nadal czytają przyciski;
 - funkcji przeglądarki nie blokujemy — to narzędzie gracza, jak czytnik ekranu dla osób niewidomych.
 
+## PW5. Wygląd akapitów (wcięcia, odstępy, wyrównanie)
+
+**Dlaczego pytamy.**
+- W publikacji (PDF) akapity wyglądają jak w drukowanej książce:
+  - pierwszy wiersz akapitu jest wcięty;
+  - między akapitami nie ma odstępów;
+  - tekst jest wyrównany do obu krawędzi strony.
+- W aplikacji akapity wyglądają inaczej:
+  - są oddzielone odstępem (pustą linią);
+  - nie mają wcięcia;
+  - tekst jest wyrównany do lewej.
+- Na wąskim ekranie telefonu tekst wyrównany do obu krawędzi ma duże, nierówne przerwy między wyrazami, a
+  odstęp ułatwia odnalezienie początku akapitu.
+- Treść oraz podział na akapity i paragrafy są bez zmian — zmienia się tylko wygląd akapitów.
+- Pytamy z tego samego powodu co w PW1 i PW2. Licencja w stopce zabrania „adaptowania” i
+  „modyfikowania” publikacji bez pisemnej zgody, a zgoda nie mówi nic o sposobie wyświetlania tekstu.
+- PW2 pyta ogólnie o dopasowanie układu do ekranu telefonu. PW5 dotyczy konkretnie wyglądu akapitów.
+- U właściciela to otwarte pytanie P15 w `PLAN_I_CHANGELOG.md`.
+
+**Pytanie:** Czy możemy wyświetlać akapity inaczej niż w publikacji — z odstępem między akapitami
+zamiast wcięcia pierwszego wiersza i z tekstem wyrównanym do lewej zamiast do obu krawędzi? Na ekranie
+telefonu czyta się tak wygodniej. Jeśli wolą Państwo układ jak w publikacji, możemy go zastosować na
+wszystkich ekranach albo przynajmniej na komputerach. Treść i podział na akapity pozostają bez zmian.
+
+**Do czasu odpowiedzi:** zostaje obecny układ — decyzja właściciela z 2026-11-03: „Na obecną chwilę
+zostaw jak jest”. Ostateczna decyzja zapadnie po odpowiedzi Wydawcy, na koniec prac nad książką (P15).
+
 ## Propozycje kolejnych pytań (do decyzji właściciela)
 
 | Nr | Propozycja pytania | Skąd się wzięła |
@@ -156,6 +188,8 @@ odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.”):
   kroju pisma za modyfikację (tekst się nie zmienia, ale zmienia się wygląd publikacji).
 - To, że czytniki e-booków standardowo pozwalają zmieniać krój i wielkość liter, jest argumentem, ale
   nie rozstrzyga sprawy dla tej aplikacji.
+- PW5: nie wiadomo, czy Wydawca uzna inny wygląd akapitów (odstępy zamiast wcięć, wyrównanie do lewej)
+  za zwykłe dopasowanie do ekranu, jak w czytnikach e-booków, czy za modyfikację wyglądu publikacji.
 - PW4 (wstrzymane 2026-11-08): zgoda nie wspomina o czytaniu na głos. Nie wiadomo, czy Wydawca uzna pomoc dla lektora
   wbudowanego w przeglądarkę za „wersję audio”, której nasze zasady (Z3) nie dopuszczają, czy za zwykłe
   ułatwienie w czytaniu (jak tryb ciemny albo czytnik ekranu).

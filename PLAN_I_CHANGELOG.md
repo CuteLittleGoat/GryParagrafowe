@@ -15,7 +15,7 @@
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ✅ — klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni, wymiana tokenu działa (2026-11-03); wymuszenie (*Enforce*) — po obserwacji |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
-| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1 i PW2 przygotowane (**tylko sprawy licencyjne** — decyzja właściciela 2026-11-02; PW3 usunięte; PW4 — czytanie na głos — **wstrzymane** 2026-11-08); właściciel wyśle je razem z odnośnikiem do aplikacji i kontem dla Wydawnictwa; bez szkiców wiadomości — tylko pytania w pliku (D63) |
+| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1, PW2 i PW5 przygotowane (**tylko sprawy licencyjne** — decyzja właściciela 2026-11-02; PW3 usunięte; PW4 — czytanie na głos — **wstrzymane** 2026-11-08; PW5 — wygląd akapitów, 2026-11-08); właściciel wyśle je razem z odnośnikiem do aplikacji i kontem dla Wydawnictwa; bez szkiców wiadomości — tylko pytania w pliku (D63) |
 | Blokery | brak |
 
 ## 2. Następne kroki
@@ -24,7 +24,7 @@
    Check* → *APIs* → *Cloud Firestore*, czy żądania są „Verified”; potem **Enforce** (hamulec:
    *Unenforce*). Przy okazji usunąć stary klucz `gryparagrafowe-e1fb3` z projektu AudioRPG (tylko ten!).
 2. **Właściciel**: sprawdzenie logowania prawdziwymi kontami (w tym kontem Wydawnictwa `Player2`).
-3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1 i PW2 (pytania
+3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1, PW2 i PW5 (pytania
    w pliku `Analizy/Pytania_Do_Wydawcy_2026-10-29.md`; wiadomość pisze właściciel).
 4. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
    uprawnienia administratora).
@@ -108,7 +108,7 @@
 - [x] Instrukcja dla graczy w aplikacji — okno „Instrukcja” w „Ustawieniach” i na karcie książki (2026-11-08, D58)
 - [ ] Instrukcja dla administratora
 - [ ] Opcjonalnie: zmiana kroju pisma przez gracza (np. krój przyjazny dla osób z dysleksją — licencja kroju do sprawdzenia) — **tylko po zgodzie Wydawcy** (pytanie PW1) (P11); przełącznik **czcionki** w oknie „Ustawienia” — dopiero po potwierdzeniu Wydawcy (właściciel 2026-11-03: „Przełącznik będzie dotyczyć zmiany fontu a nie języka - ale to po potwierdzeniu z wydawcą”)
-- [ ] Do decyzji właściciela **na koniec prac nad książką** (pytanie P15): tekst gry złożony jak w PDF — akapity z wcięciem pierwszego wiersza, bez odstępów, wyjustowane (teraz: odstępy między akapitami, bez wcięć — zostaje do tego czasu)
+- [ ] Do decyzji właściciela **na koniec prac nad książką** (pytanie P15): tekst gry złożony jak w PDF — akapity z wcięciem pierwszego wiersza, bez odstępów, wyjustowane (teraz: odstępy między akapitami, bez wcięć — zostaje do tego czasu); pytanie do Wydawcy PW5 (2026-11-08)
 - [x] Test E2E (Playwright) — `testy/e2e/test-dymny.cjs` (2026-11-02)
 - [ ] Lżejsza wersja okładki dla telefonów (oryginał PNG 3,5 MB) — tylko proporcjonalne zmniejszenie i kompresja (Z6), jako opisany krok
 - [ ] Opcjonalnie: PWA / tryb offline
@@ -164,6 +164,7 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
+| D64 | 2026-11-08 | Wygląd akapitów (P15: odstępy zamiast wcięć, wyrównanie do lewej zamiast do obu krawędzi) — także pytanie do Wydawcy **PW5**; do odpowiedzi zostaje obecny układ | polecenie właściciela („To powinno też być jako pytanie do wydawcy”) |
 | D63 | 2026-11-08 | Pytania do Wydawcy zapisujemy **tylko w pliku pytań** (`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`) — bez szkiców wiadomości e-mail; wiadomość pisze właściciel | polecenie właściciela („nie musisz pisać draftów maili do wydawcy. wystarczy, że będziesz pisać pytania w pliku”) |
 | D62 | 2026-11-08 | **Czytanie na głos — dalsze prace wstrzymane**: przycisk „Sam tekst” i pytanie PW4 do Wydawcy zostają jako opisany pomysł, bez dalszych prac (pytania nie wysyłamy). Zostaje porządek w znacznikach HTML i komentarze (D55); własnego lektora nie tworzymy (D54) | polecenie właściciela („na obecną chwilę nie będziemy kontynuować prac nad PW4 … był taki pomysł, ale został bez dalszych prac”) |
 | D61 | 2026-11-08 | Okno „Zdobyte Informacje”: lista wszystkich numerów zostaje (do zaznaczania w trybie ręcznym), ale napis bez łącznej liczby — „Masz 1 Informację.”, „Masz 2 Informacje.”, „Masz 0 Informacji.” (zamiast „Masz 0 z 43 Informacji”) | decyzja właściciela P18 (wariant B) |
@@ -183,7 +184,7 @@
 | D28 | 2026-11-01 | „Nowa gra”: aplikacja pyta, czy zostawić dotychczasowe notatki, czy je wyczyścić | decyzja właściciela (P9) |
 | D29 | 2026-11-01 | `AGENTS.md` jest uniwersalny — zawiera tylko zasady stałe; tytuły i warunki zgód są w rejestrze zgód (`dokumentacja/LICENCJA_I_ZGODA.md`), stan Firebase w `FIREBASE.md`, etapy i decyzje w tym pliku | wymóg właściciela |
 | D30 | 2026-11-01 | Oryginały zgód i korespondencji z wydawcą mogą zostać usunięte z repozytorium; wiążącym zapisem warunków jest rejestr zgód z dosłownymi cytatami kluczowych zdań | informacja właściciela |
-| D31 | 2026-11-01 | Pytania PW1–PW2 do Wydawcy (PW3 usunięte — D46; PW4 dodane 2026-11-03 — D54, wstrzymane 2026-11-08 — D62) — na końcu prac, razem z odnośnikiem do gotowej aplikacji z jedną książką i kontem gracza dla Wydawcy | decyzja właściciela |
+| D31 | 2026-11-01 | Pytania PW1–PW2 do Wydawcy (PW3 usunięte — D46; PW4 dodane 2026-11-03 — D54, wstrzymane 2026-11-08 — D62; PW5 dodane 2026-11-08 — D64) — na końcu prac, razem z odnośnikiem do gotowej aplikacji z jedną książką i kontem gracza dla Wydawcy | decyzja właściciela |
 
 ## 5. Otwarte pytania
 
@@ -194,7 +195,7 @@
 
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
-| P15 | **Wygląd tekstu gry.** W pliku PDF akapity zaczynają się od wcięcia (pierwszy wiersz przesunięty w prawo), nie ma między nimi odstępów, a tekst jest wyrównany do obu krawędzi strony — jak w drukowanej książce. W aplikacji akapity są oddzielone pustym odstępem, bez wcięć, a tekst jest wyrównany do lewej (na wąskim ekranie telefonu czyta się to zwykle wygodniej). Treść jest w obu przypadkach identyczna — chodzi tylko o wygląd. | **A ★** zostawić jak teraz (wygodniej na telefonie); **B** jak w PDF na wszystkich ekranach; **C** jak w PDF tylko na dużych ekranach (komputer), na telefonie jak teraz. Właściciel (2026-11-03): „Na obecną chwilę zostaw jak jest” — **decyzja na koniec prac nad książką** |
+| P15 | **Wygląd tekstu gry.** W pliku PDF akapity zaczynają się od wcięcia (pierwszy wiersz przesunięty w prawo), nie ma między nimi odstępów, a tekst jest wyrównany do obu krawędzi strony — jak w drukowanej książce. W aplikacji akapity są oddzielone pustym odstępem, bez wcięć, a tekst jest wyrównany do lewej (na wąskim ekranie telefonu czyta się to zwykle wygodniej). Treść jest w obu przypadkach identyczna — chodzi tylko o wygląd. | **A ★** zostawić jak teraz (wygodniej na telefonie); **B** jak w PDF na wszystkich ekranach; **C** jak w PDF tylko na dużych ekranach (komputer), na telefonie jak teraz. Właściciel (2026-11-03): „Na obecną chwilę zostaw jak jest” — **decyzja na koniec prac nad książką**; od 2026-11-08 także pytanie do Wydawcy **PW5** (polecenie właściciela) |
 
 ### 5.2. Rozstrzygnięte
 
@@ -221,6 +222,15 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-08 — Pytanie PW5 do Wydawcy (wygląd akapitów)
+
+**Dodano**
+- Pytanie **PW5** w `Analizy/Pytania_Do_Wydawcy_2026-10-29.md` (polecenie właściciela, D64): czy akapity
+  mogą wyglądać inaczej niż w publikacji — z odstępem zamiast wcięcia i z tekstem wyrównanym do lewej
+  zamiast do obu krawędzi. To samo zagadnienie co P15.
+- Do czasu odpowiedzi zostaje obecny układ; odwołania do PW5 dopisano w `LICENCJA_I_ZGODA.md`
+  (rozdz. 5.1 pkt 5 i rozdz. 9 pkt 6).
 
 ### 2026-11-08 — PW4 wstrzymane; pytania do Wydawcy bez szkiców wiadomości
 

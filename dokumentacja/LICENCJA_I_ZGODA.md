@@ -255,7 +255,8 @@ Patrz zakaz Z5.
    listy, wyrównanie (np. podpis autora wyrównany do prawej), grafiki w ich miejscu.
 5. Własna prezentacja: wielkość liter, kolory, tryb ciemny, układ dopasowany do ekranu telefonu
    (jak w czytnikach e-booków) — dla pewności z prośbą do Wydawcy o potwierdzenie (pytanie PW2 w
-   [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](../Analizy/Pytania_Do_Wydawcy_2026-10-29.md)).
+   [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](../Analizy/Pytania_Do_Wydawcy_2026-10-29.md);
+   wygląd akapitów — pytanie PW5).
    **Krój pisma: wyłącznie oryginalny** (Old Standard); możliwość wyboru innego kroju przez gracza —
    dopiero po zgodzie Wydawcy (pytanie PW1). [WŁAŚCICIEL] + [OSTROŻNOŚĆ]
 6. Normalizacja białych znaków **wyłącznie** w zakresie, w jakim i tak robi to HTML (sekwencja
@@ -376,7 +377,9 @@ Pytania do Wydawcy zbieramy w [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](../An
    dotyczy Firebase, nie licencji — wnioski w [FIREBASE.md](FIREBASE.md), rozdz. 7.
 6. **Krój pisma i ustawienia wyświetlania** — decyzja właściciela (2026-10-29): krój jak w oryginale,
    dwa przyciski zmiany wielkości liter. Zmiana kroju przez gracza — **dopiero po zgodzie Wydawcy**
-   (pytanie PW1); pozostałe ustawienia wyświetlania — z prośbą o potwierdzenie (pytanie PW2).
+   (pytanie PW1); pozostałe ustawienia wyświetlania — z prośbą o potwierdzenie (pytanie PW2). Wygląd
+   akapitów (odstępy zamiast wcięć, wyrównanie do lewej zamiast do obu krawędzi) — pytanie PW5
+   (2026-11-08); do odpowiedzi zostaje obecny układ (P15).
 7. **Wzmianka o „Wagabundzie” w tekście „Vae Victis”** — strona „od Wydawnictwa” (część publikacji)
    wymienia publikacje Wydawcy, m.in. „Wagabunda, Krzysztof Firkowski. Fantastyka”. ✅ Decyzja
    właściciela (2026-11-02): **nie skracać** — to tekst „Vae Victis”, a nie użycie tytułu „Wagabunda”
