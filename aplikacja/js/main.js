@@ -4,7 +4,8 @@ import { createStorage } from './data/storage.js';
 import { h, clear } from './ui/dom.js';
 import { alertDialog } from './ui/dialogs.js';
 import {
-  DEFAULT_SETTINGS, applySettings, loadDeviceSettings, normalizeSettings, saveDeviceSettings,
+  DEFAULT_SETTINGS, PROFILE_SETTING_KEYS, applySettings, loadDeviceSettings, normalizeSettings, profileSettings,
+  saveDeviceSettings,
 } from './ui/settings.js';
 import { renderHome } from './ui/home-screen.js';
 import { renderGame } from './ui/game-screen.js';
@@ -23,9 +24,11 @@ const app = {
     this.settings = normalizeSettings({ ...this.settings, ...partial });
     applySettings(this.settings);
     saveDeviceSettings(this.settings);
-    if (this.session) {
+    // Do profilu trafiają tylko klucze dozwolone w regułach Firebase; zmiana kroju albo wyglądu akapitów
+    // (tylko na urządzeniu) nie zapisuje niczego w bazie.
+    if (this.session && PROFILE_SETTING_KEYS.some((key) => key in partial)) {
       try {
-        await this.storage.saveSettings(this.settings);
+        await this.storage.saveSettings(profileSettings(this.settings));
       } catch (error) {
         console.error(error);
       }

@@ -21,7 +21,7 @@ export function renderBlocks(blocks, options = {}) {
 function renderBlock(block, options) {
   switch (block.type) {
     case 'p':
-      return h('p', { class: blockClass(block) }, renderInline(block.inline, options));
+      return h('p', { class: blockClass(block, isDialogLine(block) ? 'dialog-line' : '') }, renderInline(block.inline, options));
     case 'heading':
       return h('h2', { class: blockClass(block, 'book-heading') }, renderInline(block.inline, options));
     case 'list':
@@ -35,6 +35,29 @@ function renderBlock(block, options) {
     default:
       throw new Error(`Nieznany typ bloku: ${block.type}`);
   }
+}
+
+// Kwestia dialogowa — akapit zaczyna się od myślnika „–” (albo „—”). Tylko oznaczenie klasą do wyglądu
+// akapitów „Jak w książce” (w PDF takie akapity nie mają wcięcia); tekst się nie zmienia.
+const DIALOG_DASH = /^[\u2013\u2014]/;
+
+function firstText(items = []) {
+  for (const item of items) {
+    if ('text' in item) {
+      const text = item.text.replace(/^[\s\u00a0]+/, '');
+      if (text) return text;
+    } else if ('link' in item) {
+      const text = firstText(item.inline);
+      if (text) return text;
+    } else if ('image' in item) {
+      return '';
+    }
+  }
+  return '';
+}
+
+function isDialogLine(block) {
+  return DIALOG_DASH.test(firstText(block.inline));
 }
 
 function blockClass(block, base = '') {

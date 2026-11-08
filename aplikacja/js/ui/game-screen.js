@@ -24,7 +24,10 @@ import { h, append, clear, formatDateTime, htmlComment, plural } from './dom.js'
 import { coverInfo, renderBlocks } from './content-renderer.js';
 import { alertDialog, confirmDialog, openDialog, promptDialog } from './dialogs.js';
 import { openInstructions } from './instructions.js';
-import { FONT_SCALES, MODE_LABELS, THEME_LABELS, THEMES, stepFontScale } from './settings.js';
+import {
+  BOOK_FONT_LABELS, BOOK_FONTS, FONT_SCALES, MODE_LABELS, PARAGRAPH_STYLE_LABELS, PARAGRAPH_STYLES, THEME_LABELS, THEMES,
+  stepFontScale,
+} from './settings.js';
 
 // Dopisek przy „Cofnij” (decyzja właściciela P5) — w dwóch linijkach, równo pod przyciskiem.
 const UNDO_CAPTION_LINES = ['To Twoja gra :)', 'Graj jak lubisz!'];
@@ -681,6 +684,7 @@ export async function renderGame(app, root, bookId) {
   }
 
   function openSettings() {
+    // labels: obiekt z napisami albo funkcja zwracająca element (np. nazwa kroju napisana tym krojem).
     const radioGroup = (name, legend, values, labels, current, onChange, disabled = false) => h(
       'fieldset',
       { class: 'fieldset' },
@@ -696,7 +700,8 @@ export async function renderGame(app, root, bookId) {
           disabled,
           onChange: () => onChange(value),
         }),
-        ` ${labels[value]}`,
+        ' ',
+        typeof labels === 'function' ? labels(value) : labels[value],
       )),
     );
     const scaleText = h('span', { class: 'scale-value' });
@@ -718,6 +723,25 @@ export async function renderGame(app, root, bookId) {
             scaleText,
             h('button', { type: 'button', class: 'btn btn-small', 'aria-label': 'Powiększ tekst', onClick: async () => { await changeFont(1); updateScale(); } }, 'A+')),
         ),
+        // Krój pisma i wygląd akapitów tekstu książki (zgoda Wydawcy z 2026-11-08) — pamiętane na urządzeniu.
+        radioGroup(
+          'bookFont',
+          'Krój pisma',
+          BOOK_FONTS,
+          (value) => h('span', { class: 'font-preview', 'data-font': value }, BOOK_FONT_LABELS[value]),
+          app.settings.bookFont,
+          (bookFont) => app.updateSettings({ bookFont }),
+        ),
+        radioGroup(
+          'paragraphStyle',
+          'Wygląd akapitów',
+          PARAGRAPH_STYLES,
+          PARAGRAPH_STYLE_LABELS,
+          app.settings.paragraphStyle,
+          (paragraphStyle) => app.updateSettings({ paragraphStyle }),
+        ),
+        h('p', { class: 'muted small' }, 'Krój pisma i wygląd akapitów zmieniają tylko wygląd tekstu książki — treść zostaje '
+          + 'bez zmian. Ten wybór zapamiętujemy na tym urządzeniu.'),
         radioGroup(
           'mechanicsMode',
           'Tryb mechaniki',

@@ -29,7 +29,7 @@
 | Interfejs | HTML5, CSS3 (zmienne CSS, motyw jasny/ciemny) | bez frameworków UI |
 | Logika | JavaScript ES2020+, moduły ES (`<script type="module">`) | bez bundlera |
 | Firebase | Firebase JS SDK (modułowy) z oficjalnego CDN `www.gstatic.com/firebasejs/<wersja>/…` | **przypięta wersja** |
-| Czcionka | **Old Standard TT** (licencja OFL) — krój użyty w oryginale (decyzja właściciela) | hostowana lokalnie w `aplikacja/assets/fonts/` z plikiem licencji OFL; wybór innego kroju przez gracza — dopiero po zgodzie Wydawcy (pytanie PW1) |
+| Czcionka | **Old Standard TT** (licencja OFL) — krój z publikacji, domyślny; do wyboru przez gracza: Literata, PT Serif, Open Sans, Andika (przyjazny dla osób z dysleksją) — zgoda Wydawcy z 2026-11-08, decyzja D65 | wszystkie kroje hostowane lokalnie w `aplikacja/assets/fonts/` (pliki licencji OFL, `README.md`); komplet znaków tekstu — kontrola K1 (`narzedzia/weryfikacja/sprawdz_kroje.py`) |
 | Narzędzia (konwersja, weryfikacja) | Python 3, **tylko biblioteka standardowa** | uruchamiane lokalnie / w CI |
 | Testy silnika | Node.js, wbudowany `node --test` | bez zależności |
 | Testy reguł Firebase | Firebase Emulator Suite + `@firebase/rules-unit-testing` | Etap 5 |
@@ -53,7 +53,7 @@ python3 -m http.server 8000
 | **Zakończenie** | tekst zakończenia 1:1; „Odkryte zakończenia: X” (łączna liczba „X z Y” — tylko gdy podaje ją Wydawca w opisie książki, pole `announcedEndings`; D60); „Zagraj ponownie”, „Menu główne” |
 | **O książce** | okładka z podpisem, strona tytułowa, dedykacja, stopka, strona „od Wydawnictwa”, spis treści, odnośniki, informacja o zgodzie |
 | **Panel administratora** | tylko dla administratora: backup, odtwarzanie gracza z pliku, lista graczy z datą ostatniej aktywności |
-| **Ustawienia** | wielkość liter, motyw, tryb mechaniki (automatyczny / ręczny), przycisk **„Instrukcja”**; krój pisma — tylko oryginalny do czasu zgody Wydawcy (pytanie PW1) |
+| **Ustawienia** | motyw, wielkość liter, **krój pisma** (pierwszy i domyślny — jak w oryginale; nazwa każdego kroju napisana tym krojem), **wygląd akapitów** („Wygodny na ekranie” — domyślny; „Jak w książce” — wcięcia, bez odstępów, wyrównanie do obu krawędzi, dialogi bez wcięcia jak w PDF), tryb mechaniki (automatyczny / ręczny), przycisk **„Instrukcja”**. Motyw, wielkość liter i tryb mechaniki — w profilu gracza; krój i wygląd akapitów — tylko na urządzeniu (zależą od ekranu; bez zmian w regułach Firebase) |
 | **Instrukcja** | okno otwierane z „Ustawień” i z karty książki (`instructions.js`): jak grać (przyciski gry), ustawienia aplikacji oraz część o książce złożona z opisów jej modułów mechaniki (np. „Informacje”, odwiedzone miejsca, zakończenia; w innych książkach np. punkty życia, ekwipunek) z nazwami z `mechanika.json`. Opisuje wyłącznie działanie aplikacji — nie streszcza zasad gry z książki, tylko odsyła do nich (np. „Wprowadzenie (zasady gry)”; Z1, Z3) |
 
 Zasady prezentacji (z [LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md), rozdz. 5):
@@ -172,6 +172,12 @@ logowania (N7).
   zawsze dostępny w grze.
 - Stopka aplikacji (projekt nieoficjalny, zgoda wydawców, autor piktogramu) — tylko na ekranie
   głównym; ekran gry i „O książce” są bez niej (decyzja właściciela, 2026-11-03).
+- **Krój pisma i wygląd akapitów** (D65):
+  - atrybuty `data-book-font` i `data-paragraphs` na `<html>` (ustawia `settings.js`);
+  - CSS podmienia zmienną `--font-book` i reguły akapitów `.book-text`;
+  - kwestie dialogowe (akapit od „–”) renderer oznacza klasą `dialog-line` — tylko klasa, tekst bez zmian;
+  - w profilu gracza zapisujemy tylko `theme`, `fontScale` i `mechanicsMode` (`PROFILE_SETTING_KEYS` —
+    tyle dopuszczają reguły Firebase).
 - Komponenty: karta książki, stopka książki, czytnik węzła, panel przejść, karta postaci, kości,
   okno zapisu, panel administratora, ustawienia, komunikaty.
 - **Znaczniki ekranu gry zgodne z rolą elementów** (decyzja D55, 2026-11-03). Style opierają się na

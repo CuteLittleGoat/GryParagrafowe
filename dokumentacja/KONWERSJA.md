@@ -90,6 +90,22 @@ Walidacja mechaniki (`mechanika.json`) — osobny krok:
 
 W przyszłości: uruchamianie W1–W8 i M1–M5 automatycznie w GitHub Actions przy każdym pushu.
 
+### 3.1. Kroje pisma — kontrola K1
+
+Gracz może wybrać krój tekstu książki (zgoda Wydawcy z 2026-11-08). Każdy krój z reguł `@font-face` w
+`aplikacja/css/style.css` musi mieć **wszystkie znaki tekstu książki** — inaczej przeglądarka podstawi
+brakujący znak z innego kroju.
+
+```bash
+python3 narzedzia/weryfikacja/sprawdz_kroje.py ksiazki/vae-victis
+```
+
+- Skrypt zbiera znaki z `tresc.json` i `stopka.json` (z pełnym polskim alfabetem).
+- Odczytuje tablicę znaków (`cmap`) każdego pliku fontu (TTF/OTF/WOFF; tylko biblioteka standardowa).
+- Zgłasza brakujące znaki dla każdego kroju i stylu.
+
+Uruchom go po dodaniu kroju albo nowej książki. Do sprawdzenia kandydata służy opcja `--pliki`.
+
 ## 4. Przygotowanie mechaniki (półautomatyczne)
 
 Użycie (z katalogu głównego repozytorium; konfiguracja mechaniki w `narzedzia/konwersja/`):

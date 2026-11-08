@@ -171,6 +171,8 @@ function check(name, condition, details = '') {
   check('ekran gry: header, nav (narzędzia), nav „Dokąd dalej?”, footer', layout.header && layout.tools && layout.choices === 'choices-title' && layout.footer, JSON.stringify(layout));
   const gameComments = await commentsIn(page, '.game');
   check('ekran gry: komentarze po polsku poza tekstem książki', gameComments.comments.some((c) => c.startsWith('TEKST KSIĄŻKI')) && gameComments.comments.length >= 5 && !gameComments.inBookText, JSON.stringify(gameComments));
+  const dialogLines = await page.$$eval('.game-text p.dialog-line', (els) => els.map((el) => el.textContent.trim().charAt(0)));
+  check('§1: kwestie dialogowe oznaczone (akapit od „–”)', dialogLines.length > 0 && dialogLines.every((c) => c === '–' || c === '—'), JSON.stringify(dialogLines));
   await onlyTitleOutsideText(page, '§1');
   const hiddenDisplay = await page.evaluate(() => {
     const bar = document.querySelector('.game-bar');
@@ -332,7 +334,46 @@ function check(name, condition, details = '') {
   await page.screenshot({ path: path.join(OUT, '13a-instrukcja.png') });
   await page.keyboard.press('Escape');
   check('po zamknięciu instrukcji wraca okno „Ustawienia”', (await page.textContent('dialog[open] .dialog-title')) === 'Ustawienia');
+  check('Instrukcja: krój pisma i wygląd akapitów', fromSettings.text.includes('„Krój pisma”') && fromSettings.text.includes('Andika') && fromSettings.text.includes('„Wygląd akapitów”'));
+
+  // 13b. Krój pisma (pierwszy i domyślny — jak w oryginale) i wygląd akapitów „Jak w książce”
+  const fontOptions = await page.$$eval('dialog[open] input[name=bookFont]', (els) => els.map((el) => ({ value: el.value, checked: el.checked })));
+  check('Ustawienia: krój pisma — pierwszy i domyślny jak w oryginale', JSON.stringify(fontOptions.map((o) => o.value)) === JSON.stringify(['original', 'literata', 'pt-serif', 'open-sans', 'andika']) && fontOptions[0].checked, JSON.stringify(fontOptions));
+  check('Ustawienia: akapity domyślnie „Wygodny na ekranie”', await page.isChecked('dialog[open] input[name=paragraphStyle][value=screen]'));
+  await page.click('dialog[open] input[name=bookFont][value=andika]');
+  await page.click('dialog[open] input[name=paragraphStyle][value=book]');
+  await page.screenshot({ path: path.join(OUT, '13b-ustawienia-kroj.png') });
   await page.keyboard.press('Escape');
+  await page.evaluate(() => document.fonts.ready);
+  const andika = await page.evaluate(() => ({
+    attr: document.documentElement.dataset.bookFont,
+    family: getComputedStyle(document.querySelector('.game-text')).fontFamily,
+    loaded: document.fonts.check('16px Andika'),
+  }));
+  check('krój Andika w tekście książki (wczytany)', andika.attr === 'andika' && andika.family.startsWith('Andika') && andika.loaded, JSON.stringify(andika));
+  await page.click('.btn-choice:has-text("Przejdź do §1")');
+  await page.waitForFunction(() => document.querySelector('.game-text h2')?.textContent.includes('1 Ogień'));
+  const bookStyle = await page.evaluate(() => {
+    const style = (el) => { const cs = getComputedStyle(el); return { indent: parseFloat(cs.textIndent), margin: parseFloat(cs.marginBottom), align: cs.textAlign }; };
+    return {
+      attr: document.documentElement.dataset.paragraphs,
+      narrative: style(document.querySelector('.game-text p:not(.dialog-line):not([class*="align-"])')),
+      dialog: style(document.querySelector('.game-text p.dialog-line')),
+    };
+  });
+  check('akapity „Jak w książce”: wcięcie, bez odstępów, wyrównanie do obu krawędzi; dialogi bez wcięcia', bookStyle.attr === 'book' && bookStyle.narrative.indent > 0 && bookStyle.narrative.margin === 0 && bookStyle.narrative.align === 'justify' && bookStyle.dialog.indent === 0, JSON.stringify(bookStyle));
+  await page.screenshot({ path: path.join(OUT, '13c-jak-w-ksiazce.png'), fullPage: false });
+  await page.reload();
+  await page.waitForSelector('.game-text');
+  const remembered = await page.evaluate(() => ({ font: document.documentElement.dataset.bookFont, paragraphs: document.documentElement.dataset.paragraphs }));
+  check('krój i wygląd akapitów zapamiętane na urządzeniu', remembered.font === 'andika' && remembered.paragraphs === 'book', JSON.stringify(remembered));
+  const profileKeys = await page.evaluate(() => Object.keys(localStorage).filter((k) => k.includes(':player:')).map((k) => Object.keys(JSON.parse(localStorage.getItem(k)).settings ?? {})));
+  check('profil gracza bez kroju i wyglądu akapitów (reguły Firebase)', profileKeys.length > 0 && profileKeys.every((keys) => keys.every((k) => ['theme', 'fontScale', 'mechanicsMode'].includes(k))), JSON.stringify(profileKeys));
+  await page.click('.game-tools button:has-text("Ustawienia")');
+  await page.click('dialog[open] input[name=bookFont][value=original]');
+  await page.click('dialog[open] input[name=paragraphStyle][value=screen]');
+  await page.keyboard.press('Escape');
+  check('powrót do kroju oryginalnego i odstępów', await page.evaluate(() => document.documentElement.dataset.bookFont === 'original' && document.documentElement.dataset.paragraphs === 'screen'));
   await page.screenshot({ path: path.join(OUT, '13-ciemny.png'), fullPage: true });
 
   // 14. O książce

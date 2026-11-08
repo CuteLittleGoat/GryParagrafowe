@@ -11,7 +11,7 @@
   przechowuje właściciel; po zakończeniu prac mogą nie znajdować się w repozytorium (dla „Vae Victis”
   plik `Pliki/Zgoda Vae Victis.pdf` właściciel usunął z repozytorium 2026-11-03 — oryginał jest u
   właściciela).
-- Ostatnia aktualizacja dokumentu: 2026-11-01.
+- Ostatnia aktualizacja dokumentu: 2026-11-08.
 
 Oznaczenia źródła każdej zasady:
 
@@ -45,6 +45,8 @@ Wydawcy** — i taką zgodę uzyskano wyłącznie dla „Vae Victis”, na warun
 | 28.10.2026 | Wydawca (Beniamin Muszyński) | Dwie kluczowe kwestie: (1) które teksty — część jest objęta dodatkowymi licencjami i umowami z autorami; (2) AI — generowane grafiki wymagają osobnych zgód autorskich; „wszystko musi być wcześniej uzgodnione”. |
 | 28.10.2026 | autor projektu | Tytuły: „Vae victis” i „Wagabunda”. Brak ilustracji w aplikacji — **jedynie ikony/piktogramy** (np. symulator rzutu kośćmi, karta postaci). Ujawnienie: projekt tworzony narzędziami AI (kod, konwersja do JSON, animacje rzutu kośćmi), **bez ilustracji tworzonych przez AI**; jako ilustracje — okładki ze strony Wydawnictwa. |
 | 29.10.2026 | Wydawca | **Decyzja** — patrz cytat poniżej. |
+| 08.11.2026 | autor projektu | Pytania o sposób wyświetlania tekstu (pytania PW1, PW2 i PW5 w `Analizy/Pytania_Do_Wydawcy_2026-10-29.md`): 1) opcja zmiany fontu (np. na przyjazny dla dyslektyków); 2) ciemne tło i zmiana wielkości fontu — wpływają na łamanie wierszy i dopasowanie do ekranu, nie na treść; 3) zapis akapitów (odstępy i wyrównanie do lewej zamiast wcięć i wyrównania do obu krawędzi jak w PDF) i możliwość przełącznika w ustawieniach. |
+| 08.11.2026 | Wydawca | **Zgoda na punkty 1–3** — patrz cytat poniżej. |
 
 Najważniejsze zdania z prośby (27.10.2026), na podstawie których Wydawca udzielił zgody
 „na tych zasadach”:
@@ -75,6 +77,10 @@ Decyzja Wydawcy z 29.10.2026 (cytat dosłowny):
 > używać, ale też z informacją o jej autorce.
 > Na potrzeby opisanego projektu wewnętrznego proszę korzystać z tekstu na tych zasadach.
 
+Odpowiedź Wydawcy z 2026-11-08 na pytania o sposób wyświetlania tekstu (punkty 1–3 wiadomości właściciela: zmiana fontu, ciemne tło i wielkość fontu, zapis akapitów z przełącznikiem; pełna treść pytań — `Analizy/Pytania_Do_Wydawcy_2026-10-29.md`), cytat dosłowny:
+
+> Punkty 1 - 3, jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.
+
 ---
 
 ## 2. Zakres zgody — co wolno, a czego nie
@@ -92,6 +98,7 @@ Decyzja Wydawcy z 29.10.2026 (cytat dosłowny):
 | **„Wagabunda”** (Krzysztof Firkowski) | ⛔ **ODMOWA** — tytuł z dzieloną licencją | [ZGODA] |
 | **Każdy inny tytuł** Wydawnictwa | ⛔ brak zgody — wymaga osobnej, pisemnej zgody **przed** dodaniem | [ZGODA] |
 | Grafiki / ilustracje generowane przez AI | ⛔ niedozwolone (wymagałyby osobnych zgód autorskich) | [ZGODA] |
+| Dostosowanie formy tekstu do urządzenia: krój pisma do wyboru (domyślnie oryginalny), wielkość liter, tryb ciemny, łamanie wierszy, wygląd akapitów (przełącznik) | ✅ dozwolone (odpowiedź Wydawcy z 2026-11-08) | [ZGODA] |
 
 ---
 
@@ -253,12 +260,19 @@ Patrz zakaz Z5.
    wskazuje identyfikatory paragrafów i odnośników, ale **nie zawiera i nie zmienia tekstu**.
 4. Zachowanie formatowania znaczącego: akapity, nagłówki/numery paragrafów, kursywa, pogrubienie,
    listy, wyrównanie (np. podpis autora wyrównany do prawej), grafiki w ich miejscu.
-5. Własna prezentacja: wielkość liter, kolory, tryb ciemny, układ dopasowany do ekranu telefonu
-   (jak w czytnikach e-booków) — dla pewności z prośbą do Wydawcy o potwierdzenie (pytanie PW2 w
+5. Własna prezentacja — **dozwolona** (zgoda Wydawcy z 2026-11-08, pytania PW1, PW2 i PW5 w
    [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](../Analizy/Pytania_Do_Wydawcy_2026-10-29.md);
-   wygląd akapitów — pytanie PW5).
-   **Krój pisma: wyłącznie oryginalny** (Old Standard); możliwość wyboru innego kroju przez gracza —
-   dopiero po zgodzie Wydawcy (pytanie PW1). [WŁAŚCICIEL] + [OSTROŻNOŚĆ]
+   cytat w rozdz. 1.2). Obejmuje:
+   - wielkość liter, kolory i tryb ciemny;
+   - układ dopasowany do ekranu telefonu (jak w czytnikach e-booków);
+   - wygląd akapitów — przełącznik „Wygodny na ekranie” (odstępy, do lewej) / „Jak w książce” (jak w
+     PDF);
+   - wybór kroju pisma przez gracza:
+     - na pierwszym miejscu i domyślnie krój oryginalny (Old Standard);
+     - pozostałe kroje tylko z wolną licencją, bez zastrzeżonej nazwy (OFL „Reserved Font Name”) i z
+       kompletem znaków tekstu książki — kontrola K1 w [KONWERSJA.md](KONWERSJA.md).
+
+   Treść się nie zmienia. [ZGODA] + [WŁAŚCICIEL]
 6. Normalizacja białych znaków **wyłącznie** w zakresie, w jakim i tak robi to HTML (sekwencja
    spacji/nowych linii → jedna spacja). Każdy inny znak — bez zmian (w tym twarde spacje, „”, –, …).
 7. Proporcjonalne przeskalowanie i kompresja grafik (okładka, logotypy ze stopki).
@@ -312,7 +326,7 @@ dokonuje gracz**. Tryb „ręczny” (jak na papierze) musi pozwalać grać bez 
 - [x] tytuł i autor widoczne (np. w nagłówku)
 - [x] dostęp do „O książce” z menu gry: stopka, okładka z podpisem, linki, informacja o zgodzie
 - [x] tekst paragrafu 1:1, komunikaty aplikacji wizualnie oddzielone (rozdz. 5)
-- [x] krój pisma oryginalny; wybór innego kroju tylko po zgodzie Wydawcy (rozdz. 5.1 pkt 5)
+- [x] krój pisma domyślnie oryginalny; inne kroje i wygląd akapitów do wyboru w „Ustawieniach” (zgoda Wydawcy z 2026-11-08, rozdz. 5.1 pkt 5)
 
 **Cała aplikacja**
 - [x] stopka aplikacji na ekranie głównym: projekt nieoficjalny, niekomercyjny, treść za zgodą Wydawcy (N10)
@@ -351,7 +365,7 @@ brak zgody.** Wpisy dodaje się i zmienia wyłącznie na polecenie właściciela
 
 | Tytuł | Autor | Status | Data | Źródło zgody | Warunki szczegółowe |
 |---|---|---|---|---|---|
-| Vae Victis | Beniamin Muszyński | ✅ zgoda „na ten moment” | 29.10.2026 | korespondencja e-mail z 27–29.10.2026 — cytaty w rozdz. 1.2; oryginał u właściciela (tymczasowo `Pliki/Zgoda Vae Victis.pdf`) | pełna stopka (od copyrightu po ISBN); informacje o źródle; okładka z informacją o autorce (Justyna Bzdoń); bez grafik AI; projekt wewnętrzny, niekomercyjny |
+| Vae Victis | Beniamin Muszyński | ✅ zgoda „na ten moment” | 29.10.2026 | korespondencja e-mail z 27–29.10.2026 — cytaty w rozdz. 1.2; oryginał u właściciela (tymczasowo `Pliki/Zgoda Vae Victis.pdf`) | pełna stopka (od copyrightu po ISBN); informacje o źródle; okładka z informacją o autorce (Justyna Bzdoń); bez grafik AI; projekt wewnętrzny, niekomercyjny; dostosowanie formy tekstu do urządzenia — krój pisma do wyboru (domyślnie oryginalny), wielkość liter, tryb ciemny, łamanie wierszy, wygląd akapitów (przełącznik) — akceptowane (odpowiedź Wydawcy z 2026-11-08, cytat w rozdz. 1.2) |
 | Wagabunda | Krzysztof Firkowski | ⛔ odmowa | 29.10.2026 | jw. | tytuł z dzieloną licencją — nie wykorzystywać w żadnej formie |
 
 ---
@@ -378,8 +392,11 @@ Pytania do Wydawcy zbieramy w [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](../An
 6. **Krój pisma i ustawienia wyświetlania** — decyzja właściciela (2026-10-29): krój jak w oryginale,
    dwa przyciski zmiany wielkości liter. Zmiana kroju przez gracza — **dopiero po zgodzie Wydawcy**
    (pytanie PW1); pozostałe ustawienia wyświetlania — z prośbą o potwierdzenie (pytanie PW2). Wygląd
-   akapitów (odstępy zamiast wcięć, wyrównanie do lewej zamiast do obu krawędzi) — pytanie PW5
-   (2026-11-08); do odpowiedzi zostaje obecny układ (P15).
+   akapitów (odstępy zamiast wcięć, wyrównanie do lewej zamiast do obu krawędzi) — pytanie PW5.
+   ✅ **Rozstrzygnięte 2026-11-08** — Wydawca: „Punkty 1 - 3, jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.” Wdrożone:
+   - wybór kroju pisma (domyślnie oryginalny);
+   - przełącznik wyglądu akapitów;
+   - wielkość liter i tryb ciemny bez zmian.
 7. **Wzmianka o „Wagabundzie” w tekście „Vae Victis”** — strona „od Wydawnictwa” (część publikacji)
    wymienia publikacje Wydawcy, m.in. „Wagabunda, Krzysztof Firkowski. Fantastyka”. ✅ Decyzja
    właściciela (2026-11-02): **nie skracać** — to tekst „Vae Victis”, a nie użycie tytułu „Wagabunda”

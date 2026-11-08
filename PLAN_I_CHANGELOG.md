@@ -11,11 +11,11 @@
 | | |
 |---|---|
 | Etap | **2, 3 i 5 — zakończone; aplikacja opublikowana** (2026-11-02): `https://cutelittlegoat.github.io/GryParagrafowe/`; App Check działa (2026-11-03) — czeka na obserwację i wymuszenie |
-| Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy (2026-11-08): przeglądarka 89/89, emulator 15/15, reguły 17/17, silnik 13/13 |
+| Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy (2026-11-08): przeglądarka 98/98, emulator 15/15, reguły 17/17, silnik 13/13; kroje pisma K1 ✅ |
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ✅ — klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni, wymiana tokenu działa (2026-11-03); wymuszenie (*Enforce*) — po obserwacji |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
-| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — PW1, PW2 i PW5 przygotowane (**tylko sprawy licencyjne** — decyzja właściciela 2026-11-02; PW3 usunięte; PW4 — czytanie na głos — **wstrzymane** 2026-11-08; PW5 — wygląd akapitów, 2026-11-08); właściciel wyśle je razem z odnośnikiem do aplikacji i kontem dla Wydawnictwa; bez szkiców wiadomości — tylko pytania w pliku (D63) |
+| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — **PW1, PW2 i PW5: ✅ zgoda Wydawcy (2026-11-08)** — „Punkty 1 - 3, jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.” (krój pisma, ustawienia wyświetlania, wygląd akapitów z przełącznikiem — wdrożone, D65); PW3 usunięte; PW4 wstrzymane; bez szkiców wiadomości (D63) |
 | Blokery | brak |
 
 ## 2. Następne kroki
@@ -24,8 +24,8 @@
    Check* → *APIs* → *Cloud Firestore*, czy żądania są „Verified”; potem **Enforce** (hamulec:
    *Unenforce*). Przy okazji usunąć stary klucz `gryparagrafowe-e1fb3` z projektu AudioRPG (tylko ten!).
 2. **Właściciel**: sprawdzenie logowania prawdziwymi kontami (w tym kontem Wydawnictwa `Player2`).
-3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika, loginu i hasła oraz pytań PW1, PW2 i PW5 (pytania
-   w pliku `Analizy/Pytania_Do_Wydawcy_2026-10-29.md`; wiadomość pisze właściciel).
+3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika do aplikacji oraz loginu i hasła konta Wydawnictwa
+   (`Player2`); pytania PW1, PW2 i PW5 — wysłane i zaakceptowane 2026-11-08.
 4. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
    uprawnienia administratora).
 
@@ -107,8 +107,8 @@
 - [ ] Polityka CSP (znacznik w `index.html`) — po sprawdzeniu działania na GitHub Pages, żeby nie zablokować Firebase ani App Check
 - [x] Instrukcja dla graczy w aplikacji — okno „Instrukcja” w „Ustawieniach” i na karcie książki (2026-11-08, D58)
 - [ ] Instrukcja dla administratora
-- [ ] Opcjonalnie: zmiana kroju pisma przez gracza (np. krój przyjazny dla osób z dysleksją — licencja kroju do sprawdzenia) — **tylko po zgodzie Wydawcy** (pytanie PW1) (P11); przełącznik **czcionki** w oknie „Ustawienia” — dopiero po potwierdzeniu Wydawcy (właściciel 2026-11-03: „Przełącznik będzie dotyczyć zmiany fontu a nie języka - ale to po potwierdzeniu z wydawcą”)
-- [ ] Do decyzji właściciela **na koniec prac nad książką** (pytanie P15): tekst gry złożony jak w PDF — akapity z wcięciem pierwszego wiersza, bez odstępów, wyjustowane (teraz: odstępy między akapitami, bez wcięć — zostaje do tego czasu); pytanie do Wydawcy PW5 (2026-11-08)
+- [x] Zmiana kroju pisma przez gracza — „Ustawienia” → „Krój pisma”: Old Standard TT (jak w oryginale, domyślny), Literata, PT Serif, Open Sans, Andika (przyjazny dla osób z dysleksją); komplet znaków sprawdzony (K1) — 2026-11-08, po zgodzie Wydawcy (PW1, D65)
+- [x] Wygląd akapitów — przełącznik „Wygodny na ekranie” (domyślny) / „Jak w książce” (jak w PDF) — 2026-11-08, po zgodzie Wydawcy (PW5, D65); P15 i P19 rozstrzygnięte
 - [x] Test E2E (Playwright) — `testy/e2e/test-dymny.cjs` (2026-11-02)
 - [ ] Lżejsza wersja okładki dla telefonów (oryginał PNG 3,5 MB) — tylko proporcjonalne zmniejszenie i kompresja (Z6), jako opisany krok
 - [ ] Opcjonalnie: PWA / tryb offline
@@ -164,6 +164,7 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
+| D65 | 2026-11-08 | **Krój pisma i wygląd akapitów do wyboru** (zgoda Wydawcy: „Punkty 1 - 3, jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.”). Krój: Old Standard TT (jak w oryginale — pierwszy i domyślny), Literata, PT Serif, Open Sans, Andika (przyjazny dla osób z dysleksją); tylko kroje OFL bez zastrzeżonej nazwy, z kompletem znaków tekstu (kontrola K1); odrzucone: OpenDyslexic (brak twardej spacji), Lexend (brak kursywy), Merriweather i Lora (zastrzeżona nazwa). Akapity: „Wygodny na ekranie” (domyślny, dotychczasowy) albo „Jak w książce” (jak w PDF: wcięcie, bez odstępów, wyrównanie do obu krawędzi z dzieleniem wyrazów; dialogi bez wcięcia). Krój i wygląd akapitów pamiętane na urządzeniu (zależą od ekranu; reguły Firebase bez zmian) | polecenie właściciela po odpowiedzi Wydawcy („Dodaj opcję zmiany fontu (…) domyślnie na pierwszym miejscu ma być taka jak w oryginale. Dodaj też przełącznik dotyczący akapitów.”) |
 | D64 | 2026-11-08 | Wygląd akapitów (P15: odstępy zamiast wcięć, wyrównanie do lewej zamiast do obu krawędzi) — także pytanie do Wydawcy **PW5**; do odpowiedzi zostaje obecny układ | polecenie właściciela („To powinno też być jako pytanie do wydawcy”) |
 | D63 | 2026-11-08 | Pytania do Wydawcy zapisujemy **tylko w pliku pytań** (`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`) — bez szkiców wiadomości e-mail; wiadomość pisze właściciel | polecenie właściciela („nie musisz pisać draftów maili do wydawcy. wystarczy, że będziesz pisać pytania w pliku”) |
 | D62 | 2026-11-08 | **Czytanie na głos — dalsze prace wstrzymane**: przycisk „Sam tekst” i pytanie PW4 do Wydawcy zostają jako opisany pomysł, bez dalszych prac (pytania nie wysyłamy). Zostaje porządek w znacznikach HTML i komentarze (D55); własnego lektora nie tworzymy (D54) | polecenie właściciela („na obecną chwilę nie będziemy kontynuować prac nad PW4 … był taki pomysł, ale został bez dalszych prac”) |
@@ -195,13 +196,13 @@
 
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
-| P15 | **Wygląd tekstu gry.** W pliku PDF akapity zaczynają się od wcięcia (pierwszy wiersz przesunięty w prawo), nie ma między nimi odstępów, a tekst jest wyrównany do obu krawędzi strony — jak w drukowanej książce. W aplikacji akapity są oddzielone pustym odstępem, bez wcięć, a tekst jest wyrównany do lewej (na wąskim ekranie telefonu czyta się to zwykle wygodniej). Treść jest w obu przypadkach identyczna — chodzi tylko o wygląd. | **A ★** zostawić jak teraz (wygodniej na telefonie); **B** jak w PDF na wszystkich ekranach; **C** jak w PDF tylko na dużych ekranach (komputer), na telefonie jak teraz. Właściciel (2026-11-03): „Na obecną chwilę zostaw jak jest” — **decyzja na koniec prac nad książką**; od 2026-11-08 także pytanie do Wydawcy **PW5** (polecenie właściciela) |
-| P19 | **Przełącznik wyglądu akapitów — kiedy go zrobić?** W „Ustawieniach” gracz wybierałby, jak wyglądają akapity tekstu książki: „jak w książce” (wcięcie pierwszego wiersza, bez odstępów, wyrównanie do obu krawędzi — jak w PDF) albo „wygodny na ekranie” (odstęp między akapitami, wyrównanie do lewej — jak teraz). Treść się nie zmienia. Wygląd „jak w książce” to oryginał, a „wygodny na ekranie” to właśnie temat pytania PW5 do Wydawcy (propozycja dopisania przełącznika do PW5 — K5 w pliku pytań). | **A** zrobić teraz — bez dodatkowego ryzyka, bo wygląd „jak w książce” to oryginał, a obecny i tak czeka na odpowiedź PW5; jeśli Wydawca nie zgodzi się na wygląd „wygodny na ekranie”, przełącznik zniknie, a zostanie wygląd jak w książce; **B ★** zrobić po odpowiedzi Wydawcy na PW5 — tak jak przy zmianie czcionki (PW1); **C** bez przełącznika — jeden wygląd dla wszystkich, decyzja na koniec prac (P15) |
 
 ### 5.2. Rozstrzygnięte
 
 | # | Pytanie | Odpowiedź właściciela |
 |---|---|---|
+| P15 | Wygląd tekstu gry: akapity jak w PDF (wcięcia, bez odstępów, wyrównanie do obu krawędzi) czy jak teraz (odstępy, do lewej)? | (2026-11-08) pytanie do Wydawcy (PW5) — Wydawca akceptuje; zgodnie z poleceniem właściciela („Dodaj też przełącznik dotyczący akapitów”) **przełącznik** w „Ustawieniach”, domyślnie obecny wygląd (D65) |
+| P19 | Przełącznik wyglądu akapitów — kiedy go zrobić? | (2026-11-08) po odpowiedzi Wydawcy (zgoda na punkty 1–3) — zrobiony (D65) |
 | P16 | Dopisek „Tryb mechaniki: automatyczny” na dole ekranu gry — zostawić, zrobić z niego odnośnik do „Ustawień” czy usunąć? | (2026-11-08) **wariant A**: „Wariant A. Zostaje jak jest.” — zwykły napis bez zmian |
 | P18 | Liczba Informacji w oknie „Zdobyte Informacje” (książka jej nie podaje; „Masz 0 z 43 Informacji”) | (2026-11-08) **wariant B**: lista numerów zostaje, napis bez łącznej liczby — „Masz 0 Informacji” (D61) |
 | P17 | Czytanie na głos — co robimy i kiedy? (analiza: [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)) | (2026-11-03) **wariant B**: „Czekając na odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.” — porządek w znacznikach i komentarze po polsku wykonane (D55); przycisk „Sam tekst” — po odpowiedzi Wydawcy na PW4. 2026-11-08: przycisk i PW4 wstrzymane, bez dalszych prac (D62) |
@@ -223,6 +224,43 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-08 — Zgoda Wydawcy na dostosowanie tekstu; wybór kroju pisma i wyglądu akapitów
+
+**Dodano**
+- **Odpowiedź Wydawcy** na pytania PW1, PW2 i PW5 (wysłane przez właściciela 2026-11-08): „Punkty 1 - 3,
+  jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.” Zapisano ją
+  dosłownie:
+  - w rejestrze pytań (z treścią wysłanej wiadomości);
+  - w `LICENCJA_I_ZGODA.md` — rozdz. 1.2, 2, 5.1 pkt 5, 6, rejestr zgód (rozdz. 8), rozdz. 9 pkt 6.
+- **„Ustawienia” → „Krój pisma”** (D65):
+  - kroje: Old Standard TT (jak w oryginale — pierwszy i domyślny), Literata, PT Serif, Open Sans,
+    Andika (przyjazny dla osób z dysleksją);
+  - nazwa każdego kroju jest napisana tym krojem;
+  - pliki WOFF z Fontsource (licencja OFL) leżą lokalnie w `aplikacja/assets/fonts/` (`README.md` z
+    sumami kontrolnymi).
+- **„Ustawienia” → „Wygląd akapitów”**:
+  - „Wygodny na ekranie” (domyślny);
+  - „Jak w książce” — jak w PDF: wcięcie pierwszego wiersza, bez odstępów, wyrównanie do obu krawędzi
+    z dzieleniem wyrazów, kwestie dialogowe bez wcięcia.
+- **Kontrola K1** — `narzedzia/weryfikacja/sprawdz_kroje.py` (biblioteka standardowa) sprawdza, czy
+  każdy krój i styl ma wszystkie znaki tekstu książki. Wynik: zaliczona.
+  - Odrzucono OpenDyslexic (brak twardej spacji — w tekście 1078 razy).
+  - Odrzucono Lexend (brak kursywy).
+  - Odrzucono Merriweather i Lorę (zastrzeżona nazwa kroju w licencji).
+- „Instrukcja” opisuje nowe ustawienia.
+- Test w przeglądarce: 9 nowych sprawdzeń, razem 98/98:
+  - kolejność i domyślny krój;
+  - Andika wczytana;
+  - wygląd „Jak w książce” z dialogami bez wcięcia;
+  - zapamiętanie na urządzeniu;
+  - profil bez nowych kluczy.
+
+**Zmieniono**
+- Profil gracza (Firebase) dostaje tylko motyw, wielkość tekstu i tryb mechaniki. Krój i wygląd akapitów
+  zapisujemy tylko na urządzeniu, więc reguły Firebase są bez zmian.
+- Zmiana samego kroju albo wyglądu akapitów nie zapisuje niczego w bazie.
+- P15 i P19 rozstrzygnięte.
 
 ### 2026-11-08 — Przełącznik wyglądu akapitów: propozycja K5 i pytanie P19
 

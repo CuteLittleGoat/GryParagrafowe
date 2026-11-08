@@ -8,7 +8,7 @@
 
 import { h, plural } from './dom.js';
 import { openDialog } from './dialogs.js';
-import { MODE_LABELS } from './settings.js';
+import { BOOK_FONT_LABELS, BOOK_FONTS, MODE_LABELS, PARAGRAPH_STYLE_LABELS, PARAGRAPH_STYLES } from './settings.js';
 
 // Otwiera okno instrukcji dla książki: { manifest, mechanics, content } jak z loadBook().
 // mechanics = null, gdy książka nie ma automatycznej mechaniki (albo plik mechaniki nie pasuje do treści).
@@ -57,11 +57,16 @@ function settingsItems(mechanics) {
   return [
     '„Motyw” — jasny, ciemny albo automatyczny (taki jak w systemie urządzenia).',
     '„Wielkość tekstu” — przyciski A− i A+ (są też na pasku gry) zmniejszają i powiększają tekst.',
+    ['„Krój pisma” — kształt liter tekstu książki (treść się nie zmienia):',
+      h('ul', { class: 'instructions-list' }, BOOK_FONTS.map((font) => h('li', {}, BOOK_FONT_LABELS[font])))],
+    ['„Wygląd akapitów”:',
+      h('ul', { class: 'instructions-list' }, PARAGRAPH_STYLES.map((style) => h('li', {}, PARAGRAPH_STYLE_LABELS[style])))],
     mechanics
       ? ['„Tryb mechaniki”:', h('ul', { class: 'instructions-list' }, h('li', {}, MODE_LABELS.auto), h('li', {}, MODE_LABELS.manual))]
       : '„Tryb mechaniki” — w tej książce niedostępny: książka nie ma w aplikacji automatycznej mechaniki.',
     '„Instrukcja” — to okno.',
-    'Ustawienia są zapamiętywane na Twoim koncie (motyw i wielkość tekstu — także na tym urządzeniu).',
+    'Motyw, wielkość tekstu i tryb mechaniki są zapamiętywane na Twoim koncie. Motyw, wielkość tekstu, krój pisma '
+      + 'i wygląd akapitów — na tym urządzeniu (na telefonie i komputerze możesz mieć inne).',
   ];
 }
 
