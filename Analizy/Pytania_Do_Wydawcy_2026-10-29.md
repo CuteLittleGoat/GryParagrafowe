@@ -180,6 +180,7 @@ zostaw jak jest”. Ostateczna decyzja zapadnie po odpowiedzi Wydawcy, na koniec
 | K2 | Czy możemy pokazać w aplikacji opis książki z Państwa strony (zamiast samego odnośnika)? | LICENCJA_I_ZGODA.md, rozdz. 9 pkt 3 — obecnie tylko odnośnik |
 | K3 | → przeniesione do rejestru jako PW3 (2026-11-01); **PW3 usunięte 2026-11-02** — Wydawcę pytamy tylko o licencje | decyzja właściciela |
 | K4 | Prośba o kolejne tytuły i informacja o planie zwiększenia liczby graczy | decyzja właściciela P12 — po ukończeniu „Vae Victis” i przygotowaniu kont dla 6 graczy |
+| K5 | Rozszerzenie PW5 o **przełącznik wyglądu akapitów** w ustawieniach — gracz sam wybiera: „jak w publikacji” (wcięcia, bez odstępów, wyrównanie do obu krawędzi) albo „dopasowany do ekranu” (odstępy, wyrównanie do lewej). Proponowana dopiska do pytania PW5: „Chcielibyśmy też dodać w ustawieniach przełącznik, żeby gracz sam wybrał wygląd akapitów: jak w publikacji albo dopasowany do ekranu.” | pytanie właściciela z 2026-11-08 („a czy istnieje możliwość zrobienia przełącznika stylu akapitów?”); kiedy budować przełącznik — pytanie P19 w `PLAN_I_CHANGELOG.md` |
 
 ## Niepewności
 

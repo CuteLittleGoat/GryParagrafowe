@@ -196,6 +196,7 @@
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
 | P15 | **Wygląd tekstu gry.** W pliku PDF akapity zaczynają się od wcięcia (pierwszy wiersz przesunięty w prawo), nie ma między nimi odstępów, a tekst jest wyrównany do obu krawędzi strony — jak w drukowanej książce. W aplikacji akapity są oddzielone pustym odstępem, bez wcięć, a tekst jest wyrównany do lewej (na wąskim ekranie telefonu czyta się to zwykle wygodniej). Treść jest w obu przypadkach identyczna — chodzi tylko o wygląd. | **A ★** zostawić jak teraz (wygodniej na telefonie); **B** jak w PDF na wszystkich ekranach; **C** jak w PDF tylko na dużych ekranach (komputer), na telefonie jak teraz. Właściciel (2026-11-03): „Na obecną chwilę zostaw jak jest” — **decyzja na koniec prac nad książką**; od 2026-11-08 także pytanie do Wydawcy **PW5** (polecenie właściciela) |
+| P19 | **Przełącznik wyglądu akapitów — kiedy go zrobić?** W „Ustawieniach” gracz wybierałby, jak wyglądają akapity tekstu książki: „jak w książce” (wcięcie pierwszego wiersza, bez odstępów, wyrównanie do obu krawędzi — jak w PDF) albo „wygodny na ekranie” (odstęp między akapitami, wyrównanie do lewej — jak teraz). Treść się nie zmienia. Wygląd „jak w książce” to oryginał, a „wygodny na ekranie” to właśnie temat pytania PW5 do Wydawcy (propozycja dopisania przełącznika do PW5 — K5 w pliku pytań). | **A** zrobić teraz — bez dodatkowego ryzyka, bo wygląd „jak w książce” to oryginał, a obecny i tak czeka na odpowiedź PW5; jeśli Wydawca nie zgodzi się na wygląd „wygodny na ekranie”, przełącznik zniknie, a zostanie wygląd jak w książce; **B ★** zrobić po odpowiedzi Wydawcy na PW5 — tak jak przy zmianie czcionki (PW1); **C** bez przełącznika — jeden wygląd dla wszystkich, decyzja na koniec prac (P15) |
 
 ### 5.2. Rozstrzygnięte
 
@@ -222,6 +223,17 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-08 — Przełącznik wyglądu akapitów: propozycja K5 i pytanie P19
+
+**Dodano**
+- Pytanie właściciela: czy można zrobić przełącznik stylu akapitów. Odpowiedź: tak — to ustawienie
+  wyglądu (CSS), treść bez zmian. Zapisano:
+  - propozycję dopiski do PW5 (K5 w pliku pytań);
+  - otwarte pytanie P19, kiedy zbudować przełącznik.
+- Uwaga techniczna: zapamiętanie wyboru na koncie gracza wymaga zmiany reguł Firebase (w ustawieniach
+  są dziś dozwolone tylko `theme`, `fontScale` i `mechanicsMode`; publikuje właściciel). Zapamiętanie
+  tylko na urządzeniu — bez zmian w Firebase.
 
 ### 2026-11-08 — Pytanie PW5 do Wydawcy (wygląd akapitów)
 
