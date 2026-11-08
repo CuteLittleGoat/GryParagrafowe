@@ -11,7 +11,7 @@
 | | |
 |---|---|
 | Etap | **2, 3 i 5 — zakończone; aplikacja opublikowana** (2026-11-02): `https://cutelittlegoat.github.io/GryParagrafowe/`; App Check działa (2026-11-03) — czeka na obserwację i wymuszenie |
-| Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy (2026-11-08): przeglądarka 87/87, emulator 15/15, reguły 17/17, silnik 13/13 |
+| Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy (2026-11-08): przeglądarka 89/89, emulator 15/15, reguły 17/17, silnik 13/13 |
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ✅ — klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni, wymiana tokenu działa (2026-11-03); wymuszenie (*Enforce*) — po obserwacji |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
@@ -28,8 +28,7 @@
    (gotowy szkic wiadomości w pliku pytań).
 4. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
    uprawnienia administratora).
-5. **Właściciel — decyzje P16** (dopisek „Tryb mechaniki”) **i P18** (liczba Informacji w oknie „Zdobyte
-   Informacje”); potem agent wdraża wybrane warianty.
+5. **Właściciel — decyzja P16** (dopisek „Tryb mechaniki”); potem agent wdraża wybrany wariant.
    Czytanie na głos (P17 — rozstrzygnięte): przycisk „Sam tekst” dopiero po odpowiedzi Wydawcy na PW4.
 
 ## 3. Plan prac (etapy)
@@ -167,6 +166,7 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
+| D61 | 2026-11-08 | Okno „Zdobyte Informacje”: lista wszystkich numerów zostaje (do zaznaczania w trybie ręcznym), ale napis bez łącznej liczby — „Masz 1 Informację.”, „Masz 2 Informacje.”, „Masz 0 Informacji.” (zamiast „Masz 0 z 43 Informacji”) | decyzja właściciela P18 (wariant B) |
 | D60 | 2026-11-08 | **„Odkryte zakończenia: X” bez łącznej liczby.** Zapis „X z Y” tylko wtedy, gdy Wydawca w opisie książki podaje liczbę zakończeń — pole `announcedEndings` w `ksiazka.json` z adresem opisu i datą sprawdzenia. Liczby policzonej przez nas z treści nie pokazujemy (także w „Instrukcji”). „Vae Victis”: ani książka, ani opis Wydawcy nie podają liczby zakończeń (sprawdzone 2026-11-08) | polecenie właściciela („Zapis X z Y będziemy stosować tylko jeżeli wydawca w opisie książki zaznaczył, że książka posiada 25 zakończeń”) |
 | D59 | 2026-11-08 | Przyciski przejść („Przejdź do…”) i „Cofnij” w kształcie **pastylek** (w pełni zaokrąglone boki, napis na środku) | decyzja właściciela |
 | D58 | 2026-11-03 | **Instrukcja** — okno z przyciskiem w „Ustawieniach” i na karcie książki. Zawiera: jak grać, ustawienia aplikacji i część o książce, złożoną z opisów jej modułów mechaniki (dla „Vae Victis”: zbieranie Informacji, odwiedzone miejsca, zakończenia; w innych książkach np. punkty życia, ekwipunek). Opisuje tylko działanie aplikacji, a do zasad gry odsyła do tekstu książki (bez streszczeń — Z1, Z3). Karta książki: „Kontynuuj grę” / „Rozpocznij grę”, „Nowa gra”, „Instrukcja” po lewej, „O książce” po prawej | polecenie właściciela |
@@ -195,13 +195,13 @@
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
 | P15 | **Wygląd tekstu gry.** W pliku PDF akapity zaczynają się od wcięcia (pierwszy wiersz przesunięty w prawo), nie ma między nimi odstępów, a tekst jest wyrównany do obu krawędzi strony — jak w drukowanej książce. W aplikacji akapity są oddzielone pustym odstępem, bez wcięć, a tekst jest wyrównany do lewej (na wąskim ekranie telefonu czyta się to zwykle wygodniej). Treść jest w obu przypadkach identyczna — chodzi tylko o wygląd. | **A ★** zostawić jak teraz (wygodniej na telefonie); **B** jak w PDF na wszystkich ekranach; **C** jak w PDF tylko na dużych ekranach (komputer), na telefonie jak teraz. Właściciel (2026-11-03): „Na obecną chwilę zostaw jak jest” — **decyzja na koniec prac nad książką** |
-| P18 | **Liczba Informacji w oknie „Zdobyte Informacje”.** Okno pokazuje wszystkie numery od #1 do #43 i napis „Masz 0 z 43 Informacji”. Książka (we „Wprowadzeniu”) wyjaśnia, jak zapisywać Informacje, ale nie podaje, ile ich jest — liczbę 43 aplikacja policzyła sama z tekstu, tak jak 21 zakończeń (por. D60). Przykład: gracz już na starcie widzi, że do zdobycia jest 43 Informacji. | **A** zostawić jak jest (wygodne klikanie numerów w trybie ręcznym); **B** zostawić listę numerów, ale pisać „Masz 0 Informacji” (bez „z 43”) — sama lista i tak pokazuje, ile jest numerów; **C ★** pokazywać tylko zdobyte Informacje, a w trybie ręcznym dopisywać numer z klawiatury, jak na kartce — nikt nie widzi, ile ich jest (najwięcej pracy) |
 | P16 | **Dopisek „Tryb mechaniki: automatyczny” pod przyciskami gry.** Mówi, w jakim trybie działa gra. W trybie automatycznym aplikacja sama zapisuje zdobyte Informacje i oznacza drogi ✓/✗. W ręcznym — jak na papierze — wszystko zaznacza gracz. Bez dopisku ktoś, kto przypadkiem włączył tryb ręczny, mógłby się dziwić, czemu znaczki ✓/✗ zniknęły. (Przy czytaniu na głos Chrome czytał ten dopisek — od 2026-11-03 dopisek jest w stopce ekranu gry i Chrome go pomija, niezależnie od wyboru tutaj.) | **A** zostawić jak jest; **B ★** zamienić w odnośnik, który od razu otwiera „Ustawienia”; **C** usunąć (tryb widoczny tylko w „Ustawieniach”). Pytanie zadane w rozmowie 2026-11-03 — czeka na odpowiedź |
 
 ### 5.2. Rozstrzygnięte
 
 | # | Pytanie | Odpowiedź właściciela |
 |---|---|---|
+| P18 | Liczba Informacji w oknie „Zdobyte Informacje” (książka jej nie podaje; „Masz 0 z 43 Informacji”) | (2026-11-08) **wariant B**: lista numerów zostaje, napis bez łącznej liczby — „Masz 0 Informacji” (D61) |
 | P17 | Czytanie na głos — co robimy i kiedy? (analiza: [`Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md`](Analizy/Odczyt_Na_Glos_W_Przegladarce_2026-11-03.md)) | (2026-11-03) **wariant B**: „Czekając na odpowiedź od wydawcy zrób porządek w znacznikach i dodaj komentarze.” — porządek w znacznikach i komentarze po polsku wykonane (D55); przycisk „Sam tekst” — po odpowiedzi Wydawcy na PW4 |
 | P1 | Analiza zabezpieczeń z innego projektu | (2026-10-29) dostarczona (instrukcja App Check z projektu „Karty”); wnioski w FIREBASE.md, rozdz. 7 |
 | P2 | Czy oryginalny EPUB zostaje w repozytorium? | (2026-10-29) **zostaje**; w aplikacji będą odnośniki do oryginałów na stronie Wydawnictwa |
@@ -221,6 +221,14 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-08 — „Zdobyte Informacje” bez łącznej liczby (P18)
+
+**Zmieniono**
+- Okno „Zdobyte Informacje”: napis „Masz 1 Informację.” / „Masz 2 Informacje.” / „Masz 0 Informacji.”
+  zamiast „Masz 0 z 43 Informacji”. Lista wszystkich numerów zostaje, bo w trybie ręcznym zaznacza się
+  na niej Informacje (decyzja właściciela P18, wariant B; D61).
+- Test w przeglądarce: 2 nowe sprawdzenia (napis i odmiana), razem 89/89.
 
 ### 2026-11-08 — „Odkryte zakończenia” bez łącznej liczby
 

@@ -498,12 +498,14 @@ export async function renderGame(app, root, bookId) {
 
   function openSheet() {
     const values = codewordsModule?.values ?? [];
-    const summary = h('p', { class: 'muted' });
+    const summary = h('p', { class: 'muted codeword-summary' });
     const grid = h('div', { class: 'codeword-grid', role: 'group', 'aria-label': codewordsModule?.label ?? 'Informacje' });
     const fill = () => {
       clear(grid);
       const owned = values.filter((code) => game.hasCodeword(code)).length;
-      summary.textContent = `Masz ${owned} z ${values.length} ${plural(values.length, ['Informacji', 'Informacji', 'Informacji'])}.`;
+      // Bez łącznej liczby Informacji — książka jej nie podaje (decyzja właściciela P18, wariant B; D61).
+      // Lista wszystkich numerów zostaje, żeby w trybie ręcznym można było je zaznaczać.
+      summary.textContent = `Masz ${owned} ${plural(owned, ['Informację', 'Informacje', 'Informacji'])}.`;
       for (const code of values) {
         const has = game.hasCodeword(code);
         grid.append(h('button', {

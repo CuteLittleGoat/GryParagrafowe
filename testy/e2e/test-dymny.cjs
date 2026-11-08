@@ -246,8 +246,12 @@ function check(name, condition, details = '') {
   await page.waitForSelector('dialog[open] .codeword-grid');
   check('okno „Zdobyte Informacje”', (await page.textContent('dialog[open] .dialog-title')) === 'Zdobyte Informacje');
   check('karta: #19 zaznaczona', (await page.getAttribute('dialog[open] [aria-label="Informacja #19"]', 'aria-pressed')) === 'true');
+  const summaryOne = await page.textContent('dialog[open] .codeword-summary');
+  check('karta: „Masz 1 Informację.” bez łącznej liczby (P18)', summaryOne === 'Masz 1 Informację.', summaryOne);
   await page.click('dialog[open] [aria-label="Informacja #5"]');
   check('karta: ręczne zaznaczenie #5', (await page.getAttribute('dialog[open] [aria-label="Informacja #5"]', 'aria-pressed')) === 'true');
+  const summaryTwo = await page.textContent('dialog[open] .codeword-summary');
+  check('karta: „Masz 2 Informacje.” (odmiana)', summaryTwo === 'Masz 2 Informacje.', summaryTwo);
   await page.screenshot({ path: path.join(OUT, '08-karta.png') });
   await page.keyboard.press('Escape');
 
