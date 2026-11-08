@@ -31,7 +31,8 @@ Polecenie z 2026-11-03 (pytanie PW4):
 
 ## Źródła
 
-- `Pliki/Zgoda Vae Victis.pdf` (oryginał u właściciela; warunki i cytaty — rejestr zgód w
+- `Pliki/Zgoda Vae Victis.pdf` (usunięty z repozytorium przez właściciela 2026-11-03; oryginał u
+  właściciela; warunki i cytaty — rejestr zgód w
   `dokumentacja/LICENCJA_I_ZGODA.md`) — korespondencja z Wydawcą z
   27–29.10.2026: zgoda na „Vae Victis” (pełna stopka, informacje o źródle, okładka z informacją o
   autorce, bez grafik AI). O sposobie wyświetlania tekstu (krój, rozmiar, kolory) zgoda nie wspomina.

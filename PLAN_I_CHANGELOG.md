@@ -255,6 +255,11 @@ Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawion
   - starsze stany i zapisy tracą to pole przy wczytaniu;
   - reguły Firebase bez zmian (pole było opcjonalne);
   - opis w `dokumentacja/FIREBASE.md`.
+- `Pliki/Zgoda Vae Victis.pdf` — usunięty z repozytorium przez właściciela (2026-11-03, zgodnie z D30).
+  - Wzmianki o pliku zaktualizowano w `dokumentacja/LICENCJA_I_ZGODA.md` (wstęp),
+    `ksiazki/vae-victis/README.md` i pliku pytań do Wydawcy.
+  - Wpis w rejestrze zgód zostaje bez zmian, bo zmienia go tylko właściciel. Nadal ma dopisek
+    „tymczasowo `Pliki/Zgoda Vae Victis.pdf`”.
 
 ### 2026-11-03 — Porządek w znacznikach ekranu gry i komentarze HTML po polsku
 

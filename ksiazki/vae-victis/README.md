@@ -32,7 +32,7 @@ oznaczenia `(U#n)` przy liniach dialogowych (zdobycie Informacji przy wyborze op
 | | |
 |---|---|
 | Zgoda | ✅ Wydawca, 29.10.2026 — „na ten moment” |
-| Zapis warunków | rejestr zgód w [`dokumentacja/LICENCJA_I_ZGODA.md`](../../dokumentacja/LICENCJA_I_ZGODA.md) (z cytatami kluczowych zdań); oryginał korespondencji u właściciela (tymczasowo `Pliki/Zgoda Vae Victis.pdf`) |
+| Zapis warunków | rejestr zgód w [`dokumentacja/LICENCJA_I_ZGODA.md`](../../dokumentacja/LICENCJA_I_ZGODA.md) (z cytatami kluczowych zdań); oryginał korespondencji u właściciela (plik `Pliki/Zgoda Vae Victis.pdf` usunięty z repozytorium przez właściciela 2026-11-03) |
 | Warunki | pełna stopka (od copyrightu po ISBN), wszystkie informacje o źródle, okładka **z informacją o autorce** (Justyna Bzdoń), bez grafik AI, projekt wewnętrzny i niekomercyjny, treść bez zmian |
 
 ## 2. Dane bibliograficzne (wg stopki EPUB)

@@ -9,7 +9,8 @@
 - **Ten dokument — a zwłaszcza rejestr zgód (rozdz. 8) z dosłownymi cytatami kluczowych zdań
   (rozdz. 1) — jest wiążącym zapisem warunków w repozytorium.** Oryginały zgód i korespondencji
   przechowuje właściciel; po zakończeniu prac mogą nie znajdować się w repozytorium (dla „Vae Victis”
-  tymczasowo: `Pliki/Zgoda Vae Victis.pdf`).
+  plik `Pliki/Zgoda Vae Victis.pdf` właściciel usunął z repozytorium 2026-11-03 — oryginał jest u
+  właściciela).
 - Ostatnia aktualizacja dokumentu: 2026-11-01.
 
 Oznaczenia źródła każdej zasady:
