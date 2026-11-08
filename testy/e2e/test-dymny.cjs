@@ -368,7 +368,9 @@ function check(name, condition, details = '') {
   const remembered = await page.evaluate(() => ({ font: document.documentElement.dataset.bookFont, paragraphs: document.documentElement.dataset.paragraphs }));
   check('krój i wygląd akapitów zapamiętane na urządzeniu', remembered.font === 'andika' && remembered.paragraphs === 'book', JSON.stringify(remembered));
   const profileKeys = await page.evaluate(() => Object.keys(localStorage).filter((k) => k.includes(':player:')).map((k) => Object.keys(JSON.parse(localStorage.getItem(k)).settings ?? {})));
-  check('profil gracza bez kroju i wyglądu akapitów (reguły Firebase)', profileKeys.length > 0 && profileKeys.every((keys) => keys.every((k) => ['theme', 'fontScale', 'mechanicsMode'].includes(k))), JSON.stringify(profileKeys));
+  const profileSettingsStored = await page.evaluate(() => Object.keys(localStorage).filter((k) => /:player:[^:]+$/.test(k)).map((k) => JSON.parse(localStorage.getItem(k)).settings ?? {}));
+  check('krój i wygląd akapitów zapisane także w profilu gracza', profileSettingsStored.some((st) => st.bookFont === 'andika' && st.paragraphStyle === 'book')
+    && profileKeys.every((keys) => keys.every((k) => ['theme', 'fontScale', 'mechanicsMode', 'bookFont', 'paragraphStyle'].includes(k))), JSON.stringify(profileSettingsStored));
   await page.click('.game-tools button:has-text("Ustawienia")');
   await page.click('dialog[open] input[name=bookFont][value=original]');
   await page.click('dialog[open] input[name=paragraphStyle][value=screen]');

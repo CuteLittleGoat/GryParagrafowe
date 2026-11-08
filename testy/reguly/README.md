@@ -6,8 +6,8 @@ bazą (projekt testowy `demo-gryparagrafowe`, dane fikcyjne). Wymagania: Node.js
 
 | Plik | Co sprawdza |
 |---|---|
-| `test-regul.mjs` | reguły `firebase/firestore.rules`: logowanie (dobre i złe dane, cudze konto, hasło z polskimi literami), dostęp tylko do własnych danych, administrator, walidacja dokumentów, numer wersji zapisu, wygaśnięcie sesji po 30 dniach, zmiana hasła w konsoli, wylogowanie — 17 testów |
-| `test-aplikacji-z-emulatorem.cjs` | aplikacja w przeglądarce z prawdziwymi regułami: logowanie hasłem, brak hasła w pamięci przeglądarki i w bazie (tylko skrót), autozapis i ręczny zapis w bazie, sesja po odświeżeniu, konflikt zapisów z dwóch urządzeń, konto Wydawcy (`Player7`), wylogowanie po zmianie hasła — 15 sprawdzeń |
+| `test-regul.mjs` | reguły `firebase/firestore.rules`: logowanie (dobre i złe dane, cudze konto, hasło z polskimi literami), dostęp tylko do własnych danych, administrator, walidacja dokumentów, numer wersji zapisu, wygaśnięcie sesji po 30 dniach, zmiana hasła w konsoli, wylogowanie, ustawienia w profilu (krój pisma, wygląd akapitów) — 18 testów |
+| `test-aplikacji-z-emulatorem.cjs` | aplikacja w przeglądarce z prawdziwymi regułami: logowanie hasłem, brak hasła w pamięci przeglądarki i w bazie (tylko skrót), autozapis i ręczny zapis w bazie, sesja po odświeżeniu, konflikt zapisów z dwóch urządzeń, konto Wydawcy (`Player7`), wylogowanie po zmianie hasła, ustawienia w bazie (motyw, krój pisma, wygląd akapitów) — 16 sprawdzeń |
 
 ## Instalacja (jednorazowo)
 

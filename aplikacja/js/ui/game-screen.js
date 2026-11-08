@@ -741,7 +741,7 @@ export async function renderGame(app, root, bookId) {
           (paragraphStyle) => app.updateSettings({ paragraphStyle }),
         ),
         h('p', { class: 'muted small' }, 'Krój pisma i wygląd akapitów zmieniają tylko wygląd tekstu książki — treść zostaje '
-          + 'bez zmian. Ten wybór zapamiętujemy na tym urządzeniu.'),
+          + 'bez zmian. Ustawienia zapamiętujemy na Twoim koncie.'),
         radioGroup(
           'mechanicsMode',
           'Tryb mechaniki',

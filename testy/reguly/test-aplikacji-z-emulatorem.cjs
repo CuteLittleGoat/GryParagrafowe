@@ -93,6 +93,22 @@ async function main() {
   const profile = await admin(async (db) => (await getDoc(doc(db, 'players', 'Player1'))).data());
   check('profil gracza z loginem', profile?.displayName === 'Gracz Testowy');
 
+  // 3a. Ustawienia w profilu (reguły z firebase/firestore.rules): motyw, krój pisma, wygląd akapitów
+  await page.click('.game-tools button:has-text("Ustawienia")');
+  await page.click('dialog[open] input[value=dark]');
+  await page.click('dialog[open] input[name=bookFont][value=andika]');
+  await page.click('dialog[open] input[name=paragraphStyle][value=book]');
+  await page.keyboard.press('Escape');
+  await page.waitForFunction(() => true);
+  let settingsStored = null;
+  for (let attempt = 0; attempt < 20; attempt += 1) {
+    settingsStored = (await admin(async (db) => (await getDoc(doc(db, 'players', 'Player1'))).data()))?.settings;
+    if (settingsStored?.paragraphStyle === 'book') break;
+    await page.waitForTimeout(250);
+  }
+  check('ustawienia w bazie: motyw, krój pisma, wygląd akapitów', settingsStored?.theme === 'dark'
+    && settingsStored?.bookFont === 'andika' && settingsStored?.paragraphStyle === 'book', JSON.stringify(settingsStored));
+
   // 4. Ręczny zapis
   await page.click('.game-tools button:has-text("Zapisy")');
   await page.click('dialog[open] .save-slot >> nth=0 >> button:has-text("Zapisz tutaj")');

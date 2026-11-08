@@ -53,7 +53,7 @@ python3 -m http.server 8000
 | **Zakończenie** | tekst zakończenia 1:1; „Odkryte zakończenia: X” (łączna liczba „X z Y” — tylko gdy podaje ją Wydawca w opisie książki, pole `announcedEndings`; D60); „Zagraj ponownie”, „Menu główne” |
 | **O książce** | okładka z podpisem, strona tytułowa, dedykacja, stopka, strona „od Wydawnictwa”, spis treści, odnośniki, informacja o zgodzie |
 | **Panel administratora** | tylko dla administratora: backup, odtwarzanie gracza z pliku, lista graczy z datą ostatniej aktywności |
-| **Ustawienia** | motyw, wielkość liter, **krój pisma** (pierwszy i domyślny — jak w oryginale; nazwa każdego kroju napisana tym krojem), **wygląd akapitów** („Wygodny na ekranie” — domyślny; „Jak w książce” — wcięcia, bez odstępów, wyrównanie do obu krawędzi, dialogi bez wcięcia jak w PDF), tryb mechaniki (automatyczny / ręczny), przycisk **„Instrukcja”**. Motyw, wielkość liter i tryb mechaniki — w profilu gracza; krój i wygląd akapitów — tylko na urządzeniu (zależą od ekranu; bez zmian w regułach Firebase) |
+| **Ustawienia** | motyw, wielkość liter, **krój pisma** (pierwszy i domyślny — jak w oryginale; nazwa każdego kroju napisana tym krojem), **wygląd akapitów** („Wygodny na ekranie” — domyślny; „Jak w książce” — wcięcia, bez odstępów, wyrównanie do obu krawędzi, dialogi bez wcięcia jak w PDF), tryb mechaniki (automatyczny / ręczny), przycisk **„Instrukcja”**. Wszystkie ustawienia — w profilu gracza (Firebase; po zalogowaniu na innym urządzeniu takie same), kopia wyglądu — na urządzeniu (D66) |
 | **Instrukcja** | okno otwierane z „Ustawień” i z karty książki (`instructions.js`): jak grać (przyciski gry), ustawienia aplikacji oraz część o książce złożona z opisów jej modułów mechaniki (np. „Informacje”, odwiedzone miejsca, zakończenia; w innych książkach np. punkty życia, ekwipunek) z nazwami z `mechanika.json`. Opisuje wyłącznie działanie aplikacji — nie streszcza zasad gry z książki, tylko odsyła do nich (np. „Wprowadzenie (zasady gry)”; Z1, Z3) |
 
 Zasady prezentacji (z [LICENCJA_I_ZGODA.md](LICENCJA_I_ZGODA.md), rozdz. 5):
@@ -176,8 +176,11 @@ logowania (N7).
   - atrybuty `data-book-font` i `data-paragraphs` na `<html>` (ustawia `settings.js`);
   - CSS podmienia zmienną `--font-book` i reguły akapitów `.book-text`;
   - kwestie dialogowe (akapit od „–”) renderer oznacza klasą `dialog-line` — tylko klasa, tekst bez zmian;
-  - w profilu gracza zapisujemy tylko `theme`, `fontScale` i `mechanicsMode` (`PROFILE_SETTING_KEYS` —
-    tyle dopuszczają reguły Firebase).
+  - wszystkie ustawienia (motyw, wielkość tekstu, tryb mechaniki, krój, wygląd akapitów) są w profilu
+    gracza (`PROFILE_SETTING_KEYS`, reguły z 2026-11-08 — D66), więc po zalogowaniu na innym urządzeniu
+    wyglądają tak samo; kopia ustawień wyglądu jest też na urządzeniu (działa przed odczytem profilu);
+  - gdy w konsoli są jeszcze reguły sprzed 2026-11-08 (odmowa zapisu), aplikacja zapisuje w profilu tylko
+    `theme`, `fontScale` i `mechanicsMode`, a krój i akapity zostają na urządzeniu.
 - Komponenty: karta książki, stopka książki, czytnik węzła, panel przejść, karta postaci, kości,
   okno zapisu, panel administratora, ustawienia, komunikaty.
 - **Znaczniki ekranu gry zgodne z rolą elementów** (decyzja D55, 2026-11-03). Style opierają się na

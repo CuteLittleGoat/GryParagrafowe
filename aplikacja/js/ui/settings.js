@@ -1,8 +1,9 @@
 // Ustawienia wyświetlania i mechaniki.
-// - W profilu gracza (konto; Firebase albo tryb lokalny): motyw, wielkość tekstu, tryb mechaniki
-//   (PROFILE_SETTING_KEYS — reguły Firebase dopuszczają w profilu tylko te klucze).
-// - Na urządzeniu (pamięć przeglądarki, bez danych gracza): motyw, wielkość tekstu, krój pisma i wygląd
-//   akapitów. Krój i wygląd akapitów zależą od ekranu (telefon, komputer), więc są tylko na urządzeniu.
+// - W profilu gracza (konto; Firebase albo tryb lokalny): wszystkie — motyw, wielkość tekstu, tryb
+//   mechaniki, krój pisma i wygląd akapitów (PROFILE_SETTING_KEYS; reguły: firebase/firestore.rules).
+//   Po zalogowaniu na innym urządzeniu ustawienia są takie same.
+// - Na urządzeniu (pamięć przeglądarki, bez danych gracza): kopia ustawień wyglądu — działają od razu po
+//   otwarciu strony, jeszcze przed odczytem profilu.
 
 export const FONT_SCALES = [0.85, 1, 1.15, 1.3, 1.5, 1.75, 2];
 export const THEMES = ['auto', 'light', 'dark'];
@@ -20,7 +21,10 @@ export const DEFAULT_SETTINGS = Object.freeze({
   bookFont: 'original',
   paragraphStyle: 'screen',
 });
-export const PROFILE_SETTING_KEYS = ['theme', 'fontScale', 'mechanicsMode'];
+export const PROFILE_SETTING_KEYS = ['theme', 'fontScale', 'mechanicsMode', 'bookFont', 'paragraphStyle'];
+// Klucze dopuszczane przez reguły Firebase sprzed 2026-11-08 — gdy właściciel nie opublikował jeszcze
+// nowych reguł, aplikacja zapisuje w profilu tylko je (krój i akapity zostają wtedy na urządzeniu).
+export const LEGACY_PROFILE_SETTING_KEYS = ['theme', 'fontScale', 'mechanicsMode'];
 const DEVICE_SETTING_KEYS = ['theme', 'fontScale', 'bookFont', 'paragraphStyle'];
 
 const DEVICE_KEY = 'gp1:device';
@@ -35,9 +39,9 @@ export function normalizeSettings(raw = {}) {
   };
 }
 
-// Część ustawień zapisywana w profilu gracza (bez kluczy tylko z urządzenia).
-export function profileSettings(settings) {
-  return Object.fromEntries(PROFILE_SETTING_KEYS.map((key) => [key, settings[key]]));
+// Część ustawień zapisywana w profilu gracza.
+export function profileSettings(settings, keys = PROFILE_SETTING_KEYS) {
+  return Object.fromEntries(keys.map((key) => [key, settings[key]]));
 }
 
 function pick(settings, keys) {

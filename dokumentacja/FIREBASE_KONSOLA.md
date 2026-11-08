@@ -64,6 +64,12 @@ To techniczny pierwszy krok logowania — gracz go nie widzi i nie podaje żadny
 Reguły można opublikować przed założeniem kont — bez kont i tak nikt się nie zaloguje. Pierwsza linijka
 wklejonej treści to `rules_version = '2';`.
 
+**Aktualizacja reguł 2026-11-08** (D66): w ustawieniach gracza dochodzą krój pisma (`bookFont`) i wygląd
+akapitów (`paragraphStyle`).
+- Opublikuj w konsoli nową treść `firebase/firestore.rules` — tak samo jak wyżej.
+- Do czasu publikacji aplikacja działa: krój i wygląd akapitów pamięta na urządzeniu, a pozostałe
+  ustawienia zapisuje na koncie.
+
 ## 4. Krok 3 — Kolekcja `secrets` (konta graczy) — OBOWIĄZKOWO
 
 ### 4.1. Pierwsze konto (zakłada kolekcję)
@@ -149,7 +155,7 @@ konsolą. Odebranie uprawnień = usunięcie dokumentu.
 
 | Kolekcja | Kiedy powstaje | Co zawiera |
 |---|---|---|
-| `players` | przy pierwszym logowaniu gracza | `players/Player1` — profil (login, ustawienia: motyw, rozmiar tekstu, tryb mechaniki); `players/Player1/books/vae-victis` — stan gry (miejsce w książce, Informacje, notatki, odkryte zakończenia); `…/saves/save1` … `save3` — ręczne zapisy |
+| `players` | przy pierwszym logowaniu gracza | `players/Player1` — profil (login, ustawienia: motyw, rozmiar tekstu, tryb mechaniki, krój pisma, wygląd akapitów); `players/Player1/books/vae-victis` — stan gry (miejsce w książce, Informacje, notatki, odkryte zakończenia); `…/saves/save1` … `save3` — ręczne zapisy |
 | `sessions` | przy każdym logowaniu | jeden dokument na przeglądarkę: numer konta, login, **skrót** hasła (nie samo hasło), czas logowania |
 
 Tych dokumentów nie edytuj ręcznie — wyjątki opisuje rozdz. 10.
@@ -189,6 +195,49 @@ Tych dokumentów nie edytuj ręcznie — wyjątki opisuje rozdz. 10.
 | **Uprawnienia administratora** | dodaj / usuń dokument `admins/PlayerN` |
 | **Przekazanie konta innej osobie** | najpierw kopia zapasowa (gdy powstanie panel administratora); potem usuń `players/PlayerN` (czyści postęp poprzedniej osoby) i ustaw nowe `PlayerName` oraz `PlayerPassword` |
 | **Usunięcie konta** | usuń `secrets/PlayerN` (dostęp znika natychmiast), w razie potrzeby także `players/PlayerN` i `admins/PlayerN` |
+
+### 10.1. Gdy przybywa graczy — krok po kroku
+
+**`playerCount` = najwyższy numer konta.** Przykłady:
+- Konta `Player1` … `Player7` → `playerCount` = **7**.
+- Wartość wyższa też działa (np. 10 przy 7 kontach). Poprawne logowanie trwa tyle samo — aplikacja
+  sprawdza numery po kolei i kończy na koncie gracza. Tylko przy złym loginie lub haśle komunikat o
+  błędzie pojawia się odrobinę później, bo aplikacja sprawdza wtedy wszystkie numery, także te bez konta.
+- Wartość niższa **blokuje** graczy z wyższymi numerami. Przykład: `playerCount` = 5, a konto
+  `Player7` — ten gracz się nie zaloguje.
+- Dziś: 5 kont (`Player1` … `Player5`) i `playerCount` = 5 — tak jest dobrze.
+
+0. **Najpierw licencja.**
+   - Zgoda Wydawcy dotyczy wąskiego grona — w prośbie „ok. 5 osób”.
+   - Decyzja P12: po ukończeniu pierwszej książki i przygotowaniu kont dla 6 graczy właściciel prosi
+     Wydawcę o kolejne tytuły i informuje o planie zwiększenia liczby graczy.
+   - Znacząco większe grono — tylko za nową zgodą Wydawcy (`LICENCJA_I_ZGODA.md`, Z11 i rozdz. 9 pkt 1).
+1. **Firestore Database → Data → kolekcja `secrets` → *Add document*.**
+   - *Document ID*: kolejny numer, np. `Player6`.
+   - Zapis: `Player` + numer bez zera na początku, od 1 do 99.
+2. **Pola nowego dokumentu** (jak w rozdz. 4.3):
+   - `PlayerName` (*string*) — login;
+   - `PlayerPassword` (*string*) — hasło.
+   - Wielkość liter ma znaczenie.
+3. **`appConfig` → dokument `public` → pole `playerCount`.**
+   - Wpisz najwyższy numer konta, np. `6`.
+   - Typ pola: **int64** (w starszych konsolach *number*).
+   - *Update*.
+4. **Przekaż graczowi login i hasło** — osobno, nigdy w repozytorium.
+5. **Sprawdzenie.**
+   - Gracz loguje się na stronie aplikacji.
+   - W kolekcji `sessions` pojawia się nowy dokument.
+   - Dokument `players/Player6` z postępem aplikacja zakłada sama przy pierwszym logowaniu — nie zakładaj
+     go ręcznie.
+
+Uwagi:
+- **Limit 99 kont** (`Player1` … `Player99`) wynika z reguł i aplikacji.
+- **Brak pola `playerCount`.** Jeśli `appConfig/public` nie istnieje albo `playerCount` ma zły typ (np.
+  tekst `"6"`), aplikacja sprawdza 10 kont (`Player1` … `Player10`).
+- **Luki w numeracji nie przeszkadzają.** Aplikacja pomija brakujący numer (np. usunięte `Player4`).
+  `playerCount` nadal ustawiasz na najwyższy numer konta.
+- **Administrator.** Uprawnienia administratora daje osobny dokument `admins/PlayerN` (rozdz. 6) —
+  zwykły gracz go nie potrzebuje.
 
 ## 11. Poza bazą danych
 

@@ -79,7 +79,7 @@ sessions/{authUid}                                  sesje logowania (techniczne)
 |---|---|---|
 | `schemaVersion` | number | wersja schematu dokumentu (obecnie 1) |
 | `displayName` | string | login gracza zapisywany przez aplikację przy logowaniu (do panelu administratora i kopii zapasowych) |
-| `settings` | map | ustawienia gracza: `theme` (`auto`/`light`/`dark`), `fontScale` (number), `mechanicsMode` (`auto`/`manual`) |
+| `settings` | map | ustawienia gracza: `theme` (`auto`/`light`/`dark`), `fontScale` (number), `mechanicsMode` (`auto`/`manual`), `bookFont` (identyfikator kroju pisma tekstu książki, np. `original`, `andika` — małe litery, cyfry i myślniki, do 40 znaków), `paragraphStyle` (`screen` — wygodny na ekranie, `book` — jak w książce); `bookFont` i `paragraphStyle` od reguł z 2026-11-08 (D66) |
 | `createdAt`, `updatedAt` | timestamp | |
 
 **`players/{playerId}/books/{bookId}`** — autozapis bieżącej rozgrywki
@@ -246,9 +246,10 @@ service cloud.firestore {
 }
 ```
 
-**Reguły docelowe: [`firebase/firestore.rules`](../firebase/firestore.rules)** (2026-11-02) — gotowe
-do opublikowania przez właściciela (rozdz. 9, krok 4). Sprawdzone w emulatorze:
-`testy/reguly/test-regul.mjs` (17 testów: wszystkie role i przypadki brzegowe) oraz
+**Reguły docelowe: [`firebase/firestore.rules`](../firebase/firestore.rules)** (2026-11-02; aktualizacja
+2026-11-08 — krój pisma i wygląd akapitów w ustawieniach gracza, D66 — do opublikowania przez
+właściciela). Sprawdzone w emulatorze:
+`testy/reguly/test-regul.mjs` (18 testów: wszystkie role i przypadki brzegowe) oraz
 `testy/reguly/test-aplikacji-z-emulatorem.cjs` (aplikacja w przeglądarce z prawdziwymi regułami).
 Instrukcja uruchomienia testów: [`testy/reguly/README.md`](../testy/reguly/README.md).
 

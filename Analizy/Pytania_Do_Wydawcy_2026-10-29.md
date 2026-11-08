@@ -71,10 +71,10 @@ Polecenie z 2026-11-08 (bez szkiców wiadomości):
 
 | Nr | Pytanie (skrót) | Status | Wysłano | Odpowiedź Wydawcy | Co robimy do czasu odpowiedzi |
 |---|---|---|---|---|---|
-| PW1 | Czy gracz może zmienić krój pisma (czcionkę)? | ✅ zgoda | 2026-11-08 (punkt 1) | „Punkty 1 - 3, jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.” (punkty 1–3 wiadomości) | wdrożone 2026-11-08: wybór kroju w „Ustawieniach” — domyślnie i na pierwszym miejscu oryginalny Old Standard TT; Literata, PT Serif, Open Sans, Andika (przyjazny dla osób z dysleksją) |
-| PW2 | Czy można dodać typowe ustawienia wyświetlania (wielkość liter, tryb ciemny, dopasowanie do ekranu telefonu)? | ✅ zgoda | 2026-11-08 (punkt 2) | „Punkty 1 - 3, jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.” (punkty 1–3 wiadomości) | zostają: wielkość liter, tryb ciemny, dopasowanie do ekranu |
+| PW1 | Czy gracz może zmienić krój pisma (czcionkę)? | ✅ zgoda | 2026-11-08 | ✅ zgoda (2026-11-08) | wdrożone 2026-11-08: wybór kroju w „Ustawieniach” — domyślnie i na pierwszym miejscu oryginalny Old Standard TT; Literata, PT Serif, Open Sans, Andika (przyjazny dla osób z dysleksją) |
+| PW2 | Czy można dodać typowe ustawienia wyświetlania (wielkość liter, tryb ciemny, dopasowanie do ekranu telefonu)? | ✅ zgoda | 2026-11-08 | ✅ zgoda (2026-11-08) | zostają: wielkość liter, tryb ciemny, dopasowanie do ekranu |
 | PW4 | Czy możemy dodać przycisk, który na czas słuchania chowa przyciski aplikacji, tak żeby funkcja czytania na głos **wbudowana w przeglądarkę** czytała sam tekst paragrafu? (aplikacja nie ma własnego lektora) | ⏸ wstrzymane (2026-11-08) | — | — | decyzja właściciela 2026-11-08: na obecną chwilę bez dalszych prac — pytania nie wysyłamy, przycisku „Sam tekst” nie robimy; pomysł zostaje opisany w analizie odczytu na głos; własnego lektora nie tworzymy (Z3) |
-| PW5 | Czy akapity mogą wyglądać inaczej niż w publikacji (odstęp zamiast wcięcia, tekst wyrównany do lewej zamiast do obu krawędzi)? | ✅ zgoda | 2026-11-08 (punkt 3) | „Punkty 1 - 3, jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.” (punkty 1–3 wiadomości) | wdrożone 2026-11-08: przełącznik „Wygląd akapitów” — „Wygodny na ekranie” (domyślny) albo „Jak w książce” (jak w PDF) |
+| PW5 | Czy akapity mogą wyglądać inaczej niż w publikacji (odstęp zamiast wcięcia, tekst wyrównany do lewej zamiast do obu krawędzi)? | ✅ zgoda | 2026-11-08 | ✅ zgoda (2026-11-08) | wdrożone 2026-11-08: przełącznik „Wygląd akapitów” — „Wygodny na ekranie” (domyślny) albo „Jak w książce” (jak w PDF) |
 
 Statusy: 📝 przygotowane → 📤 wysłane → ✅ zgoda / ⛔ brak zgody / ❓ odpowiedź wymaga doprecyzowania;
 ⏸ wstrzymane — pomysł bez dalszych prac, pytania nie wysyłamy.
@@ -84,42 +84,17 @@ właściciela (pytamy tylko o licencje); opis problemu:
 [`Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md`](Niejednoznaczne_Wskazowki_Vae_Victis_2026-11-02.md).
 Numeru PW3 nie używamy ponownie, żeby nie pomylić go z dawnym pytaniem — kolejne pytanie ma numer PW4.
 
-## Wiadomość z 2026-11-08 i odpowiedź Wydawcy
+## Odpowiedź Wydawcy z 2026-11-08
 
-Właściciel wysłał Wydawcy pytania własnymi słowami (treść przekazana w rozmowie 2026-11-08, dosłownie):
-
-```text
-Przy okazji prac pojawiły się dodatkowe pytania, które chciałbym wyjaśnić:
-1. Czy można dodać opcję zmiany fontu? Niektóre czytniki ebooków oferują taką konwersję (np. zmiana na font przyjazny dla dyslektyków), ale wolę się upewnić bo to możne być interpretowane jako integracja w książkę.
-
-2. Podobnie jak w pkt1 - obecnie, w aplikacji jest opcja zmiany tła na ciemne oraz zmiany wielkości fontu. Wpływa to na łamanie wierszy i dopasowanie tekstu do ekranu - nie wpływa w żaden sposób na treść paragrafów.
-Czytniki ebooków również mają to wbudowane. Jeżeli wersja przeglądarkowa nie powinna mieć takich funkcji to proszę o informację.
-
-3. Istnieje kwestia zapisu akapitów. Obecnie korzystam z takiego formatu:
-====
-Pierwszy akapit bez wcięcia, wiersze wyrównane
-do lewej.
-
-Drugi akapit po pustej linii.
-=====
-
-W PDF jest format:
-===
-    Pierwszy akapit zaczyna się od wcięcia, a wiersze
-są wyrównane do lewej i do prawej krawędzi.
-    Drugi akapit — znów wcięcie, bez pustej linii.
-===
-
-Z wcięciem między akapitami wygodniej się czyta na telefonie, jednak jest to odstępstwo od oryginalnego formatu z PDF. Proszę o informację czy mam odtwarzać w aplikacji możliwie wiernie wygląd PDF czy może zostać inny format tekstu? Istnieje też możliwość dodania przełącznika w ustawieniach, żeby każdy czytelnik mógł sobie ustawić format jaki mu się wygodniej czyta.
-```
-
-Odpowiedź Wydawcy (cytat dosłowny):
-
-> Punkty 1 - 3, jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.
-
-Punkt 1 odpowiada PW1, punkt 2 — PW2, punkt 3 — PW5 wraz z przełącznikiem (K5). Skutki: rejestr zgód i
-zasady w `dokumentacja/LICENCJA_I_ZGODA.md` (rozdz. 1.2, 2, 5.1 pkt 5, 8, 9 pkt 6), decyzja D65 w
-`PLAN_I_CHANGELOG.md`.
+- 2026-11-08 właściciel zapytał Wydawcę o trzy sprawy:
+  - zmianę kroju pisma (PW1);
+  - ustawienia wyświetlania (PW2);
+  - wygląd akapitów z możliwością przełącznika (PW5, K5).
+- **Wydawca zgodził się na wszystkie trzy.**
+- Treści korespondencji nie zapisujemy (decyzja właściciela, 2026-11-08); oryginał jest u właściciela.
+- Skutki opisują:
+  - `dokumentacja/LICENCJA_I_ZGODA.md` — rozdz. 1.2, 2, 5.1 pkt 5, 8 i 9 pkt 6;
+  - decyzja D65 w `PLAN_I_CHANGELOG.md`.
 
 ## PW1. Zmiana kroju pisma (czcionki)
 
@@ -137,7 +112,7 @@ czcionkę, np. ułatwiającą czytanie osobom z dysleksją. Treść pozostaje be
 **Do czasu odpowiedzi:** wyłącznie krój oryginalny. Wybór innego kroju (Etap 7, opcjonalnie) — tylko po
 zgodzie Wydawcy.
 
-**Odpowiedź Wydawcy (2026-11-08): ✅ zgoda** (punkt 1 wiadomości).
+**Odpowiedź Wydawcy (2026-11-08): ✅ zgoda.**
 - Wdrożono wybór kroju w „Ustawieniach”; na pierwszym miejscu i domyślnie jest oryginalny Old Standard TT.
 - Do wyboru są też Literata, PT Serif, Open Sans i Andika (przyjazny dla osób z dysleksją).
 - Każdy krój ma komplet znaków tekstu (kontrola K1).
@@ -158,7 +133,7 @@ wielkości liter, tryb ciemny oraz dopasowanie układu tekstu do ekranu telefonu
 **Do czasu odpowiedzi:** przygotowujemy te ustawienia zgodnie z dokumentacją; jeśli Wydawca się nie
 zgodzi — wycofamy je.
 
-**Odpowiedź Wydawcy (2026-11-08): ✅ zgoda** (punkt 2 wiadomości) — ustawienia zostają.
+**Odpowiedź Wydawcy (2026-11-08): ✅ zgoda** — ustawienia zostają.
 
 ## PW4. Czytanie na głos funkcją wbudowaną w przeglądarkę
 
@@ -224,7 +199,7 @@ wszystkich ekranach albo przynajmniej na komputerach. Treść i podział na akap
 **Do czasu odpowiedzi:** zostaje obecny układ — decyzja właściciela z 2026-11-03: „Na obecną chwilę
 zostaw jak jest”. Ostateczna decyzja zapadnie po odpowiedzi Wydawcy, na koniec prac nad książką (P15).
 
-**Odpowiedź Wydawcy (2026-11-08): ✅ zgoda** (punkt 3 wiadomości, z przełącznikiem).
+**Odpowiedź Wydawcy (2026-11-08): ✅ zgoda** (także na przełącznik).
 - Wdrożono przełącznik „Wygląd akapitów”:
   - „Wygodny na ekranie” (domyślny) — odstępy między akapitami, tekst wyrównany do lewej;
   - „Jak w książce” — jak w PDF: wcięcie pierwszego wiersza, bez odstępów, wyrównanie do obu krawędzi.
@@ -238,12 +213,12 @@ zostaw jak jest”. Ostateczna decyzja zapadnie po odpowiedzi Wydawcy, na koniec
 | K2 | Czy możemy pokazać w aplikacji opis książki z Państwa strony (zamiast samego odnośnika)? | LICENCJA_I_ZGODA.md, rozdz. 9 pkt 3 — obecnie tylko odnośnik |
 | K3 | → przeniesione do rejestru jako PW3 (2026-11-01); **PW3 usunięte 2026-11-02** — Wydawcę pytamy tylko o licencje | decyzja właściciela |
 | K4 | Prośba o kolejne tytuły i informacja o planie zwiększenia liczby graczy | decyzja właściciela P12 — po ukończeniu „Vae Victis” i przygotowaniu kont dla 6 graczy |
-| K5 | Rozszerzenie PW5 o **przełącznik wyglądu akapitów** — ✅ zadane w punkcie 3 wiadomości z 2026-11-08 i zaakceptowane (wdrożone) | pytanie właściciela z 2026-11-08 („a czy istnieje możliwość zrobienia przełącznika stylu akapitów?”); P19 rozstrzygnięte |
+| K5 | Rozszerzenie PW5 o **przełącznik wyglądu akapitów** — ✅ zadane razem z PW5 (2026-11-08), zgoda Wydawcy (wdrożone) | pytanie właściciela z 2026-11-08 („a czy istnieje możliwość zrobienia przełącznika stylu akapitów?”); P19 rozstrzygnięte |
 
 ## Niepewności
 
 - Zgoda z 29.10.2026 nie wspomina o sposobie wyświetlania tekstu (krój, wielkość, kolory) — stąd PW1, PW2 i PW5.
-  **Rozstrzygnięte 2026-11-08: Wydawca akceptuje punkty 1–3** (cytat wyżej).
+  **Rozstrzygnięte 2026-11-08: zgoda Wydawcy na PW1, PW2 i PW5.**
 - Licencja zabrania „adaptowania” i „modyfikowania” publikacji. Nie wiadomo, czy Wydawca uzna zmianę
   kroju pisma za modyfikację (tekst się nie zmienia, ale zmienia się wygląd publikacji).
 - To, że czytniki e-booków standardowo pozwalają zmieniać krój i wielkość liter, jest argumentem, ale
@@ -262,7 +237,9 @@ zostaw jak jest”. Ostateczna decyzja zapadnie po odpowiedzi Wydawcy, na koniec
    Szkiców wiadomości e-mail nie przygotowujemy — wystarczą pytania w tym pliku, a wiadomość pisze
    właściciel (decyzja właściciela, 2026-11-08).
 3. Po wysłaniu → status 📤 i data.
-4. Po odpowiedzi → status, **dosłowny** cytat odpowiedzi i jej skutki dla projektu. Oryginał
+4. Po odpowiedzi → status (zgoda / brak zgody) i skutki dla projektu — **bez dosłownej treści korespondencji**
+   (decyzja właściciela, 2026-11-08: „W dokumentacji nie pisz dosłownie treści mojej korespondencji z
+   wydawcą. Zapisz tylko, że jest zgoda.”). Oryginał
    korespondencji przechowuje właściciel (w `Pliki/` albo poza repozytorium); zasady i rejestr zgód
    w `dokumentacja/LICENCJA_I_ZGODA.md` aktualizujemy na
    polecenie właściciela.

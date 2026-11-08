@@ -65,8 +65,7 @@ function settingsItems(mechanics) {
       ? ['„Tryb mechaniki”:', h('ul', { class: 'instructions-list' }, h('li', {}, MODE_LABELS.auto), h('li', {}, MODE_LABELS.manual))]
       : '„Tryb mechaniki” — w tej książce niedostępny: książka nie ma w aplikacji automatycznej mechaniki.',
     '„Instrukcja” — to okno.',
-    'Motyw, wielkość tekstu i tryb mechaniki są zapamiętywane na Twoim koncie. Motyw, wielkość tekstu, krój pisma '
-      + 'i wygląd akapitów — na tym urządzeniu (na telefonie i komputerze możesz mieć inne).',
+    'Wszystkie ustawienia są zapamiętywane na Twoim koncie — po zalogowaniu na innym urządzeniu są takie same.',
   ];
 }
 

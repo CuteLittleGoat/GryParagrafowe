@@ -74,12 +74,17 @@ service cloud.firestore {
 
     // ----- Walidacja dokumentów -----
 
+    // Ustawienia gracza: motyw, wielkość tekstu, tryb mechaniki, krój pisma tekstu książki (identyfikator
+    // kroju, np. 'original', 'andika' — lista w aplikacji, bez zmiany reguł przy nowym kroju) i wygląd
+    // akapitów ('screen' — wygodny na ekranie, 'book' — jak w książce).
     function validSettings(settings) {
       return settings is map
-        && settings.keys().hasOnly(['theme', 'fontScale', 'mechanicsMode'])
+        && settings.keys().hasOnly(['theme', 'fontScale', 'mechanicsMode', 'bookFont', 'paragraphStyle'])
         && (!('theme' in settings) || settings.theme in ['auto', 'light', 'dark'])
         && (!('fontScale' in settings) || (settings.fontScale is number && settings.fontScale >= 0.5 && settings.fontScale <= 3))
-        && (!('mechanicsMode' in settings) || settings.mechanicsMode in ['auto', 'manual']);
+        && (!('mechanicsMode' in settings) || settings.mechanicsMode in ['auto', 'manual'])
+        && (!('bookFont' in settings) || (settings.bookFont is string && settings.bookFont.matches('^[a-z0-9-]{1,40}$')))
+        && (!('paragraphStyle' in settings) || settings.paragraphStyle in ['screen', 'book']);
     }
 
     function validProfile(data) {

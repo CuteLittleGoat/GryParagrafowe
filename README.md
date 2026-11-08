@@ -60,7 +60,7 @@ Szczegółowy opis katalogów: [`AGENTS.md`](AGENTS.md), rozdział „Struktura 
 | [LICENCJA_I_ZGODA.md](dokumentacja/LICENCJA_I_ZGODA.md) | **nakazy i zakazy wynikające ze zgody Wydawcy** — dokument nadrzędny |
 | [ARCHITEKTURA.md](dokumentacja/ARCHITEKTURA.md) | ekrany, silnik gry, moduły mechaniki, warstwa danych, testy |
 | [FIREBASE.md](dokumentacja/FIREBASE.md) | struktura bazy, logowanie hasłem, reguły, App Check, backup i odtwarzanie, procedury admina |
-| [FIREBASE_KONSOLA.md](dokumentacja/FIREBASE_KONSOLA.md) | **instrukcja dla administratora**: co dokładnie założyć w konsoli Firebase (kolekcje, dokumenty, pola, typy) |
+| [FIREBASE_KONSOLA.md](dokumentacja/FIREBASE_KONSOLA.md) | **instrukcja dla administratora**: co dokładnie założyć w konsoli Firebase (kolekcje, dokumenty, pola, typy); **dodawanie kolejnych graczy i `playerCount` — rozdz. 10.1** |
 | [FORMAT_KSIAZKI.md](dokumentacja/FORMAT_KSIAZKI.md) | format JSON książek (katalog, manifest, treść, stopka, mechanika) |
 | [KONWERSJA.md](dokumentacja/KONWERSJA.md) | konwersja EPUB → JSON i weryfikacja wierności treści |
 | [ksiazki/vae-victis/README.md](ksiazki/vae-victis/README.md) | karta książki „Vae Victis”: wyniki analizy pliku, mechanika, stopka |

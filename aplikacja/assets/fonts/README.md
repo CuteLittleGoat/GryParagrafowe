@@ -1,9 +1,8 @@
 # Fonty aplikacji
 
 Tekst książki jest domyślnie złożony krojem z publikacji (Old Standard TT). Gracz może wybrać inny krój w
-„Ustawieniach” → „Krój pisma”. To zmienia tylko wygląd liter — treść zostaje bez zmian. Zgoda Wydawcy z
-2026-11-08 obejmuje „dostosowanie formy tekstu do urządzenia” (`dokumentacja/LICENCJA_I_ZGODA.md`,
-rozdz. 1.2 i 5.1 pkt 5; decyzja D65).
+„Ustawieniach” → „Krój pisma”. To zmienia tylko wygląd liter — treść zostaje bez zmian. Wydawca zgodził
+się na to 2026-11-08 (`dokumentacja/LICENCJA_I_ZGODA.md`, rozdz. 5.1 pkt 5; decyzja D65).
 
 | Krój (kolejność w „Ustawieniach”) | Pliki | Wersja / źródło | Licencja |
 |---|---|---|---|

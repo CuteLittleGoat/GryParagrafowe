@@ -4,8 +4,8 @@ import { createStorage } from './data/storage.js';
 import { h, clear } from './ui/dom.js';
 import { alertDialog } from './ui/dialogs.js';
 import {
-  DEFAULT_SETTINGS, PROFILE_SETTING_KEYS, applySettings, loadDeviceSettings, normalizeSettings, profileSettings,
-  saveDeviceSettings,
+  DEFAULT_SETTINGS, LEGACY_PROFILE_SETTING_KEYS, PROFILE_SETTING_KEYS, applySettings, loadDeviceSettings,
+  normalizeSettings, profileSettings, saveDeviceSettings,
 } from './ui/settings.js';
 import { renderHome } from './ui/home-screen.js';
 import { renderGame } from './ui/game-screen.js';
@@ -24,13 +24,21 @@ const app = {
     this.settings = normalizeSettings({ ...this.settings, ...partial });
     applySettings(this.settings);
     saveDeviceSettings(this.settings);
-    // Do profilu trafiają tylko klucze dozwolone w regułach Firebase; zmiana kroju albo wyglądu akapitów
-    // (tylko na urządzeniu) nie zapisuje niczego w bazie.
     if (this.session && PROFILE_SETTING_KEYS.some((key) => key in partial)) {
       try {
         await this.storage.saveSettings(profileSettings(this.settings));
       } catch (error) {
-        console.error(error);
+        // Reguły Firebase sprzed 2026-11-08 nie znają kroju i wyglądu akapitów — wtedy zapisujemy w
+        // profilu tylko motyw, wielkość tekstu i tryb mechaniki (krój i akapity zostają na urządzeniu).
+        if (error?.code !== 'permission-denied') {
+          console.error(error);
+          return;
+        }
+        try {
+          await this.storage.saveSettings(profileSettings(this.settings, LEGACY_PROFILE_SETTING_KEYS));
+        } catch (legacyError) {
+          console.error(legacyError);
+        }
       }
     }
   },

@@ -150,6 +150,18 @@ describe('dane gracza', () => {
     await assertFails(getDocs(collection(db, 'players')));
   });
 
+  test('ustawienia w profilu: krój pisma i wygląd akapitów', async () => {
+    const db = await loggedIn('u1', 'Player1');
+    await assertSucceeds(setDoc(doc(db, 'players', 'Player1'), {
+      settings: { theme: 'light', fontScale: 1, mechanicsMode: 'manual', bookFont: 'andika', paragraphStyle: 'book' },
+    }));
+    await assertSucceeds(setDoc(doc(db, 'players', 'Player1'), { settings: { bookFont: 'original', paragraphStyle: 'screen' } }));
+    await assertFails(setDoc(doc(db, 'players', 'Player1'), { settings: { paragraphStyle: 'gazeta' } }));
+    await assertFails(setDoc(doc(db, 'players', 'Player1'), { settings: { bookFont: 'Zła Nazwa!' } }));
+    await assertFails(setDoc(doc(db, 'players', 'Player1'), { settings: { bookFont: 'x'.repeat(41) } }));
+    await assertFails(setDoc(doc(db, 'players', 'Player1'), { settings: { fontColor: 'red' } }));
+  });
+
   test('walidacja profilu i stanu gry', async () => {
     const db = await loggedIn('u1', 'Player1');
     await assertFails(setDoc(doc(db, 'players', 'Player1'), { displayName: 'alicja', isAdmin: true }));

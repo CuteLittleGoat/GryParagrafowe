@@ -4,30 +4,36 @@
 > „Stan bieżący” i „Następne kroki”; na końcu zaktualizuj stan, odhacz wykonane punkty planu i dodaj
 > wpis w changelogu. Decyzje zapisuj w „Decyzjach”, wątpliwości — w „Otwartych pytaniach”.
 
-**Ostatnia aktualizacja:** 2026-11-03
+**Ostatnia aktualizacja:** 2026-11-08
 
 ## 1. Stan bieżący
 
 | | |
 |---|---|
 | Etap | **2, 3 i 5 — zakończone; aplikacja opublikowana** (2026-11-02): `https://cutelittlegoat.github.io/GryParagrafowe/`; App Check działa (2026-11-03) — czeka na obserwację i wymuszenie |
-| Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy (2026-11-08): przeglądarka 98/98, emulator 15/15, reguły 17/17, silnik 13/13; kroje pisma K1 ✅ |
+| Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy (2026-11-08): przeglądarka 98/98, emulator 16/16, reguły 18/18, silnik 13/13; kroje pisma K1 ✅ |
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
-| Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ✅ — klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni, wymiana tokenu działa (2026-11-03); wymuszenie (*Enforce*) — po obserwacji |
+| Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅ — **nowa wersja z 2026-11-08 (krój pisma i wygląd akapitów w profilu gracza, D66) do opublikowania przez właściciela**, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ✅ — klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni, wymiana tokenu działa (2026-11-03); wymuszenie (*Enforce*) — po obserwacji |
 | Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
-| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — **PW1, PW2 i PW5: ✅ zgoda Wydawcy (2026-11-08)** — „Punkty 1 - 3, jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.” (krój pisma, ustawienia wyświetlania, wygląd akapitów z przełącznikiem — wdrożone, D65); PW3 usunięte; PW4 wstrzymane; bez szkiców wiadomości (D63) |
+| Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — **PW1, PW2 i PW5: ✅ zgoda Wydawcy (2026-11-08)** (krój pisma, ustawienia wyświetlania, wygląd akapitów z przełącznikiem — wdrożone, D65); PW3 usunięte; PW4 wstrzymane; bez szkiców wiadomości (D63) |
 | Blokery | brak |
 
 ## 2. Następne kroki
 
-1. **App Check — obserwacja i wymuszenie** (właściciel): przez kilka dni sprawdzać w Firebase → *App
+1. **Właściciel — nowe reguły Firebase** (D66): opublikować w konsoli całą treść `firebase/firestore.rules`
+   z 2026-11-08 ([FIREBASE_KONSOLA.md](dokumentacja/FIREBASE_KONSOLA.md), rozdz. 3). Do tego czasu krój
+   pisma i wygląd akapitów zostają tylko na urządzeniu; pozostałe ustawienia zapisują się na koncie.
+2. **App Check — obserwacja i wymuszenie** (właściciel): przez kilka dni sprawdzać w Firebase → *App
    Check* → *APIs* → *Cloud Firestore*, czy żądania są „Verified”; potem **Enforce** (hamulec:
    *Unenforce*). Przy okazji usunąć stary klucz `gryparagrafowe-e1fb3` z projektu AudioRPG (tylko ten!).
-2. **Właściciel**: sprawdzenie logowania prawdziwymi kontami (w tym kontem Wydawnictwa `Player2`).
-3. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika do aplikacji oraz loginu i hasła konta Wydawnictwa
+3. **Właściciel**: sprawdzenie logowania prawdziwymi kontami (w tym kontem Wydawnictwa `Player2`).
+4. **Na końcu — właściciel**: wysłanie Wydawcy odnośnika do aplikacji oraz loginu i hasła konta Wydawnictwa
    (`Player2`); pytania PW1, PW2 i PW5 — wysłane i zaakceptowane 2026-11-08.
-4. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
+5. **Etap 6** (agent): panel administratora — kopie zapasowe i odtwarzanie (konto `Player1` ma już
    uprawnienia administratora).
+6. **Gdy przybywa graczy** (właściciel): konto w `secrets` i `playerCount` = najwyższy numer konta —
+   [FIREBASE_KONSOLA.md](dokumentacja/FIREBASE_KONSOLA.md), rozdz. 10.1; przed znaczącym zwiększeniem
+   grona — Wydawca (P12, Z11).
 
 ## 3. Plan prac (etapy)
 
@@ -164,7 +170,8 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
-| D65 | 2026-11-08 | **Krój pisma i wygląd akapitów do wyboru** (zgoda Wydawcy: „Punkty 1 - 3, jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.”). Krój: Old Standard TT (jak w oryginale — pierwszy i domyślny), Literata, PT Serif, Open Sans, Andika (przyjazny dla osób z dysleksją); tylko kroje OFL bez zastrzeżonej nazwy, z kompletem znaków tekstu (kontrola K1); odrzucone: OpenDyslexic (brak twardej spacji), Lexend (brak kursywy), Merriweather i Lora (zastrzeżona nazwa). Akapity: „Wygodny na ekranie” (domyślny, dotychczasowy) albo „Jak w książce” (jak w PDF: wcięcie, bez odstępów, wyrównanie do obu krawędzi z dzieleniem wyrazów; dialogi bez wcięcia). Krój i wygląd akapitów pamiętane na urządzeniu (zależą od ekranu; reguły Firebase bez zmian) | polecenie właściciela po odpowiedzi Wydawcy („Dodaj opcję zmiany fontu (…) domyślnie na pierwszym miejscu ma być taka jak w oryginale. Dodaj też przełącznik dotyczący akapitów.”) |
+| D66 | 2026-11-08 | **Wszystkie ustawienia gracza w profilu (Firebase)** — także krój pisma (`bookFont`) i wygląd akapitów (`paragraphStyle`), więc po zalogowaniu na innym urządzeniu wyglądają tak samo; kopia ustawień wyglądu zostaje też na urządzeniu. Reguły: `validSettings` dopuszcza `bookFont` (małe litery, cyfry, myślniki, do 40 znaków — nowy krój nie wymaga zmiany reguł) i `paragraphStyle` (`screen`/`book`). Dopóki w konsoli są reguły sprzed tej zmiany, aplikacja przy odmowie zapisuje w profilu tylko motyw, wielkość tekstu i tryb mechaniki (zmienia D65) | polecenie właściciela („Czy ustawienia dotyczące fontu (krój, rozmiar) i kroju oraz kolorystyki mogą się zapisywać w Firebase? Jeżeli to wymaga tylko podmiany Rules to wklej mi tu nowe.”) |
+| D65 | 2026-11-08 | **Krój pisma i wygląd akapitów do wyboru** (zgoda Wydawcy z 2026-11-08 na PW1, PW2 i PW5). Krój: Old Standard TT (jak w oryginale — pierwszy i domyślny), Literata, PT Serif, Open Sans, Andika (przyjazny dla osób z dysleksją); tylko kroje OFL bez zastrzeżonej nazwy, z kompletem znaków tekstu (kontrola K1); odrzucone: OpenDyslexic (brak twardej spacji), Lexend (brak kursywy), Merriweather i Lora (zastrzeżona nazwa). Akapity: „Wygodny na ekranie” (domyślny, dotychczasowy) albo „Jak w książce” (jak w PDF: wcięcie, bez odstępów, wyrównanie do obu krawędzi z dzieleniem wyrazów; dialogi bez wcięcia). Krój i wygląd akapitów pamiętane na urządzeniu (zależą od ekranu; reguły Firebase bez zmian) — **zmienione w D66**: zapis także w profilu gracza | polecenie właściciela po odpowiedzi Wydawcy („Dodaj opcję zmiany fontu (…) domyślnie na pierwszym miejscu ma być taka jak w oryginale. Dodaj też przełącznik dotyczący akapitów.”) |
 | D64 | 2026-11-08 | Wygląd akapitów (P15: odstępy zamiast wcięć, wyrównanie do lewej zamiast do obu krawędzi) — także pytanie do Wydawcy **PW5**; do odpowiedzi zostaje obecny układ | polecenie właściciela („To powinno też być jako pytanie do wydawcy”) |
 | D63 | 2026-11-08 | Pytania do Wydawcy zapisujemy **tylko w pliku pytań** (`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`) — bez szkiców wiadomości e-mail; wiadomość pisze właściciel | polecenie właściciela („nie musisz pisać draftów maili do wydawcy. wystarczy, że będziesz pisać pytania w pliku”) |
 | D62 | 2026-11-08 | **Czytanie na głos — dalsze prace wstrzymane**: przycisk „Sam tekst” i pytanie PW4 do Wydawcy zostają jako opisany pomysł, bez dalszych prac (pytania nie wysyłamy). Zostaje porządek w znacznikach HTML i komentarze (D55); własnego lektora nie tworzymy (D54) | polecenie właściciela („na obecną chwilę nie będziemy kontynuować prac nad PW4 … był taki pomysł, ale został bez dalszych prac”) |
@@ -225,13 +232,37 @@
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
 
-### 2026-11-08 — Zgoda Wydawcy na dostosowanie tekstu; wybór kroju pisma i wyglądu akapitów
+### 2026-11-08 — Krój pisma i wygląd akapitów na koncie gracza; instrukcja dodawania graczy
+
+**Zmieniono**
+- **Wszystkie ustawienia zapisują się na koncie gracza** (D66): motyw, wielkość tekstu, tryb mechaniki,
+  a teraz także krój pisma i wygląd akapitów. Po zalogowaniu na innym urządzeniu wyglądają tak samo.
+  - Reguły Firebase (`firebase/firestore.rules`, `validSettings`): nowe pola `bookFont` i
+    `paragraphStyle`. **Do opublikowania w konsoli przez właściciela.**
+  - Do czasu publikacji: przy odmowie zapisu aplikacja zapisuje w profilu tylko motyw, wielkość tekstu i
+    tryb mechaniki; krój i wygląd akapitów zostają na urządzeniu (sprawdzone na emulatorze ze starymi
+    regułami — bez błędów).
+  - Okna „Ustawienia” i „Instrukcja”: „Ustawienia zapamiętujemy na Twoim koncie”.
+- Dokumentacja: `FIREBASE.md` (pola `settings`), `FIREBASE_KONSOLA.md` (rozdz. 3 — aktualizacja reguł,
+  rozdz. 7), `ARCHITEKTURA.md`.
+- **Korespondencja z Wydawcą bez dosłownych cytatów** (polecenie właściciela): w dokumentacji zostaje
+  tylko informacja o zgodzie z 2026-11-08 — `LICENCJA_I_ZGODA.md`, rejestr pytań, ten plik,
+  `aplikacja/assets/fonts/README.md`.
 
 **Dodano**
-- **Odpowiedź Wydawcy** na pytania PW1, PW2 i PW5 (wysłane przez właściciela 2026-11-08): „Punkty 1 - 3,
-  jak najbardziej akceptowalne zmiany i zrozumiałe dostosowanie formy tekstu do urządzenia.” Zapisano ją
-  dosłownie:
-  - w rejestrze pytań (z treścią wysłanej wiadomości);
+- `FIREBASE_KONSOLA.md`, rozdz. 10.1 — **„Gdy przybywa graczy — krok po kroku”**: nowe konto w `secrets`,
+  `playerCount` = najwyższy numer konta (wyższa wartość działa, niższa blokuje graczy z wyższymi
+  numerami), limit 99 kont, uwaga licencyjna (P12, Z11); odnośnik w `README.md`.
+- Testy: reguły — krój i wygląd akapitów w profilu (dobre i złe wartości, nieznany klucz), razem 18/18;
+  emulator — ustawienia zapisane w bazie, razem 16/16; przeglądarka — krój i wygląd akapitów także w
+  profilu (98/98); silnik 13/13.
+
+### 2026-11-08 — Zgoda Wydawcy na zmiany wyglądu tekstu; wybór kroju pisma i wyglądu akapitów
+
+**Dodano**
+- **Zgoda Wydawcy** na PW1, PW2 i PW5 (pytania wysłane przez właściciela 2026-11-08) — bez treści
+  korespondencji (decyzja właściciela). Zapisano:
+  - w rejestrze pytań;
   - w `LICENCJA_I_ZGODA.md` — rozdz. 1.2, 2, 5.1 pkt 5, 6, rejestr zgód (rozdz. 8), rozdz. 9 pkt 6.
 - **„Ustawienia” → „Krój pisma”** (D65):
   - kroje: Old Standard TT (jak w oryginale — pierwszy i domyślny), Literata, PT Serif, Open Sans,
