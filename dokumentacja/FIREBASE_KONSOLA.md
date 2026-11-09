@@ -208,7 +208,7 @@ Tych dokumentów nie edytuj ręcznie — wyjątki opisuje rozdz. 10.
 - Dziś: 5 kont (`Player1` … `Player5`) i `playerCount` = 5 — tak jest dobrze.
 
 0. **Najpierw licencja.**
-   - Zgoda Wydawcy dotyczy wąskiego grona — w prośbie „ok. 5 osób”.
+   - Zgoda Wydawcy dotyczy wąskiego grona odbiorców (w prośbie o zgodę: około 5 osób).
    - Decyzja P12: po ukończeniu pierwszej książki i przygotowaniu kont dla 6 graczy właściciel prosi
      Wydawcę o kolejne tytuły i informuje o planie zwiększenia liczby graczy.
    - Znacząco większe grono — tylko za nową zgodą Wydawcy (`LICENCJA_I_ZGODA.md`, Z11 i rozdz. 9 pkt 1).

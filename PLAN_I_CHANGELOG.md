@@ -4,7 +4,7 @@
 > „Stan bieżący” i „Następne kroki”; na końcu zaktualizuj stan, odhacz wykonane punkty planu i dodaj
 > wpis w changelogu. Decyzje zapisuj w „Decyzjach”, wątpliwości — w „Otwartych pytaniach”.
 
-**Ostatnia aktualizacja:** 2026-11-08
+**Ostatnia aktualizacja:** 2026-11-09
 
 ## 1. Stan bieżący
 
@@ -14,7 +14,7 @@
 | Aplikacja | **działa na GitHub Pages z Firebase** (repozytorium publiczne): logowanie loginem i hasłem, katalog, gra z automatyczną mechaniką, „Cofnij”, notatki, historia, 3 zapisy w chmurze, zakończenia, „O książce”. Próba agenta na stronie (2026-11-02): strona, reguły, konfiguracja i odrzucenie złego loginu — OK; testy (2026-11-08): przeglądarka 98/98, emulator 16/16, reguły 18/18, silnik 13/13; kroje pisma K1 ✅ |
 | Książki | „Vae Victis” — zgoda ✅, treść w JSON zweryfikowana (W1–W8: 8/8), mechanika zwalidowana (M1–M5: 5/5) |
 | Firebase | projekt **`gryparagrafowe-e1fb3`**: logowanie anonimowe ✅, reguły docelowe opublikowane ✅ — **nowa wersja z 2026-11-08 (krój pisma i wygląd akapitów w profilu gracza, D66) do opublikowania przez właściciela**, konta `Player1` (właściciel, administrator), `Player2` (Wydawnictwo), `Player3` … `Player5` (gracze) ✅, `appConfig/public.playerCount` = 5 ✅, `admins/Player1` ✅ (właściciel, 2026-11-02); App Check ✅ — klucz „GryParagrafowe” z projektu `gryparagrafowe-e1fb3`, ważność tokenu 7 dni, wymiana tokenu działa (2026-11-03); wymuszenie (*Enforce*) — po obserwacji |
-| Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02) |
+| Instrukcje agentów | `AGENTS.md` — wersja uniwersalna (właściciel, 2026-11-01), doprecyzowanie wzmianek o tytułach z odmową (właściciel, 2026-11-02); **propozycja zmiany (bez dosłownych cytatów korespondencji, D67) przekazana właścicielowi w czacie 2026-11-09 — czeka na podmianę przez właściciela** |
 | Pytania do Wydawcy | [`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`](Analizy/Pytania_Do_Wydawcy_2026-10-29.md) — **PW1, PW2 i PW5: ✅ zgoda Wydawcy (2026-11-08)** (krój pisma, ustawienia wyświetlania, wygląd akapitów z przełącznikiem — wdrożone, D65); PW3 usunięte; PW4 wstrzymane; bez szkiców wiadomości (D63) |
 | Blokery | brak |
 
@@ -170,6 +170,7 @@
 | D47 | 2026-11-02 | Przejścia między paragrafami **identyczne jak w oryginale** — potwierdzone porównaniem z PDF Wydawnictwa (408/408 części gry, 559 odnośników z numerem, 54 do części); w czterech niejednoznacznych miejscach aplikacja nie podpowiada drogi, wybiera gracz | polecenie właściciela („zrób identycznie jak w oryginalnym pliku PDF”) |
 | D48 | 2026-11-02 | Układ stopki i stron wstępnych jak w PDF: grafika zakotwiczona w akapicie z tekstem — za tym tekstem (generator 1.1.0, `frameClassPattern`); stopka i strony spisowe bez odstępów między akapitami; numeracja list „1)” | zgłoszenie właściciela (logo nad podpisem) |
 | D49 | 2026-11-02 | Logo aplikacji i ikona karty przeglądarki: piktogram kozy z Game Icons (autor Skoll, CC BY 3.0) — gotowa ikona, nie grafika AI; podpis autora w stopce aplikacji | polecenie właściciela |
+| D67 | 2026-11-08 | **Korespondencja z Wydawcą bez dosłownej treści** w dokumentacji: zapisujemy fakt zgody, datę, zakres i warunki; oryginały przechowuje właściciel. Odpowiedź Wydawcy z 2026-11-08 — tylko informacja o zgodzie. Cytaty z 27–29.10.2026 w `LICENCJA_I_ZGODA.md` zostają do decyzji właściciela (P20). `LICENCJA_I_ZGODA.md` (N8, rozdz. 7 pkt 2) dostosowane; `AGENTS.md` rozdz. 1.1 nadal wymaga dosłownych cytatów — propozycję nowej treści właściciel dostał w czacie (plik zmienia tylko on) | polecenie właściciela („W dokumentacji nie pisz dosłownie treści mojej korespondencji z wydawcą. Zapisz tylko, że jest zgoda.”) |
 | D66 | 2026-11-08 | **Wszystkie ustawienia gracza w profilu (Firebase)** — także krój pisma (`bookFont`) i wygląd akapitów (`paragraphStyle`), więc po zalogowaniu na innym urządzeniu wyglądają tak samo; kopia ustawień wyglądu zostaje też na urządzeniu. Reguły: `validSettings` dopuszcza `bookFont` (małe litery, cyfry, myślniki, do 40 znaków — nowy krój nie wymaga zmiany reguł) i `paragraphStyle` (`screen`/`book`). Dopóki w konsoli są reguły sprzed tej zmiany, aplikacja przy odmowie zapisuje w profilu tylko motyw, wielkość tekstu i tryb mechaniki (zmienia D65) | polecenie właściciela („Czy ustawienia dotyczące fontu (krój, rozmiar) i kroju oraz kolorystyki mogą się zapisywać w Firebase? Jeżeli to wymaga tylko podmiany Rules to wklej mi tu nowe.”) |
 | D65 | 2026-11-08 | **Krój pisma i wygląd akapitów do wyboru** (zgoda Wydawcy z 2026-11-08 na PW1, PW2 i PW5). Krój: Old Standard TT (jak w oryginale — pierwszy i domyślny), Literata, PT Serif, Open Sans, Andika (przyjazny dla osób z dysleksją); tylko kroje OFL bez zastrzeżonej nazwy, z kompletem znaków tekstu (kontrola K1); odrzucone: OpenDyslexic (brak twardej spacji), Lexend (brak kursywy), Merriweather i Lora (zastrzeżona nazwa). Akapity: „Wygodny na ekranie” (domyślny, dotychczasowy) albo „Jak w książce” (jak w PDF: wcięcie, bez odstępów, wyrównanie do obu krawędzi z dzieleniem wyrazów; dialogi bez wcięcia). Krój i wygląd akapitów pamiętane na urządzeniu (zależą od ekranu; reguły Firebase bez zmian) — **zmienione w D66**: zapis także w profilu gracza | polecenie właściciela po odpowiedzi Wydawcy („Dodaj opcję zmiany fontu (…) domyślnie na pierwszym miejscu ma być taka jak w oryginale. Dodaj też przełącznik dotyczący akapitów.”) |
 | D64 | 2026-11-08 | Wygląd akapitów (P15: odstępy zamiast wcięć, wyrównanie do lewej zamiast do obu krawędzi) — także pytanie do Wydawcy **PW5**; do odpowiedzi zostaje obecny układ | polecenie właściciela („To powinno też być jako pytanie do wydawcy”) |
@@ -203,6 +204,7 @@
 
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
+| P20 | **Cytaty z pierwszej zgody (październik).** Korespondencję z 8.11 zastąpiłem samą informacją o zgodzie (D67). W `LICENCJA_I_ZGODA.md` (rozdz. 1.2) zostały jednak dosłowne zdania z wiadomości z 27–29.10.2026: Twojej prośby (co obiecałeś: tytuł, autor, bez zmian w treści, projekt hobbystyczny) i decyzji Wydawcy. Przykład z życia: to różnica między trzymaniem w segregatorze kopii umowy a samą notatką „umowa podpisana, warunki: …”. Czy usunąć także te cytaty? | **A ★ zostawić** — to podstawa całej zgody; PDF ze zgodą jest już usunięty z `Pliki/`, więc tylko te zdania pokazują w repozytorium, na co dokładnie zgodził się Wydawca. Nowa zasada (bez cytatów) obowiązuje od 8.11. **B** — usunąć wszystkie i opisać warunki własnymi słowami; skutek: warunki znane tylko z naszego opisu. **C** — zostawić jedno: decyzję Wydawcy z 29.10, a Twoją prośbę i wiadomość z 28.10 zastąpić opisem. |
 
 ### 5.2. Rozstrzygnięte
 
@@ -245,9 +247,13 @@ Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawion
   - Okna „Ustawienia” i „Instrukcja”: „Ustawienia zapamiętujemy na Twoim koncie”.
 - Dokumentacja: `FIREBASE.md` (pola `settings`), `FIREBASE_KONSOLA.md` (rozdz. 3 — aktualizacja reguł,
   rozdz. 7), `ARCHITEKTURA.md`.
-- **Korespondencja z Wydawcą bez dosłownych cytatów** (polecenie właściciela): w dokumentacji zostaje
-  tylko informacja o zgodzie z 2026-11-08 — `LICENCJA_I_ZGODA.md`, rejestr pytań, ten plik,
-  `aplikacja/assets/fonts/README.md`.
+- **Korespondencja z Wydawcą bez dosłownych cytatów** (polecenie właściciela, D67):
+  - w dokumentacji zostaje tylko informacja o zgodzie z 2026-11-08 — `LICENCJA_I_ZGODA.md`, rejestr
+    pytań, ten plik, `aplikacja/assets/fonts/README.md`;
+  - `LICENCJA_I_ZGODA.md` — N8 i rozdz. 7 pkt 2: kolejne zgody bez dosłownej treści korespondencji;
+  - cytaty z 27–29.10.2026 — pytanie P20;
+  - `AGENTS.md` rozdz. 1.1 nadal wymaga dosłownych cytatów — propozycja nowej treści przekazana
+    właścicielowi w czacie (plik zmienia tylko on).
 
 **Dodano**
 - `FIREBASE_KONSOLA.md`, rozdz. 10.1 — **„Gdy przybywa graczy — krok po kroku”**: nowe konto w `secrets`,

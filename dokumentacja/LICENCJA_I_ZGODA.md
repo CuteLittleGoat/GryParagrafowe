@@ -11,7 +11,7 @@
   przechowuje właściciel; po zakończeniu prac mogą nie znajdować się w repozytorium (dla „Vae Victis”
   plik `Pliki/Zgoda Vae Victis.pdf` właściciel usunął z repozytorium 2026-11-03 — oryginał jest u
   właściciela).
-- Ostatnia aktualizacja dokumentu: 2026-11-08.
+- Ostatnia aktualizacja dokumentu: 2026-11-09.
 
 Oznaczenia źródła każdej zasady:
 
@@ -145,9 +145,12 @@ Patrz zakaz Z5.
 - Publiczne udostępnienie strony (np. GitHub Pages) dopiero wtedy, gdy działa logowanie.
 
 **N8. Każda zgoda jest spisana w rejestrze zgód** [OSTROŻNOŚĆ] + [WŁAŚCICIEL]
-- Rejestr zgód (rozdz. 8) zawiera dla każdego tytułu status, datę, zakres i warunki szczegółowe, a
-  ten dokument — dosłowne cytaty kluczowych zdań zgody. Dzięki temu warunki są znane także wtedy,
-  gdy oryginały korespondencji nie są przechowywane w repozytorium.
+- Rejestr zgód (rozdz. 8) zawiera dla każdego tytułu status, datę, zakres i warunki szczegółowe.
+  Dzięki temu warunki są znane także wtedy, gdy oryginały korespondencji nie są przechowywane w
+  repozytorium.
+- Dosłownej treści korespondencji z Wydawcą nie zapisujemy (decyzja właściciela, 2026-11-08 — D67):
+  zapisujemy fakt zgody, datę, zakres i warunki. Cytaty z korespondencji z 27–29.10.2026 (rozdz. 1.2)
+  zostają do decyzji właściciela (pytanie P20 w `PLAN_I_CHANGELOG.md`).
 - Oryginały (np. PDF z korespondencją) przechowuje właściciel. Agenci ich nie usuwają, nie
   zmieniają i nie przenoszą (`Pliki/` jest dla agentów tylko do odczytu); o usunięciu ich z
   repozytorium decyduje właściciel.
@@ -343,9 +346,9 @@ dokonuje gracz**. Tryb „ręczny” (jak na papierze) musi pozwalać grać bez 
 
 1. **Pisemna zgoda Wydawcy dla konkretnego tytułu** (e-mail) — przed jakąkolwiek pracą nad tytułem.
 2. Wpis w rejestrze zgód (rozdz. 8) — na polecenie właściciela — z datą, zakresem i warunkami
-   szczegółowymi (mogą różnić się od warunków dla „Vae Victis”!) oraz dosłownymi cytatami
-   kluczowych zdań zgody w tym dokumencie. Oryginał korespondencji przechowuje właściciel (w
-   `Pliki/` albo poza repozytorium).
+   szczegółowymi (mogą różnić się od warunków dla „Vae Victis”!), bez dosłownej treści
+   korespondencji (D67). Oryginał korespondencji przechowuje właściciel (w `Pliki/` albo poza
+   repozytorium).
 3. Ustalenie: autorzy tekstu i grafik, zawartość stopki, licencje fontów/grafik, odnośniki.
 4. Konwersja i weryfikacja wg [KONWERSJA.md](KONWERSJA.md); karta książki w `ksiazki/<id>/README.md`.
 5. Przegląd zgodności z checklistą z rozdz. 6.
