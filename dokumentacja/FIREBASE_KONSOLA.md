@@ -69,6 +69,8 @@ akapitów (`paragraphStyle`).
 - Opublikuj w konsoli nową treść `firebase/firestore.rules` — tak samo jak wyżej.
 - Do czasu publikacji aplikacja działa: krój i wygląd akapitów pamięta na urządzeniu, a pozostałe
   ustawienia zapisuje na koncie.
+- Po publikacji krój i wygląd akapitów trafiają na konto, gdy gracz następnym razem zmieni dowolne
+  ustawienie (samo logowanie ustawień nie zapisuje).
 
 ## 4. Krok 3 — Kolekcja `secrets` (konta graczy) — OBOWIĄZKOWO
 
