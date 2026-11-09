@@ -3,7 +3,7 @@
 > Dla administratora (właściciela) projektu. Opisuje **dokładnie**, co trzeba utworzyć w konsoli
 > Firebase, żeby gracze mogli się logować: nazwy kolekcji, dokumentów i pól, typy i wartości.
 > Szczegóły techniczne (jak działa logowanie, reguły, kopie zapasowe):
-> [FIREBASE.md](FIREBASE.md). Stan na 2026-11-02.
+> [FIREBASE.md](FIREBASE.md). Stan na 2026-11-09.
 
 Konsola: <https://console.firebase.google.com/> → projekt **GryParagrafowe** (`gryparagrafowe-e1fb3`).
 Nazwy przycisków podaję po angielsku (tak wyświetla je konsola), a w nawiasie po polsku.
@@ -64,13 +64,12 @@ To techniczny pierwszy krok logowania — gracz go nie widzi i nie podaje żadny
 Reguły można opublikować przed założeniem kont — bez kont i tak nikt się nie zaloguje. Pierwsza linijka
 wklejonej treści to `rules_version = '2';`.
 
-**Aktualizacja reguł 2026-11-08** (D66): w ustawieniach gracza dochodzą krój pisma (`bookFont`) i wygląd
-akapitów (`paragraphStyle`).
-- Opublikuj w konsoli nową treść `firebase/firestore.rules` — tak samo jak wyżej.
-- Do czasu publikacji aplikacja działa: krój i wygląd akapitów pamięta na urządzeniu, a pozostałe
-  ustawienia zapisuje na koncie.
-- Po publikacji krój i wygląd akapitów trafiają na konto, gdy gracz następnym razem zmieni dowolne
-  ustawienie (samo logowanie ustawień nie zapisuje).
+**Aktualizacja reguł 2026-11-08** (D66) — ✅ opublikowana przez właściciela 2026-11-09: w ustawieniach
+gracza doszły krój pisma (`bookFont`) i wygląd akapitów (`paragraphStyle`).
+- Krój i wygląd akapitów trafiają na konto, gdy gracz następnym razem zmieni dowolne ustawienie (samo
+  logowanie ustawień nie zapisuje).
+- Gdyby w konsoli były kiedyś starsze reguły, aplikacja i tak działa: krój i wygląd akapitów pamięta
+  wtedy na urządzeniu, a pozostałe ustawienia zapisuje na koncie.
 
 ## 4. Krok 3 — Kolekcja `secrets` (konta graczy) — OBOWIĄZKOWO
 
@@ -164,9 +163,10 @@ Tych dokumentów nie edytuj ręcznie — wyjątki opisuje rozdz. 10.
 
 ## 8. Sprawdzenie po założeniu
 
-- [ ] *Authentication* → *Sign-in method*: **Anonymous — Enabled**.
-- [ ] *Firestore Database* → *Rules*: opublikowana treść z `firebase/firestore.rules` (zaczyna się od
-      `rules_version = '2';`, zawiera m.in. `match /secrets/{playerId}`).
+- [x] *Authentication* → *Sign-in method*: **Anonymous — Enabled** (2026-11-02).
+- [x] *Firestore Database* → *Rules*: opublikowana treść z `firebase/firestore.rules` (zaczyna się od
+      `rules_version = '2';`, zawiera m.in. `match /secrets/{playerId}` i `bookFont`) — właściciel,
+      ostatnia aktualizacja 2026-11-09.
 - [x] *Data*: kolekcja `secrets` z dokumentami `Player1` … `Player5`; w każdym dokładnie dwa pola
       `PlayerName` i `PlayerPassword`, oba typu **string** (właściciel, 2026-11-02).
 - [x] `appConfig/public` z polem `playerCount` typu **int64** = 5 (sprawdzone 2026-11-02: aplikacja

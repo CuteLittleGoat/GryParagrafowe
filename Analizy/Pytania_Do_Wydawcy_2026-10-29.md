@@ -50,6 +50,18 @@ Polecenie z 2026-11-08 (bez szkiców wiadomości):
 
 > nie musisz pisać draftów maili do wydawcy. wystarczy, że będziesz pisać pytania w pliku.
 
+Polecenie z 2026-11-08 (bez dosłownej treści korespondencji):
+
+> W dokumentacji nie pisz dosłownie treści mojej korespondencji z wydawcą. Zapisz tylko, że jest zgoda.
+
+Polecenie z 2026-11-09 (zasada cytowania odpowiedzi Wydawcy):
+
+> P20 - pierwsza wiadomość zawierała dokładne wytyczne Wydawnictwa co do zakresu w jakim możemy
+> pracować. Były tam nakazy i zakazy. Dlatego warto trzymać treść, żeby móc się do niej odnosić. W
+> przypadku drugiej serii pytań (o akapity, rodzaj fontu, rozmiar fontu) to była zbiorcza odpowiedź
+> potwierdzająca zgodę, dlatego nie ma potrzeby przechowywania dokładnego cytatu. I takiej zasady
+> będziemy się trzymać.
+
 ## Źródła
 
 - `Pliki/Zgoda Vae Victis.pdf` (usunięty z repozytorium przez właściciela 2026-11-03; oryginał u
@@ -91,7 +103,8 @@ Numeru PW3 nie używamy ponownie, żeby nie pomylić go z dawnym pytaniem — ko
   - ustawienia wyświetlania (PW2);
   - wygląd akapitów z możliwością przełącznika (PW5, K5).
 - **Wydawca zgodził się na wszystkie trzy.**
-- Treści korespondencji nie zapisujemy (decyzja właściciela, 2026-11-08); oryginał jest u właściciela.
+- Bez cytatu: to zbiorcza odpowiedź potwierdzająca zgodę (zasada D68 w `PLAN_I_CHANGELOG.md`); oryginał
+  jest u właściciela.
 - Skutki opisują:
   - `dokumentacja/LICENCJA_I_ZGODA.md` — rozdz. 1.2, 2, 5.1 pkt 5, 8 i 9 pkt 6;
   - decyzja D65 w `PLAN_I_CHANGELOG.md`.
@@ -237,9 +250,11 @@ zostaw jak jest”. Ostateczna decyzja zapadnie po odpowiedzi Wydawcy, na koniec
    Szkiców wiadomości e-mail nie przygotowujemy — wystarczą pytania w tym pliku, a wiadomość pisze
    właściciel (decyzja właściciela, 2026-11-08).
 3. Po wysłaniu → status 📤 i data.
-4. Po odpowiedzi → status (zgoda / brak zgody) i skutki dla projektu — **bez dosłownej treści korespondencji**
-   (decyzja właściciela, 2026-11-08: „W dokumentacji nie pisz dosłownie treści mojej korespondencji z
-   wydawcą. Zapisz tylko, że jest zgoda.”). Oryginał
-   korespondencji przechowuje właściciel (w `Pliki/` albo poza repozytorium); zasady i rejestr zgód
-   w `dokumentacja/LICENCJA_I_ZGODA.md` aktualizujemy na
-   polecenie właściciela.
+4. Po odpowiedzi → status (zgoda / brak zgody) i skutki dla projektu. Cytaty — według zasady D68
+   (`PLAN_I_CHANGELOG.md`):
+   - odpowiedź zbiorczo potwierdzająca zgodę — **bez cytatu**, tylko fakt zgody;
+   - odpowiedź z wytycznymi Wydawcy (zakres pracy, nakazy, zakazy) — kluczowe zdania dosłownie, w
+     `dokumentacja/LICENCJA_I_ZGODA.md` (na polecenie właściciela).
+
+   Oryginał korespondencji przechowuje właściciel (w `Pliki/` albo poza repozytorium); zasady i rejestr
+   zgód w `dokumentacja/LICENCJA_I_ZGODA.md` aktualizujemy na polecenie właściciela.

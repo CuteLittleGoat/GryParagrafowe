@@ -41,11 +41,11 @@ Wydawcy** — i taką zgodę uzyskano wyłącznie dla „Vae Victis”, na warun
 
 | Data | Nadawca | Treść (skrót) |
 |---|---|---|
-| 27.10.2026 | autor projektu (Paweł T.) | Prośba o zgodę. Opis projektu: przeglądarkowy interfejs do gier paragrafowych; treść paragrafów i wybory; opcjonalnie karta postaci, ekwipunek, statystyki, rzuty kośćmi, zapis postępu; **wąskie grono odbiorców (ok. 5 osób)**; kod i materiały **publicznie w repozytorium GitHub**; treść **przekształcona z EPUB/PDF do JSON i publicznie dostępna**; przy każdej grze: tytuł, autor(zy), informacja o Wydawnictwie / portalu, odnośniki; **bez zmian w treści literackiej**; projekt **hobbystyczny, bez zarabiania w jakikolwiek sposób**. |
-| 28.10.2026 | Wydawca (Beniamin Muszyński) | Dwie kluczowe kwestie: (1) które teksty — część jest objęta dodatkowymi licencjami i umowami z autorami; (2) AI — generowane grafiki wymagają osobnych zgód autorskich; „wszystko musi być wcześniej uzgodnione”. |
-| 28.10.2026 | autor projektu | Tytuły: „Vae victis” i „Wagabunda”. Brak ilustracji w aplikacji — **jedynie ikony/piktogramy** (np. symulator rzutu kośćmi, karta postaci). Ujawnienie: projekt tworzony narzędziami AI (kod, konwersja do JSON, animacje rzutu kośćmi), **bez ilustracji tworzonych przez AI**; jako ilustracje — okładki ze strony Wydawnictwa. |
+| 27.10.2026 | Właściciel | Prośba o zgodę. Opis projektu: przeglądarkowy interfejs do gier paragrafowych; treść paragrafów i wybory; opcjonalnie karta postaci, ekwipunek, statystyki, rzuty kośćmi, zapis postępu; **wąskie grono odbiorców (ok. 5 osób)**; kod i materiały **publicznie w repozytorium GitHub**; treść **przekształcona z EPUB/PDF do JSON i publicznie dostępna**; przy każdej grze: tytuł, autor(zy), informacja o Wydawnictwie / portalu, odnośniki; **bez zmian w treści literackiej**; projekt **hobbystyczny, bez zarabiania w jakikolwiek sposób**. |
+| 28.10.2026 | Wydawca | Dwie kluczowe kwestie: (1) które teksty — część jest objęta dodatkowymi licencjami i umowami z autorami; (2) AI — generowane grafiki wymagają osobnych zgód autorskich; „wszystko musi być wcześniej uzgodnione”. |
+| 28.10.2026 | Właściciel | Tytuły: „Vae victis” i „Wagabunda”. Brak ilustracji w aplikacji — **jedynie ikony/piktogramy** (np. symulator rzutu kośćmi, karta postaci). Ujawnienie: projekt tworzony narzędziami AI (kod, konwersja do JSON, animacje rzutu kośćmi), **bez ilustracji tworzonych przez AI**; jako ilustracje — okładki ze strony Wydawnictwa. |
 | 29.10.2026 | Wydawca | **Decyzja** — patrz cytat poniżej. |
-| 08.11.2026 | autor projektu | Pytania o sposób wyświetlania tekstu — PW1, PW2 i PW5 (`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`). |
+| 08.11.2026 | Właściciel | Pytania o sposób wyświetlania tekstu — PW1, PW2 i PW5 (`Analizy/Pytania_Do_Wydawcy_2026-10-29.md`). |
 | 08.11.2026 | Wydawca | **Zgoda** na zmianę kroju pisma, ustawienia wyświetlania i wygląd akapitów z przełącznikiem. |
 
 Najważniejsze zdania z prośby (27.10.2026), na podstawie których Wydawca udzielił zgody
@@ -77,7 +77,7 @@ Decyzja Wydawcy z 29.10.2026 (cytat dosłowny):
 > używać, ale też z informacją o jej autorce.
 > Na potrzeby opisanego projektu wewnętrznego proszę korzystać z tekstu na tych zasadach.
 
-Odpowiedź Wydawcy z 2026-11-08 na pytania o sposób wyświetlania tekstu (PW1, PW2, PW5): **zgoda** — bez cytatu; treści korespondencji nie zapisujemy (decyzja właściciela, 2026-11-08), oryginał u właściciela.
+Odpowiedź Wydawcy z 2026-11-08 na pytania o sposób wyświetlania tekstu (PW1, PW2, PW5): **zgoda** — bez cytatu, bo była to zbiorcza odpowiedź potwierdzająca zgodę (zasada cytowania — N8, D68); oryginał u właściciela.
 
 ---
 
@@ -148,9 +148,15 @@ Patrz zakaz Z5.
 - Rejestr zgód (rozdz. 8) zawiera dla każdego tytułu status, datę, zakres i warunki szczegółowe.
   Dzięki temu warunki są znane także wtedy, gdy oryginały korespondencji nie są przechowywane w
   repozytorium.
-- Dosłownej treści korespondencji z Wydawcą nie zapisujemy (decyzja właściciela, 2026-11-08 — D67):
-  zapisujemy fakt zgody, datę, zakres i warunki. Cytaty z korespondencji z 27–29.10.2026 (rozdz. 1.2)
-  zostają do decyzji właściciela (pytanie P20 w `PLAN_I_CHANGELOG.md`).
+- **Zasada cytowania korespondencji** (decyzja właściciela, 2026-11-09 — D68; doprecyzowuje D67):
+  - wiadomość z wytycznymi Wydawcy (zakres pracy, nakazy, zakazy — jak korespondencja z
+    27–29.10.2026 w rozdz. 1.2) — kluczowe zdania zapisujemy **dosłownie**, żeby można się było do
+    nich odnosić;
+  - odpowiedź zbiorczo potwierdzającą zgodę (jak z 2026-11-08 na PW1, PW2 i PW5) — **bez cytatu**:
+    zapisujemy fakt zgody, datę i zakres.
+- W dokumentacji uczestników korespondencji nazywamy „Właściciel” i „Wydawca” — bez imion i nazwisk:
+  w imieniu Wydawcy mogą odpowiadać różne osoby (D69). Zasada dotyczy tylko dokumentacji (nie
+  aplikacji); imię i nazwisko autora książki w atrybucji zostaje (N1).
 - Oryginały (np. PDF z korespondencją) przechowuje właściciel. Agenci ich nie usuwają, nie
   zmieniają i nie przenoszą (`Pliki/` jest dla agentów tylko do odczytu); o usunięciu ich z
   repozytorium decyduje właściciel.
@@ -346,9 +352,9 @@ dokonuje gracz**. Tryb „ręczny” (jak na papierze) musi pozwalać grać bez 
 
 1. **Pisemna zgoda Wydawcy dla konkretnego tytułu** (e-mail) — przed jakąkolwiek pracą nad tytułem.
 2. Wpis w rejestrze zgód (rozdz. 8) — na polecenie właściciela — z datą, zakresem i warunkami
-   szczegółowymi (mogą różnić się od warunków dla „Vae Victis”!), bez dosłownej treści
-   korespondencji (D67). Oryginał korespondencji przechowuje właściciel (w `Pliki/` albo poza
-   repozytorium).
+   szczegółowymi (mogą różnić się od warunków dla „Vae Victis”!). Cytaty — według zasady z N8 (D68):
+   wytyczne Wydawcy (zakres pracy, nakazy, zakazy) dosłownie, zbiorcze potwierdzenie zgody bez cytatu.
+   Oryginał korespondencji przechowuje właściciel (w `Pliki/` albo poza repozytorium).
 3. Ustalenie: autorzy tekstu i grafik, zawartość stopki, licencje fontów/grafik, odnośniki.
 4. Konwersja i weryfikacja wg [KONWERSJA.md](KONWERSJA.md); karta książki w `ksiazki/<id>/README.md`.
 5. Przegląd zgodności z checklistą z rozdz. 6.

@@ -247,8 +247,8 @@ service cloud.firestore {
 ```
 
 **Reguły docelowe: [`firebase/firestore.rules`](../firebase/firestore.rules)** (2026-11-02; aktualizacja
-2026-11-08 — krój pisma i wygląd akapitów w ustawieniach gracza, D66 — do opublikowania przez
-właściciela). Sprawdzone w emulatorze:
+2026-11-08 — krój pisma i wygląd akapitów w ustawieniach gracza, D66 — opublikowana przez
+właściciela 2026-11-09). Sprawdzone w emulatorze:
 `testy/reguly/test-regul.mjs` (18 testów: wszystkie role i przypadki brzegowe) oraz
 `testy/reguly/test-aplikacji-z-emulatorem.cjs` (aplikacja w przeglądarce z prawdziwymi regułami).
 Instrukcja uruchomienia testów: [`testy/reguly/README.md`](../testy/reguly/README.md).
