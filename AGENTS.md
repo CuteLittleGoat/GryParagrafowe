@@ -38,9 +38,13 @@ pisemnej zgody wydawcy. Dlatego w projekcie korzystamy wyłącznie z tytułów, 
 ### 1.1. Rejestr zgód — jedyne źródło informacji o tytułach
 
 - Rejestr zgód w [`dokumentacja/LICENCJA_I_ZGODA.md`](dokumentacja/LICENCJA_I_ZGODA.md) określa dla
-  każdego tytułu: status (zgoda / odmowa), datę, zakres i **warunki szczegółowe**. Dosłownej treści
-  korespondencji z wydawcą nie zapisujemy w repozytorium — zapisujemy fakt zgody, datę, zakres i
-  warunki (cytaty zostają tylko tam, gdzie zdecyduje o tym właściciel).
+  każdego tytułu: status (zgoda / odmowa), datę, zakres i **warunki szczegółowe**. Korespondencję z
+  wydawcą zapisujemy w tym samym dokumencie tak:
+  - wiadomość z wytycznymi wydawcy (zakres pracy, nakazy, zakazy) — kluczowe zdania **dosłownie**,
+    żeby można się było do nich odnosić;
+  - odpowiedź zbiorczo potwierdzającą zgodę — **bez cytatu**: tylko fakt zgody, data i zakres;
+  - uczestników korespondencji nazywamy „Właściciel” i „Wydawca”, bez imion i nazwisk (w imieniu
+    wydawcy mogą odpowiadać różne osoby). Dotyczy to tylko dokumentacji — atrybucja autorów zostaje.
 - **Brak wpisu = brak zgody.** Tytułu bez zgody nie dodajemy do repozytorium w żadnej formie —
   nawet roboczo, nawet na osobnej gałęzi. Tytułów z odmową nie używamy w żadnej formie (tekst,
   okładka, opis, pozycja w katalogu aplikacji). Wzmianki o takich tytułach, które są częścią tekstu
@@ -52,7 +56,7 @@ pisemnej zgody wydawcy. Dlatego w projekcie korzystamy wyłącznie z tytułów, 
 - Rejestr zgód jest **wiążącym zapisem warunków w repozytorium**. Oryginały zgód i korespondencji
   przechowuje właściciel — nie muszą znajdować się w repozytorium.
 - Wpisy w rejestrze (nowa zgoda, zmiana, wycofanie, odmowa) dodaje się i zmienia **wyłącznie na
-  polecenie właściciela**, na podstawie odpowiedzi wydawcy — bez dosłownej treści korespondencji.
+  polecenie właściciela**, na podstawie odpowiedzi wydawcy — cytaty według zasady z pierwszego punktu.
 
 ### 1.2. NAKAZY (dla każdego tytułu)
 
