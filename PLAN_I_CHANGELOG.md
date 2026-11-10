@@ -4,7 +4,7 @@
 > „Stan bieżący” i „Następne kroki”; na końcu zaktualizuj stan, odhacz wykonane punkty planu i dodaj
 > wpis w changelogu. Decyzje zapisuj w „Decyzjach”, wątpliwości — w „Otwartych pytaniach”.
 
-**Ostatnia aktualizacja:** 2026-11-09
+**Ostatnia aktualizacja:** 2026-11-10
 
 ## 1. Stan bieżący
 
@@ -207,6 +207,7 @@
 
 | # | Pytanie | Warianty (★ = rekomendacja) |
 |---|---|---|
+| P21 | Kolekcja `sessions` w Firebase („przepustki” zalogowanych przeglądarek) sama się nie sprząta: gdy ktoś zaloguje się np. w oknie prywatnym i go zamknie bez „Wyloguj”, jego stara przepustka zostaje w bazie na zawsze (po 30 dniach już nic nie otwiera). Czy coś z tym robić? Analiza: [`Analizy/Kolekcja_Sessions_W_Firebase_2026-11-10.md`](Analizy/Kolekcja_Sessions_W_Firebase_2026-11-10.md) | **A ★** nic nie zmieniać — dokumentów będzie kilkadziesiąt rocznie, koszt zerowy; w razie chęci porządku usunąć w konsoli dokumenty z `createdAt` starszym niż 30 dni (nikogo to nie wyloguje). **B** drobna poprawka w aplikacji: przeglądarka sama usuwa swoją wygasłą przepustkę — bez zmiany reguł, ale pomaga tylko w części przypadków. **C** automatyczne kasowanie po terminie (TTL) — zmiana reguł i aplikacji, a według dokumentacji Google wymaga płatnego planu (Blaze); niezalecane |
 
 ### 5.2. Rozstrzygnięte
 
@@ -236,6 +237,18 @@
 ## 6. Changelog
 
 Najnowsze wpisy na górze. Kategorie: Dodano / Zmieniono / Usunięto / Naprawiono.
+
+### 2026-11-10 — Analiza kolekcji `sessions` w Firebase; pytanie P21
+
+**Dodano**
+- **Analiza** [`Analizy/Kolekcja_Sessions_W_Firebase_2026-11-10.md`](Analizy/Kolekcja_Sessions_W_Firebase_2026-11-10.md)
+  (pytanie właściciela o „dziwną kolekcję” w konsoli):
+  - kolekcja `sessions` jest **niezbędna** — to dokumenty logowania (jeden na przeglądarkę, nazwa =
+    anonimowy identyfikator przeglądarki); reguły sprawdzają je przy każdym dostępie do danych gracza;
+  - nie rośnie przy zwykłym graniu (ponowne logowanie nadpisuje, „Wyloguj” usuwa), ale **sama się nie
+    sprząta** — zostają dokumenty przeglądarek, które straciły dane strony lub były oknem prywatnym bez
+    wylogowania, oraz dokumenty wygasłe po 30 dniach; koszt i ryzyko pomijalne;
+  - pytanie **P21** (czy sprzątać — warianty A/B/C, rekomendacja A).
 
 ### 2026-11-09 — Reguły opublikowane; zasada cytowania korespondencji (D68); bez nazwisk w korespondencji
 
